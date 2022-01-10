@@ -39,12 +39,12 @@
             </div>
             <div class="header__right-section">
                 <i class='bx bx-search'></i>
-                <div class="header__user-profile">
-                    <a class="nav-link" href="{% url 'user:lk' %}"><i class='bx bx-user-circle'></i>
-                        <span>Панков И. В.</span></a>
-                </div>
                 <i class='bx bx-windows'></i>
-                <a class="nav-link" href="{% url 'user:login' %}"><i class='bx bx-exit'></i></a>
+                    <div class="header__user-profile">
+                        <a class="nav-link" href="{% url 'main:index' %}"><i class='bx bx-user-circle'></i>
+                            <span>{{ user.username|default:'Пользователь' }}</span></a>
+                    </div>
+                    <a class="nav-link" href="{% url 'user:logout' %}">Выход<i class='bx bx-exit'></i></a>
             </div>
         </nav>
     </header>
