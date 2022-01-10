@@ -1,47 +1,46 @@
-{% extends 'user/base.html' %}
 {% load static %}
 
-
-{% block title %}
-    Login
-{% endblock %}
-{% block css %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Versionuze</title>
     <link rel="stylesheet" href="{% static 'css/login.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/fontawesome_5.15.4/css/all.min.css' %}">
-{% endblock %}
-
-{% block content %}
-    <div class="desktop">
-        <main class="container">
-            <div class="form-wrapper">
-                <div class="form-wrapper__logo">
-                    <img src="{% static 'img/logo.png' %}" alt="">
-                </div>
-                <form action="{% url 'user:login' %}" class="auth-form" method="post">
-                    {% csrf_token %}
-                    <div class="auth-form__group">
-                        <label for="{{ form.email.id_for_label }}" class="auth-form__label">Эл. почта</label>
-                    </div>
-                    {{ form.email }}
-                    <div class="auth-form__group">
-                        <label for="{{ form.password.id_for_label }}" class="auth-form__label">Пароль</label>
-                    </div>
-                    {{ form.password }}
-                    <div class="auth-form__group">
-                        <select name="course" class="auth-form__select">
-                            <option selected="" value="Russian">Russian</option>
-                            <option value="English">English</option>
-                        </select>
-                    </div>
-                    <div class="auth-form__group">
-                        <input type="checkbox" name="remember">
-                        <label for="remember">Запомнить меня</label>
-                    </div>
-                    <div class="auth-form__group">
-                        <button type="submit" class="auth-form__button">Войти</button>
-                    </div>
-                </form>
+</head>
+<body>
+    <main class="container">
+        <div class="form-wrapper">
+            <div class="form-wrapper__logo">
+                <img src="{% static 'img/logo.png' %}" alt="">
             </div>
-        </main>
-    </div>
-{% endblock %}
+            <form action="{% url 'user:login' %}" class="auth-form" method="post">
+                {% csrf_token %}
+                <div class="auth-form__group">
+                    <label for="{{ form.email.id_for_label }}" class="auth-form__label">Эл. почта</label>
+                </div>
+                {{ form.email }}
+                <div class="auth-form__group">
+                    <label for="{{ form.password.id_for_label }}" class="auth-form__label">Пароль</label>
+                </div>
+                {{ form.password }}
+                <div class="auth-form__group">
+                    <select name="course" class="auth-form__select">
+                        <option selected="" value="Russian">Russian</option>
+                        <option value="English">English</option>
+                    </select>
+                </div>
+                <div class="auth-form__group">
+                    <input type="checkbox" name="remember">
+                    <label for="remember">Запомнить меня</label>
+                </div>
+                <div class="auth-form__group">
+                    <button type="submit" class="auth-form__button">Войти</button>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
