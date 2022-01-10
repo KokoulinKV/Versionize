@@ -16,7 +16,7 @@ def login(request):
         user = auth.authenticate(username=username, password=password)
         if user and user.is_active:
             auth.login(request, user)
-            return HttpResponseRedirect(reverse('user:lk'))
+            return HttpResponseRedirect(reverse('main:index'))
     else:
         form = UserLoginForm()
     context = {'title': 'Login',
@@ -24,8 +24,7 @@ def login(request):
     return render(request, 'user/login.html', context)
 
 
+def logout(request):
+    auth.logout(request)
+    return HttpResponseRedirect(reverse('user:login'))
 
-
-# Вернуть, когда будет создано основное приложение
-# def lk(request):
-#     return render(request, 'user/lk.html')
