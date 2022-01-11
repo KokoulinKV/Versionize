@@ -171,7 +171,7 @@
 .desktop {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    // justify-content: space-between;
     flex-grow: 1;
     &__title {
         padding: 10px 30px;
@@ -240,7 +240,7 @@
     }
     // ===================================
     &__workspace {
-        flex-grow: 1;
+        // flex-grow: 1;
         padding-top: 50px;
         padding-left: 30px;
         padding-right: 30px;
