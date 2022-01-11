@@ -24,4 +24,5 @@ urlpatterns = [
     path('', login, name='login'),
     path('user/', include('user.urls', namespace='user')),
     path('main/', include('main.urls', namespace='main')),
+    path('admins/', include('admins.urls', namespace='admins')),
 ]
