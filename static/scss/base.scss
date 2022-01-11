@@ -48,6 +48,12 @@
         display: flex;
         align-items: center;
     }
+    &__user-profile-link {
+        text-decoration: none;
+        color: #fff;
+        display: flex;
+        align-items: center;
+    }
     &__user-profile i {
         margin: 0 !important;
     }

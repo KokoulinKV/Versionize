@@ -7,11 +7,6 @@
   text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
 }
 
-a {
-  text-decoration: none;
-  color: #000;
-}
-
 ._container {
   max-width: 1170px;
   margin: 0 auto;

@@ -15,8 +15,8 @@
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
     <!--  -->
-    <link rel="stylesheet" href="{% static 'css/base.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.min.css' %}">
 
     {% block css %}
 
@@ -39,11 +39,11 @@
             <div class="header__right-section">
                 <i class='bx bx-search'></i>
                 <i class='bx bx-windows'></i>
-                    <div class="header__user-profile">
-                        <a class="nav-link" href="{% url 'main:index' %}"><i class='bx bx-user-circle'></i>
-                            <span>{{ user.username|default:'Пользователь' }}</span></a>
-                    </div>
-                    <a class="nav-link" href="{% url 'user:logout' %}">Выход<i class='bx bx-exit'></i></a>
+                <div class="header__user-profile">
+                    <a class="header__user-profile-link" href="{% url 'main:index' %}"><i class='bx bx-user-circle'></i>
+                    <span>{{ user.username|default:'Пользователь' }}</span></a>
+                </div>
+                <a class="header__user-profile-link" href="{% url 'user:logout' %}">Выход<i class='bx bx-exit'></i></a>
             </div>
         </nav>
     </header>
