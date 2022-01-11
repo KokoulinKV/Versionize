@@ -5,16 +5,9 @@
 {% endblock %}
 
 
-{% block content %}
-    <!-- Todo Сюда можно добвлять контент с других страниц -->
-    <div class="desktop">
-        <div class="desktop__title">
-            <h3>Илья Владимирович, добро пожаловать в систему Versionize</h3>
-        </div>
-        <!-- ! Конец -->
-        <div class="desktop__workspace">
-            <input type="date">
-            <div class="desktop__actions">
+{% block workspace %}
+        <input type="date">
+        <div class="desktop__actions">
                 <div class="desktop__action">
                     <a href="#">
                         <img src="{% static 'img/task_big.png' %}" alt="{% static 'contract_big.png' %}">
@@ -39,121 +32,68 @@
                         <span>Создать совещание</span>
                     </a>
                 </div>
-            </div>
         </div>
-        <div class="desktop__ivents">
-            <!-- Если нет событий, то уведомляем обычной надписью -->
-            <p>Нет событий</p>
-            <!-- Если для пользователя есть события, то выводим их -->
-            <div class="desktop__ivents-content">
-                <div class="desktop__ivents-top-row">
-                    <div class="desktop__ivents-date">Сегодня</div>
-                    <!-- ? Возможно стоит вывести выше и в отдельный блок -->
-                    <div class="desktop__ivents-pagination">1-5 строки из n <i class='bx bx-chevron-left'></i><i
-                            class='bx bx-chevron-right'></i></div>
-                </div>
-                <div class="desktop__ivents-body">
-                    <div class="desktop__ivents-message">
-                        <div class="desktop__ivents-message-title">Установить обновление для системы
-                            [НомерЗадачи]
-                        </div>
-                        <div class="desktop__ivents-message-text">Установить обновление для системы</div>
+{% endblock %}
+{% block workspace-events %}
+    <div class="desktop__ivents">
+        <!-- Если нет событий, то уведомляем обычной надписью -->
+        <p>Нет событий</p>
+        <!-- Если для пользователя есть события, то выводим их -->
+        <div class="desktop__ivents-content">
+            <div class="desktop__ivents-top-row">
+                <div class="desktop__ivents-date">Сегодня</div>
+                <!-- ? Возможно стоит вывести выше и в отдельный блок -->
+                <div class="desktop__ivents-pagination">1-5 строки из n <i class='bx bx-chevron-left'></i><i
+                        class='bx bx-chevron-right'></i></div>
+            </div>
+            <div class="desktop__ivents-body">
+                <div class="desktop__ivents-message">
+                    <div class="desktop__ivents-message-title">Установить обновление для системы
+                        [НомерЗадачи]
                     </div>
-                    <div class="desktop__ivents-info">
-                        <div class="desktop__ivents-info-date">До 31.12.2021 18:00</div>
-                        <!-- Todo сделать выпадающий список из статусов -->
-                        <div class="desktop__ivents-info-status">В работе <i class='bx bx-chevron-down'></i>
-                        </div>
-                    </div>
+                    <div class="desktop__ivents-message-text">Установить обновление для системы</div>
                 </div>
-                <div class="desktop__ivents-top-row">
-                    <div class="desktop__ivents-date">Завтра</div>
-                    <!-- ? Возможно стоит вывести выше и в отдельный блок
-                    <div class="desktop__ivents-pagination">1-5 строки из n <i class='bx bx-chevron-left' ></i><i class='bx bx-chevron-right' ></i></div> -->
-                </div>
-                <div class="desktop__ivents-body">
-                    <div class="desktop__ivents-message">
-                        <div class="desktop__ivents-message-title">Проверить документ [НомерДокумента]</div>
-                        <div class="desktop__ivents-message-text">Печковский А.С назначил Вас ответственным
-                            за....
-                        </div>
-                    </div>
-                    <div class="desktop__ivents-info">
-                        <div class="desktop__ivents-info-date">До 05.01.2021 18:00</div>
-                        <!-- Todo сделать выпадающий список из статусов -->
-                        <div class="desktop__ivents-info-status">В работе <i class='bx bx-chevron-down'></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="desktop__ivents-top-row">
-                    <div class="desktop__ivents-date">Завтра</div>
-                    <!-- ? Возможно стоит вывести выше и в отдельный блок
-                    <div class="desktop__ivents-pagination">1-5 строки из n <i class='bx bx-chevron-left' ></i><i class='bx bx-chevron-right' ></i></div> -->
-                </div>
-                <div class="desktop__ivents-body">
-                    <div class="desktop__ivents-message">
-                        <div class="desktop__ivents-message-title">Совещание</div>
-                        <div class="desktop__ivents-message-text">Совещание на тему ГОСТ 31.12.22</div>
-                    </div>
-                    <div class="desktop__ivents-info">
-                        <div class="desktop__ivents-info-date">Начало 10.01.2022 10:00</div>
-                        <div class="desktop__ivents-info-date">До 10.01.2022 15:00</div>
+                <div class="desktop__ivents-info">
+                    <div class="desktop__ivents-info-date">До 31.12.2021 18:00</div>
+                    <!-- Todo сделать выпадающий список из статусов -->
+                    <div class="desktop__ivents-info-status">В работе <i class='bx bx-chevron-down'></i>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- Todo Конец -->
-    <div class="notice">
-        <div class="notice__content">
-            <div class="notice__title">
-                <h4>Уведомления</h4>
+            <div class="desktop__ivents-top-row">
+                <div class="desktop__ivents-date">Завтра</div>
+                <!-- ? Возможно стоит вывести выше и в отдельный блок
+                <div class="desktop__ivents-pagination">1-5 строки из n <i class='bx bx-chevron-left' ></i><i class='bx bx-chevron-right' ></i></div> -->
             </div>
-            <div class="notice__messages">
-                <div class="notice__message">
-                    <div class="notice__message-title">
-                        <i class='bx bxs-circle notice__message_green'></i>
-                        <h5>Уведомление Утверждение</h5>
-                    </div>
-                    <div class="notice__message-body">
-                        <p>Прошу проверить и утвердить документ <b>10-03/2020-ИГИ</b></p>
-                    </div>
-                    <div class="notice__message-btns">
-                        <a href="#">Просмотреть</a> | <a href="#">Удалить</a>
+            <div class="desktop__ivents-body">
+                <div class="desktop__ivents-message">
+                    <div class="desktop__ivents-message-title">Проверить документ [НомерДокумента]</div>
+                    <div class="desktop__ivents-message-text">Печковский А.С назначил Вас ответственным
+                        за....
                     </div>
                 </div>
-                <div class="notice__message">
-                    <div class="notice__message-title">
-                        <i class='bx bxs-circle notice__message_red'></i>
-                        <h5>Уведомление Отмененно</h5>
-                    </div>
-                    <div class="notice__message-body">
-                        <p>Приложение к документу <b>10-03/2020-КР</b> просрочено</p>
-                    </div>
-                    <div class="notice__message-btns">
-                        <a href="#">Просмотреть</a> | <a href="#">Удалить</a>
-                    </div>
-                </div>
-                <div class="notice__message">
-                    <div class="notice__message-title">
-                        <i class='bx bxs-circle notice__message_blue'></i>
-                        <h5>Уведомление Ознакомление</h5>
-                    </div>
-                    <div class="notice__message-body">
-                        <p>Отменен документ<b>10-03/2020-ИГИ</b>. Новая инструкция № 00025 выслана. Подготовить
-                            новые документы</p>
-                    </div>
-                    <div class="notice__message-btns">
-                        <a href="#">Просмотреть</a> | <a href="#">Удалить</a>
+                <div class="desktop__ivents-info">
+                    <div class="desktop__ivents-info-date">До 05.01.2021 18:00</div>
+                    <!-- Todo сделать выпадающий список из статусов -->
+                    <div class="desktop__ivents-info-status">В работе <i class='bx bx-chevron-down'></i>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="notice__buttom-block">
-            <a href="#">Удалить все</a>
-            <span>1 - 3/6</span>
-            <i class='bx bx-chevron-left'></i>
-            <i class='bx bx-chevron-right'></i>
+            <div class="desktop__ivents-top-row">
+                <div class="desktop__ivents-date">Завтра</div>
+                <!-- ? Возможно стоит вывести выше и в отдельный блок
+                <div class="desktop__ivents-pagination">1-5 строки из n <i class='bx bx-chevron-left' ></i><i class='bx bx-chevron-right' ></i></div> -->
+            </div>
+            <div class="desktop__ivents-body">
+                <div class="desktop__ivents-message">
+                    <div class="desktop__ivents-message-title">Совещание</div>
+                    <div class="desktop__ivents-message-text">Совещание на тему ГОСТ 31.12.22</div>
+                </div>
+                <div class="desktop__ivents-info">
+                    <div class="desktop__ivents-info-date">Начало 10.01.2022 10:00</div>
+                    <div class="desktop__ivents-info-date">До 10.01.2022 15:00</div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

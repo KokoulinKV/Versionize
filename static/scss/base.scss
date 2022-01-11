@@ -48,6 +48,12 @@
         display: flex;
         align-items: center;
     }
+    &__user-profile-link {
+        text-decoration: none;
+        color: #fff;
+        display: flex;
+        align-items: center;
+    }
     &__user-profile i {
         margin: 0 !important;
     }
@@ -165,7 +171,7 @@
 .desktop {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    // justify-content: space-between;
     flex-grow: 1;
     &__title {
         padding: 10px 30px;
@@ -234,9 +240,10 @@
     }
     // ===================================
     &__workspace {
-        flex-grow: 1;
+        // flex-grow: 1;
         padding-top: 50px;
         padding-left: 30px;
+        padding-right: 30px;
         // display: flex;
         flex-wrap: nowrap;
         display: flex;
@@ -333,5 +340,57 @@
         align-items: center;
         border-top: 1px solid rgba(0, 0, 0, 0.2);
         padding: 7px 15px 7px 15px;
+    }
+}
+
+// Настройка стилей таблиц
+.content-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    // min-width: 400px;
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.content-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+    padding: 12px 15px;
+}
+
+.content-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.content-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.content-table tbody tr:hover {
+    font-weight: bold;
+    color: #009879;
+}
+
+.row {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    &__left-column {
+        margin-right: 20px;
+    }
+    &__right-column {
     }
 }
