@@ -1,158 +1,213 @@
 {% extends 'main/base.html' %}
 {% load static %}
 {% block title %}
-    Versionize
+Versionize
 {% endblock %}
 
-
+{% block workspace-title %}
+<div class="desktop__title-obj-name">
+    <h1>Название объекта</h1>
+    <span>18-06/2021(объект)</span>
+</div>
+<div class="desktop__title-obj-date">
+    <p>Загрузить до: <span>25.12.21</span></p>
+</div>
+<div class="desktop__title-obj-date">
+    <p>Дата загрузки: <span>24.12.21</span></p>
+</div>
+<div class="desktop__title-obj-info">
+    <h1>ООО "НТЦ "ИнжПроект"</h1>
+</div>
+<div class="desktop__title-expert-info">
+    <p><b>Эксперт: </b><span>Панков Илья Владимирович</span></p>
+    <p><b>Тел: </b><span>8-800-755-55-55</span></p>
+    <p><b>E-mail: </b><span>frontend@mail.ru</span></p>
+</div>
+{% endblock %}
 {% block workspace %}
-    <div class="row">
-                        <div class="row__left-column">
-                            <table class="content-table">
-                                <thead>
-                                    <tr>
-                                        <th>№</th>
-                                        <th>Имя файла</th>
-                                        <th>Скачать</th>
-                                        <th>Md5</th>
-                                        <th>Версия</th>
-                                        <th>№ посл. изм.</th>
-                                        <th>Примечания</th>
-                                        <th>Ответсвенный</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>31628092021_18-06-2021_2_ИГИ</td>
-                                        <td><a href="#"><i class="far fa-save"></i></a></td>
-                                        <td>d41d8cd98f00b204e9800998ecf8427e</td>
-                                        <td>1</td>
-                                        <td>~</td>
-                                        <td>Все хорошо</td>
-                                        <td><a href="#">Ковязин Александр Игоревич</a></td>
-                                    </tr>
-                                    <tr class="active-row">
-                                        <td>2</td>
-                                        <td>31628092021_18-06-2021_2_ИГИ</td>
-                                        <td><a href="#"><i class="far fa-save"></i></a></td>
-                                        <td>03c7c0ace395d80182db07ae2c30f034</td>
-                                        <td>2</td>
-                                        <td>~</td>
-                                        <td>Смена наименования объекта</td>
-                                        <td><a href="#">Ковязин Александр Игоревич</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>31628092021_18-06-2021_2_ИГИ_(изм.1)</td>
-                                        <td><a href="#"><i class="far fa-save"></i></a></td>
-                                        <td>b645f88f4b3633bde344a09a2ab32faf</td>
-                                        <td>3</td>
-                                        <td>1</td>
-                                        <td>По замечаниям экспертизы</td>
-                                        <td><a href="#">Ковязин Александр Игоревич</a></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-            
-                            <a href="#" class="upload-btn"><i class="fas fa-file-upload"></i> Загрузить новый документ</a>
-                        </div>
-                        <div class="row__right-column">
-                            <table class="content-table">
-                                <thead>
-                                    <tr>
-                                        <th>№</th>
-                                        <th>Вывод о несоответствии</th>
-                                        <th>Ссылка на материалы</th>
-                                        <th>Основание</th>
-                                        <th>Ответ исполнителя</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>
-                                            <div contenteditable>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non
-                                                voluptatum, perferendis
-                                                dolorum corporis fuga perspiciatis debitis illo eveniet, ut at sed iure doloribus
-                                                assumenda harum explicabo ipsa repudiandae reprehenderit neque!</div>
-                                        </td>
-                                        <td>
-                                            <div contenteditable>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non
-                                                voluptatum, perferendis
-                                                dolorum corporis fuga perspiciatis debitis illo eveniet, ut at sed iure doloribus
-                                                assumenda harum explicabo ipsa repudiandae reprehenderit neque!</div>
-                                        </td>
-                                        <td>
-                                            <div contenteditable>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non
-                                                voluptatum, perferendis
-                                                dolorum corporis fuga perspiciatis debitis illo eveniet, ut at sed iure doloribus
-                                                assumenda harum explicabo ipsa repudiandae reprehenderit neque!</div>
-                                        </td>
-                                        <td>
-                                            <div contenteditable>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non
-                                                voluptatum, perferendis
-                                                dolorum corporis fuga perspiciatis debitis illo eveniet, ut at sed iure doloribus
-                                                assumenda harum explicabo ipsa repudiandae reprehenderit neque!</div>
-                                        </td>
-            
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>
-                                            <div contenteditable>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non
-                                                voluptatum, perferendis
-                                                dolorum corporis fuga perspiciatis debitis illo eveniet, ut at sed iure doloribus
-                                                assumenda harum explicabo ipsa repudiandae reprehenderit neque!</div>
-                                        </td>
-                                        <td>
-                                            <div contenteditable>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non
-                                                voluptatum, perferendis
-                                                dolorum corporis fuga perspiciatis debitis illo eveniet, ut at sed iure doloribus
-                                                assumenda harum explicabo ipsa repudiandae reprehenderit neque!</div>
-                                        </td>
-                                        <td>
-                                            <div contenteditable>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non
-                                                voluptatum, perferendis
-                                                dolorum corporis fuga perspiciatis debitis illo eveniet, ut at sed iure doloribus
-                                                assumenda harum explicabo ipsa repudiandae reprehenderit neque!</div>
-                                        </td>
-                                        <td>
-                                            <div contenteditable>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non
-                                                voluptatum, perferendis
-                                                dolorum corporis fuga perspiciatis debitis illo eveniet, ut at sed iure doloribus
-                                                assumenda harum explicabo ipsa repudiandae reprehenderit neque!</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>
-                                            <div contenteditable>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non
-                                                voluptatum, perferendis
-                                                dolorum corporis fuga perspiciatis debitis illo eveniet, ut at sed iure doloribus
-                                                assumenda harum explicabo ipsa repudiandae reprehenderit neque!</div>
-                                        </td>
-                                        <td>
-                                            <div contenteditable>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non
-                                                voluptatum, perferendis
-                                                dolorum corporis fuga perspiciatis debitis illo eveniet, ut at sed iure doloribus
-                                                assumenda harum explicabo ipsa repudiandae reprehenderit neque!</div>
-                                        </td>
-                                        <td>
-                                            <div contenteditable>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non
-                                                voluptatum, perferendis
-                                                dolorum corporis fuga perspiciatis debitis illo eveniet, ut at sed iure doloribus
-                                                assumenda harum explicabo ipsa repudiandae reprehenderit neque!</div>
-                                        </td>
-                                        <td>
-                                            <div contenteditable>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non
-                                                voluptatum, perferendis
-                                                dolorum corporis fuga perspiciatis debitis illo eveniet, ut at sed iure doloribus
-                                                assumenda harum explicabo ipsa repudiandae reprehenderit neque!</div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-    </div>
+<div class="desktop__workspace-table">
+    <table class="content-table">
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Имя файла</th>
+                <th>Скачать</th>
+                <th>Md5</th>
+                <th>Версия</th>
+                <th>№ посл. изм.</th>
+                <th>Примечания</th>
+                <th>Ответсвенный</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>31628092021_18-06-2021_2_ИГИ</td>
+                <td><a href="#"><i class="far fa-save"></i></a></td>
+                <td>d41d8cd98f00b204e9800998ecf8427e</td>
+                <td>1</td>
+                <td>~</td>
+                <td>Все хорошо</td>
+                <td><a href="#">Ковязин Александр Игоревич</a></td>
+            </tr>
+            <tr class="active-row">
+                <td>2</td>
+                <td>31628092021_18-06-2021_2_ИГИ</td>
+                <td><a href="#"><i class="far fa-save"></i></a></td>
+                <td>03c7c0ace395d80182db07ae2c30f034</td>
+                <td>2</td>
+                <td>~</td>
+                <td>Смена наименования объекта</td>
+                <td><a href="#">Ковязин Александр Игоревич</a></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>31628092021_18-06-2021_2_ИГИ_(изм.1)</td>
+                <td><a href="#"><i class="far fa-save"></i></a></td>
+                <td>b645f88f4b3633bde344a09a2ab32faf</td>
+                <td>3</td>
+                <td>1</td>
+                <td>По замечаниям экспертизы</td>
+                <td><a href="#">Ковязин Александр Игоревич</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="button" class="download-button">
+        <span class="download-button__text">Загрузить документ</span>
+        <span class="download-button__icon">
+            <i class='bx bx-cloud-upload'></i>
+        </span>
+    </button>
+    <table class="content-table">
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Вывод о несоответствии</th>
+                <th>Ссылка на материалы</th>
+                <th>Основание</th>
+                <th>Ответ исполнителя</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>
+                    <div contenteditable>Lorem ipsum dolor sit amet
+                        consectetur adipisicing elit. Non
+                        voluptatum, perferendis
+                        dolorum corporis fuga perspiciatis debitis illo
+                        eveniet, ut at sed iure doloribus
+                        assumenda harum explicabo ipsa repudiandae
+                        reprehenderit neque!</div>
+                </td>
+                <td>
+                    <div contenteditable>Lorem ipsum dolor sit amet
+                        consectetur adipisicing elit. Non
+                        voluptatum, perferendis
+                        dolorum corporis fuga perspiciatis debitis illo
+                        eveniet, ut at sed iure doloribus
+                        assumenda harum explicabo ipsa repudiandae
+                        reprehenderit neque!</div>
+                </td>
+                <td>
+                    <div contenteditable>Lorem ipsum dolor sit amet
+                        consectetur adipisicing elit. Non
+                        voluptatum, perferendis
+                        dolorum corporis fuga perspiciatis debitis illo
+                        eveniet, ut at sed iure doloribus
+                        assumenda harum explicabo ipsa repudiandae
+                        reprehenderit neque!</div>
+                </td>
+                <td>
+                    <div contenteditable>Lorem ipsum dolor sit amet
+                        consectetur adipisicing elit. Non
+                        voluptatum, perferendis
+                        dolorum corporis fuga perspiciatis debitis illo
+                        eveniet, ut at sed iure doloribus
+                        assumenda harum explicabo ipsa repudiandae
+                        reprehenderit neque!</div>
+                </td>
+
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>
+                    <div contenteditable>Lorem ipsum dolor sit amet
+                        consectetur adipisicing elit. Non
+                        voluptatum, perferendis
+                        dolorum corporis fuga perspiciatis debitis illo
+                        eveniet, ut at sed iure doloribus
+                        assumenda harum explicabo ipsa repudiandae
+                        reprehenderit neque!</div>
+                </td>
+                <td>
+                    <div contenteditable>Lorem ipsum dolor sit amet
+                        consectetur adipisicing elit. Non
+                        voluptatum, perferendis
+                        dolorum corporis fuga perspiciatis debitis illo
+                        eveniet, ut at sed iure doloribus
+                        assumenda harum explicabo ipsa repudiandae
+                        reprehenderit neque!</div>
+                </td>
+                <td>
+                    <div contenteditable>Lorem ipsum dolor sit amet
+                        consectetur adipisicing elit. Non
+                        voluptatum, perferendis
+                        dolorum corporis fuga perspiciatis debitis illo
+                        eveniet, ut at sed iure doloribus
+                        assumenda harum explicabo ipsa repudiandae
+                        reprehenderit neque!</div>
+                </td>
+                <td>
+                    <div contenteditable>Lorem ipsum dolor sit amet
+                        consectetur adipisicing elit. Non
+                        voluptatum, perferendis
+                        dolorum corporis fuga perspiciatis debitis illo
+                        eveniet, ut at sed iure doloribus
+                        assumenda harum explicabo ipsa repudiandae
+                        reprehenderit neque!</div>
+                </td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>
+                    <div contenteditable>Lorem ipsum dolor sit amet
+                        consectetur adipisicing elit. Non
+                        voluptatum, perferendis
+                        dolorum corporis fuga perspiciatis debitis illo
+                        eveniet, ut at sed iure doloribus
+                        assumenda harum explicabo ipsa repudiandae
+                        reprehenderit neque!</div>
+                </td>
+                <td>
+                    <div contenteditable>Lorem ipsum dolor sit amet
+                        consectetur adipisicing elit. Non
+                        voluptatum, perferendis
+                        dolorum corporis fuga perspiciatis debitis illo
+                        eveniet, ut at sed iure doloribus
+                        assumenda harum explicabo ipsa repudiandae
+                        reprehenderit neque!</div>
+                </td>
+                <td>
+                    <div contenteditable>Lorem ipsum dolor sit amet
+                        consectetur adipisicing elit. Non
+                        voluptatum, perferendis
+                        dolorum corporis fuga perspiciatis debitis illo
+                        eveniet, ut at sed iure doloribus
+                        assumenda harum explicabo ipsa repudiandae
+                        reprehenderit neque!</div>
+                </td>
+                <td>
+                    <div contenteditable>Lorem ipsum dolor sit amet
+                        consectetur adipisicing elit. Non
+                        voluptatum, perferendis
+                        dolorum corporis fuga perspiciatis debitis illo
+                        eveniet, ut at sed iure doloribus
+                        assumenda harum explicabo ipsa repudiandae
+                        reprehenderit neque!</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 {% endblock %}

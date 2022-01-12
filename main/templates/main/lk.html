@@ -5,6 +5,9 @@
 {% endblock %}
 
 
+{% block workspace-title %}
+        <h3>Илья Владимирович, добро пожаловать в систему Versionize</h3>
+{% endblock %}
 {% block workspace %}
         <input type="date">
         <div class="desktop__actions">
@@ -97,3 +100,55 @@
         </div>
     </div>
 {% endblock %}
+{% block notice %}
+            <div class="notice__content">
+                <div class="notice__title">
+                    <h4>Уведомления</h4>
+                </div>
+                <div class="notice__messages">
+                    <div class="notice__message">
+                        <div class="notice__message-title">
+                            <i class='bx bxs-circle notice__message_green'></i>
+                            <h5>Уведомление Утверждение</h5>
+                        </div>
+                        <div class="notice__message-body">
+                            <p>Прошу проверить и утвердить документ <b>10-03/2020-ИГИ</b></p>
+                        </div>
+                        <div class="notice__message-btns">
+                            <a href="#">Просмотреть</a> | <a href="#">Удалить</a>
+                        </div>
+                    </div>
+                    <div class="notice__message">
+                        <div class="notice__message-title">
+                            <i class='bx bxs-circle notice__message_red'></i>
+                            <h5>Уведомление Отмененно</h5>
+                        </div>
+                        <div class="notice__message-body">
+                            <p>Приложение к документу <b>10-03/2020-КР</b> просрочено</p>
+                        </div>
+                        <div class="notice__message-btns">
+                            <a href="#">Просмотреть</a> | <a href="#">Удалить</a>
+                        </div>
+                    </div>
+                    <div class="notice__message">
+                        <div class="notice__message-title">
+                            <i class='bx bxs-circle notice__message_blue'></i>
+                            <h5>Уведомление Ознакомление</h5>
+                        </div>
+                        <div class="notice__message-body">
+                            <p>Отменен документ<b>10-03/2020-ИГИ</b>. Новая инструкция № 00025 выслана. Подготовить
+                                новые документы</p>
+                        </div>
+                        <div class="notice__message-btns">
+                            <a href="#">Просмотреть</a> | <a href="#">Удалить</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="notice__buttom-block">
+                <a href="#">Удалить все</a>
+                <span>1 - 3/6</span>
+                <i class='bx bx-chevron-left'></i>
+                <i class='bx bx-chevron-right'></i>
+            </div>
+            {% endblock %}
