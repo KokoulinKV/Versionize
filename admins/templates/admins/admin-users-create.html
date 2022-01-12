@@ -4,8 +4,8 @@
 
 
 {% block title %}
-            Create User
-{% endblock  %}
+    Create User
+{% endblock %}
 
 {% block content %}
     <div id="layoutSidenav_content">
@@ -18,13 +18,13 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label class="small mb-1" for="{{ form.first_name.id_for_label }}">Имя</label>
-                                {{form.first_name}}
+                                {{ form.first_name }}
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label class="small mb-1" for="{{ form.last_name.id_for_label }}">Фамилия</label>
-                                {{form.last_name}}
+                                {{ form.last_name }}
                             </div>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label class="small mb-1" for="{{ form.patronymic.id_for_label }}">Отчество</label>
-                                {{form.patronymic}}
+                                {{ form.patronymic }}
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -72,10 +72,11 @@
                             {{ form.department }}
                         </div>
                     </div>
-                     <div class="form-row">
+                    <div class="form-row">
                         <div class="col-lg-6">
-                            {{form.chief_project_engineer}}
-                            <label class="small mb-1" for="{{ form.chief_project_engineer.id_for_label }}">Является главным инженером проекта</label>
+                            {{ form.chief_project_engineer }}
+                            <label class="small mb-1" for="{{ form.chief_project_engineer.id_for_label }}">Является
+                                главным инженером проекта</label>
                         </div>
                         <div class="col-lg-6">
                             {{ form.expert }}
@@ -84,8 +85,9 @@
                     </div>
                     <div class="form-row">
                         <div class="col-lg-6">
-                            {{form.assistant}}
-                            <label class="small mb-1" for="{{ form.assistant.id_for_label }}">Является помощником ГИПа</label>
+                            {{ form.assistant }}
+                            <label class="small mb-1" for="{{ form.assistant.id_for_label }}">Является помощником
+                                ГИПа</label>
                         </div>
                     </div>
                     <div class="form-row">

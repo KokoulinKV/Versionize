@@ -12,7 +12,7 @@
     <title>
         {% block title %}
             Admin
-        {% endblock  %}
+        {% endblock %}
     </title>
     <link rel="stylesheet" href="{% static 'css/auth-admin.css' %}">
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet"
@@ -23,8 +23,8 @@
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <a class="navbar-brand" href="{% url 'main:index' %}">Versionize</a>
-{#    <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i>#}
-{#    </button>#}
+    {#    <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i>#}
+    {#    </button>#}
     <!-- Navbar Search-->
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
         <div class="input-group">
@@ -51,14 +51,13 @@
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
                 <div class="nav">
-{#                    <div class="sb-sidenav-menu-heading">Приложения</div>#}
                     <a class="nav-link" href="{% url 'admins:index' %}">
                         <div class="sb-nav-link-icon">
                             <i class="fa fa-user-plus"></i>
                         </div>
                         Пользователи
                     </a>
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{% url 'admins:admins_companies' %}">
                         <div class="sb-nav-link-icon">
                             <i class="fa  fa-university"></i>
                         </div>
