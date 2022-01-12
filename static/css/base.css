@@ -262,8 +262,29 @@
 
 .desktop__title {
   padding: 10px 30px;
-  color: #555555;
-  font-size: 13px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.desktop__title-obj-name {
+  text-align: center;
+  margin-left: 15px;
+}
+
+.desktop__title-obj-date {
+  margin-left: 15px;
+}
+
+.desktop__title-obj-info {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  text-align: center;
 }
 
 .desktop__ivents {
@@ -345,6 +366,13 @@
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
+}
+
+.desktop__workspace-table {
+  width: 100%;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
 }
 
 .desktop__actions {
@@ -471,6 +499,54 @@
   padding: 7px 15px 7px 15px;
 }
 
+.download-button {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  height: 50px;
+  background: #3f7abe;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  overflow: hidden;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  color: #fff;
+}
+
+.download-button:hover {
+  background: #1a4975;
+}
+
+.download-button:active {
+  background: #1e5e99;
+}
+
+.download-button__text {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 24px;
+  height: 100%;
+}
+
+.download-button__icon {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 24px;
+  height: 100%;
+  font-size: 1.5em;
+  background: rgba(0, 0, 0, 0.08);
+}
+
 .content-table {
   border-collapse: collapse;
   margin: 25px 0;
@@ -483,7 +559,7 @@
 }
 
 .content-table thead tr {
-  background-color: #009879;
+  background-color: #3f7abe;
   color: #ffffff;
   text-align: left;
   font-weight: bold;
@@ -503,12 +579,12 @@
 }
 
 .content-table tbody tr:last-of-type {
-  border-bottom: 2px solid #009879;
+  border-bottom: 2px solid #3f7abe;
 }
 
 .content-table tbody tr:hover {
   font-weight: bold;
-  color: #009879;
+  color: #3f7abe;
 }
 
 .row {

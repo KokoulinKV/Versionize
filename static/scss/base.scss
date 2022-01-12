@@ -175,8 +175,22 @@
     flex-grow: 1;
     &__title {
         padding: 10px 30px;
-        color: #555555;
-        font-size: 13px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        // color: #555555;
+        // font-size: 13px;
+        &-obj-name {
+            text-align: center;
+            margin-left: 15px;
+        }
+        &-obj-date {
+            margin-left: 15px;
+        }
+        &-obj-info {
+            flex-grow: 1;
+            text-align: center;
+        }
     }
     // Блок событий
     &__ivents {
@@ -248,6 +262,11 @@
         flex-wrap: nowrap;
         display: flex;
         justify-content: flex-start;
+
+        &-table {
+            width: 100%;
+            flex-grow: 1;
+        }
     }
     &__actions {
         // float: right;
@@ -342,6 +361,41 @@
         padding: 7px 15px 7px 15px;
     }
 }
+// Настройка кнопок
+.download-button {
+    display: inline-flex;
+    height: 50px;
+    background: #3f7abe;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    overflow: hidden;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    color: #fff;
+
+    &:hover {
+        background: #1a4975;
+    }
+    &:active {
+        background: #1e5e99;
+    }
+    &__text {
+        display: inline-flex;
+        align-items: center;
+        padding: 0 24px;
+        height: 100%;
+    }
+    &__icon {
+        display: inline-flex;
+        align-items: center;
+        padding: 0 24px;
+        height: 100%;
+        font-size: 1.5em;
+        background: rgba(0, 0, 0, 0.08);
+    }
+}
 
 // Настройка стилей таблиц
 .content-table {
@@ -356,7 +410,7 @@
 }
 
 .content-table thead tr {
-    background-color: #009879;
+    background-color: #3f7abe;
     color: #ffffff;
     text-align: left;
     font-weight: bold;
@@ -376,12 +430,12 @@
 }
 
 .content-table tbody tr:last-of-type {
-    border-bottom: 2px solid #009879;
+    border-bottom: 2px solid #3f7abe;
 }
 
 .content-table tbody tr:hover {
     font-weight: bold;
-    color: #009879;
+    color: #3f7abe;
 }
 
 .row {
