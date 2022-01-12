@@ -14,8 +14,12 @@ class UserRegistrationFrom(UserCreationForm):
         widget=forms.TextInput(attrs={'class': 'form-control py-4', 'placeholder': 'Введите имя'}))
     last_name = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control py-4', 'placeholder': 'Введите фамилию'}))
+    patronymic = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control py-4', 'placeholder': 'Введите Отчество'}))
+    phone = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control py-4', 'placeholder': 'Введите номер телефона'}))
     password1 = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control py-4', 'placeholder': 'Введите паролт'}))
+        widget=forms.PasswordInput(attrs={'class': 'form-control py-4', 'placeholder': 'Введите пароль'}))
     password2 = forms.CharField(
         widget=forms.PasswordInput(attrs={'class': 'form-control py-4', 'placeholder': 'Повторите пароль'}))
     company = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control py-4', 'placeholder': 'Введите название компании'}))
@@ -26,5 +30,5 @@ class UserRegistrationFrom(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'image', 'first_name', 'last_name', 'password1', 'password2', 'department',
+        fields = ('username', 'email', 'image', 'first_name', 'last_name', 'patronymic', 'phone', 'password1', 'password2', 'department',
                   'company', 'expert','chief_project_engineer', 'assistant')

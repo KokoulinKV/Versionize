@@ -28,18 +28,22 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-row mb-2">
-                        <div class="col-lg-12">
-                            <div class="custom-file">
-                                {{form.image}}
-                                <label class="custom-file-label" for="{{ form.image.id_for_label }}">Выберите изображение</label>
+                    <div class="form-row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="small mb-1" for="{{ form.patronymic.id_for_label }}">Отчество</label>
+                                {{form.patronymic}}
                             </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="small mb-1" for="{{ form.username.id_for_label }}">Имя пользователя</label>
+                            {{ form.username }}
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col-lg-6">
-                            <label class="small mb-1" for="{{ form.username.id_for_label }}">Имя пользователя</label>
-                            {{ form.username }}
+                            <label class="small mb-1" for="{{ form.phone.id_for_label }}">Номер телефона</label>
+                            {{ form.phone }}
                         </div>
                         <div class="col-lg-6">
                             <label class="small mb-1" for="{{ form.email.id_for_label }}">Адрес электронной

@@ -23,29 +23,70 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-row mb-2">
-                            <div class="col-lg-12">
-                                <div class="custom-file">
-                                    {{ form.image }}
-                                    <label class="custom-file-label" for="{{ form.image.id_for_label }}">Выберите
-                                        изображение</label>
+                        <div class="form-row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="small mb-1" for="{{ form.patronymic.id_for_label }}">Отчество</label>
+                                    {{ form.patronymic }}
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-row">
                             <div class="col-lg-6">
                                 <label class="small mb-1" for="{{ form.username.id_for_label }}">Имя
                                     пользователя</label>
                                 {{ form.username }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-6">
+                                <label class="small mb-1" for="{{ form.phone.id_for_label }}">Номер телефона</label>
+                                {{ form.phone }}
                             </div>
                             <div class="col-lg-6">
                                 <label class="small mb-1" for="{{ form.email.id_for_label }}">Адрес электронной
                                     почты</label>
                                 {{ form.email }}
                             </div>
+                        </div>
+                        <div class="form-row">
                             <div class="col-lg-6">
-                                <label class="small mb-1" for="{{ form.age.id_for_label }}">Возраст</label>
-                                {{ form.age }}
+                                <label class="small mb-1" for="{{ form.password1.id_for_label }}">Пароль</label>
+                                {{ form.password1 }}
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="small mb-1" for="{{ form.password2.id_for_label }}">Повторите
+                                    пароль</label>
+                                {{ form.password2 }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-6">
+                                <label class="small mb-1" for="{{ form.company.id_for_label }}">Название
+                                    компании</label>
+                                {{ form.company }}
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="small mb-1" for="{{ form.department.id_for_label }}">Название
+                                    отдела</label>
+                                {{ form.department }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-6">
+                                {{ form.chief_project_engineer }}
+                                <label class="small mb-1" for="{{ form.chief_project_engineer.id_for_label }}">Является
+                                    главным инженером проекта</label>
+                            </div>
+                            <div class="col-lg-6">
+                                {{ form.expert }}
+                                <label class="small mb-1" for="{{ form.expert.id_for_label }}">Является
+                                    экспертом</label>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-6">
+                                {{ form.assistant }}
+                                <label class="small mb-1" for="{{ form.assistant.id_for_label }}">Является помощником
+                                    ГИПа</label>
                             </div>
                         </div>
                         <div class="form-row">
@@ -55,8 +96,8 @@
                         </div>
                     </form>
                     {% if user.is_active %}
-                        <form action="#" method="post">
-{#                        {% csrf_token %}#}
+                        <form action="{% url 'admins:admins_users_delete' user.id %}" method="post">
+                        {% csrf_token %}
                             <div class="row">
                                 <div class="col-lg-12" style="margin-top: 33px;">
                                     <input class="btn btn-danger btn-block" type="submit" value="Удалить">
@@ -64,8 +105,8 @@
                             </div>
                         </form>
                     {% else %}
-                        <form action="#" method="post">
-{#                        {% csrf_token %}#}
+                        <form action="{% url 'admins:admins_users_rehub' user.id %}" method="post">
+                        {% csrf_token %}
                             <div class="row">
                                 <div class="col-lg-12" style="margin-top: 33px;">
                                     <input class="btn btn-danger btn-block" type="submit" value="Восстановить">

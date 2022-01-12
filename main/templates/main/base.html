@@ -47,12 +47,12 @@
                     <div class="header__right-section">
                         <i class='bx bx-search'></i>
                         {% if user.is_staff or user.is_superuser %}
-                        <a class="header__user-profile-link" href="{% url
-                            'admins:index' %}"><i class='bx bx-wrench'></i></a>
+                        <a class="header__user-profile-link" href="{% url 'admins:index' %}">
+                            <i class='bx bx-wrench'></i></a>
                         {% endif %}
                         <div class="header__user-profile">
-                            <a class="header__user-profile-link" href="{% url
-                                'main:index' %}"><i class='bx bx-user-circle'></i>
+                            <a class="header__user-profile-link" href="{% url 'main:index' %}">
+                                <i class='bx bx-user-circle'></i>
                                 <span>{{ user.username|default:'Пользователь' }}</span></a>
                         </div>
                         <i class='bx bx-windows'></i>
