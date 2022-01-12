@@ -20,55 +20,69 @@ Versionize
 </div>
 {% endblock %}
 {% block workspace %}
-<div class="row">
-    <div class="row__left-column">
-        <table class="content-table">
-            <thead>
-                <tr>
-                    <th>Лист</th>
-                    <th>Содержание изменения</th>
-                    <th>Код</th>
-                    <th>Примечание</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>2</td>
-                    <td>Таблица объемов работ откорректирована</td>
-                    <td>1</td>
-                    <td></td>
-                </tr>
-                <tr>
-
-                    <td>3-4,42,43</td>
-                    <td>Добавлены результаты архивных инжерено-геологических
-                        изысканий</td>
-                    <td>1</td>
-                    <td></td>
-                </tr>
-                <tr>
-
-                    <td>4</td>
-                    <td>Добавлена информация об использовании результатов
-                        определенний свойств грунтов,
-                        отобранных в основани здания в 2013г</td>
-                    <td>1</td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-        <a href="#" class="upload-btn"><i class="fas fa-file-upload"></i>
-            Загрузить новый документ</a>
-    </div>
-    <div class="row__right-column">
-        <table class="content-table">
-            <thead>
-                <tr>
-                    <th>Тут должны быть комменты(</th>
-                </tr>
-            </thead>
-        </table>
+<div class="desktop__workspace-table">
+    <table class="content-table">
+        <thead>
+            <tr>
+                <th>Лист</th>
+                <th>Содержание изменения</th>
+                <th>Код</th>
+                <th>Примечание</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>2</td>
+                <td>Таблица объемов работ откорректирована</td>
+                <td>1</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>3-4,42,43</td>
+                <td>Добавлены результаты архивных инжерено-геологических
+                    изысканий</td>
+                <td>1</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Добавлена информация об использовании результатов
+                    определенний свойств грунтов,
+                    отобранных в основани здания в 2013г</td>
+                <td>1</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="button" class="download-button">
+        <span class="download-button__text">Загрузить документ</span>
+        <span class="download-button__icon">
+            <i class='bx bx-cloud-upload'></i>
+        </span>
+    </button>
+    <hr class="space-beetween">
+    <div class="workspace-comments">
+        <div class="workspace-comments__title">
+            <div class="workspace-comments__total">7 Комментариев</div>
+            <div class="workspace-comments__func"><i class='bx bx-filter'></i>Упорядочить</div>
+            <div class="workspace-comments__func" id="hide"><i class='bx
+                    bx-hide'></i>Скрыть/Показать</div>
+        </div>
+        <div class="workspace-comments__content"
+            id="workspace-comments__content">
+            <!-- Тело одного коммента -->
+            <div class="workspace-comments__body">
+                <div class="workspace-comments__avatar">Аватар</div>
+                <div class="workspace-comments__text">
+                    <div class="workspcae-comments__text-header">ФИО/Дата/Действия</div>
+                    <div class="workspcae-comments__text-body">Lorem ipsum dolor
+                        sit amet, consectetur adipisicing elit. Natus unde est
+                        dignissimos ex ipsam molestiae doloribus quidem alias
+                        sint eos impedit animi quam nesciunt temporibus sed
+                        error, aut fugiat cumque.</div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -420,6 +420,8 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
 }
 
 .notice a {
@@ -438,6 +440,10 @@
   font-size: 12px;
   font-family: Arial, Helvetica, sans-serif;
   text-transform: uppercase;
+}
+
+.notice_hide {
+  width: 60px;
 }
 
 .notice__messages {
@@ -546,6 +552,32 @@
   height: 100%;
   font-size: 1.5em;
   background: rgba(0, 0, 0, 0.08);
+}
+
+.space-beetween {
+  margin: 30px 0;
+}
+
+.workspace-comments__title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.workspace-comments__content {
+  -webkit-transition: all 0.6s ease;
+  transition: all 0.6s ease;
+}
+
+.workspace-comments__content_hide {
+  height: 0;
+  opacity: 0;
+}
+
+.workspace-comments__body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .content-table {
