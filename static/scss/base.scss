@@ -5,7 +5,7 @@
     font-family: "Poppins", sans-serif;
 }
 .wrapper {
-    max-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
 }
@@ -261,6 +261,7 @@
         padding-top: 50px;
         padding-left: 30px;
         padding-right: 30px;
+        overflow: auto;
         // display: flex;
         flex-wrap: nowrap;
         display: flex;
@@ -409,19 +410,32 @@
 .workspace-comments {
     &__title {
         display: flex;
+        align-items: center;
     }
 
     &__total {
+        display: inline-flex;
+        align-items: center;
     }
 
     &__func {
+        margin-left: 15px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        & i {
+            margin-right: 5px;
+            width: 25px;
+            font-size: 25px;
+        }
     }
 
     &__content {
         transition: all 0.6s ease;
+        height: 100%;
         &_hide {
-            height: 0;
-            opacity: 0;
+            display: none;
+            visibility: none;
             // ? Подумать на реализацией
             // display: none;
             // display: none;
@@ -431,15 +445,34 @@
 
     &__body {
         display: flex;
+        align-items: flex-start;
+        margin-top: 15px;
     }
 
     &__avatar {
+        margin-right: 10px;
+        border-radius: 50%;
+        min-width: 60px;
+        min-height: 60px;
+        overflow: hidden;
+        & img {
+            max-width: 100%;
+            display: block;
+        }
     }
 
     &__text {
         &-header {
+            text-transform: uppercase;
+            font-weight: 600;
+            text-decoration: none;
         }
         &-body {
+            max-width: 700px;
+            font-size: 14px;
+            line-height: 2;
+            font-weight: 400;
+            color: #a5a5a5;
         }
     }
 }
