@@ -177,9 +177,9 @@
         <!-- ! Конец -->
         <!-- Рабочее пространство -->
         <div class="desktop">
-            <div class="desktop__title">
-                <h3>Илья Владимирович, добро пожаловать в систему Versionize</h3>
-            </div>
+            {% block workspace-title %}
+            
+            {% endblock %}
             <div class="desktop__workspace">
                 {% block workspace %}
 
@@ -191,7 +191,7 @@
         </div>
         <div class="notice">
             {% block notice %}
-            
+
             {% endblock %}
         </div>
     </main>
