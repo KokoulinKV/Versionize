@@ -1,57 +1,140 @@
 {% extends 'main/base.html' %}
 {% load static %}
 {% block title %}
-    Versionize
+Versionize
 {% endblock %}
 
-
+{% block workspace-title %}
+<div class="desktop__title-obj-name">
+    <h1>Название объекта</h1>
+    <span>18-06/2021(объект)</span>
+</div>
+<div class="desktop__title-obj-date">
+    <p>Загрузить до: <span>25.12.21</span></p>
+</div>
+<div class="desktop__title-obj-date">
+    <p>Дата загрузки: <span>24.12.21</span></p>
+</div>
+<div class="desktop__title-obj-info">
+    <h1>ООО "НТЦ "ИнжПроект"</h1>
+</div>
+{% endblock %}
 {% block workspace %}
-<div class="row">
-    <div class="row__left-column">
-        <table class="content-table">
-            <thead>
-                <tr>
-                    <th>Лист</th>
-                    <th>Содержание изменения</th>
-                    <th>Код</th>
-                    <th>Примечание</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>2</td>
-                    <td>Таблица объемов работ откорректирована</td>
-                    <td>1</td>
-                    <td></td>
-                </tr>
-                <tr>
-
-                    <td>3-4,42,43</td>
-                    <td>Добавлены результаты архивных инжерено-геологических изысканий</td>
-                    <td>1</td>
-                    <td></td>
-                </tr>
-                <tr>
-
-                    <td>4</td>
-                    <td>Добавлена информация об использовании результатов определенний свойств грунтов,
-                        отобранных в основани здания в 2013г</td>
-                    <td>1</td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-        <a href="#" class="upload-btn"><i class="fas fa-file-upload"></i> Загрузить новый документ</a>
-    </div>
-    <div class="row__right-column">
-        <table class="content-table">
-            <thead>
-                <tr>
-                    <th>Тут должны быть комменты(</th>
-                </tr>
-            </thead>
-        </table>
+<div class="desktop__workspace-table">
+    <table class="content-table">
+        <thead>
+            <tr>
+                <th>Лист</th>
+                <th>Содержание изменения</th>
+                <th>Код</th>
+                <th>Примечание</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>2</td>
+                <td>Таблица объемов работ откорректирована</td>
+                <td>1</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>3-4,42,43</td>
+                <td>Добавлены результаты архивных инжерено-геологических
+                    изысканий</td>
+                <td>1</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Добавлена информация об использовании результатов
+                    определенний свойств грунтов,
+                    отобранных в основани здания в 2013г</td>
+                <td>1</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="button" class="download-button">
+        <span class="download-button__text">Загрузить документ</span>
+        <span class="download-button__icon">
+            <i class='bx bx-cloud-upload'></i>
+        </span>
+    </button>
+    <hr class="space-beetween">
+    <div class="workspace-comments">
+        <div class="workspace-comments__title">
+            <div class="workspace-comments__total">7 Комментариев</div>
+            <div class="workspace-comments__func"><i class='bx bx-filter'></i>Упорядочить</div>
+            <div class="workspace-comments__func" id="hide"><i class='bx
+                    bx-hide'></i>Скрыть/Показать</div>
+        </div>
+        <div class="workspace-comments__content"
+            id="workspace-comments__content">
+            <!-- Тело одного коммента -->
+            <div class="workspace-comments__body">
+                <div class="workspace-comments__avatar">
+                    <img src="{% static 'img/comments_img.webp' %}"
+                        alt="comments_img.webp"></div>
+                <div class="workspace-comments__text">
+                    <div class="workspace-comments__text-header">
+                        <span>Панков Илья Владимирович | Jun 12, 2022 |</span>
+                        <a href="#">Ответить</a></div>
+                    <div class="workspace-comments__text-body">Lorem ipsum dolor
+                        sit amet, consectetur adipisicing elit. Natus unde est
+                        dignissimos ex ipsam molestiae doloribus quidem alias
+                        sint eos impedit animi quam nesciunt temporibus sed
+                        error, aut fugiat cumque.</div>
+                </div>
+            </div>
+            <div class="workspace-comments__body">
+                <div class="workspace-comments__avatar">
+                    <img src="{% static 'img/comments_img.webp' %}"
+                        alt="comments_img.webp"></div>
+                <div class="workspace-comments__text">
+                    <div class="workspace-comments__text-header">
+                        <span>Панков Илья Владимирович | Jun 12, 2022 |</span>
+                        <a href="#">Ответить</a></div>
+                    <div class="workspace-comments__text-body">Lorem ipsum dolor
+                        sit amet consectetur, adipisicing elit. Eligendi
+                        molestias provident ut alias, adipisci explicabo magnam
+                        minus impedit, esse quam ad deleniti quasi odit
+                        repudiandae, corporis consequatur totam accusamus. Amet,
+                        repellat laboriosam, iure cupiditate exercitationem
+                        officia illum deserunt in voluptatem consequuntur porro
+                        animi, quas nobis quia ipsum dignissimos dolore at ex
+                        maiores sint totam! Sapiente illo error distinctio
+                        iusto! Magnam, autem hic? Nemo, tenetur explicabo.
+                        Quidem fugiat autem quasi est, maiores necessitatibus,
+                        ea blanditiis, omnis ducimus amet voluptates. Nostrum
+                        alias eligendi deleniti necessitatibus tenetur error
+                        nesciunt corrupti id sequi quasi, incidunt perferendis
+                        libero cupiditate vel placeat odit deserunt consectetur
+                        dignissimos porro rerum rem sit exercitationem? Vitae,
+                        repudiandae voluptate incidunt et architecto quisquam
+                        eius consequuntur est reprehenderit illo corporis earum
+                        neque animi sed saepe, velit dolore sapiente ab odio
+                        alias! In neque, dicta deserunt non dolores doloribus a,
+                        modi facilis beatae expedita ipsa nesciunt velit. Dicta
+                        magnam perspiciatis commodi fugit ducimus.</div>
+                </div>
+            </div>
+            <div class="workspace-comments__body">
+                <div class="workspace-comments__avatar">
+                    <img src="{% static 'img/comments_img.webp' %}"
+                        alt="comments_img.webp"></div>
+                <div class="workspace-comments__text">
+                    <div class="workspace-comments__text-header">
+                        <span>Панков Илья Владимирович | Jun 12, 2022 |</span>
+                        <a href="#">Ответить</a></div>
+                    <div class="workspace-comments__text-body">Lorem ipsum dolor
+                        sit amet consectetur adipisicing elit. Illum
+                        perspiciatis cupiditate quaerat voluptas debitis ipsa
+                        voluptate similique modi sed? Aperiam voluptates ad
+                        dicta animi quisquam? Vel nostrum similique impedit
+                        numquam.</div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

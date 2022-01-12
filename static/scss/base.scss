@@ -5,7 +5,7 @@
     font-family: "Poppins", sans-serif;
 }
 .wrapper {
-    max-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
 }
@@ -53,6 +53,7 @@
         color: #fff;
         display: flex;
         align-items: center;
+        margin-left: 10px;
     }
     &__user-profile i {
         margin: 0 !important;
@@ -175,8 +176,24 @@
     flex-grow: 1;
     &__title {
         padding: 10px 30px;
-        color: #555555;
-        font-size: 13px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        // color: #555555;
+        // font-size: 13px;
+        &-obj-name {
+            text-align: center;
+            margin-left: 15px;
+        }
+        &-obj-date {
+            margin-left: 15px;
+        }
+        &-obj-info {
+            flex-grow: 1;
+            text-align: center;
+        }
+        &-expert-info {
+        }
     }
     // Блок событий
     &__ivents {
@@ -244,10 +261,16 @@
         padding-top: 50px;
         padding-left: 30px;
         padding-right: 30px;
+        overflow: auto;
         // display: flex;
         flex-wrap: nowrap;
         display: flex;
         justify-content: flex-start;
+
+        &-table {
+            width: 100%;
+            flex-grow: 1;
+        }
     }
     &__actions {
         // float: right;
@@ -277,6 +300,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    transition: all 0.5s ease;
 
     a {
         color: rgb(52, 152, 199);
@@ -293,7 +317,9 @@
         font-family: Arial, Helvetica, sans-serif;
         text-transform: uppercase;
     }
-
+    &_hide {
+        width: 60px;
+    }
     &__messages {
         margin-top: 15px;
     }
@@ -342,6 +368,114 @@
         padding: 7px 15px 7px 15px;
     }
 }
+// Настройка кнопок
+.download-button {
+    display: inline-flex;
+    height: 50px;
+    background: #3f7abe;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    overflow: hidden;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    color: #fff;
+
+    &:hover {
+        background: #1a4975;
+    }
+    &:active {
+        background: #1e5e99;
+    }
+    &__text {
+        display: inline-flex;
+        align-items: center;
+        padding: 0 24px;
+        height: 100%;
+    }
+    &__icon {
+        display: inline-flex;
+        align-items: center;
+        padding: 0 24px;
+        height: 100%;
+        font-size: 1.5em;
+        background: rgba(0, 0, 0, 0.08);
+    }
+}
+// Настройка комментариев к документу
+.space-beetween {
+    margin: 30px 0;
+}
+.workspace-comments {
+    &__title {
+        display: flex;
+        align-items: center;
+    }
+
+    &__total {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    &__func {
+        margin-left: 15px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        & i {
+            margin-right: 5px;
+            width: 25px;
+            font-size: 25px;
+        }
+    }
+
+    &__content {
+        transition: all 0.6s ease;
+        height: 100%;
+        &_hide {
+            display: none;
+            visibility: none;
+            // ? Подумать на реализацией
+            // display: none;
+            // display: none;
+            // overflow: hidden;
+        }
+    }
+
+    &__body {
+        display: flex;
+        align-items: flex-start;
+        margin-top: 15px;
+    }
+
+    &__avatar {
+        margin-right: 10px;
+        border-radius: 50%;
+        min-width: 60px;
+        min-height: 60px;
+        overflow: hidden;
+        & img {
+            max-width: 100%;
+            display: block;
+        }
+    }
+
+    &__text {
+        &-header {
+            text-transform: uppercase;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        &-body {
+            max-width: 700px;
+            font-size: 14px;
+            line-height: 2;
+            font-weight: 400;
+            color: #a5a5a5;
+        }
+    }
+}
 
 // Настройка стилей таблиц
 .content-table {
@@ -356,7 +490,7 @@
 }
 
 .content-table thead tr {
-    background-color: #009879;
+    background-color: #3f7abe;
     color: #ffffff;
     text-align: left;
     font-weight: bold;
@@ -376,12 +510,12 @@
 }
 
 .content-table tbody tr:last-of-type {
-    border-bottom: 2px solid #009879;
+    border-bottom: 2px solid #3f7abe;
 }
 
 .content-table tbody tr:hover {
     font-weight: bold;
-    color: #009879;
+    color: #3f7abe;
 }
 
 .row {
