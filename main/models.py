@@ -64,9 +64,9 @@ class Remark(models.Model):
 
 
 class Comments(models.Model):
-    author_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    recipient_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    author_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_id')
+    recipient_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipient_id')
     document_id = models.ForeignKey(Document, on_delete=models.CASCADE)
-    reply_to = models.ForeignKey('self', on_delete=models.CASCADE)
+    reply_to = models.ForeignKey('self', on_delete=models.CASCADE, related_name='parent')
     created_at = models.DateTimeField(auto_now=True)
     body = models.CharField(max_length=1024)
