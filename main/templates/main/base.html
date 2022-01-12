@@ -3,202 +3,223 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        {% block title %}
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            {% block title %}
             Versionize
-        {% endblock %}
-    </title>
-    <!-- Boxicons CDN Link -->
-    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-    <!--  -->
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
-    <link rel="stylesheet" href="{% static 'css/fontawesome_5.15.4/css/all.min.css' %}">
-
-    {% block css %}
-
-    {% endblock %}
-</head>
-
-<body>
-<div class="wrapper">
-    <!-- ! Этот элемент можно использовать в base.html -->
-    <header class="header">
-        <nav class="header__nav">
-            <div class="header__left-section">
-                <!-- Лого -->
-                <i class='bx bxl-tux'></i>
-                <p>Задачи</p>
-                <p>Документы</p>
-                <p>Справочники</p>
-                <p>Помощь</p>
-            </div>
-            <div class="header__right-section">
-                <i class='bx bx-search'></i>
-                {% if user.is_staff or user.is_superuser %}
-                <a class="header__user-profile-link" href="{% url 'admins:index' %}"><i class='bx bx-wrench'></i></a>
-                {% endif %}
-                <div class="header__user-profile">
-                    <a class="header__user-profile-link" href="{% url 'main:index' %}"><i class='bx bx-user-circle'></i>
-                    <span>{{ user.username|default:'Пользователь' }}</span></a>
-                </div>
-                <i class='bx bx-windows'></i>
-                <a class="header__user-profile-link" href="{% url 'user:logout' %}"><i class='bx bx-exit'></i></a>
-            </div>
-        </nav>
-    </header>
-    <!-- ! Конец -->
-    <main class="workspace">
-        <!-- ! Этот элемент можно использовать в base.html -->
-        <!-- Сайд меню -->
-        <nav class="sidebar-nav">
-            <ul class="sidebar-nav__list">
-                <li>
-                    <a href="#" id="btn" class="arrow">
-                        <i class='bx bx-folder'></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" id="btn">
-                        <i class='bx bx-calendar'></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" id="btn">
-                        <i class='bx bx-star'></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" id="btn">
-                        <i class='bx bx-time-five'></i>
-                    </a>
-
-                </li>
-                <li>
-                    <a href="#" id="btn">
-                        <i class='bx bx-grid-alt'></i>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <div class="sub-menu">
-            <div>
-                <div class="sub-menu-top">
-                    <div class="sub-menu-top__list-title">
-                        <span>Папки действий</span>
-                        <i class='bx bx-chevron-left'></i>
-                    </div>
-                    <ul class="sub-menu-top__list">
-                        <li>
-                            <div class="sub-menu-top__list-child" id="tasks">
-                                <i class='bx bx-chevron-right'></i>
-                                <span>Задачи</span>
-                            </div>
-                            <ul class="sub-menu-top__sub-list" id="task">
-                                <li>Черновики</li>
-                                <li>Возврат от исполнителя</li>
-                                <li>Назначенные</li>
-                                <li>В работе</li>
-                                <li>Для контроля</li>
-                                <li>Наблюдаемые</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="sub-menu-top__list-child" id="docs">
-                                <i class='bx bx-chevron-right'></i>
-                                <span>Документы</span>
-                            </div>
-                            <ul class="sub-menu-top__sub-list" id="doc">
-                                <li>Черновики</li>
-                                <li>Доработка</li>
-                                <li>Ознакомление</li>
-                                <li>Подготовка</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="sub-menu-top__list-child" id="chancellery">
-                                <i class='bx bx-chevron-right'></i>
-                                <span>Канцелярия</span>
-                            </div>
-                            <ul class="sub-menu-top__sub-list" id="chancery">
-                                <li>Обработка писем</li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <div class="sub-menu-top__list-title">
-                        <span>Папки поиска</span>
-                    </div>
-                    <ul class="sub-menu-top__list">
-                        <li>
-                            <div class="sub-menu-top__list-child" id="my_tasks">
-                                <i class='bx bx-chevron-right'></i>
-                                <span>Все мои задачи</span>
-                            </div>
-                            <ul class="sub-menu-top__sub-list" id="my_task">
-                                <li>Поставленные мной</li>
-                                <li>Полученные</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="sub-menu-top__list-child" id="my_docs">
-                                <i class='bx bx-chevron-right'></i>
-                                <span>Все мои документы</span>
-                            </div>
-                            <ul class="sub-menu-top__sub-list" id="my_doc">
-                                <li>Согласованные мной</li>
-                                <li>Утвержденные мной</li>
-                                <li>После ознакомления</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="sub-menu-top__list-child" id="my_contracts">
-                                <i class='bx bx-chevron-right'></i>
-                                <span>Все мои договора</span>
-                            </div>
-                            <ul class="sub-menu-top__sub-list" id="my_contract">
-                                <li>Согласованные мной</li>
-                                <li>Утвержденные мной</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="sub-menu__other">
-                <i class='bx bx-calendar'></i>
-                <i class='bx bx-star'></i>
-                <i class='bx bx-time-five'></i>
-                <i class='bx bx-grid-alt'></i>
-            </div>
-        </div>
-        <!-- ! Конец -->
-        <!-- Рабочее пространство -->
-        <div class="desktop">
-            <div class="desktop__title">
-                {% block workspace-title %}
-            
-                {% endblock %}
-            </div>
-            <div class="desktop__workspace">
-                {% block workspace %}
-
-                {% endblock %}
-            </div>
-                {% block workspace-events %}
-                
-                {% endblock %}
-        </div>
-        <div class="notice">
-            {% block notice %}
-
             {% endblock %}
-        </div>
-    </main>
-</div>
+        </title>
+        <!-- Boxicons CDN Link -->
+        <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css'
+            rel='stylesheet'>
+        <!--  -->
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
+        <link rel="stylesheet" href="{% static
+            'css/fontawesome_5.15.4/css/all.min.css' %}">
 
-<script src="{% static 'js/side_menu.js' %}"></script>
-</body>
+        {% block css %}
+
+        {% endblock %}
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <!-- ! Этот элемент можно использовать в base.html -->
+            <header class="header">
+                <nav class="header__nav">
+                    <div class="header__left-section">
+                        <a href="{% url 'main:index' %}"
+                            class="header__user-profile-link"><i class='bx
+                                bxl-tux'></i></a>
+                        <a href="{% url 'main:document' %}"
+                            class="header__user-profile-link">Документ</a>
+                        <a href="{% url 'main:total' %}"
+                            class="header__user-profile-link">Документы</a>
+                        <a href="{% url 'main:section' %}"
+                            class="header__user-profile-link">Раздел</a>
+                        <a href="{% url 'main:company' %}"
+                            class="header__user-profile-link">Компания</a>
+                    </div>
+                    <div class="header__right-section">
+                        <i class='bx bx-search'></i>
+                        {% if user.is_staff or user.is_superuser %}
+                        <a class="header__user-profile-link" href="{% url
+                            'admins:index' %}"><i class='bx bx-wrench'></i></a>
+                        {% endif %}
+                        <div class="header__user-profile">
+                            <a class="header__user-profile-link" href="{% url
+                                'main:index' %}"><i class='bx bx-user-circle'></i>
+                                <span>{{ user.username|default:'Пользователь' }}</span></a>
+                        </div>
+                        <i class='bx bx-windows'></i>
+                        <a class="header__user-profile-link" href="{% url
+                            'user:logout' %}"><i class='bx bx-exit'></i></a>
+                    </div>
+                </nav>
+            </header>
+            <!-- ! Конец -->
+            <main class="workspace">
+                <!-- ! Этот элемент можно использовать в base.html -->
+                <!-- Сайд меню -->
+                <nav class="sidebar-nav">
+                    <ul class="sidebar-nav__list">
+                        <li>
+                            <a href="#" id="btn" class="arrow">
+                                <i class='bx bx-folder'></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" id="btn">
+                                <i class='bx bx-calendar'></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" id="btn">
+                                <i class='bx bx-star'></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" id="btn">
+                                <i class='bx bx-time-five'></i>
+                            </a>
+
+                        </li>
+                        <li>
+                            <a href="#" id="btn">
+                                <i class='bx bx-grid-alt'></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="sub-menu">
+                    <div>
+                        <div class="sub-menu-top">
+                            <div class="sub-menu-top__list-title">
+                                <span>Папки действий</span>
+                                <i class='bx bx-chevron-left'></i>
+                            </div>
+                            <ul class="sub-menu-top__list">
+                                <li>
+                                    <div class="sub-menu-top__list-child"
+                                        id="tasks">
+                                        <i class='bx bx-chevron-right'></i>
+                                        <span>Задачи</span>
+                                    </div>
+                                    <ul class="sub-menu-top__sub-list"
+                                        id="task">
+                                        <li>Черновики</li>
+                                        <li>Возврат от исполнителя</li>
+                                        <li>Назначенные</li>
+                                        <li>В работе</li>
+                                        <li>Для контроля</li>
+                                        <li>Наблюдаемые</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <div class="sub-menu-top__list-child"
+                                        id="docs">
+                                        <i class='bx bx-chevron-right'></i>
+                                        <span>Документы</span>
+                                    </div>
+                                    <ul class="sub-menu-top__sub-list" id="doc">
+                                        <li>Черновики</li>
+                                        <li>Доработка</li>
+                                        <li>Ознакомление</li>
+                                        <li>Подготовка</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <div class="sub-menu-top__list-child"
+                                        id="chancellery">
+                                        <i class='bx bx-chevron-right'></i>
+                                        <span>Канцелярия</span>
+                                    </div>
+                                    <ul class="sub-menu-top__sub-list"
+                                        id="chancery">
+                                        <li>Обработка писем</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="sub-menu-top__list-title">
+                                <span>Папки поиска</span>
+                            </div>
+                            <ul class="sub-menu-top__list">
+                                <li>
+                                    <div class="sub-menu-top__list-child"
+                                        id="my_tasks">
+                                        <i class='bx bx-chevron-right'></i>
+                                        <span>Все мои задачи</span>
+                                    </div>
+                                    <ul class="sub-menu-top__sub-list"
+                                        id="my_task">
+                                        <li>Поставленные мной</li>
+                                        <li>Полученные</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <div class="sub-menu-top__list-child"
+                                        id="my_docs">
+                                        <i class='bx bx-chevron-right'></i>
+                                        <span>Все мои документы</span>
+                                    </div>
+                                    <ul class="sub-menu-top__sub-list"
+                                        id="my_doc">
+                                        <li>Согласованные мной</li>
+                                        <li>Утвержденные мной</li>
+                                        <li>После ознакомления</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <div class="sub-menu-top__list-child"
+                                        id="my_contracts">
+                                        <i class='bx bx-chevron-right'></i>
+                                        <span>Все мои договора</span>
+                                    </div>
+                                    <ul class="sub-menu-top__sub-list"
+                                        id="my_contract">
+                                        <li>Согласованные мной</li>
+                                        <li>Утвержденные мной</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="sub-menu__other">
+                        <i class='bx bx-calendar'></i>
+                        <i class='bx bx-star'></i>
+                        <i class='bx bx-time-five'></i>
+                        <i class='bx bx-grid-alt'></i>
+                    </div>
+                </div>
+                <!-- ! Конец -->
+                <!-- Рабочее пространство -->
+                <div class="desktop">
+                    <div class="desktop__title">
+                        {% block workspace-title %}
+
+                        {% endblock %}
+                    </div>
+                    <div class="desktop__workspace">
+                        {% block workspace %}
+
+                        {% endblock %}
+                    </div>
+                    {% block workspace-events %}
+
+                    {% endblock %}
+                </div>
+                <div class="notice">
+                    {% block notice %}
+
+                    {% endblock %}
+                </div>
+            </main>
+        </div>
+
+        <script src="{% static 'js/side_menu.js' %}"></script>
+    </body>
 </html>
