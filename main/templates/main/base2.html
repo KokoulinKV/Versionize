@@ -1,0 +1,105 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Boxicons CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <!--  -->
+    <link rel="stylesheet" href="{% static 'css/base2.css' %}">
+</head>
+
+<body>
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar__logo-content">
+            <div class="sidebar__logo">
+                <i class='bx bxl-vimeo'></i>
+                <div class="sidebar__logo-name">Versionize</div>
+            </div>
+            <i class='bx bx-menu' id="menu-btn"></i>
+        </div>
+        <ul class="sidebar__list">
+            <li>
+                <i class='bx bx-search' id="searchBtn"></i>
+                <input type="text" placeholder="Поиск...">
+                <span class="sidebar__tooltip">Поиск документов</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="sidebar__link-name">Компания</span>
+                </a>
+                <span class="sidebar__tooltip">Компания</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-user'></i>
+                    <span class="sidebar__link-name">Пользователь</span>
+                </a>
+                <span class="sidebar__tooltip">Пользователь</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-chat'></i>
+                    <span class="sidebar__link-name">Раздел</span>
+                </a>
+                <span class="sidebar__tooltip">Раздел</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-pie-chart-alt-2'></i>
+                    <span class="sidebar__link-name">Сводная</span>
+                </a>
+                <span class="sidebar__tooltip">Сводная</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-folder'></i>
+                    <span class="sidebar__link-name">Документы</span>
+                </a>
+                <span class="sidebar__tooltip">Докумены</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-cog'></i>
+                    <span class="sidebar__link-name">Настройки</span>
+                </a>
+                <span class="sidebar__tooltip">Настройки</span>
+            </li>
+        </ul>
+        <div class="sidebar__profile-content">
+            <div class="sidebar__profile">
+                <div class="sidebar__profile-details">
+                    <img src="img/comments_img.webp" alt="">
+                    <div class="sidebar__profile-data">
+                        <div class="sidebar__profile-name">Pankov Ilya</div>
+                        <div class="sidebar__profile-job">Python Dev</div>
+                    </div>
+                </div>
+                <a href="{% url 'main:index' %}"><i class='bx bx-log-out' id="log-out"></i></a>
+            </div>
+        </div>
+    </nav>
+    <main class="workspace">
+        <div class="workspace__text">WORKSPACE</div>
+    </main>
+</body>
+<script>
+    let openBtn = document.getElementById('menu-btn')
+    let sidebar = document.getElementById('sidebar')
+    let searchBtn = document.getElementById('searchBtn')
+
+    openBtn.onclick = function () {
+        sidebar.classList.toggle('sidebar_active')
+    }
+    searchBtn.onclick = function () {
+        sidebar.classList.toggle('sidebar_active')
+    }
+</script>
+
+</html>
