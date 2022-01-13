@@ -272,6 +272,11 @@ body {
   width: 550px;
 }
 
+.project {
+  padding: 25px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
 .project__bar {
   display: -webkit-box;
   display: -ms-flexbox;
