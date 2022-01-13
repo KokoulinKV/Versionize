@@ -14,12 +14,9 @@
     </title>
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-    <!--  -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
-    <link rel="stylesheet" href="{% static
-            'css/fontawesome_5.15.4/css/all.min.css' %}">
-
+    <link rel="stylesheet" href="{% static 'css/fontawesome_5.15.4/css/all.min.css' %}">
     {% block css %}
 
     {% endblock %}
@@ -31,8 +28,7 @@
         <header class="header">
             <nav class="header__nav">
                 <div class="header__left-section">
-                    <a href="{% url 'main:index' %}" class="header__user-profile-link"><i class='bx
-                                bxl-tux'></i></a>
+                    <a href="{% url 'main:index' %}" class="header__user-profile-link"><i class='bx bxl-tux'></i></a>
                     <a href="{% url 'main:document' %}" class="header__user-profile-link">Документ</a>
                     <a href="{% url 'main:total' %}" class="header__user-profile-link">Документы</a>
                     <a href="{% url 'main:section' %}" class="header__user-profile-link">Раздел</a>
@@ -42,17 +38,16 @@
                 <div class="header__right-section">
                     <i class='bx bx-search'></i>
                     {% if user.is_staff or user.is_superuser %}
-                    <a class="header__user-profile-link" href="{% url
-                            'admins:index' %}"><i class='bx bx-wrench'></i></a>
+                    <a class="header__user-profile-link" href="{% url 'admins:index' %}"><i
+                            class='bx bx-wrench'></i></a>
                     {% endif %}
                     <div class="header__user-profile">
-                        <a class="header__user-profile-link" href="{% url
-                                'main:index' %}"><i class='bx bx-user-circle'></i>
+                        <a class="header__user-profile-link" href="{% url 'main:index' %}"><i
+                                class='bx bx-user-circle'></i>
                             <span>{{ user.username|default:'Пользователь' }}</span></a>
                     </div>
                     <i class='bx bx-windows'></i>
-                    <a class="header__user-profile-link" href="{% url
-                            'user:logout' %}"><i class='bx bx-exit'></i></a>
+                    <a class="header__user-profile-link" href="{% url 'user:logout' %}"><i class='bx bx-exit'></i></a>
                 </div>
             </nav>
         </header>
