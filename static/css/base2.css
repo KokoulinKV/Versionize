@@ -234,12 +234,16 @@ body {
 }
 
 .sidebar__profile-job {
-  font-size: 12px;
+  font-size: 11px;
 }
 
 .sidebar__profile-name {
   font-size: 15px;
   font-weight: 400;
+}
+
+.sidebar__profile-company {
+  font-size: 12px;
 }
 
 .workspace {
@@ -251,11 +255,79 @@ body {
   transition: all 0.5s ease;
 }
 
-.workspace__text {
-  font-size: 25px;
-  font-weight: 500;
-  color: #1d1b31;
-  margin: 12px;
+.workspace__container {
+  position: fixed;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  height: 100%;
+  width: 100%;
+}
+
+.workspace__left {
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 25px;
+  width: 550px;
+}
+
+.project__bar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.project__name {
+  text-align: center;
+}
+
+.user {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.user-settings {
+  margin-bottom: 15px;
+}
+
+.user-projects {
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.user-projects h1 {
+  margin: 15px 0;
+}
+
+.user-projects__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.user-projects__sign {
+  white-space: nowrap;
+  margin-right: 10px;
 }
 
 .sidebar_active ~ .workspace {
