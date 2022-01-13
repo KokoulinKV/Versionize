@@ -285,6 +285,11 @@ body {
 
 .project__name {
   text-align: center;
+  margin-right: 10px;
+}
+
+.project__data {
+  margin-right: 10px;
 }
 
 .user {
