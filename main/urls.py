@@ -1,7 +1,7 @@
 from django.urls import path
 
 # !Дать нормальные названия, передалть в cbv
-from main.views import index, document, company, section, total
+from main.views import index, document, company, section, total, index2
 
 app_name = 'main'
 
@@ -15,4 +15,5 @@ urlpatterns = [
     path('document/', document, name='document'),
     path('section/', section, name='section'),
     path('total/', total, name='total'),
+    path('new_lk/', index2, name='index2'),
 ]
