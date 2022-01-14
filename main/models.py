@@ -3,6 +3,7 @@ from user.models import User, Company
 
 
 class Project(models.Model):
+    code = models.CharField(max_length=64)
     name = models.CharField(max_length=512)
     created_at = models.DateTimeField(auto_now=True)
     exp_date = models.DateField()
@@ -11,6 +12,7 @@ class Project(models.Model):
 
 
 class Section(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
     name = models.CharField(max_length=64)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     responsible = models.ForeignKey(User, db_index=True, on_delete=models.CASCADE)
