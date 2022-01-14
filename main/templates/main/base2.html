@@ -75,9 +75,10 @@
         <div class="sidebar__profile-content">
             <div class="sidebar__profile">
                 <div class="sidebar__profile-details">
-                    <img src="img/comments_img.webp" alt="">
+                    <img src="{% static 'img/comments_img.webp' %}" alt="">
                     <div class="sidebar__profile-data">
                         <div class="sidebar__profile-name">Pankov Ilya</div>
+                        <div class="sidebar__profile-company">Versionize team</div>
                         <div class="sidebar__profile-job">Python Dev</div>
                     </div>
                 </div>
@@ -86,7 +87,52 @@
         </div>
     </nav>
     <main class="workspace">
-        <div class="workspace__text">WORKSPACE</div>
+        <!-- {% block workspace %}{% endblock %} -->
+        <div class="project">
+            <div class="project__bar">
+                <div class="project__name"><h3>Активный проект</h3><span>2021 / 18-06 / 2021(объект)/ 18-06/2021-ИГИ</span> </div>
+                <div class="project__data">Загрузить до: 10/01/2022</div>
+                <div class="project__data">Дата загрузки в экспертизу: 13/01/2022</div>
+            </div>
+        </div>
+        <div class="workspace__container">
+            <div class="workspace__left">
+                <div class="user">
+                    <div class="user__info">
+                        <h4>Иванов Иван Иванович</h4>
+                        <p>СтройСнапПродакшн</p>
+                        <p>Должность: Директор</p>
+                        <p>Роль: ГИП</p>
+                    </div>
+                    <div class="user__avatar">
+                        <div class="user__photo">
+                            <img class="" width="150px"
+                                src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                            <!-- <span>Pankov Ilya</span>
+                            <span>Python Dev</span> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="user-settings">
+                    <p>E-mail: test@yandex.ru</p>
+                    <p>Тел: 8(800)540-56-23</p>
+                    <p>Факс: 8(800)540-56-23</p>
+                </div>
+                <div class="user-projects">
+                    <h1>Проекты</h1>
+                    <div class="user-projects__content">
+                        <h3 class="user-projects__sign">18-03/2021</h3>
+                        <h3>"Реконструкция производстенного здания на территории фабрики"</h3>
+                    </div>
+                    <div class="user-projects__content">
+                        <h3 class="user-projects__sign">55-12/2021</h3>
+                        <h3>"Строительство 18-ти этажного здания на участке с кадастровым номером 23:2342:10000023:14"
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="workspace__right"></div>
+        </div>
     </main>
 </body>
 <script>
