@@ -27,7 +27,7 @@ class Document(models.Model):
     )
     name = models.CharField(max_length=128)
     doc_path = models.FileField(upload_to='main_docs')
-    section_id = models.ForeignKey(Section, on_delete=models.CASCADE)
+    section = models.ForeignKey(Section, on_delete=models.CASCADE)
     # TODO Предусмотреть автоматическое заполнение ячейки version.
     #  Если ранее был загружен документ в раздел с идентичным section_id,
     #  то берём номер версии предыдущего + 1, если нет - 1.
@@ -48,8 +48,8 @@ class Adjustment(models.Model):
         (4, 'Устранение ошибок'),
         (5, 'Другие причины'),
     )
-    section_id = models.ForeignKey(Section, on_delete=models.CASCADE)
-    document_id = models.ForeignKey(Document, on_delete=models.CASCADE)
+    section = models.ForeignKey(Section, on_delete=models.CASCADE)
+    document = models.ForeignKey(Document, on_delete=models.CASCADE)
     pages = models.CharField(max_length=512)
     code = models.CharField(max_length=1, choices=CODE_CHOICES)
     note = models.CharField(max_length=128, blank=True)
@@ -57,16 +57,16 @@ class Adjustment(models.Model):
 
 
 class Remark(models.Model):
-    section_id = models.ForeignKey(Section, on_delete=models.CASCADE)
-    expert_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    section = models.ForeignKey(Section, on_delete=models.CASCADE)
+    expert = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(auto_now=True)
     body = models.CharField(max_length=1024)
 
 
 class Comments(models.Model):
-    author_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_id')
-    recipient_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipient_id')
-    document_id = models.ForeignKey(Document, on_delete=models.CASCADE)
-    reply_to = models.ForeignKey('self', on_delete=models.CASCADE, related_name='parent')
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    recipient = models.ForeignKey(User, on_delete=models.CASCADE)
+    document = models.ForeignKey(Document, on_delete=models.CASCADE)
+    reply_to = models.ForeignKey('self', on_delete=models.CASCADE,)
     created_at = models.DateTimeField(auto_now=True)
     body = models.CharField(max_length=1024)
