@@ -37,9 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # our app
     'user',
     'main',
     'admins',
+    'service'
 ]
 
 MIDDLEWARE = [
@@ -144,3 +147,11 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'user.User'
+
+# Настройки для телеграм бота
+# Новый токен получать у BotFather в телеге
+# !Предлагаю перейти на dot-env и сохранять все ключи/токены там
+
+TOKEN = '5070774928:AAHBm0OoBYlUrlGkR4VecMagdbh5tKTZCwc'
+# Можно использовать это(из документации), либо через свой прохи сервер
+PROXY_URL = 'https://api.telegram.org/bot'
