@@ -10,6 +10,9 @@ class User(AbstractUser):
 
 class Company(models.Model):
     name = models.CharField(verbose_name='company', max_length=64)
+    phone = models.CharField(verbose_name='phone', max_length=20, null=True)
+    email = models.EmailField
+    manager = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class UserCompanyInfo(models.Model):
