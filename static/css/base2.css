@@ -1,8 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: sans-serif;
+  font-family: "Rubik", sans-serif;
 }
 
 a {
@@ -277,13 +278,95 @@ body {
   background: none;
 }
 
+.sidebar_active ~ .workspace {
+  width: calc(100% - 240px);
+  left: 240px;
+}
+
 .user-workspace {
   display: flex;
   flex-wrap: nowrap;
   height: 100%;
 }
 
+.user-block {
+  max-width: 45%;
+}
+
 .user-profile__info {
   display: flex;
   flex-wrap: nowrap;
+}
+
+.user-profile__text {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-profile__link {
+  display: inline-flex;
+  align-items: center;
+  color: #111;
+}
+
+.user-profile__link i {
+  width: 28px;
+  font-size: 28px;
+  color: #1d1b31;
+}
+
+.user-profile__actions {
+  position: relative;
+}
+
+#more-actions {
+  position: absolute;
+  right: 0;
+}
+
+.sub-menu-project {
+  list-style-type: none;
+}
+
+.user-contact__sub-menu {
+  padding: 6px 6px 15px 25px;
+  list-style-type: none;
+  margin-top: -10px;
+}
+
+.user-contact__sub-menu li {
+  padding-top: 20px;
+}
+
+.user-contact__title {
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.user-contact__title-row {
+  display: inline-flex;
+  align-items: center;
+}
+
+.user-contact__title-row_open .user-contact__title-row__sub-menu {
+  padding: 6px 6px 14px 20px;
+  list-style-type: none;
+  margin-top: -10px;
+  display: none;
+}
+
+.user-contact__title-row i {
+  width: 20px;
+  font-size: 20px;
+  margin-left: 15px;
+}
+
+.user-projects {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.user-projects__section-code {
+  flex-grow: 1;
+  margin-right: 15px;
 }

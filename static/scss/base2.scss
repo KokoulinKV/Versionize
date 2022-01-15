@@ -1,9 +1,10 @@
 // Стиль для lk2.html
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap");
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: sans-serif;
+    font-family: "Rubik", sans-serif;
 }
 a {
     text-decoration: none;
@@ -258,6 +259,10 @@ body {
     background: none;
 }
 
+.sidebar_active ~ .workspace {
+    width: calc(100% - 240px);
+    left: 240px;
+}
 // Стиль для lk2.html
 .user-workspace {
     display: flex;
@@ -267,32 +272,121 @@ body {
 .user-data {
 }
 .user-block {
+    max-width: 45%;
 }
 .user-profile {
     &__info {
         display: flex;
         flex-wrap: nowrap;
     }
+    &__name {
+    }
+
+    &__job {
+    }
+
+    &__post {
+    }
 
     &__avatar {
     }
 
     &__text {
+        display: flex;
+        flex-direction: column;
+    }
+    &__link {
+        display: inline-flex;
+        align-items: center;
+        color: #111;
+
+        & i {
+            width: 28px;
+            font-size: 28px;
+            color: #1d1b31;
+        }
     }
 
     &__actions {
+        position: relative;
     }
 }
+#more-actions {
+    position: absolute;
+    right: 0;
+}
+
+.sub-menu-project {
+    list-style-type: none;
+
+    &__content {
+    }
+
+    &__title {
+    }
+
+    &__data-block {
+    }
+
+    &__data {
+    }
+}
+
 .user-contact {
     &__item {
     }
 
     &__sub-menu {
+        padding: 6px 6px 15px 25px;
+        list-style-type: none;
+        margin-top: -10px;
+        // display: none;
+        & li {
+            padding-top: 20px;
+        }
+    }
+    // &_open &__sub-menu {
+    //     padding: 6px 6px 14px 50px;
+    //     list-style-type: none;
+    //     margin-top: -10px;
+    //     display: none;
+    // }
+    &__title {
+        font-weight: 500;
+        font-size: 20px;
+    }
+    &__title-row {
+        display: inline-flex;
+        align-items: center;
+        // position: relative;
+        // width: 100%;
+        &_open &__sub-menu {
+            padding: 6px 6px 14px 20px;
+            list-style-type: none;
+            margin-top: -10px;
+            display: none;
+        }
+        & i {
+            width: 20px;
+            font-size: 20px;
+            margin-left: 15px;
+            // position: absolute;
+            // right: 0;
+        }
     }
 }
-.bx {
+.user-projects {
+    display: flex;
+    flex-wrap: nowrap;
+
+    &__section-code {
+        flex-grow: 1;
+        margin-right: 15px;
+    }
+
+    &__project-name {
+    }
 }
-.bx-chevron-right {
-}
+
 .user-events {
 }
