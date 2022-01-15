@@ -425,8 +425,19 @@ body {
   margin-top: -10px;
 }
 
+.user-contact__sub-menu i {
+  width: 25px;
+  font-size: 25px;
+  margin-right: 5px;
+}
+
 .user-contact__sub-menu li {
   padding-top: 20px;
+}
+
+.user-contact__sub-menu-item {
+  display: inline-flex;
+  align-items: center;
 }
 
 .user-contact__title {
