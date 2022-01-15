@@ -287,15 +287,17 @@ body {
   display: flex;
   flex-wrap: nowrap;
   height: 100%;
+  width: 100%;
 }
 
 .user-block {
-  max-width: 45%;
+  min-width: 500px;
   border-right: 1px solid rgba(0, 0, 0, 0.2);
   padding-top: 25px;
   padding-left: 30px;
   padding-right: 15px;
-  overflow: auto;
+  overflow-y: auto;
+  flex-grow: 1;
 }
 
 .user-profile {
@@ -477,4 +479,27 @@ body {
   padding-top: 25px;
   padding-left: 30px;
   padding-right: 15px;
+}
+
+.user-events__content {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.user-events__content i {
+  width: 50px;
+  font-size: 30px;
+}
+
+.user-events_icon-load-grn {
+  color: green;
+}
+
+.user-events_icon-load-red {
+  color: red;
+}
+
+.user-events_icon-load-msg {
+  color: blue;
 }

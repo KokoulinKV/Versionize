@@ -270,14 +270,17 @@ body {
     display: flex;
     flex-wrap: nowrap;
     height: 100%;
+    width: 100%;
 }
 .user-block {
-    max-width: 45%;
+    min-width: 500px;
     border-right: 1px solid rgba(0, 0, 0, 0.2);
     padding-top: 25px;
     padding-left: 30px;
     padding-right: 15px;
-    overflow: auto;
+    // overflow: clip;
+    overflow-y: auto;
+    flex-grow: 1;
 }
 .user-profile {
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -455,8 +458,25 @@ body {
     padding-top: 25px;
     padding-left: 30px;
     padding-right: 15px;
-
+    &__row {
+    }
     &__content {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        & i {
+            width: 50px;
+            font-size: 30px;
+        }
+    }
+    &_icon-load-grn {
+        color: green;
+    }
+    &_icon-load-red {
+        color: red;
+    }
+    &_icon-load-msg {
+        color: blue;
     }
 
     &__icon {
@@ -466,6 +486,8 @@ body {
     }
 
     &__section-code {
+    }
+    &__theme {
     }
 
     &__msg {
