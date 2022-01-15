@@ -282,9 +282,13 @@ body {
     overflow: auto;
 }
 .user-profile {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    margin-bottom: 30px;
+
     &__info {
         display: flex;
         flex-wrap: nowrap;
+        align-items: flex-start;
         & i {
             width: 20px;
             font-size: 20px;
@@ -311,6 +315,7 @@ body {
     }
 
     &__avatar {
+        margin-right: 10px;
     }
 
     &__text {
@@ -330,7 +335,15 @@ body {
     }
 
     &__actions {
+        margin-top: 10px;
+        margin-bottom: 15px;
         position: relative;
+        & a i:first-child {
+            margin-right: 2px;
+        }
+        & a:first-child {
+            margin-right: 10px;
+        }
     }
 }
 #more-actions {
@@ -339,7 +352,9 @@ body {
 }
 
 .sub-menu-project {
+    margin-top: 10px;
     list-style-type: none;
+    margin-bottom: 10px;
 
     &__content {
     }

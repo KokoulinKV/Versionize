@@ -298,9 +298,15 @@ body {
   overflow: auto;
 }
 
+.user-profile {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  margin-bottom: 30px;
+}
+
 .user-profile__info {
   display: flex;
   flex-wrap: nowrap;
+  align-items: flex-start;
 }
 
 .user-profile__info i {
@@ -328,6 +334,10 @@ body {
   align-items: center;
 }
 
+.user-profile__avatar {
+  margin-right: 10px;
+}
+
 .user-profile__text {
   display: flex;
   flex-direction: column;
@@ -346,7 +356,17 @@ body {
 }
 
 .user-profile__actions {
+  margin-top: 10px;
+  margin-bottom: 15px;
   position: relative;
+}
+
+.user-profile__actions a i:first-child {
+  margin-right: 2px;
+}
+
+.user-profile__actions a:first-child {
+  margin-right: 10px;
 }
 
 #more-actions {
@@ -355,7 +375,9 @@ body {
 }
 
 .sub-menu-project {
+  margin-top: 10px;
   list-style-type: none;
+  margin-bottom: 10px;
 }
 
 .user-contact__item {
