@@ -300,7 +300,6 @@ body {
 
 .user-profile {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  margin-bottom: 30px;
 }
 
 .user-profile__info {
@@ -378,6 +377,42 @@ body {
   margin-top: 10px;
   list-style-type: none;
   margin-bottom: 10px;
+  padding: 0 20px;
+}
+
+.sub-menu-project li {
+  margin-bottom: 10px;
+}
+
+.sub-menu-project__title {
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.sub-menu-project__data-block {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+}
+
+.sub-menu-project__data span {
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.user-contact {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.user-contact:last-child {
+  border: none;
 }
 
 .user-contact__item {

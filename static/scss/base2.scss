@@ -283,7 +283,7 @@ body {
 }
 .user-profile {
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    margin-bottom: 30px;
+    // margin-bottom: 30px;
 
     &__info {
         display: flex;
@@ -350,26 +350,45 @@ body {
     position: absolute;
     right: 0;
 }
-
 .sub-menu-project {
     margin-top: 10px;
     list-style-type: none;
     margin-bottom: 10px;
+    padding: 0 20px;
 
-    &__content {
+    & li {
+        margin-bottom: 10px;
     }
 
     &__title {
+        text-align: center;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+        font-weight: 400;
+        font-size: 16px;
     }
 
     &__data-block {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-evenly;
+        align-items: center;
+        text-align: center;
     }
 
-    &__data {
+    &__data span {
+        font-weight: 400;
+        font-size: 15px;
     }
 }
 
 .user-contact {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    &:last-child {
+        border: none;
+    }
     &__item {
         list-style-type: none;
     }
