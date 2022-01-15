@@ -271,8 +271,6 @@ body {
     flex-wrap: nowrap;
     height: 100%;
 }
-.user-data {
-}
 .user-block {
     max-width: 45%;
     border-right: 1px solid rgba(0, 0, 0, 0.2);
@@ -453,6 +451,29 @@ body {
     &__project-name {
     }
 }
-
 .user-events {
+    padding-top: 25px;
+    padding-left: 30px;
+    padding-right: 15px;
+
+    &__content {
+    }
+
+    &__icon {
+    }
+
+    &__body {
+    }
+
+    &__section-code {
+    }
+
+    &__msg {
+    }
+
+    &__btns {
+    }
+
+    &__date {
+    }
 }

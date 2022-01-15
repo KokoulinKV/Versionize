@@ -472,3 +472,9 @@ body {
 .user-projects__section-code {
   margin-right: 15px;
 }
+
+.user-events {
+  padding-top: 25px;
+  padding-left: 30px;
+  padding-right: 15px;
+}
