@@ -481,15 +481,32 @@ body {
   padding-right: 15px;
 }
 
+.user-events__title {
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 500;
+  font-size: 25px;
+  margin-bottom: 30px;
+}
+
 .user-events__content {
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
+  margin-bottom: 30px;
+}
+
+.user-events__content:last-child {
+  margin: 0;
 }
 
 .user-events__content i {
   width: 50px;
   font-size: 30px;
+}
+
+.user-events__content a {
+  color: #0000ee;
 }
 
 .user-events_icon-load-grn {
@@ -502,4 +519,30 @@ body {
 
 .user-events_icon-load-msg {
   color: blue;
+}
+
+.user-events__section-code {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.user-events__theme {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 3px 0;
+}
+
+.user-events__msg {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.user-events__btns {
+  margin: 5px 0;
+  color: #111;
+}
+
+.user-events__date {
+  margin-top: 5px;
+  font-size: 11px;
 }

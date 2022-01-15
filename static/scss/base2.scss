@@ -458,15 +458,31 @@ body {
     padding-top: 25px;
     padding-left: 30px;
     padding-right: 15px;
+    &__title {
+        text-transform: uppercase;
+        text-align: center;
+        font-weight: 500;
+        font-size: 25px;
+        margin-bottom: 30px;
+    }
     &__row {
     }
+
     &__content {
         display: flex;
         flex-wrap: nowrap;
         align-items: center;
+        margin-bottom: 30px;
+        &:last-child {
+            margin: 0;
+        }
         & i {
             width: 50px;
             font-size: 30px;
+        }
+        & a {
+            // margin: 5px 0;
+            color: #0000ee;
         }
     }
     &_icon-load-grn {
@@ -486,16 +502,28 @@ body {
     }
 
     &__section-code {
+        font-size: 15px;
+        font-weight: 400;
+        // margin-bottom: 0;
     }
     &__theme {
+        font-size: 18px;
+        font-weight: 500;
+        margin: 3px 0;
     }
 
     &__msg {
+        font-size: 15px;
+        font-weight: 400;
     }
 
     &__btns {
+        margin: 5px 0;
+        color: #111;
     }
 
     &__date {
+        margin-top: 5px;
+        font-size: 11px;
     }
 }
