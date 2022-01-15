@@ -1,3 +1,4 @@
+// Стиль для lk2.html
 * {
     margin: 0;
     padding: 0;
@@ -227,62 +228,6 @@ body {
     &__right {
     }
 }
-
-.project {
-    padding: 25px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    &__bar {
-        display: flex;
-        flex-wrap: nowrap;
-        align-items: center;
-    }
-    &__name {
-        text-align: center;
-        margin-right: 10px;
-    }
-    &__data {
-        margin-right: 10px;
-    }
-}
-.user {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: nowrap;
-    align-items: flex-start;
-    &__info {
-    }
-
-    &__avatar {
-    }
-
-    &__photo {
-    }
-}
-.user-settings {
-    margin-bottom: 15px;
-}
-.user-projects {
-    border-top: 1px solid rgba(0, 0, 0, 0.2);
-    & h1 {
-        margin: 15px 0;
-    }
-    &__content {
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: space-between;
-        margin-bottom: 10px;
-    }
-    &__sign {
-        // flex-grow: 1;
-        white-space: nowrap;
-        margin-right: 10px;
-    }
-}
-.sidebar_active ~ .workspace {
-    width: calc(100% - 240px);
-    left: 240px;
-}
-
 #menu-btn {
     color: #fff;
     position: absolute;
@@ -311,4 +256,43 @@ body {
 .sidebar_active #log-out {
     left: 88%;
     background: none;
+}
+
+// Стиль для lk2.html
+.user-workspace {
+    display: flex;
+    flex-wrap: nowrap;
+    height: 100%;
+}
+.user-data {
+}
+.user-block {
+}
+.user-profile {
+    &__info {
+        display: flex;
+        flex-wrap: nowrap;
+    }
+
+    &__avatar {
+    }
+
+    &__text {
+    }
+
+    &__actions {
+    }
+}
+.user-contact {
+    &__item {
+    }
+
+    &__sub-menu {
+    }
+}
+.bx {
+}
+.bx-chevron-right {
+}
+.user-events {
 }
