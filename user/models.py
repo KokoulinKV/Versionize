@@ -10,7 +10,12 @@ class User(AbstractUser):
 
 class Company(models.Model):
     name = models.CharField(verbose_name='company', max_length=64)
+    phone = models.CharField(verbose_name='phone', max_length=20, null=True)
+    email = models.EmailField(max_length=256, null=True)
     manager = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return self.name
 
 
 class UserCompanyInfo(models.Model):
@@ -20,4 +25,3 @@ class UserCompanyInfo(models.Model):
     expert = models.BooleanField(verbose_name='expert', default=False)
     chief_project_engineer = models.BooleanField(verbose_name='chief_project_engineer', default=False)
     assistant = models.BooleanField(verbose_name='assistant', default=False)
-

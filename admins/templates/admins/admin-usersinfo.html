@@ -4,7 +4,7 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid">
-                <h1 class="mt-4">Пользователи</h1>
+                <h1 class="mt-4">Информация о пользователях</h1>
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
@@ -16,38 +16,47 @@
                                 <thead>
                                 <tr>
                                     <th>Имя пользователя</th>
-                                    <th>Адрес эл. почты</th>
-                                    <th>ФИО</th>
-                                    <th>Телефон</th>
-                                    <th>Персонал сайта</th>
-                                    <th>Активный</th>
-                                    <th>Был в сети</th>
+                                    <th>Организация</th>
+                                    <th>Отдел</th>
+                                    <th>Эксперт</th>
+                                    <th>ГИП</th>
+                                    <th>Помощник ГИПа</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 {% for user in object_list %}
                                     <tr>
-                                        <td><a href="{% url 'admins:admins_users_update' user.id %}"
-                                               style="color: dodgerblue">{{ user.username }}</a></td>
-                                        <td>{{ user.email }}</td>
-                                        <td>{{ user.first_name }} {{ user.last_name }}
-                                            {{ user.patronymic }}</td>
-                                        <td>{{ user.phone }}</td>
+                                        <td>
+                                            <a href="{% url 'admins:admins_usersinfo_edit' user.id %}"    style="color: dodgerblue">
+                                            {{ user.user }}
+                                        </a>
+                                        </td>
 
+                                        <td>{{ user.company }}</td>
+                                        <td>{{ user.department }}</td>
                                         <td class="text-center">
-                                            {% if user.is_staff %}
+                                            {% if user.expert %}
                                                 <i class="fas fa-check-circle"></i></td>
                                             {% else %}
                                                 <i class="fas fa-times-circle"></i>
                                             {% endif %}
                                         </td>
                                         <td class="text-center">
-                                            {% if user.is_active %}
+                                            {% if user.chief_project_engineer %}
                                                 <i class="fas fa-check-circle"></i></td>
                                             {% else %}
-                                                <i class="fas fa-times-circle"></i></td>
+                                                <i class="fas fa-times-circle"></i>
                                             {% endif %}
-                                        <td>{{ user.last_login }}</td>
+                                        </td>
+                                        <td class="text-center">
+                                            {% if user.assistant %}
+                                                <i class="fas fa-check-circle"></i></td>
+                                            {% else %}
+                                                <i class="fas fa-times-circle"></i>
+                                            {% endif %}
+                                        </td>
+
+
                                     </tr>
                                 {% endfor %}
                                 </tbody>
@@ -55,8 +64,8 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <a href="{% url 'admins:admins_users_create' %}">
-                            <button class="btn btn-success">Создать пользователя</button>
+                        <a href="{% url 'admins:admins_addinfo' %}">
+                            <button class="btn btn-success">Добавить информацию о пользователе</button>
                         </a>
                     </div>
                 </div>
@@ -64,7 +73,9 @@
         </main>
         <footer class="py-4 bg-light mt-auto">
             <div class="container-fluid">
-
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; GeekShop 2021</div>
+                </div>
             </div>
         </footer>
     </div>

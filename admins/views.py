@@ -1,29 +1,19 @@
 from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
 
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, UpdateView, ListView, DeleteView
+from django.views.generic import CreateView, UpdateView, ListView
 
-from admins.forms import UserRegistrationFrom, CompanyRegistrationFrom
-from user.models import User, Company
+from admins.forms import UserRegistrationForm, CompanyRegistrationFrom, CompanyEditForm, \
+    UserCompanyInfoForm, UserAddInfoForm
 
+from user.models import User, Company, UserCompanyInfo
 
-class UserCreateView(CreateView):
-    model = User
-    template_name = 'admins/admin-users-create.html'
-    form_class = UserRegistrationFrom
-    success_url = reverse_lazy('admins:index')
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(UserCreateView, self).get_context_data(**kwargs)
-        context['title'] = 'Create user'
-        return context
-
-    @method_decorator(user_passes_test(lambda u: u.is_superuser))
-    def dispatch(self, request, *args, **kwargs):
-        return super(UserCreateView, self).dispatch(request, *args, **kwargs)
+'''
+    Views for main user data: list, create, edit, delete and rehub
+    Main user data: username, firstname, lastname, patronymic, image, email, phone, password
+'''
 
 
 class UserListView(ListView):
@@ -40,30 +30,46 @@ class UserListView(ListView):
         return super(UserListView, self).dispatch(request, *args, **kwargs)
 
 
-class UserAdminView(UpdateView):
+class UserCreateView(CreateView):
     model = User
-    template_name = 'admins/admin-users-edit.html'
-    form_class = UserRegistrationFrom
+    template_name = 'admins/admin-users-create.html'
+    form_class = UserRegistrationForm
     success_url = reverse_lazy('admins:index')
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(UserAdminView, self).get_context_data(**kwargs)
+        context = super(UserCreateView, self).get_context_data(**kwargs)
+        context['title'] = 'Create user'
+        return context
+
+    @method_decorator(user_passes_test(lambda u: u.is_superuser))
+    def dispatch(self, request, *args, **kwargs):
+        return super(UserCreateView, self).dispatch(request, *args, **kwargs)
+
+
+class UserEditView(UpdateView):
+    model = User
+    template_name = 'admins/admin-users-edit.html'
+    form_class = UserRegistrationForm
+    success_url = reverse_lazy('admins:index')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(UserEditView, self).get_context_data(**kwargs)
         context['title'] = 'Edit user'
         return context
 
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, request, *args, **kwargs):
-        return super(UserAdminView, self).dispatch(request, *args, **kwargs)
+        return super(UserEditView, self).dispatch(request, *args, **kwargs)
 
 
-class UserAdminDelete(UpdateView):
+class UserDeleteView(UpdateView):
     model = User
     template_name = 'admins/admin-users-edit.html'
-    form_class = UserRegistrationFrom
+    form_class = UserCompanyInfoForm
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(UserAdminDelete, self).get_context_data(**kwargs)
-        context['title'] = 'Users'
+        context = super(UserDeleteView, self).get_context_data(**kwargs)
+        context['title'] = 'Delete user'
         return context
 
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
@@ -74,14 +80,14 @@ class UserAdminDelete(UpdateView):
         return HttpResponseRedirect(reverse_lazy('admins:index'))
 
 
-class UserAdminRehub(UpdateView):
+class UserRehubView(UpdateView):
     model = User
     template_name = 'admins/admin-users-edit.html'
-    form_class = UserRegistrationFrom
+    form_class = UserCompanyInfoForm
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(UserAdminRehub, self).get_context_data(**kwargs)
-        context['title'] = 'Edit user'
+        context = super(UserRehubView, self).get_context_data(**kwargs)
+        context['title'] = 'Rehub user'
         return context
 
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
@@ -90,6 +96,63 @@ class UserAdminRehub(UpdateView):
         self.object.is_active = True
         self.object.save()
         return HttpResponseRedirect(reverse_lazy('admins:index'))
+
+
+'''
+    Views for data about user's companies: list, create, edit, delete and rehub
+    Main user data: username, firstname, lastname, patronymic, image, email, phone, password
+'''
+
+
+class UserInfoListView(ListView):
+    model = UserCompanyInfo
+    template_name = 'admins/admin-usersinfo.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(UserInfoListView, self).get_context_data(**kwargs)
+        context['title'] = 'Users info'
+        return context
+
+    @method_decorator(user_passes_test(lambda u: u.is_superuser))
+    def dispatch(self, request, *args, **kwargs):
+        return super(UserInfoListView, self).dispatch(request, *args, **kwargs)
+
+
+class UserAddInfoView(CreateView):
+    model = UserCompanyInfo
+    template_name = 'admins/admin-users-addinfo.html'
+    form_class = UserAddInfoForm
+    success_url = reverse_lazy('admins:admins_usersinfo')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(UserAddInfoView, self).get_context_data(**kwargs)
+        context['title'] = 'Add information about user'
+        return context
+
+    @method_decorator(user_passes_test(lambda u: u.is_superuser))
+    def dispatch(self, request, *args, **kwargs):
+        return super(UserAddInfoView, self).dispatch(request, *args, **kwargs)
+
+
+class UserInfoEdit(UpdateView):
+    model = UserCompanyInfo
+    template_name = 'admins/admin-usersinfo-edit.html'
+    form_class = UserCompanyInfoForm
+    success_url = reverse_lazy('admins:admins_usersinfo')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(UserInfoEdit, self).get_context_data(**kwargs)
+        context['title'] = 'Edit user'
+        return context
+
+    @method_decorator(user_passes_test(lambda u: u.is_superuser))
+    def dispatch(self, request, *args, **kwargs):
+        return super(UserInfoEdit, self).dispatch(request, *args, **kwargs)
+
+
+'''
+    Views for companies: list, create, edit, delete message and delete 
+'''
 
 
 class CompanyListView(ListView):
@@ -106,22 +169,6 @@ class CompanyListView(ListView):
         return super(CompanyListView, self).dispatch(request, *args, **kwargs)
 
 
-class CompanyAdminView(UpdateView):
-    model = Company
-    template_name = 'admins/admin-companies-edit.html'
-    form_class = CompanyRegistrationFrom
-    success_url = reverse_lazy('admins:admins_companies')
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(CompanyAdminView, self).get_context_data(**kwargs)
-        context['title'] = 'Edit company'
-        return context
-
-    @method_decorator(user_passes_test(lambda u: u.is_superuser))
-    def dispatch(self, request, *args, **kwargs):
-        return super(CompanyAdminView, self).dispatch(request, *args, **kwargs)
-
-
 class CompanyCreateView(CreateView):
     model = Company
     template_name = 'admins/admin-companies-create.html'
@@ -136,6 +183,22 @@ class CompanyCreateView(CreateView):
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, request, *args, **kwargs):
         return super(CompanyCreateView, self).dispatch(request, *args, **kwargs)
+
+
+class CompanyEditView(UpdateView):
+    model = Company
+    template_name = 'admins/admin-companies-edit.html'
+    form_class = CompanyEditForm
+    success_url = reverse_lazy('admins:admins_companies')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CompanyEditView, self).get_context_data(**kwargs)
+        context['title'] = 'Edit company'
+        return context
+
+    @method_decorator(user_passes_test(lambda u: u.is_superuser))
+    def dispatch(self, request, *args, **kwargs):
+        return super(CompanyEditView, self).dispatch(request, *args, **kwargs)
 
 
 class CompanyAdminDeleteMessage(UpdateView):
