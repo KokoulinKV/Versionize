@@ -291,11 +291,41 @@ body {
 
 .user-block {
   max-width: 45%;
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  padding-top: 25px;
+  padding-left: 30px;
+  padding-right: 15px;
+  overflow: auto;
 }
 
 .user-profile__info {
   display: flex;
   flex-wrap: nowrap;
+}
+
+.user-profile__info i {
+  width: 20px;
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+.user-profile__name {
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.user-profile__job {
+  font-size: 20px;
+  font-weight: 300;
+  display: inline-flex;
+  align-items: center;
+}
+
+.user-profile__post {
+  font-size: 16px;
+  font-weight: 300;
+  display: inline-flex;
+  align-items: center;
 }
 
 .user-profile__text {
@@ -325,6 +355,10 @@ body {
 }
 
 .sub-menu-project {
+  list-style-type: none;
+}
+
+.user-contact__item {
   list-style-type: none;
 }
 
@@ -364,9 +398,9 @@ body {
 .user-projects {
   display: flex;
   flex-wrap: nowrap;
+  justify-content: flex-start;
 }
 
 .user-projects__section-code {
-  flex-grow: 1;
   margin-right: 15px;
 }
