@@ -10,10 +10,10 @@ Versionize
     <span>{{ active_project_name }}</span>
 </div>
 <div class="desktop__title-obj-date">
-    <p>Следующая загрузка: <span>{{ active_project_next_upload }}</span></p>
+    <p>Следующая загрузка: <span>{{ active_project_next_upload|date:'d.m.y' }}</span></p>
 </div>
 <div class="desktop__title-obj-date">
-    <p>Итоговая загрузка: <span>{{ active_project_exp_date }}</span></p>
+    <p>Итоговая загрузка: <span>{{ active_project_exp_date|date:'d.m.y' }}</span></p>
 </div>
 <div class="desktop__title-obj-info">
     <h1>{{ section.company.name }}</h1>
