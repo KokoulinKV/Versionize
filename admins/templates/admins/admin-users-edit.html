@@ -12,11 +12,8 @@
                         {% if form.errors %}
                             <div class="alert  alert-warning alert-dismissible fade show" role="alert"
                                  style="margin-top: 50px;">
-                                <p>Проверьте правильность ввода:</p>
-                                <li>Поле "Имя пользователя" не содержат пробелов</li>
-                                <li>Поля поролей совпадают и пароль не должен быть простым и содержать не менее 8-ми
-                                    символов
-                                </li>
+                                <p>Edit user error:</p>
+                                {{ form.errors }}
                             </div>
                         {% endif %}
                         <div class="form-row">
