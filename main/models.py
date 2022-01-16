@@ -10,12 +10,24 @@ class Project(models.Model):
     next_upload = models.DateField()
     admin = models.ForeignKey(User, db_index=True, on_delete=models.CASCADE)
 
+    def get_projects(self):
+        return self.objects.all()
+
 
 class Section(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     name = models.CharField(max_length=64)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     responsible = models.ForeignKey(User, db_index=True, on_delete=models.CASCADE)
+
+    def get_sections(self):
+        return self.objects.all()
+
+    def get_linked_documents(self):
+        return Document.objects.filter(section=self)
+
+    def get_latest_linked_document(self):
+        return Document.objects.filter(section=self).latest('created_at')
 
 
 class Document(models.Model):
@@ -41,6 +53,9 @@ class Document(models.Model):
     created_at = models.DateTimeField(auto_now=True)
     note = models.CharField(max_length=128, blank=True)
 
+    def get_documents(self):
+        return self.objects.all()
+
 
 class Adjustment(models.Model):
     CODE_CHOICES = (
@@ -57,12 +72,21 @@ class Adjustment(models.Model):
     note = models.CharField(max_length=128, blank=True)
     body = models.CharField(max_length=256)
 
+    def get_document_adjustments(self, selected_document_id):
+        return self.objects.filter(document=selected_document_id)
+
 
 class Remark(models.Model):
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
     expert = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(auto_now=True)
     body = models.CharField(max_length=1024)
+
+    def get_project_remarks(self):
+        return self.objects.all()
+
+    def get_section_remarks(self, selected_section_id):
+        return self.objects.filter(section=selected_section_id)
 
 
 class Comment(models.Model):
