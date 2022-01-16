@@ -81,6 +81,7 @@ class Adjustment(models.Model):
 
 
 class Remark(models.Model):
+    number = models.IntegerField()
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
     expert = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(auto_now=True)
