@@ -25,10 +25,13 @@ class Section(models.Model):
         return self.objects.all()
 
     def get_linked_documents(self):
-        return Document.objects.filter(section=self)
+        return Document.objects.filter(section=self).order_by('-created_at')
 
     def get_latest_linked_document(self):
         return Document.objects.filter(section=self).latest('created_at')
+
+    def get_linked_remarks(self):
+        return Remark.objects.filter(section=self).order_by('id')
 
 
 class Document(models.Model):
@@ -82,6 +85,8 @@ class Remark(models.Model):
     expert = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(auto_now=True)
     body = models.CharField(max_length=1024)
+    link = models.CharField(max_length=256, blank=True)
+    basis = models.CharField(max_length=512, blank=True)
 
     def get_project_remarks(self):
         return self.objects.all()
