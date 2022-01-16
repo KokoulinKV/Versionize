@@ -1,4 +1,4 @@
-// Стиль для lk2.html
+// ============================ BASE2.HTML SETTINGS ========================== //
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap");
 * {
     margin: 0;
@@ -8,12 +8,13 @@
 }
 a {
     text-decoration: none;
-    color: #fff;
+    color: #111;
 }
 body {
     position: relative;
-    min-height: 100vh;
+    height: 100vh;
     width: 100%;
+    background: #f6f6f9;
     overflow: hidden;
 }
 .sidebar {
@@ -264,7 +265,7 @@ body {
     left: 240px;
 }
 // -----------------------------------------
-// Стиль для lk2.html
+// ============================ LK2.HTML SETTINGS ========================== //
 // -----------------------------------------
 .user-workspace {
     display: flex;
@@ -525,5 +526,41 @@ body {
     &__date {
         margin-top: 5px;
         font-size: 11px;
+    }
+}
+// ============================ TABLE SETTINGS ========================== //
+.general-table {
+    margin-top: 15px;
+
+    & h2 {
+        margin-bottom: 0.8rem;
+    }
+    & table {
+        background: #fff;
+        width: 100%;
+        border-radius: 2rem;
+        padding: 1.8rem;
+        text-align: center;
+        box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+        transition: all 300ms ease;
+    }
+    & table:hover {
+        box-shadow: none;
+    }
+    & table tbody td {
+        height: 2.8rem;
+        border-bottom: 1px solid rgba(132, 139, 200, 0.18);
+        color: #677483;
+    }
+    & table tbody tr:last-child td {
+        border: none;
+    }
+    &__warning {
+    }
+    &__btn {
+        text-align: center;
+        display: block;
+        margin: 1rem auto;
+        color: #7380ec;
     }
 }

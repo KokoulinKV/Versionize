@@ -8,13 +8,14 @@
 
 a {
   text-decoration: none;
-  color: #fff;
+  color: #111;
 }
 
 body {
   position: relative;
-  min-height: 100vh;
+  height: 100vh;
   width: 100%;
+  background: #f6f6f9;
   overflow: hidden;
 }
 
@@ -545,4 +546,43 @@ body {
 .user-events__date {
   margin-top: 5px;
   font-size: 11px;
+}
+
+.general-table {
+  margin-top: 15px;
+}
+
+.general-table h2 {
+  margin-bottom: 0.8rem;
+}
+
+.general-table table {
+  background: #fff;
+  width: 100%;
+  border-radius: 2rem;
+  padding: 1.8rem;
+  text-align: center;
+  box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+  transition: all 300ms ease;
+}
+
+.general-table table:hover {
+  box-shadow: none;
+}
+
+.general-table table tbody td {
+  height: 2.8rem;
+  border-bottom: 1px solid rgba(132, 139, 200, 0.18);
+  color: #677483;
+}
+
+.general-table table tbody tr:last-child td {
+  border: none;
+}
+
+.general-table__btn {
+  text-align: center;
+  display: block;
+  margin: 1rem auto;
+  color: #7380ec;
 }
