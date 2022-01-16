@@ -194,7 +194,17 @@ class CompanyEditView(UpdateView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CompanyEditView, self).get_context_data(**kwargs)
         context['title'] = 'Edit company'
+        print(context)
         return context
+
+    def form_valid(self, form):
+        formset = form.save()
+        user = formset.manager
+        company = formset.id
+        query = UserCompanyInfo.objects.select_related().filter(user_id=user)
+        query.update(company=company)
+        self.object = form.save()
+        return super().form_valid(form)
 
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, request, *args, **kwargs):
