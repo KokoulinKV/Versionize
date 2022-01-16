@@ -555,6 +555,9 @@ body {
     & table tbody tr:last-child td {
         border: none;
     }
+    & table tbody tr:hover {
+        font-size: 20px;
+    }
     &__warning {
     }
     &__btn {
@@ -563,4 +566,41 @@ body {
         margin: 1rem auto;
         color: #7380ec;
     }
+}
+.download-button {
+    display: inline-flex;
+    height: 50px;
+    background: #11101d;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    overflow: hidden;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    color: #fff;
+}
+
+.download-button:hover {
+    background: #1d1b31;
+}
+
+.download-button:active {
+    background: #1d1b31;
+}
+
+.download-button__text {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 24px;
+    height: 100%;
+}
+
+.download-button__icon {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 24px;
+    height: 100%;
+    font-size: 1.5em;
+    background: #1d1b31;
 }
