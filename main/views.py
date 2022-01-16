@@ -34,6 +34,16 @@ class TotalListView(LoginRequiredMixin, ListView):
     model = Section
     template_name = 'main/total.html'
 
+    def get_queryset(self):
+        queryset = self.model.objects.filter(project_id=self.request.session['active_project_id'])
+        ordering = self.get_ordering()
+        if ordering:
+            if isinstance(ordering, str):
+                ordering = (ordering,)
+            queryset = queryset.order_by(*ordering)
+
+        return queryset
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Versionize - Сводная таблица проекта'
