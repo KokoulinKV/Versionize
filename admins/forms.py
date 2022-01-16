@@ -91,4 +91,4 @@ class CompanyEditForm(forms.ModelForm):
 
     class Meta:
         model = Company
-        fields = ('name', 'manager',)
+        fields = ('name', 'manager', 'phone', 'email',)
