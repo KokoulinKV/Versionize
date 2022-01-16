@@ -1,4 +1,4 @@
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 
@@ -47,6 +47,16 @@ class TotalListView(LoginRequiredMixin, ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Versionize - Сводная таблица проекта'
+        return context
+
+
+class SectionDetailView(LoginRequiredMixin, DetailView):
+    model = Section
+    template_name = 'main/section.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Versionize - Раздел'
         return context
 
 
