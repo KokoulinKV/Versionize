@@ -19,6 +19,7 @@ class Section(models.Model):
     name = models.CharField(max_length=64)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     responsible = models.ForeignKey(User, db_index=True, on_delete=models.CASCADE)
+    expert = models.ForeignKey(User, on_delete=models.CASCADE, related_name='expert_id')
 
     def get_sections(self):
         return self.objects.all()
