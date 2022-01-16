@@ -60,6 +60,11 @@ class Document(models.Model):
     def get_documents(self):
         return self.objects.all()
 
+    # TODO предусмотреть функцию, которая будет сортировать на основании первой страницы изменений
+    #  пример: номера страниц 3, 42, 44-48. С помощью regexp смотрим первую цифру и используем её для сортировки
+    def get_linked_adjustments(self):
+        return Adjustment.objects.filter(document=self).order_by('id')
+
 
 class Adjustment(models.Model):
     CODE_CHOICES = (

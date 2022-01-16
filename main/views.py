@@ -2,7 +2,7 @@ from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 
-from main.models import Section, Company
+from main.models import Section, Company, Document
 
 
 def index(request):
@@ -67,4 +67,14 @@ class CompanyListView(LoginRequiredMixin, ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Versionize - Компании'
+        return context
+
+
+class DocumentDetailView(LoginRequiredMixin, DetailView):
+    model = Document
+    template_name = 'main/document.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Versionize - Документ'
         return context
