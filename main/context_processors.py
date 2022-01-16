@@ -7,7 +7,7 @@ def active_project_info(request):
     if 'active_project_id' not in request.session.keys():
         first_project = Project.objects.first()
         request.session['active_project_id'] = first_project.id
-    project = Project.objects.filter(id=request.session['active_project']).first()
+    project = Project.objects.filter(id=request.session['active_project_id']).first()
     request.session['active_project_id'] = project.id
 
     return {
