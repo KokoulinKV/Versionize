@@ -33,10 +33,10 @@ class UserRegistrationForm(UserCreationForm):
 class UserAddInfoForm(forms.ModelForm):
     user = forms.ModelChoiceField(
         queryset=User.objects.select_related().exclude(id__in=(UserCompanyInfo.objects.values('user'))),
-        empty_label=None,
+        empty_label='Выберете пользователя',
         widget=forms.Select(attrs={'class': 'form-control py-8',
-                                   'placeholder': 'Введите название организации'}))
-    company = forms.ModelChoiceField(queryset=Company.objects.all(), empty_label=None,
+                                   'placeholder': 'Выберите название организации'}))
+    company = forms.ModelChoiceField(queryset=Company.objects.all(), empty_label='Выберите организацию',
                                      widget=forms.Select(attrs={'class': 'form-control py-8',
                                                                 'placeholder': 'Введите название организации'}))
     department = forms.CharField(
@@ -82,7 +82,7 @@ class CompanyEditForm(forms.ModelForm):
     name = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control py-8', 'placeholder': 'Введите название организации'}))
     manager = forms.ModelChoiceField(queryset=User.objects.select_related().exclude(
-        id__in=(Company.objects.filter(manager__isnull=False).values('manager'))),
+        id__in=(Company.objects.filter(manager__isnull=False).values('manager'))), empty_label='Выберете пользователя',
         widget=forms.Select(attrs={'class': 'form-control py-8'}))
     phone = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control py-8', 'placeholder': 'Введите номер телефона'}))
@@ -91,4 +91,4 @@ class CompanyEditForm(forms.ModelForm):
 
     class Meta:
         model = Company
-        fields = ('name', 'manager',)
+        fields = ('name', 'manager', 'phone', 'email',)

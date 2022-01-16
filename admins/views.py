@@ -145,6 +145,18 @@ class UserInfoEdit(UpdateView):
         context['title'] = 'Edit user'
         return context
 
+    def form_valid(self, form):
+        formset = form.save()
+        user = formset.user_id
+        company = formset.company_id
+        print(company)
+        check_manager = Company.objects.filter(manager_id=user).values('id')[0]['id']
+        print(check_manager)
+        if check_manager and not (company == check_manager):
+            query = Company.objects.filter(id=check_manager)
+            query.update(manager=None)
+        return super().form_valid(form)
+
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, request, *args, **kwargs):
         return super(UserInfoEdit, self).dispatch(request, *args, **kwargs)
@@ -195,6 +207,16 @@ class CompanyEditView(UpdateView):
         context = super(CompanyEditView, self).get_context_data(**kwargs)
         context['title'] = 'Edit company'
         return context
+
+    def form_valid(self, form):
+        formset = form.save()
+        user = formset.manager
+        company = formset.id
+        print(user,'|' ,company)
+        query = UserCompanyInfo.objects.select_related().filter(user_id=user)
+        print(query)
+        query.update(company=company)
+        return super().form_valid(form)
 
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, request, *args, **kwargs):
