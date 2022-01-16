@@ -1,33 +1,11 @@
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
 
 from main.models import Section, Company, Document
 
 
-def index(request):
-    return render(request, 'main/lk.html')
-
-
-# Проверка отображения новых шаблонов
-def index2(request):
-    return render(request, 'main/lk2.html')
-
-
-def company(request):
-    return render(request, 'main/companies.html')
-
-
-def document(request):
-    return render(request, 'main/document.html')
-
-
-def section(request):
-    return render(request, 'main/section.html')
-
-
-def total(request):
-    return render(request, 'main/total.html')
+class Index(TemplateView):
+    template_name = 'main/lk2.html'
 
 
 class TotalListView(LoginRequiredMixin, ListView):

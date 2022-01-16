@@ -30,11 +30,11 @@
                 <span class="sidebar__tooltip">Поиск документов</span>
             </li>
             <li>
-                <a href="#">
+                <a href="{% url 'main:companies' %}">
                     <i class='bx bx-grid-alt'></i>
-                    <span class="sidebar__link-name">Компания</span>
+                    <span class="sidebar__link-name">Компании</span>
                 </a>
-                <span class="sidebar__tooltip">Компания</span>
+                <span class="sidebar__tooltip">Компании</span>
             </li>
             <li>
                 <a href="#">
@@ -51,7 +51,7 @@
                 <span class="sidebar__tooltip">Раздел</span>
             </li>
             <li>
-                <a href="#">
+                <a href="{% url 'main:total' %}">
                     <i class='bx bx-pie-chart-alt-2'></i>
                     <span class="sidebar__link-name">Сводная</span>
                 </a>
@@ -62,7 +62,7 @@
                     <i class='bx bx-folder'></i>
                     <span class="sidebar__link-name">Документы</span>
                 </a>
-                <span class="sidebar__tooltip">Докумены</span>
+                <span class="sidebar__tooltip">Документы</span>
             </li>
             <li>
                 <a href="#">
@@ -90,9 +90,9 @@
         <!-- {% block workspace %}{% endblock %} -->
         <div class="project">
             <div class="project__bar">
-                <div class="project__name"><h3>Активный проект</h3><span>2021 / 18-06 / 2021(объект)/ 18-06/2021-ИГИ</span> </div>
-                <div class="project__data">Загрузить до: 10/01/2022</div>
-                <div class="project__data">Дата загрузки в экспертизу: 13/01/2022</div>
+                <div class="project__name"><h3>{{ active_project_code }}</h3><span>{{ active_project_name }}</span> </div>
+                <div class="project__data">Следующая загрузка: {{ active_project_next_upload|date:'d.m.y' }}</div>
+                <div class="project__data">Итоговая загрузка: {{ active_project_exp_date|date:'d.m.y' }}</div>
             </div>
         </div>
         <div class="workspace__container">
