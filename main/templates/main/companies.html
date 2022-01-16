@@ -1,0 +1,46 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}
+    Versionize
+{% endblock %}
+
+{% block workspace-title %}
+    <div class="desktop__title-obj-name">
+        <h1>{{ active_project_code }}</h1>
+        <span>{{ active_project_name }}</span>
+    </div>
+    <div class="desktop__title-obj-date">
+        <p>Следующая загрузка: <span>{{ active_project_next_upload }}</span></p>
+    </div>
+    <div class="desktop__title-obj-date">
+        <p>Итоговая загрузка: <span>{{ active_project_exp_date }}</span></p>
+    </div>
+{% endblock %}
+{% block workspace %}
+    <div class="desktop__workspace-table">
+        <table class="content-table">
+            <thead>
+            <tr>
+                <th>Название</th>
+                <th>Менеджер</th>
+                <th>Телефон</th>
+                <th>Эл.почта"</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for company in object_list %}
+                <tr>
+                    <td>{{ company.name }}</td>
+                    {% if not company.manager %}
+                        <td>-</td>
+                    {% else %}
+                        <td>{{ company.manager.last_name }} {{ company.manager.first_name }} {{ company.manager.patronymic }}</td>
+                    {% endif %}
+                    <td>{{ company.phone }}</td>
+                    <td>{{ company.email }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

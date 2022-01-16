@@ -1,8 +1,8 @@
 from django.urls import path
 
 # !Дать нормальные названия, передалть в cbv
-from main.views import index, document, company, section, total, index2
-from main.views import TotalListView
+from main.views import index, document, section, index2
+from main.views import TotalListView, CompanyListView
 
 app_name = 'main'
 
@@ -12,7 +12,8 @@ urlpatterns = [
     # path('logout/', logout, name='logout'),
 
     # Для проверки отображения
-    path('company/', company, name='company'),
+    path('companies/', CompanyListView.as_view(), name='companies'),
+    # path('company/<int:pk>', CompanyDetailView.as_view(), name='company'),
     path('document/', document, name='document'),
     path('section/', section, name='section'),
     path('total/', TotalListView.as_view(), name='total'),

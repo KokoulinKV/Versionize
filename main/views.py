@@ -2,7 +2,7 @@ from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 
-from main.models import Section
+from main.models import Section, Company
 
 
 def index(request):
@@ -15,7 +15,7 @@ def index2(request):
 
 
 def company(request):
-    return render(request, 'main/company.html')
+    return render(request, 'main/companies.html')
 
 
 def document(request):
@@ -37,4 +37,14 @@ class TotalListView(LoginRequiredMixin, ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Versionize - Сводная таблица проекта'
+        return context
+
+
+class CompanyListView(LoginRequiredMixin, ListView):
+    model = Company
+    template_name = 'main/companies.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Versionize - Компании'
         return context
