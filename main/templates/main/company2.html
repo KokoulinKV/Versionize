@@ -1,6 +1,9 @@
 {% extends 'main/base2.html' %}
 {% load static %}
 
+{% block title %}
+Versionize | Company card
+{% endblock %}
 {% block workspace %}
 <div class="general-table">
     <div class="general-table">
@@ -64,7 +67,7 @@
         </table>
         <a href="#" class="general-table__btn">Показать еще</a>
     </div>
-    <button type="button" class="download-button">
+    <button type="button" class="download-button popupBtn">
         <span class="download-button__text">Загрузить документ</span>
         <span class="download-button__icon">
             <i class='bx bx-cloud-upload'></i>
