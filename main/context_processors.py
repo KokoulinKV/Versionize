@@ -4,7 +4,7 @@ from main.models import Project
 def active_project_info(request):
     # При новой сессии ключ 'active_project_id' отсутствует
     # TODO откорректировать с учётом прав доступа
-    if request.session['active_project_id'] is None:
+    if 'active_project_id' not in request.session.keys():
         first_project = Project.objects.first()
         if first_project:
             request.session['active_project_id'] = first_project.id
