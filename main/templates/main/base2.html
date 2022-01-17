@@ -7,11 +7,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>
+        {% block title %}
+        Versionize
+        {% endblock %}
+    </title>
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
     <!--  -->
     <link rel="stylesheet" href="{% static 'css/base2.css' %}">
+    {% block css %}
+
+    {% endblock %}
 </head>
 
 <body>
@@ -30,40 +37,43 @@
                 <span class="sidebar__tooltip">Поиск</span>
             </li>
             <li>
-                <a href="#">
+                <a href="{% url 'main:company2' %}">
                     <i class='bx bx-grid-alt'></i>
                     <span class="sidebar__link-name">Компания</span>
                 </a>
                 <span class="sidebar__tooltip">Компания</span>
             </li>
             <li>
-                <a href="#">
+                <a href="{% url 'main:index2' %}">
                     <i class='bx bx-user'></i>
                     <span class="sidebar__link-name">Пользователь</span>
                 </a>
                 <span class="sidebar__tooltip">Пользователь</span>
             </li>
             <li>
-                <a href="#">
+                <a href="{% url 'main:section2' %}">
                     <i class='bx bx-chat'></i>
                     <span class="sidebar__link-name">Раздел</span>
                 </a>
                 <span class="sidebar__tooltip">Раздел</span>
             </li>
             <li>
-                <a href="#">
+                <a href="{% url 'main:total2' %}">
                     <i class='bx bx-pie-chart-alt-2'></i>
                     <span class="sidebar__link-name">Сводная</span>
                 </a>
                 <span class="sidebar__tooltip">Сводная</span>
             </li>
             <li>
-                <a href="#">
+                <a href="{% url 'main:document2' %}">
                     <i class='bx bx-folder'></i>
                     <span class="sidebar__link-name">Документы</span>
                 </a>
                 <span class="sidebar__tooltip">Докумены</span>
             </li>
+
+            <!-- Доступ в админку -->
+            {% if user.is_staff or user.is_superuser %}
             <li>
                 <a href="#">
                     <i class='bx bx-cog'></i>
@@ -71,17 +81,19 @@
                 </a>
                 <span class="sidebar__tooltip">Настройки</span>
             </li>
+            {% endif %}
         </ul>
         <div class="sidebar__profile-content">
             <div class="sidebar__profile">
                 <div class="sidebar__profile-details">
                     <img src="{% static 'img/comments_img.webp' %}" alt="">
                     <div class="sidebar__profile-data">
-                        <div class="sidebar__profile-name">Pankov Ilya</div>
+                        <div class="sidebar__profile-name">{{ user.username|default:'Пользователь' }}</div>
                         <div class="sidebar__profile-company">Versionize team</div>
                         <div class="sidebar__profile-job">Python Dev</div>
                     </div>
                 </div>
+                <!-- Пока оставим переход на старый шаблон -->
                 <a href="{% url 'main:index' %}"><i class='bx bx-log-out' id="log-out"></i></a>
             </div>
         </div>
