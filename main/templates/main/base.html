@@ -27,7 +27,7 @@
         <header class="header">
             <nav class="header__nav">
                 <div class="header__left-section">
-                    <a href="{% url 'main:index' %}" class="header__user-profile-link"><i class='bx bxl-tux'></i></a>
+                    <a href="{% url 'main:index' user.id %}" class="header__user-profile-link"><i class='bx bxl-tux'></i></a>
                     <a href="{% url 'main:total' %}" class="header__user-profile-link">Сводная</a>
                     <a href="{% url 'main:companies' %}" class="header__user-profile-link">Компании</a>
                 </div>
@@ -38,7 +38,7 @@
                             class='bx bx-wrench'></i></a>
                     {% endif %}
                     <div class="header__user-profile">
-                        <a class="header__user-profile-link" href="{% url 'main:index' %}"><i
+                        <a class="header__user-profile-link" href="{% url 'main:index' user.id %}"><i
                                 class='bx bx-user-circle'></i>
                             <span>{{ user.username|default:'Пользователь' }}</span></a>
                     </div>

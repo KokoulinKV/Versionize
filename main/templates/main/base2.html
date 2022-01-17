@@ -82,7 +82,7 @@
                         <div class="sidebar__profile-job">Python Dev</div>
                     </div>
                 </div>
-                <a href="{% url 'main:index' %}"><i class='bx bx-log-out' id="log-out"></i></a>
+                <a href="{% url 'main:index' user.id %}"><i class='bx bx-log-out' id="log-out"></i></a>
             </div>
         </div>
     </nav>
