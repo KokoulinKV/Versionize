@@ -7,11 +7,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>
+        {% block title %}
+        Versionize | User Profile
+        {% endblock %}
+    </title>
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
     <!--  -->
     <link rel="stylesheet" href="{% static 'css/base2.css' %}">
+    {% block css %}
+
+    {% endblock %}
 </head>
 
 <body>
@@ -27,43 +34,46 @@
             <li>
                 <i class='bx bx-search' id="searchBtn"></i>
                 <input type="text" placeholder="Поиск...">
-                <span class="sidebar__tooltip">Поиск документов</span>
+                <span class="sidebar__tooltip">Поиск</span>
             </li>
             <li>
-                <a href="#">
+                <a href="{% url 'main:company2' %}">
                     <i class='bx bx-grid-alt'></i>
                     <span class="sidebar__link-name">Компания</span>
                 </a>
                 <span class="sidebar__tooltip">Компания</span>
             </li>
             <li>
-                <a href="#">
+                <a href="{% url 'main:index2' %}">
                     <i class='bx bx-user'></i>
                     <span class="sidebar__link-name">Пользователь</span>
                 </a>
                 <span class="sidebar__tooltip">Пользователь</span>
             </li>
             <li>
-                <a href="#">
+                <a href="{% url 'main:section2' %}">
                     <i class='bx bx-chat'></i>
                     <span class="sidebar__link-name">Раздел</span>
                 </a>
                 <span class="sidebar__tooltip">Раздел</span>
             </li>
             <li>
-                <a href="#">
+                <a href="{% url 'main:total2' %}">
                     <i class='bx bx-pie-chart-alt-2'></i>
                     <span class="sidebar__link-name">Сводная</span>
                 </a>
                 <span class="sidebar__tooltip">Сводная</span>
             </li>
             <li>
-                <a href="#">
+                <a href="{% url 'main:document2' %}">
                     <i class='bx bx-folder'></i>
                     <span class="sidebar__link-name">Документы</span>
                 </a>
                 <span class="sidebar__tooltip">Докумены</span>
             </li>
+
+            <!-- Доступ в админку -->
+            {% if user.is_staff or user.is_superuser %}
             <li>
                 <a href="#">
                     <i class='bx bx-cog'></i>
@@ -71,81 +81,37 @@
                 </a>
                 <span class="sidebar__tooltip">Настройки</span>
             </li>
+            {% endif %}
         </ul>
         <div class="sidebar__profile-content">
             <div class="sidebar__profile">
                 <div class="sidebar__profile-details">
                     <img src="{% static 'img/comments_img.webp' %}" alt="">
                     <div class="sidebar__profile-data">
-                        <div class="sidebar__profile-name">Pankov Ilya</div>
+                        <div class="sidebar__profile-name">{{ user.username|default:'Пользователь' }}</div>
                         <div class="sidebar__profile-company">Versionize team</div>
                         <div class="sidebar__profile-job">Python Dev</div>
                     </div>
                 </div>
-                <a href="{% url 'main:index' %}"><i class='bx bx-log-out' id="log-out"></i></a>
+                <!-- Пока оставим переход на старый шаблон -->
+                <a href="{% url 'main:index' %}" class="sidebar__log-out"><i class='bx bx-log-out' id="log-out"></i></a>
             </div>
         </div>
     </nav>
     <main class="workspace">
-        <!-- {% block workspace %}{% endblock %} -->
-        <div class="project">
-            <div class="project__bar">
-                <div class="project__name"><h3>Активный проект</h3><span>2021 / 18-06 / 2021(объект)/ 18-06/2021-ИГИ</span> </div>
-                <div class="project__data">Загрузить до: 10/01/2022</div>
-                <div class="project__data">Дата загрузки в экспертизу: 13/01/2022</div>
-            </div>
-        </div>
-        <div class="workspace__container">
-            <div class="workspace__left">
-                <div class="user">
-                    <div class="user__info">
-                        <h4>Иванов Иван Иванович</h4>
-                        <p>СтройСнапПродакшн</p>
-                        <p>Должность: Директор</p>
-                        <p>Роль: ГИП</p>
-                    </div>
-                    <div class="user__avatar">
-                        <div class="user__photo">
-                            <img class="" width="150px"
-                                src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-                            <!-- <span>Pankov Ilya</span>
-                            <span>Python Dev</span> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="user-settings">
-                    <p>E-mail: test@yandex.ru</p>
-                    <p>Тел: 8(800)540-56-23</p>
-                    <p>Факс: 8(800)540-56-23</p>
-                </div>
-                <div class="user-projects">
-                    <h1>Проекты</h1>
-                    <div class="user-projects__content">
-                        <h3 class="user-projects__sign">18-03/2021</h3>
-                        <h3>"Реконструкция производстенного здания на территории фабрики"</h3>
-                    </div>
-                    <div class="user-projects__content">
-                        <h3 class="user-projects__sign">55-12/2021</h3>
-                        <h3>"Строительство 18-ти этажного здания на участке с кадастровым номером 23:2342:10000023:14"
-                        </h3>
-                    </div>
-                </div>
-            </div>
-            <div class="workspace__right"></div>
-        </div>
-    </main>
-</body>
-<script>
-    let openBtn = document.getElementById('menu-btn')
-    let sidebar = document.getElementById('sidebar')
-    let searchBtn = document.getElementById('searchBtn')
+        {% block workspace %}
 
-    openBtn.onclick = function () {
-        sidebar.classList.toggle('sidebar_active')
-    }
-    searchBtn.onclick = function () {
-        sidebar.classList.toggle('sidebar_active')
-    }
-</script>
+        {% endblock %}
+    </main>
+    <!-- ============== POP UP ============== -->
+    <!-- Формы вызова уневерсальная, чтобы ее вызвать в классе элемента должен быть класс popupBtn -->
+    {% block popup %}
+
+    {% endblock %}
+</body>
+<!-- defer - ждем загрузки страницы -->
+<!-- Todo перейти на jquery, чтобы запускать скрипты после загрузки контента -->
+<script defer src="{% static 'js/pop-up.js' %}"></script>
+<script defer src="{% static 'js/side-nav.js' %}"></script>
 
 </html>
