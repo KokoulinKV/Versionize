@@ -51,7 +51,7 @@
                 <span class="sidebar__tooltip">Компания</span>
             </li>
             <li>
-                <a href="{% url 'main:index' %}">
+                <a href="{% url 'main:index' user.id%}">
                     <i class='bx bx-user'></i>
                     <span class="sidebar__link-name">Пользователь</span>
                 </a>
