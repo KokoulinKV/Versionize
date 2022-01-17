@@ -5,16 +5,22 @@
 {% endblock %}
 
 {% block workspace-title %}
-    <div class="desktop__title-obj-name">
-        <h1>{{ active_project_code }}</h1>
-        <span>{{ active_project_name }}</span>
-    </div>
-    <div class="desktop__title-obj-date">
-        <p>Следующая загрузка: <span>{{ active_project_next_upload }}</span></p>
-    </div>
-    <div class="desktop__title-obj-date">
-        <p>Итоговая загрузка: <span>{{ active_project_exp_date }}</span></p>
-    </div>
+    {% if active_project_id %}
+        <div class="desktop__title-obj-name">
+            <h1>{{ active_project_code }}</h1>
+            <span>{{ active_project_name }}</span>
+        </div>
+        <div class="desktop__title-obj-date">
+            <p>Следующая загрузка: <span>{{ active_project_next_upload|date:'d.m.y' }}</span></p>
+        </div>
+        <div class="desktop__title-obj-date">
+            <p>Итоговая загрузка: <span>{{ active_project_exp_date|date:'d.m.y' }}</span></p>
+        </div>
+    {% else %}
+        <div class="desktop__title-obj-name">
+            <h1>Активный проект не выбран</h1>
+        </div>
+    {% endif %}
 {% endblock %}
 {% block workspace %}
     <div class="desktop__workspace-table">
@@ -24,7 +30,7 @@
                 <th>Название</th>
                 <th>Менеджер</th>
                 <th>Телефон</th>
-                <th>Эл.почта"</th>
+                <th>Эл.почта</th>
             </tr>
             </thead>
             <tbody>

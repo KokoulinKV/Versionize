@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Личный кабинет</title>
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
     <!--  -->
@@ -88,13 +88,23 @@
     </nav>
     <main class="workspace">
         <!-- {% block workspace %}{% endblock %} -->
-        <div class="project">
-            <div class="project__bar">
-                <div class="project__name"><h3>{{ active_project_code }}</h3><span>{{ active_project_name }}</span> </div>
-                <div class="project__data">Следующая загрузка: {{ active_project_next_upload|date:'d.m.y' }}</div>
-                <div class="project__data">Итоговая загрузка: {{ active_project_exp_date|date:'d.m.y' }}</div>
+        {% if active_project_id %}
+            <div class="project">
+                <div class="project__bar">
+                    <div class="project__name"><h3>{{ active_project_code }}</h3><span>{{ active_project_name }}</span> </div>
+                    <div class="project__data">Следующая загрузка: {{ active_project_next_upload|date:'d.m.y' }}</div>
+                    <div class="project__data">Итоговая загрузка: {{ active_project_exp_date|date:'d.m.y' }}</div>
+                </div>
             </div>
-        </div>
+        {% else %}
+            <div class="project">
+                <div class="project__bar">
+                    <div class="project__name">
+                        <h3>Активный проект не выбран</h3>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
         <div class="workspace__container">
             <div class="workspace__left">
                 <div class="user">
