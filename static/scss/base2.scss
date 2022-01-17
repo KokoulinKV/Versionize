@@ -669,6 +669,56 @@ body {
     width: calc(100% - 240px);
     left: 240px;
 }
+// SECTION HTML
+.ext-workspace {
+    display: flex;
+    width: 100%;
+    flex-wrap: nowrap;
+    position: fixed;
+    overflow: hidden;
+}
+.project {
+    padding-top: 25px;
+    padding-left: 30px;
+    padding-right: 15px;
+    width: 500px;
+    &__content {
+    }
+
+    &__title {
+        text-align: center;
+    }
+
+    &__data-block {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    &__data {
+    }
+
+    &__info {
+        margin-top: 25px;
+    }
+
+    &__name {
+        text-align: center;
+    }
+
+    &__md {
+        padding-left: 25px;
+    }
+
+    &__ver {
+        padding-left: 25px;
+    }
+
+    &__chg {
+        padding-left: 25px;
+    }
+}
 
 // НАСТРОЙКА ФОРМЫ
 .form {

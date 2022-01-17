@@ -6,49 +6,124 @@
 Versionize | Document card
 {% endblock %}
 {% block workspace %}
-<div class="general-table">
-    <h2>Сводная таблица</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Лист</th>
-                <th>Содержание изменения</th>
-                <th>Код</th>
-                <th>Примечание</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>2</td>
-                <td>Таблица объемов работ откорректирована</td>
-                <td>1</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>3-4,42,43</td>
-                <td>Добавлены результаты архивных инжерено-геологических
-                    изысканий</td>
-                <td>1</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>Добавлена информация об использовании результатов
-                    определенний свойств грунтов,
-                    отобранных в основани здания в 2013г</td>
-                <td>1</td>
-                <td></td>
-            </tr>
-        </tbody>
-    </table>
-    <a href="#" class="general-table__btn">Показать еще</a>
+<div class="ext-workspace">
+    <div class="project">
+        <div class="project__content">
+            <div class="project__title">2021 / 18-06/2021(объект) / 18-06/2021-ИГИ
+            </div>
+            <div class="project__data-block">
+                <div class="project__data">
+                    <span>Загрузить до:</span>
+                    <p>15/01/2022</p>
+                </div>
+                <div class="project__data">
+                    <span>Был загружен:</span>
+                    <p>15/01/2022</p>
+                </div>
+            </div>
+            <div class="project__info">
+                <div class="project__name">37624122021_18-06-2021_2_ИГИ_(изм.2)</div>
+                <div class="project__md">MD5: d41d8cd98f00b204e9800998ecf8427e</div>
+                <div class="project__ver"><span>Вер.: 5</span></div>
+                <div class="project__chg"><span>Изм.: 2</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="tables">
+        <div class="general-table">
+            <h2>Сводная таблица</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Лист</th>
+                        <th>Содержание изменения</th>
+                        <th>Код</th>
+                        <th>Примечание</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2</td>
+                        <td>Таблица объемов работ откорректирована</td>
+                        <td>1</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>3-4,42,43</td>
+                        <td>Добавлены результаты архивных инжерено-геологических
+                            изысканий</td>
+                        <td>1</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Добавлена информация об использовании результатов
+                            определенний свойств грунтов,
+                            отобранных в основани здания в 2013г</td>
+                        <td>1</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <a href="#" class="general-table__btn">Показать еще</a>
+        </div>
+        <button type="button" class="download-button popupBtn">
+            <span class="download-button__text">Загрузить документ</span>
+            <span class="download-button__icon">
+                <i class='bx bx-cloud-upload'></i>
+            </span>
+        </button>
+    </div>
+    <div class="user-block">
+        <div class="user-profile">
+            <div class="user-profile__info">
+                <div class="user-profile__avatar">
+                    <img class="" width="150px"
+                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                </div>
+                <div class="user-profile__text">
+                    <span class="user-profile__name">Панков Илья Владимирович</span>
+                    <span class="user-profile__job"><i class='bx bxs-business'></i>Versionize team</span>
+                    <span class="user-profile__post"><i class='bx bx-id-card'></i>Web Design</span>
+                </div>
+            </div>
+            <div class="user-profile__actions">
+                <a href="#" class="user-profile__link"><i class='bx bx-mail-send'></i>Написать эксперту</a>
+                <a href="#" class="user-profile__link"><i class='bx bx-chat'></i></a>
+                <a href="#" class="user-profile__link" id="more-actions">
+                    <i class='bx bx-dots-horizontal-rounded'></i></a>
+            </div>
+        </div>
+        <div class="user-data">
+            <ul class="user-contact">
+                <li class="user-contact__item">
+                    <div class="user-contact__title-row">
+                        <span class='user-contact__title'>Контакты</span>
+                        <i class='bx bx-chevron-right'></i>
+                    </div>
+                    <ul class="user-contact__sub-menu">
+                        <li>
+                            <div class="user-contact__sub-menu-item">
+                                <i class='bx bx-phone'></i><span>Телефон: 8-916-777-77-77</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="user-contact__sub-menu-item">
+                                <i class='bx bx-printer'></i><span>Факс: 8-916-777-77-77</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="user-contact__sub-menu-item">
+                                <i class='bx bxl-gmail'></i>
+                                <span>Почта: Versionize@yandex.ru</span>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
-<button type="button" class="download-button popupBtn">
-    <span class="download-button__text">Загрузить документ</span>
-    <span class="download-button__icon">
-        <i class='bx bx-cloud-upload'></i>
-    </span>
-</button>
 {% endblock %}
 {% block popup %}
 <div class="popup" id="popup">

@@ -800,6 +800,62 @@ body {
   left: 240px;
 }
 
+.ext-workspace {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  position: fixed;
+  overflow: hidden;
+}
+
+.project {
+  padding-top: 25px;
+  padding-left: 30px;
+  padding-right: 15px;
+  width: 500px;
+}
+
+.project__title {
+  text-align: center;
+}
+
+.project__data-block {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.project__info {
+  margin-top: 25px;
+}
+
+.project__name {
+  text-align: center;
+}
+
+.project__md {
+  padding-left: 25px;
+}
+
+.project__ver {
+  padding-left: 25px;
+}
+
+.project__chg {
+  padding-left: 25px;
+}
+
 .form__field {
   margin-bottom: 15px;
   display: -webkit-box;
