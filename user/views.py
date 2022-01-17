@@ -18,7 +18,7 @@ def login(request):
             user = auth.authenticate(username=username, password=password)
             if user and user.is_active:
                 auth.login(request, user)
-                return HttpResponseRedirect(reverse('main:index'))
+                return HttpResponseRedirect(reverse('main:index', args=(user.id,)))
         else:
             form = UserLoginForm()
     except:
@@ -26,7 +26,7 @@ def login(request):
         user_error = True
     context = {'title': 'Login',
                'form': form,
-               'user_error':user_error}
+               'user_error': user_error}
     return render(request, 'user/login.html', context)
 
 
