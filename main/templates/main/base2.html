@@ -37,7 +37,14 @@
                 <span class="sidebar__tooltip">Поиск</span>
             </li>
             <li>
-                <a href="{% url 'main:company2' %}">
+                <a href="{% url 'main:companies' %}">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="sidebar__link-name">Компании</span>
+                </a>
+                <span class="sidebar__tooltip">Компании</span>
+            </li>
+          <li>
+               <a href="{% url 'main:company2' %}">
                     <i class='bx bx-grid-alt'></i>
                     <span class="sidebar__link-name">Компания</span>
                 </a>
@@ -58,18 +65,25 @@
                 <span class="sidebar__tooltip">Раздел</span>
             </li>
             <li>
-                <a href="{% url 'main:total2' %}">
+                <a href="{% url 'main:total' %}">
                     <i class='bx bx-pie-chart-alt-2'></i>
                     <span class="sidebar__link-name">Сводная</span>
                 </a>
                 <span class="sidebar__tooltip">Сводная</span>
             </li>
             <li>
+                <a href="{% url 'main:total2' %}">
+                    <i class='bx bx-pie-chart-alt-2'></i>
+                    <span class="sidebar__link-name">Сводная2</span>
+                </a>
+                <span class="sidebar__tooltip">Сводная2</span>
+            </li>
+            <li>
                 <a href="{% url 'main:document2' %}">
                     <i class='bx bx-folder'></i>
                     <span class="sidebar__link-name">Документы</span>
                 </a>
-                <span class="sidebar__tooltip">Докумены</span>
+                <span class="sidebar__tooltip">Документы</span>
             </li>
 
             <!-- Доступ в админку -->
@@ -99,6 +113,51 @@
         </div>
     </nav>
     <main class="workspace">
+        <div class="project">
+            <div class="project__bar">
+                <div class="project__name"><h3>{{ active_project_code }}</h3><span>{{ active_project_name }}</span> </div>
+                <div class="project__data">Следующая загрузка: {{ active_project_next_upload|date:'d.m.y' }}</div>
+                <div class="project__data">Итоговая загрузка: {{ active_project_exp_date|date:'d.m.y' }}</div>
+            </div>
+        </div>
+        <div class="workspace__container">
+            <div class="workspace__left">
+                <div class="user">
+                    <div class="user__info">
+                        <h4>Иванов Иван Иванович</h4>
+                        <p>СтройСнапПродакшн</p>
+                        <p>Должность: Директор</p>
+                        <p>Роль: ГИП</p>
+                    </div>
+                    <div class="user__avatar">
+                        <div class="user__photo">
+                            <img class="" width="150px"
+                                src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                            <!-- <span>Pankov Ilya</span>
+                            <span>Python Dev</span> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="user-settings">
+                    <p>E-mail: test@yandex.ru</p>
+                    <p>Тел: 8(800)540-56-23</p>
+                    <p>Факс: 8(800)540-56-23</p>
+                </div>
+                <div class="user-projects">
+                    <h1>Проекты</h1>
+                    <div class="user-projects__content">
+                        <h3 class="user-projects__sign">18-03/2021</h3>
+                        <h3>"Реконструкция производстенного здания на территории фабрики"</h3>
+                    </div>
+                    <div class="user-projects__content">
+                        <h3 class="user-projects__sign">55-12/2021</h3>
+                        <h3>"Строительство 18-ти этажного здания на участке с кадастровым номером 23:2342:10000023:14"
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="workspace__right"></div>
+        </div>
         {% block workspace %}
 
         {% endblock %}
