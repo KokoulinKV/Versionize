@@ -61,12 +61,16 @@ class DocumentDetailView(LoginRequiredMixin, DetailView):
       
 def section2(request):
     return render(request, 'main/section2.html')
+
+
 def company2(request):
     return render(request, 'main/company2.html')
+
 
 def total2(request):
     return render(request, 'main/total2.html')
 
- def document2(request):
+
+def document2(request):
     return render(request, 'main/document2.html')
 

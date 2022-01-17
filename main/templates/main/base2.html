@@ -44,7 +44,7 @@
                 <span class="sidebar__tooltip">Компания</span>
             </li>
             <li>
-                <a href="{% url 'main:index2' %}">
+                <a href="{% url 'main:index' user.id %}">
                     <i class='bx bx-user'></i>
                     <span class="sidebar__link-name">Пользователь</span>
                 </a>
@@ -155,9 +155,6 @@
             </div>
             <div class="workspace__right"></div>
         </div>
-        {% block workspace %}
-
-        {% endblock %}
     </main>
     <!-- ============== POP UP ============== -->
     <!-- Формы вызова уневерсальная, чтобы ее вызвать в классе элемента должен быть класс popupBtn -->
