@@ -14,6 +14,7 @@
                     <span class="user-profile__name">Панков Илья Владимирович</span>
                     <span class="user-profile__job"><i class='bx bxs-business'></i>Versionize team</span>
                     <span class="user-profile__post"><i class='bx bx-id-card'></i>Web Design</span>
+                    <span class="user-profile__role"><i class='bx bx-id-card'></i>ГИП</span>
                 </div>
             </div>
             <div class="user-profile__actions">
@@ -33,16 +34,17 @@
                     <ul class="sub-menu-project">
                         <li>
                             <div class="sub-menu-project__content">
-                                <div class="sub-menu-project__title">2021 / 18-06/2021(объект) / 18-06/2021-ИГИ
+                                <div class="sub-menu-project__title">
+                                    <h3>{{ active_project_code }}</h3><span>{{ active_project_name }}</span>
                                 </div>
                                 <div class="sub-menu-project__data-block">
                                     <div class="sub-menu-project__data">
                                         <span>Загрузить до:</span>
-                                        <p>15/01/2022</p>
+                                        <p>{{ active_project_next_upload|date:'d.m.y' }}</p>
                                     </div>
                                     <div class="sub-menu-project__data">
                                         <span>Был загружен:</span>
-                                        <p>15/01/2022</p>
+                                        <p>{{ active_project_exp_date|date:'d.m.y' }}</p>
                                     </div>
                                 </div>
                             </div>

@@ -18,9 +18,10 @@
     <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
     <link rel="stylesheet" href="{% static 'css/fontawesome_5.15.4/css/all.min.css' %}">
     {% block css %}
-  
+
     {% endblock %}
 </head>
+
 <body>
     <div class="wrapper">
         <!-- ! Этот элемент можно использовать в base.html -->
@@ -28,11 +29,8 @@
             <nav class="header__nav">
                 <div class="header__left-section">
                     <a href="{% url 'main:index' %}" class="header__user-profile-link"><i class='bx bxl-tux'></i></a>
-                    <a href="{% url 'main:document' %}" class="header__user-profile-link">Документ</a>
                     <a href="{% url 'main:total' %}" class="header__user-profile-link">Документы</a>
-                    <a href="{% url 'main:section' %}" class="header__user-profile-link">Раздел</a>
-                    <a href="{% url 'main:company' %}" class="header__user-profile-link">Компания</a>
-                    <a href="{% url 'main:index2' %}" class="header__user-profile-link">Новый ЛК</a>
+                    <a href="{% url 'main:index' %}" class="header__user-profile-link">Новый ЛК</a>
                 </div>
                 <div class="header__right-section">
                     <i class='bx bx-search'></i>

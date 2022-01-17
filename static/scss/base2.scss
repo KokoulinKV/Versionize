@@ -318,6 +318,12 @@ body {
         display: inline-flex;
         align-items: center;
     }
+    &__role {
+        font-size: 16px;
+        font-weight: 300;
+        display: inline-flex;
+        align-items: center;
+    }
 
     &__avatar {
         margin-right: 10px;
