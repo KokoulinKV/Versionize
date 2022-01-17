@@ -34,14 +34,14 @@
             </tr>
         </thead>
         <tbody>
-        {% for adjustment in document.get_linked_adjustments %}
+            {% for adjustment in document.get_linked_adjustments %}
             <tr>
                 <td>{{ adjustment.pages }}</td>
                 <td>{{ adjustment.body }}</td>
                 <td>{{ adjustment.code }}</td>
                 <td>{{ adjustment.note }}</td>
             </tr>
-        {% endfor %}
+            {% endfor %}
         </tbody>
     </table>
     <button type="button" class="download-button">
@@ -58,17 +58,17 @@
             <div class="workspace-comments__func" id="hide"><i class='bx
                     bx-hide'></i>Скрыть/Показать</div>
         </div>
-        <div class="workspace-comments__content"
-            id="workspace-comments__content">
+        <div class="workspace-comments__content" id="workspace-comments__content">
             <!-- Тело одного коммента -->
             <div class="workspace-comments__body">
                 <div class="workspace-comments__avatar">
-                    <img src="{% static 'img/comments_img.webp' %}"
-                        alt="comments_img.webp"></div>
+                    <img src="{% static 'img/comments_img.webp' %}" alt="comments_img.webp">
+                </div>
                 <div class="workspace-comments__text">
                     <div class="workspace-comments__text-header">
                         <span>Панков Илья Владимирович | Jun 12, 2022 |</span>
-                        <a href="#">Ответить</a></div>
+                        <a href="#">Ответить</a>
+                    </div>
                     <div class="workspace-comments__text-body">Lorem ipsum dolor
                         sit amet, consectetur adipisicing elit. Natus unde est
                         dignissimos ex ipsam molestiae doloribus quidem alias
@@ -78,12 +78,13 @@
             </div>
             <div class="workspace-comments__body">
                 <div class="workspace-comments__avatar">
-                    <img src="{% static 'img/comments_img.webp' %}"
-                        alt="comments_img.webp"></div>
+                    <img src="{% static 'img/comments_img.webp' %}" alt="comments_img.webp">
+                </div>
                 <div class="workspace-comments__text">
                     <div class="workspace-comments__text-header">
                         <span>Панков Илья Владимирович | Jun 12, 2022 |</span>
-                        <a href="#">Ответить</a></div>
+                        <a href="#">Ответить</a>
+                    </div>
                     <div class="workspace-comments__text-body">Lorem ipsum dolor
                         sit amet consectetur, adipisicing elit. Eligendi
                         molestias provident ut alias, adipisci explicabo magnam
@@ -110,12 +111,13 @@
             </div>
             <div class="workspace-comments__body">
                 <div class="workspace-comments__avatar">
-                    <img src="{% static 'img/comments_img.webp' %}"
-                        alt="comments_img.webp"></div>
+                    <img src="{% static 'img/comments_img.webp' %}" alt="comments_img.webp">
+                </div>
                 <div class="workspace-comments__text">
                     <div class="workspace-comments__text-header">
                         <span>Панков Илья Владимирович | Jun 12, 2022 |</span>
-                        <a href="#">Ответить</a></div>
+                        <a href="#">Ответить</a>
+                    </div>
                     <div class="workspace-comments__text-body">Lorem ipsum dolor
                         sit amet consectetur adipisicing elit. Illum
                         perspiciatis cupiditate quaerat voluptas debitis ipsa

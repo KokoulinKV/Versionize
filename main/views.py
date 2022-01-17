@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.views.generic import ListView, DetailView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -57,3 +58,19 @@ class DocumentDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Versionize - Документ'
         return context
+
+
+def company2(request):
+    return render(request, 'main/company2.html')
+
+
+def document2(request):
+    return render(request, 'main/document2.html')
+
+
+def section2(request):
+    return render(request, 'main/section2.html')
+
+
+def total2(request):
+    return render(request, 'main/total2.html')

@@ -18,8 +18,12 @@ class Section(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     name = models.CharField(max_length=64)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    responsible = models.ForeignKey(User, db_index=True, on_delete=models.CASCADE)
-    expert = models.ForeignKey(User, on_delete=models.CASCADE, related_name='expert_id')
+    responsible = models.ForeignKey(User,
+                                    db_index=True,
+                                    on_delete=models.CASCADE)
+    expert = models.ForeignKey(User,
+                               on_delete=models.CASCADE,
+                               related_name='expert_id')
 
     def get_sections(self):
         return self.objects.all()
@@ -103,8 +107,12 @@ class Remark(models.Model):
 
 class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipient')
+    recipient = models.ForeignKey(User,
+                                  on_delete=models.CASCADE,
+                                  related_name='recipient')
     document = models.ForeignKey(Document, on_delete=models.CASCADE)
-    reply_to = models.ForeignKey('self', on_delete=models.CASCADE, related_name='parent')
+    reply_to = models.ForeignKey('self',
+                                 on_delete=models.CASCADE,
+                                 related_name='parent')
     created_at = models.DateTimeField(auto_now=True)
     body = models.CharField(max_length=1024)
