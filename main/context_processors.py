@@ -12,7 +12,6 @@ def active_project_info(request):
             # При первом запуске сервиса модель Project пуста
             request.session['active_project_id'] = None
             return {'active_project_id': None}
-    print(request.session['active_project_id'])
     project = Project.objects.filter(id=request.session['active_project_id']).first()
     request.session['active_project_id'] = project.id
 
