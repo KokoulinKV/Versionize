@@ -109,45 +109,9 @@
 
     {% endblock %}
 </body>
-<script>
-    let openBtn = document.getElementById('menu-btn')
-    let sidebar = document.getElementById('sidebar')
-    let searchBtn = document.getElementById('searchBtn')
-
-    openBtn.onclick = function () {
-        sidebar.classList.toggle('sidebar_active')
-    }
-    searchBtn.onclick = function () {
-        sidebar.classList.toggle('sidebar_active')
-    }
-
-
-    let popupBtn = document.querySelectorAll('.popupBtn')
-    let body = document.querySelectorAll('body')
-    let lockPadding = document.querySelectorAll('.lock-padding')
-
-    let unlock = true
-
-    const timeout = 500;
-
-    if (popupBtn.length > 0) {
-        for (let i = 0; i < popupBtn.length; i++) {
-            let popupLink = popupBtn[i];
-            popupLink.addEventListener('click', (e) => {
-                let popUp = document.getElementById('popup')
-                popUp.classList.toggle('popup_open')
-                e.preventDefault();
-            })
-        }
-    }
-    let popupCloseIcon = document.getElementById('popup__close')
-    popupCloseIcon.addEventListener('click', (e) => {
-        let popUp = document.getElementById('popup')
-        popUp.classList.toggle('popup_open')
-        e.preventDefault();
-    })
-
-
-</script>
+<!-- defer - ждем загрузки страницы -->
+<!-- Todo перейти на jquery, чтобы запускать скрипты после загрузки контента -->
+<script defer src="{% static 'js/pop-up.js' %}"></script>
+<script defer src="{% static 'js/side-nav.js' %}"></script>
 
 </html>
