@@ -38,7 +38,7 @@ class SectionDetailView(LoginRequiredMixin, DetailView):
         context['title'] = 'Versionize - Раздел'
         return context
 
-
+      
 class CompanyListView(LoginRequiredMixin, ListView):
     model = Company
     template_name = 'main/companies.html'
@@ -48,7 +48,6 @@ class CompanyListView(LoginRequiredMixin, ListView):
         context['title'] = 'Versionize - Компании'
         return context
 
-
 class DocumentDetailView(LoginRequiredMixin, DetailView):
     model = Document
     template_name = 'main/document.html'
@@ -57,3 +56,16 @@ class DocumentDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Versionize - Документ'
         return context
+
+      
+def section2(request):
+    return render(request, 'main/section2.html')
+def company2(request):
+    return render(request, 'main/company2.html')
+
+def total2(request):
+    return render(request, 'main/total2.html')
+  
+ def document2(request):
+    return render(request, 'main/document2.html')
+
