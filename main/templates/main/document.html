@@ -6,16 +6,17 @@ Versionize
 
 {% block workspace-title %}
 <div class="desktop__title-obj-name">
-    <h1>Название объекта</h1>
-    <span>18-06/2021(объект)</span>
+    <h1>{{ active_project_code }}</h1>
+    <span>{{ active_project_name }}</span>
 </div>
 <div class="desktop__title-obj-date">
-    <p>Загрузить до: <span>25.12.21</span></p>
+    <p>Следующая загрузка: <span>{{ active_project_next_upload|date:'d.m.y' }}</span></p>
 </div>
 <div class="desktop__title-obj-date">
-    <p>Дата загрузки: <span>24.12.21</span></p>
+    <p>Итоговая загрузка: <span>{{ active_project_exp_date|date:'d.m.y' }}</span></p>
 </div>
 <div class="desktop__title-obj-info">
+    <h1>{{ document.section.company.name }}</h1>
     <h1>ООО "НТЦ "ИнжПроект"</h1>
 </div>
 {% endblock %}
@@ -31,7 +32,12 @@ Versionize
             </tr>
         </thead>
         <tbody>
+            {% for adjustment in document.get_linked_adjustments %}
             <tr>
+                <td>{{ adjustment.pages }}</td>
+                <td>{{ adjustment.body }}</td>
+                <td>{{ adjustment.code }}</td>
+                <td>{{ adjustment.note }}</td>
                 <td>2</td>
                 <td>Таблица объемов работ откорректирована</td>
                 <td>1</td>
@@ -52,6 +58,7 @@ Versionize
                 <td>1</td>
                 <td></td>
             </tr>
+            {% endfor %}
         </tbody>
     </table>
     <button type="button" class="download-button">
@@ -68,17 +75,17 @@ Versionize
             <div class="workspace-comments__func" id="hide"><i class='bx
                     bx-hide'></i>Скрыть/Показать</div>
         </div>
-        <div class="workspace-comments__content"
-            id="workspace-comments__content">
+        <div class="workspace-comments__content" id="workspace-comments__content">
             <!-- Тело одного коммента -->
             <div class="workspace-comments__body">
                 <div class="workspace-comments__avatar">
-                    <img src="{% static 'img/comments_img.webp' %}"
-                        alt="comments_img.webp"></div>
+                    <img src="{% static 'img/comments_img.webp' %}" alt="comments_img.webp">
+                </div>
                 <div class="workspace-comments__text">
                     <div class="workspace-comments__text-header">
                         <span>Панков Илья Владимирович | Jun 12, 2022 |</span>
-                        <a href="#">Ответить</a></div>
+                        <a href="#">Ответить</a>
+                    </div>
                     <div class="workspace-comments__text-body">Lorem ipsum dolor
                         sit amet, consectetur adipisicing elit. Natus unde est
                         dignissimos ex ipsam molestiae doloribus quidem alias
@@ -88,12 +95,13 @@ Versionize
             </div>
             <div class="workspace-comments__body">
                 <div class="workspace-comments__avatar">
-                    <img src="{% static 'img/comments_img.webp' %}"
-                        alt="comments_img.webp"></div>
+                    <img src="{% static 'img/comments_img.webp' %}" alt="comments_img.webp">
+                </div>
                 <div class="workspace-comments__text">
                     <div class="workspace-comments__text-header">
                         <span>Панков Илья Владимирович | Jun 12, 2022 |</span>
-                        <a href="#">Ответить</a></div>
+                        <a href="#">Ответить</a>
+                    </div>
                     <div class="workspace-comments__text-body">Lorem ipsum dolor
                         sit amet consectetur, adipisicing elit. Eligendi
                         molestias provident ut alias, adipisci explicabo magnam
@@ -120,12 +128,13 @@ Versionize
             </div>
             <div class="workspace-comments__body">
                 <div class="workspace-comments__avatar">
-                    <img src="{% static 'img/comments_img.webp' %}"
-                        alt="comments_img.webp"></div>
+                    <img src="{% static 'img/comments_img.webp' %}" alt="comments_img.webp">
+                </div>
                 <div class="workspace-comments__text">
                     <div class="workspace-comments__text-header">
                         <span>Панков Илья Владимирович | Jun 12, 2022 |</span>
-                        <a href="#">Ответить</a></div>
+                        <a href="#">Ответить</a>
+                    </div>
                     <div class="workspace-comments__text-body">Lorem ipsum dolor
                         sit amet consectetur adipisicing elit. Illum
                         perspiciatis cupiditate quaerat voluptas debitis ipsa
