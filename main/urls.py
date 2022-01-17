@@ -5,7 +5,7 @@ from main.views import TotalListView, CompanyListView, SectionDetailView, Docume
 app_name = 'main'
 
 urlpatterns = [
-    path('/', Index.as_view(), name='index'),
+    path('user/<int:pk>', Index.as_view(), name='index'),
     path('companies/', CompanyListView.as_view(), name='companies'),
     # path('company/<int:pk>', CompanyDetailView.as_view(), name='company'),
     path('document/<int:pk>', DocumentDetailView.as_view(), name='document'),

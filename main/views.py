@@ -1,10 +1,11 @@
 from django.views.generic import ListView, DetailView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from main.models import Section, Company, Document
+from main.models import Section, Company, Document, Project
 
 
-class Index(TemplateView):
+class Index(LoginRequiredMixin, ListView):
+    model = Project
     template_name = 'main/lk2.html'
 
 
