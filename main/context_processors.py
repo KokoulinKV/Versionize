@@ -12,8 +12,11 @@ def active_project_info(request):
             # При первом запуске сервиса модель Project пуста
             request.session['active_project_id'] = None
             return {'active_project_id': None}
-    project = Project.objects.filter(id=request.session['active_project_id']).first()
-    request.session['active_project_id'] = project.id
+    if request.session['active_project_id'] is None:
+        return {'active_project_id': None}
+    else:
+        project = Project.objects.filter(id=request.session['active_project_id']).first()
+        request.session['active_project_id'] = project.id
 
     return {
         'active_project_id': project.id,
