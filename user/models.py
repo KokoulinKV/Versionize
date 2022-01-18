@@ -7,6 +7,28 @@ class User(AbstractUser):
     phone = models.CharField(verbose_name='phone', max_length=20, null=True)
     patronymic = models.CharField(verbose_name='patronymic', max_length=30, null=True)
 
+    def get_usercompany_info(self):
+        return UserCompanyInfo.objects.get(id=self.id)
+
+    def get_company(self):
+        user_company_info = self.get_usercompany_info()
+        return user_company_info.company
+
+    def get_position(self):
+        user_company_info = self.get_usercompany_info()
+        return user_company_info.position
+
+    def get_project_role(self):
+        user_company_info = self.get_usercompany_info()
+        if user_company_info.expert:
+            return 'Эксперт'
+        elif user_company_info.chief_project_engineer:
+            return 'ГИП'
+        elif user_company_info.assistant:
+            return 'Ассистент'
+        else:
+            return 'Пользователь'
+
 
 class Company(models.Model):
     name = models.CharField(verbose_name='company', max_length=64)
