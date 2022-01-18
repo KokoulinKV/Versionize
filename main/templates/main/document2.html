@@ -7,29 +7,84 @@ Versionize | Document card
 {% endblock %}
 {% block workspace %}
 <div class="ext-workspace">
-    <div class="project">
-        <div class="project__content">
-            <div class="project__title">2021 / 18-06/2021(объект) / 18-06/2021-ИГИ
-            </div>
-            <div class="project__data-block">
-                <div class="project__data">
-                    <span>Загрузить до:</span>
-                    <p>15/01/2022</p>
+    <div class="left-block">
+        <!-- Можно использовать как для пользователя, так и для эксперта/ответственногого -->
+        <h2 class="block-title">Пользователь:</h2>
+        <div class="person">
+            <div class="person__content">
+                <div class="person__avatar">
+                    <img class="" width="125px"
+                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
                 </div>
-                <div class="project__data">
-                    <span>Был загружен:</span>
-                    <p>15/01/2022</p>
+                <div class="person__text">
+                    <span class="person__name">Панков Илья Владимирович</span>
+                    <span class="person__job"><i class='bx bxs-business'></i>Versionize team</span>
+                    <span class="person__post"><i class='bx bx-id-card'></i>Web Design</span>
+                    <span class="person__role"><i class='bx bx-male'></i>ГИП</span>
                 </div>
             </div>
+            <div class="person__contacts">
+                <span class="person__phone"><i class='bx bx-mobile-alt'></i>8-800-700-70-70</span>
+                <span class="person__mail"><i class='bx bx-mail-send'></i>gip@yandex.ru</span>
+                <span class="person__actions"><i class='bx bx-dots-horizontal-rounded'></i></span>
+            </div>
+        </div>
+        <h2 class="block-title">Активный проект:</h2>
+        <div class="project">
             <div class="project__info">
-                <div class="project__name">37624122021_18-06-2021_2_ИГИ_(изм.2)</div>
-                <div class="project__md">MD5: d41d8cd98f00b204e9800998ecf8427e</div>
-                <div class="project__ver"><span>Вер.: 5</span></div>
-                <div class="project__chg"><span>Изм.: 2</span></div>
+                <div class="project__info-title">2021/18-06/2021(объект)/18-06/2021-ИГИ</div>
+                <div class="project__info-data">
+                    <div class="project__data">
+                        <span>Загрузить до:</span>
+                        <p>15/01/2022</p>
+                    </div>
+                    <div class="project__data">
+                        <span>Был загружен:</span>
+                        <p>15/01/2022</p>
+                    </div>
+                </div>
+            </div>
+            <div class="project__file">
+                <span class="project__file-title">Файл:</span>
+                <div class="project__file-conten">
+                    <div class="project__file-icon"><i class='bx bx-download'></i></div>
+                    <div class="project__file-body">
+                        <div class="project__file-name">37624122021_18-06-2021_2_ИГИ_(изм.2)</div>
+                        <div class="project__file-md">MD5: d41d8cd98f00b204e9800998ecf8427e</div>
+                        <div class="project__file-ver">Вер.: 5</div>
+                        <div class="project__file-chnge-ver">Изм.: 2</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Блок кнопок -->
+        <h2 class="block-title">Действия:</h2>
+        <div class="actions actions_project">
+            <div class="actions__btn" id="add-project">
+                <span class="actions__icon"><i class='bx bx-folder-plus'></i></span>
+                <h3 class="actions__name">Создать проект</h3>
+            </div>
+        </div>
+        <div class="actions actions_section">
+            <div class="actions__btn" id="add-section">
+                <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>
+                <h3 class="actions__name">Добавить раздел</h3>
+            </div>
+        </div>
+        <div class="actions actions_section">
+            <div class="actions__btn" id="add-section_new">
+                <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>
+                <h3 class="actions__name">Создать раздел</h3>
+            </div>
+        </div>
+        <div class="actions actions_document">
+            <div class="actions__btn" id="add-document">
+                <span class="actions__icon"><i class='bx bx-file'></i></span>
+                <h3 class="actions__name">Загрузить документ</h3>
             </div>
         </div>
     </div>
-    <div class="tables">
+    <div class="notice">
         <div class="general-table">
             <h2>Сводная таблица</h2>
             <table>
@@ -39,6 +94,7 @@ Versionize | Document card
                         <th>Содержание изменения</th>
                         <th>Код</th>
                         <th>Примечание</th>
+                        <th>Скачать</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,6 +103,7 @@ Versionize | Document card
                         <td>Таблица объемов работ откорректирована</td>
                         <td>1</td>
                         <td></td>
+                        <td><a href="#"><i class='bx bxs-download'></i></a></td>
                     </tr>
                     <tr>
                         <td>3-4,42,43</td>
@@ -54,6 +111,7 @@ Versionize | Document card
                             изысканий</td>
                         <td>1</td>
                         <td></td>
+                        <td><a href="#"><i class='bx bxs-download'></i></a></td>
                     </tr>
                     <tr>
                         <td>4</td>
@@ -62,114 +120,187 @@ Versionize | Document card
                             отобранных в основани здания в 2013г</td>
                         <td>1</td>
                         <td></td>
+                        <td><a href="#"><i class='bx bxs-download'></i></a></td>
                     </tr>
                 </tbody>
             </table>
             <a href="#" class="general-table__btn">Показать еще</a>
         </div>
-        <button type="button" class="download-button popupBtn">
-            <span class="download-button__text">Загрузить документ</span>
-            <span class="download-button__icon">
-                <i class='bx bx-cloud-upload'></i>
-            </span>
-        </button>
-    </div>
-    <div class="user-block">
-        <div class="user-profile">
-            <div class="user-profile__info">
-                <div class="user-profile__avatar">
-                    <img class="" width="150px"
-                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-                </div>
-                <div class="user-profile__text">
-                    <span class="user-profile__name">Панков Илья Владимирович</span>
-                    <span class="user-profile__job"><i class='bx bxs-business'></i>Versionize team</span>
-                    <span class="user-profile__post"><i class='bx bx-id-card'></i>Web Design</span>
-                </div>
-            </div>
-            <div class="user-profile__actions">
-                <a href="#" class="user-profile__link"><i class='bx bx-mail-send'></i>Написать эксперту</a>
-                <a href="#" class="user-profile__link"><i class='bx bx-chat'></i></a>
-                <a href="#" class="user-profile__link" id="more-actions">
-                    <i class='bx bx-dots-horizontal-rounded'></i></a>
-            </div>
-        </div>
-        <div class="user-data">
-            <ul class="user-contact">
-                <li class="user-contact__item">
-                    <div class="user-contact__title-row">
-                        <span class='user-contact__title'>Контакты</span>
-                        <i class='bx bx-chevron-right'></i>
-                    </div>
-                    <ul class="user-contact__sub-menu">
-                        <li>
-                            <div class="user-contact__sub-menu-item">
-                                <i class='bx bx-phone'></i><span>Телефон: 8-916-777-77-77</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="user-contact__sub-menu-item">
-                                <i class='bx bx-printer'></i><span>Факс: 8-916-777-77-77</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="user-contact__sub-menu-item">
-                                <i class='bx bxl-gmail'></i>
-                                <span>Почта: Versionize@yandex.ru</span>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
     </div>
 </div>
+
 {% endblock %}
 {% block popup %}
-<div class="popup" id="popup">
+<div class="popup" id="popup-project">
     <div class="popup__body">
         <div class="popup__content">
-            <a href="#" class="popup__close" id="popup__close">X</a>
-            <div class="popup__title">SOME FORM</div>
-            <form action="" method="post" class="form"></form>
-            <div class="form">
+            <a href="#" class="popup__close" id="popup__close_pro">X</a>
+            <div class="popup__title">Создание проекта</div>
+            <form action="" method="post" class="form">
+                {% csrf_token %}
+
                 <div class="form__field">
-                    <label>Text</label>
+                    <label>Шифр</label>
                     <input type='text' class="form__input">
                 </div>
                 <div class="form__field">
-                    <label>Password</label>
-                    <input type='password' class="form__input">
+                    <label>Наименование</label>
+                    <input type='text' class="form__input">
                 </div>
                 <div class="form__field">
-                    <label>Custom select</label>
+                    <label>Ответственный</label>
                     <div class="form__select">
                         <select>
-                            <option value="">Select</option>
-                            <option value="">Male</option>
-                            <option value="">Section</option>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
                         </select>
                     </div>
                 </div>
                 <div class="form__field">
-                    <label>Email</label>
+                    <label>Срок экспертизы</label>
+                    <input type='date' class="form__input">
+                </div>
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn">Создать проект</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<div class="popup" id="popup-section">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_sec">X</a>
+            <div class="popup__title">Добавить раздел</div>
+            <form action="" method="post" class="form">
+                {% csrf_token %}
+                <div class="form__field">
+                    <label>Выбор раздела</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Выбор проекта</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Наименование</label>
+                    <input type='text' class="form__input">
+                </div>
+                <div class="form__field">
+                    <label>Выбор компании</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Выбор ответственногого</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Выбор эксперта</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn">Создать раздел</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<div class="popup" id="popup-section2">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_sec2">X</a>
+            <div class="popup__title">Создать раздел</div>
+            <form action="" method="post" class="form">
+                {% csrf_token %}
+                <div class="form__field">
+                    <label>Наименование</label>
+                    <input type='text' class="form__input">
+                </div>
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn">Создать раздел</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<div class="popup" id="popup-document">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_doc">X</a>
+            <div class="popup__title">Загрузка документа</div>
+            <form action="" method="post" class="form">
+                {% csrf_token %}
+                <div class="form__field">
+                    <label>Статус</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">Номер1</option>
+                            <option value="">Номер2</option>
+                            <option value="">Номер3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Наименование</label>
                     <input type='tezt' class="form__input">
                 </div>
                 <div class="form__field">
-                    <label>Phone</label>
+                    <label>Файл</label>
+                    <input type='file' class="form__input" accept=".pdf">
+                </div>
+                <div class="form__field">
+                    <label>Раздел</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">Номер1</option>
+                            <option value="">Номер2</option>
+                            <option value="">Номер3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Примечания</label>
                     <textarea class="form__textarea"></textarea>
                 </div>
-                <div class="form__field form_terms">
-                    <label class="form__checkbox">
-                        <input type="checkbox">
-                        <span class="form__checkmark"></span>
-                    </label>
-                    <p>Some action</p>
-                </div>
                 <div class="form__submit">
-                    <button type="submit" class="form__submit-btn">Action</button>
+                    <button type="submit" class="form__submit-btn">Создать документ</button>
                 </div>
-            </div>
+
+            </form>
         </div>
     </div>
 </div>
