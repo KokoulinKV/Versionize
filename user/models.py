@@ -25,3 +25,4 @@ class UserCompanyInfo(models.Model):
     expert = models.BooleanField(verbose_name='expert', default=False)
     chief_project_engineer = models.BooleanField(verbose_name='chief_project_engineer', default=False)
     assistant = models.BooleanField(verbose_name='assistant', default=False)
+    position = models.CharField(verbose_name='position', max_length=128, blank=True)
