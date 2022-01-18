@@ -201,8 +201,14 @@
             <form action="" method="post" class="form">
                 {% csrf_token %}
                 <div class="form__field">
-                    <label>Типовой раздел</label>
-                    <input type='text' class="form__input">
+                    <label>Выбор раздела</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="form__field">
                     <label>Выбор проекта</label>
@@ -260,7 +266,7 @@
     <div class="popup__body">
         <div class="popup__content">
             <a href="#" class="popup__close" id="popup__close_sec2">X</a>
-            <div class="popup__title">Создать имя раздела</div>
+            <div class="popup__title">Создать раздел</div>
             <form action="" method="post" class="form">
                 {% csrf_token %}
                 <div class="form__field">
