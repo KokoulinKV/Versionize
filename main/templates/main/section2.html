@@ -30,7 +30,7 @@ Versionize | Section card
                 <div class="person__content">
                     <div class="person__text">
                         {% with section.responsible as responsible %}
-                            <span class="person__name">{{ section.responsible.get_fullname }}</span>
+                            <span class="person__name">{{ responsible.get_fullname }}</span>
                             <span class="person__job"><i class='bx bxs-business'></i>{{ responsible.get_company.name }}</span>
                             <span class="person__post"><i class='bx bx-id-card'></i>{{ responsible.get_position }}</span>
                             <span class="person__role"><i class='bx bx-male'></i>{{ responsible.get_project_role }}</span>
