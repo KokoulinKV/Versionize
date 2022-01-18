@@ -7,11 +7,18 @@ class Project(models.Model):
     name = models.CharField(max_length=512)
     created_at = models.DateTimeField(auto_now=True)
     exp_date = models.DateField()
-    next_upload = models.DateField()
+    next_upload = models.DateField(blank=True)
     admin = models.ForeignKey(User, db_index=True, on_delete=models.CASCADE)
 
     def get_projects(self):
         return self.objects.all()
+
+
+class StandartSection(models.Model):
+    abbreviation = models.CharField(max_length=16)
+    name = models.CharField(max_length=256)
+
+
 
 
 class Section(models.Model):
