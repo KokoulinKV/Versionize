@@ -32,7 +32,7 @@ class TotalListView(LoginRequiredMixin, ListView):
 
 class SectionDetailView(LoginRequiredMixin, DetailView):
     model = Section
-    template_name = 'main/section.html'
+    template_name = 'main/section2.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
