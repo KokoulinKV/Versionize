@@ -342,6 +342,18 @@ body {
           flex-grow: 1;
 }
 
+.right-block {
+  min-width: 500px;
+  height: calc(100% - 30px);
+  padding-top: 25px;
+  padding-left: 30px;
+  padding-right: 15px;
+  overflow-y: auto;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
 .person {
   width: 100%;
   background: #fff;
@@ -473,6 +485,7 @@ body {
   margin-right: 25px;
   -webkit-box-shadow: 0 2rem 2rem rgba(132, 139, 200, 0.18);
           box-shadow: 0 2rem 2rem rgba(132, 139, 200, 0.18);
+  width: 100%;
 }
 
 .notice:hover {
@@ -718,10 +731,6 @@ body {
 
 .general-table table tbody tr:last-child td {
   border: none;
-}
-
-.general-table table tbody tr:hover {
-  font-size: 20px;
 }
 
 .general-table__btn {
