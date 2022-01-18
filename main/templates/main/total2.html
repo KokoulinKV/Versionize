@@ -7,36 +7,47 @@ Versionize | Total table
 {% block workspace %}
 <div class="ext-workspace">
     <div class="left-block">
-        <!-- Можно использовать как для пользователя, так и для эксперта/ответственногого -->
-        <h2 class="block-title">Активный проект:</h2>
-        <div class="project">
-            <div class="project__info">
-                <div class="project__info-title">2021/18-06/2021(объект)/18-06/2021-ИГИ</div>
-                <div class="project__info-data">
-                    <div class="project__data">
-                        <span>Загрузить до:</span>
-                        <p>15/01/2022</p>
-                    </div>
-                    <div class="project__data">
-                        <span>Был загружен:</span>
-                        <p>15/01/2022</p>
+        <!-- Можно использовать как для пользователя, так и для эксперта/ответственного -->
+        {% if active_project_id %}
+            <h2 class="block-title">Активный проект:</h2>
+            <div class="project">
+                <div class="project__info">
+                    <div class="project__info-title">{{ active_project_code }}</div>
+                    <div class="project__info-data">
+                        <div class="project__data">
+                            <span>Следующая загрузка:</span>
+                            <p>{{ active_project_next_upload|date:'d.m.Y' }}</p>
+                        </div>
+                        <div class="project__data">
+                            <span>Срок экспертизы до:</span>
+                            <p>{{ active_project_exp_date|date:'d.m.Y' }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <h2 class="block-title">Ответсвенный:</h2>
-        <div class="person">
-            <div class="person__content">
-                <div class="person__text">
-                    <span class="person__name">Панков Илья Владимирович</span>
-                    <span class="person__job"><i class='bx bxs-business'></i>Versionize team</span>
-                    <span class="person__post"><i class='bx bx-id-card'></i>Web Design</span>
-                    <span class="person__role"><i class='bx bx-male'></i>ГИП</span>
-                    <span class="person__phone"><i class='bx bx-mobile-alt'></i>8-800-700-70-70</span>
-                    <span class="person__mail"><i class='bx bx-mail-send'></i>gip@yandex.ru</span>
+            <h2 class="block-title">Главный инженер проекта:</h2>
+            <div class="person">
+                <div class="person__content">
+                    <div class="person__text">
+                        {% with object_list.1.project.get_admin as admin %}
+                            <span class="person__name">{{ admin.get_fullname }}</span>
+                            <span class="person__job"><i class='bx bxs-business'></i>{{ admin.get_company.name }}</span>
+                            <span class="person__post"><i class='bx bx-id-card'></i>{{ admin.get_position }}</span>
+                            <span class="person__role"><i class='bx bx-male'></i>{{ admin.get_project_role }}</span>
+                            <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ admin.phone }}</span>
+                            <span class="person__mail"><i class='bx bx-mail-send'></i>{{ admin.email }}</span>
+                        {% endwith %}
+                    </div>
                 </div>
             </div>
-        </div>
+        {% else %}
+            <h2 class="block-title">Активный проект:</h2>
+            <div class="project">
+                <div class="project__info">
+                    <div class="project__info-title">Проект не выбран</div>
+                </div>
+            </div>
+        {% endif %}
         <!-- Блок кнопок -->
         <h2 class="block-title">Действия:</h2>
         <div class="actions actions_section">
@@ -61,58 +72,45 @@ Versionize | Total table
     <div class="notice">
         <div class="general-table">
             <h2>Сводная таблица</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Md5</th>
-                        <th>Шифр раздела</th>
-                        <th>Загружен</th>
-                        <th>Скачать</th>
-                        <th>Статус</th>
-                        <th>Версия</th>
-                        <th>№ посл. изм.</th>
-                        <th>Примечания</th>
-                        <th>Исполнитель</th>
-                        <!-- <th>Диаграмма Ганта</th> -->
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td title='d41d8cd98f00b204e9800998ecf8427e'><i class='bx bxs-file-md'></i></td>
-                        <td><a href="#"><span class='_code-green'>10-03/2020-ИГИ</span></a></td>
-                        <td><i class='bx bx-check-circle'></i></td>
-                        <td><a href="#"><i class='bx bx-save'></i></a></td>
-                        <td>Положительное</td>
-                        <td>2</td>
-                        <td>1.1</td>
-                        <td class="general-table__warning">Все хорошо</td>
-                        <td><a href="#">ООО "ИТ"</a></td>
-                    </tr>
-                    <tr>
-                        <td title='1cfe70df284a018d4ba63e20c72e0fd5'><i class='bx bx-fingerprint'></i></td>
-                        <td><a href="#"><span class='_code-yellow'>10-03/2020-СМР</span></a></td>
-                        <td><i class='bx bx-loader-circle'></i></td>
-                        <td><a href="#"><i class='bx bxs-download'></i></a></td>
-                        <td>Повторные замеры</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td class="general-table__warning">Исправить</td>
-                        <td><a href="#">Отдел КР</a></td>
-                    </tr>
-                    <tr>
-                        <td title="879a4ea6e804543155e062a09b525796"><i class='bx bx-shekel'></i></td>
-                        <td><a href="#"><span class='_code-red'> 10-03/2020-КР</span></a></td>
-                        <td><i class='bx bx-circle'></i></td>
-                        <td><a href="#"><i class='bx bx-cloud-download'></i></i></a></td>
-                        <td>Просрочено</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td class="general-table__warning">Исправить</td>
-                        <td><a href="#">Отдел КР</a></td>
-                    </tr>
-                </tbody>
-            </table>
-            <a href="#" class="general-table__btn">Показать еще</a>
+            {% if active_project_id %}
+                {% if object_list %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Md5</th>
+                                <th>Шифр раздела</th>
+                                <th>Загружен</th>
+                                <th>Скачать</th>
+                                <th>Статус</th>
+                                <th>Версия</th>
+                                <th>№ посл. изм.</th>
+                                <th>Примечания</th>
+                                <th>Исполнитель</th>
+                                <!-- <th>Диаграмма Ганта</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for section in object_list %}
+                                {% with section.get_latest_linked_document as document %}
+                                    <tr>
+                                        <td title='{{ document.md5 }}'><i class='bx bxs-file-md'></i></td>
+                                        <td><a href="{% url 'main:section' section.id %}">
+                                            <span class='_code-green'>{{ section.project.code }}</span></a></td>
+                                        <td><i class='bx bx-check-circle'></i></td>
+                                        <td><a href="#"><i class='bx bx-save'></i></a></td>
+                                        <td>{{ document.status }}</td>
+                                        <td>{{ document.version }}</td>
+                                        <td>{{ document.variation }}</td>
+                                        <td class="general-table__warning">{{ document.note }}</td>
+                                        <td><a href="#">{{ section.company }}</a></td>
+                                    </tr>
+                                {% endwith %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            {% endif %}
+{#          <a href="#" class="general-table__btn">Показать еще</a>#}
         </div>
     </div>
 </div>
