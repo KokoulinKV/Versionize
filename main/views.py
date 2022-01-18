@@ -12,7 +12,7 @@ class Index(LoginRequiredMixin, DetailView):
 
 class TotalListView(LoginRequiredMixin, ListView):
     model = Section
-    template_name = 'main/total.html'
+    template_name = 'main/total2.html'
 
     def get_queryset(self):
         queryset = self.model.objects.filter(project_id=self.request.session['active_project_id'])
