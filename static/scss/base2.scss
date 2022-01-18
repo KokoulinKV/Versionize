@@ -499,6 +499,58 @@ body {
     &__name {
     }
 }
+.project {
+    width: 100%;
+    background: #fff;
+    padding: 1.8rem;
+    border-radius: 2rem;
+    box-shadow: 0 2rem 2rem rgba(132, 139, 200, 0.18);
+    transition: all 300ms ease;
+    margin-bottom: 0.8rem;
+
+    &:hover {
+        box-shadow: none;
+    }
+    &__info {
+    }
+
+    &__info-title {
+    }
+
+    &__info-data {
+    }
+
+    &__data {
+    }
+
+    &__file {
+    }
+
+    &__file-title {
+    }
+
+    &__file-conten {
+    }
+
+    &__file-icon {
+    }
+
+    &__file-body {
+    }
+
+    &__file-name {
+    }
+
+    &__file-md {
+    }
+
+    &__file-ver {
+    }
+
+    &__file-chnge-ver {
+    }
+}
+
 .block-title {
     margin-bottom: 0.8rem;
 }
@@ -639,49 +691,6 @@ body {
 .sidebar_active ~ .popup {
     width: calc(100% - 240px);
     left: 240px;
-}
-// SECTION HTML
-.project {
-    padding-top: 25px;
-    padding-left: 30px;
-    padding-right: 15px;
-    width: 500px;
-    &__content {
-    }
-
-    &__title {
-        text-align: center;
-    }
-
-    &__data-block {
-        display: flex;
-        flex-wrap: nowrap;
-        align-items: center;
-        justify-content: space-evenly;
-    }
-
-    &__data {
-    }
-
-    &__info {
-        margin-top: 25px;
-    }
-
-    &__name {
-        text-align: center;
-    }
-
-    &__md {
-        padding-left: 25px;
-    }
-
-    &__ver {
-        padding-left: 25px;
-    }
-
-    &__chg {
-        padding-left: 25px;
-    }
 }
 
 // НАСТРОЙКА ФОРМЫ
