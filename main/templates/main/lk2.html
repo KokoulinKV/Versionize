@@ -67,6 +67,12 @@
                 <h3 class="actions__name">Создать раздел</h3>
             </div>
         </div>
+        <div class="actions actions_section">
+            <div class="actions__btn" id="add-section_new">
+                <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>
+                <h3 class="actions__name">Создать имя раздела</h3>
+            </div>
+        </div>
         <div class="actions actions_document">
             <div class="actions__btn" id="add-document">
                 <span class="actions__icon"><i class='bx bx-file'></i></span>
@@ -194,7 +200,10 @@
             <div class="popup__title">Создать раздел</div>
             <form action="" method="post" class="form">
                 {% csrf_token %}
-
+                <div class="form__field">
+                    <label>Типовой раздел</label>
+                    <input type='text' class="form__input">
+                </div>
                 <div class="form__field">
                     <label>Выбор проекта</label>
                     <div class="form__select">
@@ -238,6 +247,25 @@
                             <option value="">3</option>
                         </select>
                     </div>
+                </div>
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn">Создать раздел</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<div class="popup" id="popup-section2">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_sec2">X</a>
+            <div class="popup__title">Создать имя раздела</div>
+            <form action="" method="post" class="form">
+                {% csrf_token %}
+                <div class="form__field">
+                    <label>Наименование</label>
+                    <input type='text' class="form__input">
                 </div>
                 <div class="form__submit">
                     <button type="submit" class="form__submit-btn">Создать раздел</button>
