@@ -1,24 +1,39 @@
-let popupBtn = document.querySelectorAll('.popupBtn')
-let body = document.querySelectorAll('body')
-let lockPadding = document.querySelectorAll('.lock-padding')
+let popup_doc = document.getElementById('popup-document')
+let popup_section = document.getElementById('popup-section')
+let popup_project = document.getElementById('popup-project')
+let popup_docCloseIcon = document.getElementById('popup__close_doc')
+let popup_secCloseIcon = document.getElementById('popup__close_sec')
+let popup_proCloseIcon = document.getElementById('popup__close_pro')
 
-let unlock = true
-
-const timeout = 500;
-
-if (popupBtn.length > 0) {
-    for (let i = 0; i < popupBtn.length; i++) {
-        let popupLink = popupBtn[i];
-        popupLink.addEventListener('click', (e) => {
-            let popUp = document.getElementById('popup')
-            popUp.classList.toggle('popup_open')
-            e.preventDefault();
-        })
-    }
-}
-let popupCloseIcon = document.getElementById('popup__close')
-popupCloseIcon.addEventListener('click', (e) => {
-    let popUp = document.getElementById('popup')
+popup_doc.addEventListener('click', () => {
+    let popUp = document.getElementById('popup-document')
     popUp.classList.toggle('popup_open')
-    e.preventDefault();
 })
+
+popup_docCloseIcon.addEventListener('click', (e) => {
+    let popUp = document.getElementById('popup-document')
+    popUp.classList.toggle('popup_open')
+})
+
+popup_section.addEventListener('click', () => {
+    let popUp = document.getElementById('popup-section')
+    popUp.classList.toggle('popup_open')
+})
+
+popup_secCloseIcon.addEventListener('click', (e) => {
+    let popUp = document.getElementById('popup-section')
+    popUp.classList.toggle('popup_open')
+})
+
+popup_project.addEventListener('click', () => {
+    let popUp = document.getElementById('popup-project')
+    popUp.classList.toggle('popup_open')
+})
+
+popup_proCloseIcon.addEventListener('click', (e) => {
+    let popUp = document.getElementById('popup-project')
+    popUp.classList.toggle('popup_open')
+})
+
+
+

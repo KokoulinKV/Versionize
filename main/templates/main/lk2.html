@@ -28,7 +28,7 @@
         <h2 class="block-title">Активный проект:</h2>
         <div class="project">
             <div class="project__info">
-                <div class="project__info-title">2021 / 18-06/2021(объект) / 18-06/2021-ИГИ</div>
+                <div class="project__info-title">2021/18-06/2021(объект)/18-06/2021-ИГИ</div>
                 <div class="project__info-data">
                     <div class="project__data">
                         <span>Загрузить до:</span>
@@ -149,10 +149,104 @@
 </div>
 {% endblock %}
 {% block popup %}
-<div class="popup" id="popup">
+<div class="popup" id="popup-project">
     <div class="popup__body">
         <div class="popup__content">
-            <a href="#" class="popup__close" id="popup__close">X</a>
+            <a href="#" class="popup__close" id="popup__close_doc">X</a>
+            <div class="popup__title">SOME FORM</div>
+            <form action="" method="post" class="form"></form>
+            <div class="form">
+                <div class="form__field">
+                    <label>Text</label>
+                    <input type='text' class="form__input">
+                </div>
+                <div class="form__field">
+                    <label>Password</label>
+                    <input type='password' class="form__input">
+                </div>
+                <div class="form__field">
+                    <label>Custom select</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">Select</option>
+                            <option value="">Male</option>
+                            <option value="">Section</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Email</label>
+                    <input type='tezt' class="form__input">
+                </div>
+                <div class="form__field">
+                    <label>Phone</label>
+                    <textarea class="form__textarea"></textarea>
+                </div>
+                <div class="form__field form_terms">
+                    <label class="form__checkbox">
+                        <input type="checkbox">
+                        <span class="form__checkmark"></span>
+                    </label>
+                    <p>Some action</p>
+                </div>
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn">Action</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="popup" id="popup-section">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_sec">X</a>
+            <div class="popup__title">SOME FORM</div>
+            <form action="" method="post" class="form"></form>
+            <div class="form">
+                <div class="form__field">
+                    <label>Text</label>
+                    <input type='text' class="form__input">
+                </div>
+                <div class="form__field">
+                    <label>Password</label>
+                    <input type='password' class="form__input">
+                </div>
+                <div class="form__field">
+                    <label>Custom select</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">Select</option>
+                            <option value="">Male</option>
+                            <option value="">Section</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Email</label>
+                    <input type='tezt' class="form__input">
+                </div>
+                <div class="form__field">
+                    <label>Phone</label>
+                    <textarea class="form__textarea"></textarea>
+                </div>
+                <div class="form__field form_terms">
+                    <label class="form__checkbox">
+                        <input type="checkbox">
+                        <span class="form__checkmark"></span>
+                    </label>
+                    <p>Some action</p>
+                </div>
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn">Action</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="popup" id="popup-document">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_doc">X</a>
             <div class="popup__title">SOME FORM</div>
             <form action="" method="post" class="form"></form>
             <div class="form">

@@ -511,29 +511,54 @@ body {
     &:hover {
         box-shadow: none;
     }
-    &__info {
-    }
+    // &__info {
+    // }
 
     &__info-title {
+        font-size: 20px;
+        font-weight: 500;
+        text-align: center;
     }
 
     &__info-data {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        margin: 5px 0;
     }
 
-    &__data {
-    }
+    // &__data {
+    // }
 
-    &__file {
-    }
+    // &__file {
+    // }
 
     &__file-title {
+        font-size: 18px;
+        font-weight: 500;
+        // margin-bottom: 20px;
     }
 
     &__file-conten {
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        & i {
+            // width: 20px;
+            font-size: 40px;
+            color: #7380ec;
+            transition: all 0.8s ease;
+            cursor: pointer;
+        }
+        & i:hover {
+            color: #2d2b49;
+        }
     }
 
-    &__file-icon {
-    }
+    // &__file-icon {
+    // }
 
     &__file-body {
     }
@@ -542,6 +567,9 @@ body {
     }
 
     &__file-md {
+        font-size: 10px;
+        text-align: center;
+        margin: 2px 0;
     }
 
     &__file-ver {
