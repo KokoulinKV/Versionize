@@ -2,176 +2,152 @@
 {% load static %}
 
 {% block workspace %}
-<div class="user-workspace">
-    <div class="user-block">
-        <div class="user-profile">
-            <div class="user-profile__info">
-                <div class="user-profile__avatar">
-                    <img class="" width="150px"
+<div class="ext-workspace">
+    <div class="left-block">
+        <!-- Можно использовать как для пользователя, так и для эксперта/ответственногого -->
+        <h2 class="block-title">Пользователь:</h2>
+        <div class="person">
+            <div class="person__content">
+                <div class="person__avatar">
+                    <img class="" width="125px"
                         src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
                 </div>
-                <div class="user-profile__text">
-                    <span class="user-profile__name">Панков Илья Владимирович</span>
-                    <span class="user-profile__job"><i class='bx bxs-business'></i>Versionize team</span>
-                    <span class="user-profile__post"><i class='bx bx-id-card'></i>Web Design</span>
-                    <span class="user-profile__role"><i class='bx bx-id-card'></i>ГИП</span>
+                <div class="person__text">
+                    <span class="person__name">Панков Илья Владимирович</span>
+                    <span class="person__job"><i class='bx bxs-business'></i>Versionize team</span>
+                    <span class="person__post"><i class='bx bx-id-card'></i>Web Design</span>
+                    <span class="person__role"><i class='bx bx-male'></i>ГИП</span>
                 </div>
             </div>
-            <div class="user-profile__actions">
-                <a href="#" class="user-profile__link"><i class='bx bx-mail-send'></i>Добавить документ</a>
-                <a href="#" class="user-profile__link"><i class='bx bx-chat'></i></a>
-                <a href="#" class="user-profile__link" id="more-actions">
-                    <i class='bx bx-dots-horizontal-rounded'></i></a>
+            <div class="person__contacts">
+                <span class="person__phone"><i class='bx bx-mobile-alt'></i>8-800-700-70-70</span>
+                <span class="person__mail"><i class='bx bx-mail-send'></i>gip@yandex.ru</span>
+                <span class="person__actions"><i class='bx bx-dots-horizontal-rounded'></i></span>
             </div>
         </div>
-        <div class="user-data">
-            <ul class="user-contact">
-                <li class="user-contact__item">
-                    <div class="user-contact__title-row">
-                        <span class='user-contact__title'>Активный проект</span>
-                        <i class='bx bx-chevron-right'></i>
+        <h2 class="block-title">Активный проект:</h2>
+        <div class="project">
+            <div class="project__info">
+                <div class="project__info-title">2021/18-06/2021(объект)/18-06/2021-ИГИ</div>
+                <div class="project__info-data">
+                    <div class="project__data">
+                        <span>Загрузить до:</span>
+                        <p>15/01/2022</p>
                     </div>
-                    <ul class="sub-menu-project">
-                        <li>
-                            <div class="sub-menu-project__content">
-                                <div class="sub-menu-project__title">
-                                    <h3>{{ active_project_code }}</h3><span>{{ active_project_name }}</span>
-                                </div>
-                                <div class="sub-menu-project__data-block">
-                                    <div class="sub-menu-project__data">
-                                        <span>Загрузить до:</span>
-                                        <p>{{ active_project_next_upload|date:'d.m.y' }}</p>
-                                    </div>
-                                    <div class="sub-menu-project__data">
-                                        <span>Был загружен:</span>
-                                        <p>{{ active_project_exp_date|date:'d.m.y' }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="user-contact">
-                <li class="user-contact__item">
-                    <div class="user-contact__title-row">
-                        <span class='user-contact__title'>Контакты</span>
-                        <i class='bx bx-chevron-right'></i>
+                    <div class="project__data">
+                        <span>Был загружен:</span>
+                        <p>15/01/2022</p>
                     </div>
-                    <ul class="user-contact__sub-menu">
-                        <li>
-                            <div class="user-contact__sub-menu-item">
-                                <i class='bx bx-phone'></i><span>Телефон: 8-916-777-77-77</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="user-contact__sub-menu-item">
-                                <i class='bx bx-printer'></i><span>Факс: 8-916-777-77-77</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="user-contact__sub-menu-item">
-                                <i class='bx bxl-gmail'></i>
-                                <span>Почта: Versionize@yandex.ru</span>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="user-contact">
-                <li class="user-contact__item">
-                    <div class="user-contact__title-row">
-                        <span class='user-contact__title'>Проекты</span>
-                        <i class='bx bx-chevron-right'></i>
+                </div>
+            </div>
+            <div class="project__file">
+                <span class="project__file-title">Файл:</span>
+                <div class="project__file-conten">
+                    <div class="project__file-icon"><i class='bx bx-download'></i></div>
+                    <div class="project__file-body">
+                        <div class="project__file-name">37624122021_18-06-2021_2_ИГИ_(изм.2)</div>
+                        <div class="project__file-md">MD5: d41d8cd98f00b204e9800998ecf8427e</div>
+                        <div class="project__file-ver">Вер.: 5</div>
+                        <div class="project__file-chnge-ver">Изм.: 2</div>
                     </div>
-                    <ul class="user-contact__sub-menu">
-                        <li>
-                            <div class="user-projects">
-                                <div class="user-projects__section-code">18-06/2021</div>
-                                <div class="user-projects__project-name">Реконструкция производстенного здания
-                                    на территории фабрики</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="user-projects">
-                                <div class="user-projects__section-code">55-12/2021</div>
-                                <div class="user-projects__project-name">Строительство 18-ти этажного здания на
-                                    участке с кадастровым номером 23:2342:10000023:14</div>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Блок кнопок -->
+        <h2 class="block-title">Действия:</h2>
+        <div class="actions actions_project">
+            <div class="actions__btn" id="add-project">
+                <span class="actions__icon"><i class='bx bx-folder-plus'></i></span>
+                <h3 class="actions__name">Создать проект</h3>
+            </div>
+        </div>
+        <div class="actions actions_section">
+            <div class="actions__btn" id="add-section">
+                <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>
+                <h3 class="actions__name">Создать раздел</h3>
+            </div>
+        </div>
+        <div class="actions actions_section">
+            <div class="actions__btn" id="add-section_new">
+                <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>
+                <h3 class="actions__name">Создать имя раздела</h3>
+            </div>
+        </div>
+        <div class="actions actions_document">
+            <div class="actions__btn" id="add-document">
+                <span class="actions__icon"><i class='bx bx-file'></i></span>
+                <h3 class="actions__name">Создать документ</h3>
+            </div>
         </div>
     </div>
-    <div class="user-events">
-        <div class="user-events__title">
+    <div class="notice">
+        <div class="notice__title">
             <span>Хроника событий</span>
         </div>
-        <div class="user-events__row">
-            <div class="user-events__content">
-                <div class="user-events__icon user-events_icon-load-red">
+        <div class="notice__row">
+            <div class="notice__content">
+                <div class="notice__icon notice_icon-load-red">
                     <i class='bx bx-chevron-down-circle'></i>
                 </div>
-                <div class="user-events__body">
-                    <div class="user-events__section-code">18-06/2021</div>
-                    <div class="user-events__theme">Загружены повторные замечания</div>
-                    <div class="user-events__msg"></div>
-                    <div class="user-events__btns"><a href="#">Просмотреть</a> | <a href="#">Прочитано</a></div>
-                    <div class="user-events__date">12.01.22 17:25:08</div>
+                <div class="notice__body">
+                    <div class="notice__section-code">18-06/2021</div>
+                    <div class="notice__theme">Загружены повторные замечания</div>
+                    <div class="notice__msg"></div>
+                    <div class="notice__btns"><a href="#">Просмотреть</a> | <a href="#">Прочитано</a></div>
+                    <div class="notice__date">12.01.22 17:25:08</div>
                 </div>
             </div>
-            <div class="user-events__content">
-                <div class="user-events__icon user-events_icon-load-msg"><i class='bx bx-mail-send'></i></div>
-                <div class="user-events__body">
-                    <div class="user-events__section-code">18-06/2021</div>
-                    <div class="user-events__theme">Александр Петров (ООО "СтройИнжОбследование") в разделе ИЭИ
+            <div class="notice__content">
+                <div class="notice__icon notice_icon-load-msg"><i class='bx bx-mail-send'></i></div>
+                <div class="notice__body">
+                    <div class="notice__section-code">18-06/2021</div>
+                    <div class="notice__theme">Александр Петров (ООО "СтройИнжОбследование") в разделе ИЭИ
                         пишет:</div>
-                    <div class="user-events__msg">Виктор Васильевич, для корректировки повторных замечаний к
+                    <div class="notice__msg">Виктор Васильевич, для корректировки повторных замечаний к
                         разделу ИЭИ необходимо повторно запросить справку о фоновых концетрациях загрязняющих
                         веществ. В приложенной в отчете справке фигурирует неактуальное наименование объекта.
                         Эксперт настаивает на том, что наименования в справке и отчете должны быть идентичными.
                     </div>
-                    <div class="user-events__btns">
+                    <div class="notice__btns">
                         <a href="#">Просмотреть</a> | <a href="#">Прочитано</a>
                     </div>
-                    <div class="user-events__date">12.01.22 12:29:12</div>
+                    <div class="notice__date">12.01.22 12:29:12</div>
                 </div>
             </div>
-            <div class="user-events__content">
-                <div class="user-events__icon user-events_icon-load-grn">
+            <div class="notice__content">
+                <div class="notice__icon notice_icon-load-grn">
                     <i class='bx bx-chevron-down-circle'></i>
                 </div>
-                <div class="user-events__body">
-                    <div class="user-events__section-code">55-12/2020</div>
-                    <div class="user-events__theme">Загружена новая версия документа раздела КР</div>
-                    <div class="user-events__msg"></div>
-                    <div class="user-events__btns"><a href="#">Просмотреть</a> | <a href="#">Прочитано</a></div>
-                    <div class="user-events__date">12.01.22 10:13:11</div>
+                <div class="notice__body">
+                    <div class="notice__section-code">55-12/2020</div>
+                    <div class="notice__theme">Загружена новая версия документа раздела КР</div>
+                    <div class="notice__msg"></div>
+                    <div class="notice__btns"><a href="#">Просмотреть</a> | <a href="#">Прочитано</a></div>
+                    <div class="notice__date">12.01.22 10:13:11</div>
                 </div>
             </div>
-            <div class="user-events__content">
-                <div class="user-events__icon user-events_icon-load-red">
+            <div class="notice__content">
+                <div class="notice__icon notice_icon-load-red">
                     <i class='bx bx-calendar-exclamation'></i>
                 </div>
-                <div class="user-events__body">
-                    <div class="user-events__section-code">55-12/2020</div>
-                    <div class="user-events__theme">До назначенной даты загрузки осталось 3 дня!</div>
-                    <div class="user-events__msg"></div>
-                    <div class="user-events__btns"><a href="#">Просмотреть</a> | <a href="#">Прочитано</a></div>
-                    <div class="user-events__date">10.01.22 17:22:12</div>
+                <div class="notice__body">
+                    <div class="notice__section-code">55-12/2020</div>
+                    <div class="notice__theme">До назначенной даты загрузки осталось 3 дня!</div>
+                    <div class="notice__msg"></div>
+                    <div class="notice__btns"><a href="#">Просмотреть</a> | <a href="#">Прочитано</a></div>
+                    <div class="notice__date">10.01.22 17:22:12</div>
                 </div>
             </div>
-            <div class="user-events__content">
-                <div class="user-events__icon user-events_icon-load-red">
+            <div class="notice__content">
+                <div class="notice__icon notice_icon-load-red">
                     <i class='bx bx-chevron-down-circle'></i>
                 </div>
-                <div class="user-events__body">
-                    <div class="user-events__section-code">55-12/2020</div>
-                    <div class="user-events__theme">Загружены повторные замечания</div>
-                    <div class="user-events__msg"></div>
-                    <div class="user-events__btns"><a href="#">Просмотреть</a> | <a href="#">Прочитано</a></div>
-                    <div class="user-events__date">10.01.22 16:20:10</div>
+                <div class="notice__body">
+                    <div class="notice__section-code">55-12/2020</div>
+                    <div class="notice__theme">Загружены повторные замечания</div>
+                    <div class="notice__msg"></div>
+                    <div class="notice__btns"><a href="#">Просмотреть</a> | <a href="#">Прочитано</a></div>
+                    <div class="notice__date">10.01.22 16:20:10</div>
                 </div>
             </div>
         </div>
@@ -179,50 +155,170 @@
 </div>
 {% endblock %}
 {% block popup %}
-<div class="popup" id="popup">
+<div class="popup" id="popup-project">
     <div class="popup__body">
         <div class="popup__content">
-            <a href="#" class="popup__close" id="popup__close">X</a>
-            <div class="popup__title">SOME FORM</div>
-            <form action="" method="post" class="form"></form>
-            <div class="form">
+            <a href="#" class="popup__close" id="popup__close_pro">X</a>
+            <div class="popup__title">Создание проекта</div>
+            <form action="" method="post" class="form">
+                {% csrf_token %}
+
                 <div class="form__field">
-                    <label>Text</label>
+                    <label>Код</label>
                     <input type='text' class="form__input">
                 </div>
                 <div class="form__field">
-                    <label>Password</label>
-                    <input type='password' class="form__input">
+                    <label>Наименование</label>
+                    <input type='text' class="form__input">
                 </div>
                 <div class="form__field">
-                    <label>Custom select</label>
+                    <label>Ответственный</label>
                     <div class="form__select">
                         <select>
-                            <option value="">Select</option>
-                            <option value="">Male</option>
-                            <option value="">Section</option>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
                         </select>
                     </div>
                 </div>
                 <div class="form__field">
-                    <label>Email</label>
+                    <label>Дата следующей загрузки</label>
+                    <input type='date' class="form__input">
+                </div>
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn">Создать проект</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<div class="popup" id="popup-section">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_sec">X</a>
+            <div class="popup__title">Создать раздел</div>
+            <form action="" method="post" class="form">
+                {% csrf_token %}
+                <div class="form__field">
+                    <label>Типовой раздел</label>
+                    <input type='text' class="form__input">
+                </div>
+                <div class="form__field">
+                    <label>Выбор проекта</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Наименование</label>
+                    <input type='text' class="form__input">
+                </div>
+                <div class="form__field">
+                    <label>Выбор компании</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Выбор ответственногого</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Выбор эксперта</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn">Создать раздел</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<div class="popup" id="popup-section2">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_sec2">X</a>
+            <div class="popup__title">Создать имя раздела</div>
+            <form action="" method="post" class="form">
+                {% csrf_token %}
+                <div class="form__field">
+                    <label>Наименование</label>
+                    <input type='text' class="form__input">
+                </div>
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn">Создать раздел</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<div class="popup" id="popup-document">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_doc">X</a>
+            <div class="popup__title">Загрузка документа</div>
+            <form action="" method="post" class="form">
+                {% csrf_token %}
+                <div class="form__field">
+                    <label>Статус</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">Номер1</option>
+                            <option value="">Номер2</option>
+                            <option value="">Номер3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Наименование</label>
                     <input type='tezt' class="form__input">
                 </div>
                 <div class="form__field">
-                    <label>Phone</label>
+                    <label>Файл</label>
+                    <input type='file' class="form__input" accept=".pdf">
+                </div>
+                <div class="form__field">
+                    <label>Раздел</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">Номер1</option>
+                            <option value="">Номер2</option>
+                            <option value="">Номер3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Примечания</label>
                     <textarea class="form__textarea"></textarea>
                 </div>
-                <div class="form__field form_terms">
-                    <label class="form__checkbox">
-                        <input type="checkbox">
-                        <span class="form__checkmark"></span>
-                    </label>
-                    <p>Some action</p>
-                </div>
                 <div class="form__submit">
-                    <button type="submit" class="form__submit-btn">Action</button>
+                    <button type="submit" class="form__submit-btn">Создать документ</button>
                 </div>
-            </div>
+
+            </form>
         </div>
     </div>
 </div>

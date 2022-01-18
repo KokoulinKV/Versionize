@@ -1,24 +1,49 @@
-let popupBtn = document.querySelectorAll('.popupBtn')
-let body = document.querySelectorAll('body')
-let lockPadding = document.querySelectorAll('.lock-padding')
+let popup_doc = document.getElementById('add-document')
+let popup_section = document.getElementById('add-section')
+let popup_section2 = document.getElementById('add-section_new')
+let popup_project = document.getElementById('add-project')
+let popup_docCloseIcon = document.getElementById('popup__close_doc')
+let popup_secCloseIcon = document.getElementById('popup__close_sec')
+let popup_secCloseIcon2 = document.getElementById('popup__close_sec2')
+let popup_proCloseIcon = document.getElementById('popup__close_pro')
 
-let unlock = true
+const docum = document.getElementById('popup-document')
+const sect = document.getElementById('popup-section')
+const sect2 = document.getElementById('popup-section2')
+const project = document.getElementById('popup-project')
 
-const timeout = 500;
+popup_doc.addEventListener('click', (e) => {
 
-if (popupBtn.length > 0) {
-    for (let i = 0; i < popupBtn.length; i++) {
-        let popupLink = popupBtn[i];
-        popupLink.addEventListener('click', (e) => {
-            let popUp = document.getElementById('popup')
-            popUp.classList.toggle('popup_open')
-            e.preventDefault();
-        })
-    }
-}
-let popupCloseIcon = document.getElementById('popup__close')
-popupCloseIcon.addEventListener('click', (e) => {
-    let popUp = document.getElementById('popup')
-    popUp.classList.toggle('popup_open')
-    e.preventDefault();
+    docum.classList.toggle('popup_open')
 })
+
+popup_docCloseIcon.addEventListener('click', (e) => {
+    docum.classList.toggle('popup_open')
+})
+
+popup_section.addEventListener('click', (e) => {
+    sect.classList.toggle('popup_open')
+})
+
+popup_secCloseIcon.addEventListener('click', (e) => {
+    sect.classList.toggle('popup_open')
+})
+
+popup_project.addEventListener('click', (e) => {
+    project.classList.toggle('popup_open')
+})
+
+popup_proCloseIcon.addEventListener('click', (e) => {
+    project.classList.toggle('popup_open')
+})
+
+popup_section2.addEventListener('click', (e) => {
+    sect2.classList.toggle('popup_open')
+})
+
+popup_secCloseIcon2.addEventListener('click', (e) => {
+    sect2.classList.toggle('popup_open')
+})
+
+
+
