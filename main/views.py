@@ -42,7 +42,7 @@ class SectionDetailView(LoginRequiredMixin, DetailView):
 
 class CompanyListView(LoginRequiredMixin, ListView):
     model = Company
-    template_name = 'main/companies.html'
+    template_name = 'main/companies2.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
