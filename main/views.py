@@ -1,12 +1,12 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, TemplateView
+from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from main.models import Section, Company, Document, Project
+from main.models import Section, Company, Document, User
 
 
-class Index(LoginRequiredMixin, ListView):
-    model = Project
+class Index(LoginRequiredMixin, DetailView):
+    model = User
     template_name = 'main/lk2.html'
 
 
