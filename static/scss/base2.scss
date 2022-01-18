@@ -270,15 +270,16 @@ body {
 // -----------------------------------------
 // ============================ LK2.HTML SETTINGS ========================== //
 // -----------------------------------------
-.user-workspace {
+.ext-workspace {
     display: flex;
-    flex-wrap: nowrap;
-    height: 100%;
     width: 100%;
+    flex-wrap: nowrap;
+    position: fixed;
+    overflow: hidden;
 }
-.user-block {
+.left-block {
     min-width: 500px;
-    border-right: 1px solid rgba(0, 0, 0, 0.2);
+    // border-right: 1px solid rgba(0, 0, 0, 0.2);
     padding-top: 25px;
     padding-left: 30px;
     padding-right: 15px;
@@ -286,11 +287,18 @@ body {
     overflow-y: auto;
     flex-grow: 1;
 }
-.user-profile {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    // margin-bottom: 30px;
+.person {
+    width: 100%;
+    background: #fff;
+    padding: 1.8rem;
+    border-radius: 2rem;
+    box-shadow: 0 2rem 2rem rgba(132, 139, 200, 0.18);
+    transition: all 300ms ease;
 
-    &__info {
+    &:hover {
+        box-shadow: none;
+    }
+    &__content {
         display: flex;
         flex-wrap: nowrap;
         align-items: flex-start;
@@ -298,8 +306,17 @@ body {
             width: 20px;
             font-size: 20px;
             margin-right: 5px;
+            margin-top: 2px;
         }
     }
+
+    &__avatar {
+        margin-right: 10px;
+    }
+
+    &__text {
+    }
+
     &__name {
         font-size: 25px;
         font-weight: 500;
@@ -308,162 +325,52 @@ body {
     &__job {
         font-size: 20px;
         font-weight: 300;
-        display: inline-flex;
+        display: flex;
         align-items: center;
     }
 
     &__post {
         font-size: 16px;
         font-weight: 300;
-        display: inline-flex;
+        display: flex;
         align-items: center;
     }
+
     &__role {
         font-size: 16px;
         font-weight: 300;
-        display: inline-flex;
-        align-items: center;
-    }
-
-    &__avatar {
-        margin-right: 10px;
-    }
-
-    &__text {
         display: flex;
-        flex-direction: column;
-    }
-    &__link {
-        display: inline-flex;
         align-items: center;
-        color: #111;
-
-        & i {
-            width: 28px;
-            font-size: 28px;
-            color: #1d1b31;
-        }
     }
-
-    &__actions {
-        margin-top: 10px;
-        margin-bottom: 15px;
-        position: relative;
-        & a i:first-child {
-            margin-right: 2px;
-        }
-        & a:first-child {
-            margin-right: 10px;
-        }
-    }
-}
-#more-actions {
-    position: absolute;
-    right: 0;
-}
-.sub-menu-project {
-    margin-top: 10px;
-    list-style-type: none;
-    margin-bottom: 10px;
-    padding: 0 20px;
-
-    & li {
-        margin-bottom: 10px;
-    }
-
-    &__title {
-        text-align: center;
-        text-transform: uppercase;
-        margin-bottom: 5px;
-        font-weight: 400;
+    &__phone {
         font-size: 16px;
-    }
-
-    &__data-block {
+        font-weight: 300;
         display: flex;
-        flex-wrap: nowrap;
-        justify-content: space-evenly;
         align-items: center;
-        text-align: center;
+        // margin-right: 10px;
     }
-
-    &__data span {
-        font-weight: 400;
-        font-size: 15px;
-    }
-}
-
-.user-contact {
-    padding-top: 30px;
-    padding-bottom: 30px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    &:last-child {
-        border: none;
-    }
-    &__item {
-        list-style-type: none;
-    }
-
-    &__sub-menu {
-        padding: 6px 6px 15px 25px;
-        list-style-type: none;
-        margin-top: -10px;
-        & i {
-            width: 25px;
-            font-size: 25px;
-            margin-right: 5px;
-        }
-        & li {
-            padding-top: 20px;
-        }
-    }
-    &__sub-menu-item {
-        display: inline-flex;
+    &__mail {
+        font-size: 16px;
+        font-weight: 300;
+        display: flex;
         align-items: center;
     }
-    // &_open &__sub-menu {
-    //     padding: 6px 6px 14px 50px;
-    //     list-style-type: none;
-    //     margin-top: -10px;
-    //     display: none;
-    // }
-    &__title {
-        font-weight: 500;
-        font-size: 20px;
-    }
-    &__title-row {
-        display: inline-flex;
-        align-items: center;
-        // position: relative;
-        // width: 100%;
-        &_open &__sub-menu {
-            padding: 6px 6px 14px 20px;
-            list-style-type: none;
-            margin-top: -10px;
-            display: none;
-        }
+    &__contacts {
+        width: 100%;
         & i {
             width: 20px;
             font-size: 20px;
-            margin-left: 15px;
-            // position: absolute;
-            // right: 0;
         }
+        display: inline-flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+    }
+    &__actions {
+        cursor: pointer;
     }
 }
-.user-projects {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
 
-    &__section-code {
-        // flex-grow: 1;
-        margin-right: 15px;
-    }
-
-    &__project-name {
-    }
-}
 .user-events {
     padding-top: 25px;
     padding-left: 30px;
@@ -676,13 +583,6 @@ body {
     left: 240px;
 }
 // SECTION HTML
-.ext-workspace {
-    display: flex;
-    width: 100%;
-    flex-wrap: nowrap;
-    position: fixed;
-    overflow: hidden;
-}
 .project {
     padding-top: 25px;
     padding-left: 30px;

@@ -2,106 +2,26 @@
 {% load static %}
 
 {% block workspace %}
-<div class="user-workspace">
-    <div class="user-block">
-        <div class="user-profile">
-            <div class="user-profile__info">
-                <div class="user-profile__avatar">
-                    <img class="" width="150px"
+<div class="ext-workspace">
+    <div class="left-block">
+        <div class="person">
+            <div class="person__content">
+                <div class="person__avatar">
+                    <img class="" width="125px"
                         src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
                 </div>
-                <div class="user-profile__text">
-                    <span class="user-profile__name">Панков Илья Владимирович</span>
-                    <span class="user-profile__job"><i class='bx bxs-business'></i>Versionize team</span>
-                    <span class="user-profile__post"><i class='bx bx-id-card'></i>Web Design</span>
-                    <span class="user-profile__role"><i class='bx bx-id-card'></i>ГИП</span>
+                <div class="person__text">
+                    <span class="person__name">Панков Илья Владимирович</span>
+                    <span class="person__job"><i class='bx bxs-business'></i>Versionize team</span>
+                    <span class="person__post"><i class='bx bx-id-card'></i>Web Design</span>
+                    <span class="person__role"><i class='bx bx-male'></i>ГИП</span>
                 </div>
             </div>
-            <div class="user-profile__actions">
-                <a href="#" class="user-profile__link"><i class='bx bx-mail-send'></i>Добавить документ</a>
-                <a href="#" class="user-profile__link"><i class='bx bx-chat'></i></a>
-                <a href="#" class="user-profile__link" id="more-actions">
-                    <i class='bx bx-dots-horizontal-rounded'></i></a>
+            <div class="person__contacts">
+                <span class="person__phone"><i class='bx bx-mobile-alt'></i>8-800-700-70-70</span>
+                <span class="person__mail"><i class='bx bx-mail-send'></i>gip@yandex.ru</span>
+                <span class="person__actions"><i class='bx bx-dots-horizontal-rounded'></i></span>
             </div>
-        </div>
-        <div class="user-data">
-            <ul class="user-contact">
-                <li class="user-contact__item">
-                    <div class="user-contact__title-row">
-                        <span class='user-contact__title'>Активный проект</span>
-                        <i class='bx bx-chevron-right'></i>
-                    </div>
-                    <ul class="sub-menu-project">
-                        <li>
-                            <div class="sub-menu-project__content">
-                                <div class="sub-menu-project__title">
-                                    <h3>{{ active_project_code }}</h3><span>{{ active_project_name }}</span>
-                                </div>
-                                <div class="sub-menu-project__data-block">
-                                    <div class="sub-menu-project__data">
-                                        <span>Загрузить до:</span>
-                                        <p>{{ active_project_next_upload|date:'d.m.y' }}</p>
-                                    </div>
-                                    <div class="sub-menu-project__data">
-                                        <span>Был загружен:</span>
-                                        <p>{{ active_project_exp_date|date:'d.m.y' }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="user-contact">
-                <li class="user-contact__item">
-                    <div class="user-contact__title-row">
-                        <span class='user-contact__title'>Контакты</span>
-                        <i class='bx bx-chevron-right'></i>
-                    </div>
-                    <ul class="user-contact__sub-menu">
-                        <li>
-                            <div class="user-contact__sub-menu-item">
-                                <i class='bx bx-phone'></i><span>Телефон: 8-916-777-77-77</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="user-contact__sub-menu-item">
-                                <i class='bx bx-printer'></i><span>Факс: 8-916-777-77-77</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="user-contact__sub-menu-item">
-                                <i class='bx bxl-gmail'></i>
-                                <span>Почта: Versionize@yandex.ru</span>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="user-contact">
-                <li class="user-contact__item">
-                    <div class="user-contact__title-row">
-                        <span class='user-contact__title'>Проекты</span>
-                        <i class='bx bx-chevron-right'></i>
-                    </div>
-                    <ul class="user-contact__sub-menu">
-                        <li>
-                            <div class="user-projects">
-                                <div class="user-projects__section-code">18-06/2021</div>
-                                <div class="user-projects__project-name">Реконструкция производстенного здания
-                                    на территории фабрики</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="user-projects">
-                                <div class="user-projects__section-code">55-12/2021</div>
-                                <div class="user-projects__project-name">Строительство 18-ти этажного здания на
-                                    участке с кадастровым номером 23:2342:10000023:14</div>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
         </div>
     </div>
     <div class="user-events">
