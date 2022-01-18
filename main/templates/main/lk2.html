@@ -154,8 +154,9 @@
         <div class="popup__content">
             <a href="#" class="popup__close" id="popup__close_pro">X</a>
             <div class="popup__title">Создание проекта</div>
-            <form action="" method="post" class="form"></form>
-            <div class="form">
+            <form action="" method="post" class="form">
+                {% csrf_token %}
+
                 <div class="form__field">
                     <label>Код</label>
                     <input type='text' class="form__input">
@@ -181,7 +182,8 @@
                 <div class="form__submit">
                     <button type="submit" class="form__submit-btn">Создать проект</button>
                 </div>
-            </div>
+
+            </form>
         </div>
     </div>
 </div>
@@ -190,8 +192,9 @@
         <div class="popup__content">
             <a href="#" class="popup__close" id="popup__close_sec">X</a>
             <div class="popup__title">Создать раздел</div>
-            <form action="" method="post" class="form"></form>
-            <div class="form">
+            <form action="" method="post" class="form">
+                {% csrf_token %}
+
                 <div class="form__field">
                     <label>Выбор проекта</label>
                     <div class="form__select">
@@ -239,7 +242,8 @@
                 <div class="form__submit">
                     <button type="submit" class="form__submit-btn">Создать раздел</button>
                 </div>
-            </div>
+
+            </form>
         </div>
     </div>
 </div>
@@ -248,8 +252,8 @@
         <div class="popup__content">
             <a href="#" class="popup__close" id="popup__close_doc">X</a>
             <div class="popup__title">Загрузка документа</div>
-            <form action="" method="post" class="form"></form>
-            <div class="form">
+            <form action="" method="post" class="form">
+                {% csrf_token %}
                 <div class="form__field">
                     <label>Статус</label>
                     <div class="form__select">
@@ -285,7 +289,8 @@
                 <div class="form__submit">
                     <button type="submit" class="form__submit-btn">Создать документ</button>
                 </div>
-            </div>
+
+            </form>
         </div>
     </div>
 </div>
