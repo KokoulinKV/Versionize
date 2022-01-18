@@ -13,46 +13,55 @@
                         src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
                 </div>
                 <div class="person__text">
-                    <span class="person__name">Панков Илья Владимирович</span>
-                    <span class="person__job"><i class='bx bxs-business'></i>Versionize team</span>
-                    <span class="person__post"><i class='bx bx-id-card'></i>Web Design</span>
-                    <span class="person__role"><i class='bx bx-male'></i>ГИП</span>
+                    <span class="person__name">{{ user.last_name }} {{ user.first_name }} {{ user.patronymic }}</span>
+                    <span class="person__job"><i class='bx bxs-business'></i>{{ object.get_company.name }}</span>
+                    <span class="person__post"><i class='bx bx-id-card'></i>{{ object.get_position }}</span>
+                    <span class="person__role"><i class='bx bx-male'></i>{{ object.get_project_role }}</span>
                 </div>
             </div>
             <div class="person__contacts">
-                <span class="person__phone"><i class='bx bx-mobile-alt'></i>8-800-700-70-70</span>
-                <span class="person__mail"><i class='bx bx-mail-send'></i>gip@yandex.ru</span>
+                <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ object.phone }}</span>
+                <span class="person__mail"><i class='bx bx-mail-send'></i>{{ object.email }}</span>
                 <span class="person__actions"><i class='bx bx-dots-horizontal-rounded'></i></span>
             </div>
         </div>
-        <h2 class="block-title">Активный проект:</h2>
-        <div class="project">
-            <div class="project__info">
-                <div class="project__info-title">2021/18-06/2021(объект)/18-06/2021-ИГИ</div>
-                <div class="project__info-data">
-                    <div class="project__data">
-                        <span>Загрузить до:</span>
-                        <p>15/01/2022</p>
-                    </div>
-                    <div class="project__data">
-                        <span>Был загружен:</span>
-                        <p>15/01/2022</p>
-                    </div>
-                </div>
-            </div>
-            <div class="project__file">
-                <span class="project__file-title">Файл:</span>
-                <div class="project__file-conten">
-                    <div class="project__file-icon"><i class='bx bx-download'></i></div>
-                    <div class="project__file-body">
-                        <div class="project__file-name">37624122021_18-06-2021_2_ИГИ_(изм.2)</div>
-                        <div class="project__file-md">MD5: d41d8cd98f00b204e9800998ecf8427e</div>
-                        <div class="project__file-ver">Вер.: 5</div>
-                        <div class="project__file-chnge-ver">Изм.: 2</div>
+        {% if active_project_id %}
+            <h2 class="block-title">Активный проект:</h2>
+            <div class="project">
+                <div class="project__info">
+                    <div class="project__info-title">{{ active_project_code }}</div>
+                    <div class="project__info-data">
+                        <div class="project__data">
+                            <span>Следующая загрузка:</span>
+                            <p>{{ active_project_next_upload|date:'d.m.Y' }}</p>
+                        </div>
+                        <div class="project__data">
+                            <span>Срок экспертизы до:</span>
+                            <p>{{ active_project_exp_date|date:'d.m.Y' }}</p>
+                        </div>
                     </div>
                 </div>
+{#                <div class="project__file">#}
+{#                    <span class="project__file-title">Файл:</span>#}
+{#                    <div class="project__file-conten">#}
+{#                        <div class="project__file-icon"><i class='bx bx-download'></i></div>#}
+{#                        <div class="project__file-body">#}
+{#                            <div class="project__file-name">37624122021_18-06-2021_2_ИГИ_(изм.2)</div>#}
+{#                            <div class="project__file-md">MD5: d41d8cd98f00b204e9800998ecf8427e</div>#}
+{#                            <div class="project__file-ver">Вер.: 5</div>#}
+{#                            <div class="project__file-chnge-ver">Изм.: 2</div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
             </div>
-        </div>
+        {% else %}
+            <h2 class="block-title">Активный проект:</h2>
+            <div class="project">
+                <div class="project__info">
+                    <div class="project__info-title">Проект не выбран</div>
+                </div>
+            </div>
+        {% endif %}
         <!-- Блок кнопок -->
         <h2 class="block-title">Действия:</h2>
         <div class="actions actions_project">
