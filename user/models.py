@@ -7,6 +7,9 @@ class User(AbstractUser):
     phone = models.CharField(verbose_name='phone', max_length=20, null=True)
     patronymic = models.CharField(verbose_name='patronymic', max_length=30, null=True)
 
+    def get_fullname(self):
+        return f'{self.last_name} {self.first_name} {self.patronymic}'
+
     def get_usercompany_info(self):
         return UserCompanyInfo.objects.get(id=self.id)
 
