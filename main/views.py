@@ -1,3 +1,4 @@
+import PyPDF2 as PyPDF2
 from django.core.exceptions import ValidationError
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, TemplateView
@@ -39,6 +40,9 @@ class Index(LoginRequiredMixin, TemplateView):
         # next_form = _get_form(request, NextForm, 'next_form_pre')
         if doc_form.is_bound and doc_form.is_valid():
             try:
+                # Проверяем на .pdf
+                PyPDF2.PdfFileReader(open(doc_form.files, "rb"))
+
                 doc_form.save()
                 # Чистим форму от введенных данных
                 doc_form.data = {'doc_form_pre-status': '', 'doc_form_pre-name': '', 'doc_form_pre-section': '',
@@ -46,8 +50,11 @@ class Index(LoginRequiredMixin, TemplateView):
             except ValidationError:
                 errors = 'Данная версия документа уже была загружена. Загрузите корректную новую версию.'
                 return self.render_to_response({'doc_form': doc_form, 'errors': errors})
+            except TypeError:
+                errors = 'Документ должен быть в формате ".pdf"'
+                return self.render_to_response({'doc_form': doc_form, 'errors': errors})
         # elif next_form.is_bound and next_form.is_valid():
-            # next_form.save()
+        # next_form.save()
         return self.render_to_response({'doc_form': doc_form})
         # return self.render_to_response({'doc_form': doc_form}, {'next_form': next_form})
 
