@@ -1,7 +1,7 @@
 import hashlib
 
 from django.core.exceptions import ValidationError
-from django.db import models, IntegrityError
+from django.db import models
 from user.models import User, Company
 
 
@@ -60,7 +60,7 @@ class Document(models.Model):
     #  Если ранее был загружен документ в раздел с идентичным section_id,
     #  то берём номер версии предыдущего + 1, если нет - 1.
     version = models.IntegerField()
-    variation = models.IntegerField(null=True)
+    variation = models.IntegerField()
     # TODO Предусмотреть автоматический расчёт md5
     md5 = models.CharField(max_length=32)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
