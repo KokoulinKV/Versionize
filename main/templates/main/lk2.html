@@ -19,46 +19,98 @@
                         <span class="person__role"><i class='bx bx-male'></i>ГИП</span>
                     </div>
                 </div>
-                <div class="person__contacts">
-                    <span class="person__phone"><i class='bx bx-mobile-alt'></i>8-800-700-70-70</span>
-                    <span class="person__mail"><i class='bx bx-mail-send'></i>gip@yandex.ru</span>
-                    <span class="person__actions"><i class='bx bx-dots-horizontal-rounded'></i></span>
+                <div class="person__text">
+                    <span class="person__name">{{ user.last_name }} {{ user.first_name }} {{ user.patronymic }}</span>
+                    <span class="person__job"><i class='bx bxs-business'></i>{{ object.get_company.name }}</span>
+                    <span class="person__post"><i class='bx bx-id-card'></i>{{ object.get_position }}</span>
+                    <span class="person__role"><i class='bx bx-male'></i>{{ object.get_project_role }}</span>
                 </div>
             </div>
+            <div class="person__contacts">
+                <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ object.phone }}</span>
+                <span class="person__mail"><i class='bx bx-mail-send'></i>{{ object.email }}</span>
+                <span class="person__actions"><i class='bx bx-dots-horizontal-rounded'></i></span>
+            </div>
+        </div>
+        {% if active_project_id %}
             <h2 class="block-title">Активный проект:</h2>
             <div class="project">
                 <div class="project__info">
-                    <div class="project__info-title">2021/18-06/2021(объект)/18-06/2021-ИГИ</div>
+                    <div class="project__info-title">{{ active_project_code }}</div>
                     <div class="project__info-data">
                         <div class="project__data">
-                            <span>Загрузить до:</span>
-                            <p>15/01/2022</p>
+                            <span>Следующая загрузка:</span>
+                            <p>{{ active_project_next_upload|date:'d.m.Y' }}</p>
                         </div>
                         <div class="project__data">
-                            <span>Был загружен:</span>
-                            <p>15/01/2022</p>
+                            <span>Срок экспертизы до:</span>
+                            <p>{{ active_project_exp_date|date:'d.m.Y' }}</p>
                         </div>
                     </div>
                 </div>
-                <div class="project__file">
-                    <span class="project__file-title">Файл:</span>
-                    <div class="project__file-conten">
-                        <div class="project__file-icon"><i class='bx bx-download'></i></div>
-                        <div class="project__file-body">
-                            <div class="project__file-name">37624122021_18-06-2021_2_ИГИ_(изм.2)</div>
-                            <div class="project__file-md">MD5: d41d8cd98f00b204e9800998ecf8427e</div>
-                            <div class="project__file-ver">Вер.: 5</div>
-                            <div class="project__file-chnge-ver">Изм.: 2</div>
-                        </div>
-                    </div>
+                {#                <div class="project__file">#}
+                {#                    <span class="project__file-title">Файл:</span>#}
+                {#                    <div class="project__file-conten">#}
+                {#                        <div class="project__file-icon"><i class='bx bx-download'></i></div>#}
+                {#                        <div class="project__file-body">#}
+                {#                            <div class="project__file-name">37624122021_18-06-2021_2_ИГИ_(изм.2)</div>#}
+                {#                            <div class="project__file-md">MD5: d41d8cd98f00b204e9800998ecf8427e</div>#}
+                {#                            <div class="project__file-ver">Вер.: 5</div>#}
+                {#                            <div class="project__file-chnge-ver">Изм.: 2</div>#}
+                {#                        </div>#}
+                {#                    </div>#}
+                {#                </div>#}
+            </div>
+        {% else %}
+            <h2 class="block-title">Активный проект:</h2>
+            <div class="project">
+                <div class="project__info">
+                    <div class="project__info-title">Проект не выбран</div>
                 </div>
             </div>
-            <!-- Блок кнопок -->
-            <h2 class="block-title">Действия:</h2>
-            <div class="actions actions_project">
-                <div class="actions__btn" id="add-project">
-                    <span class="actions__icon"><i class='bx bx-folder-plus'></i></span>
-                    <h3 class="actions__name">Создать проект</h3>
+        {% endif %}
+        <!-- Блок кнопок -->
+        <h2 class="block-title">Действия:</h2>
+        <div class="actions actions_project">
+            <div class="actions__btn" id="add-project">
+                <span class="actions__icon"><i class='bx bx-folder-plus'></i></span>
+                <h3 class="actions__name">Создать проект</h3>
+            </div>
+        </div>
+        <div class="actions actions_section">
+            <div class="actions__btn" id="add-section">
+                <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>
+                <h3 class="actions__name">Добавить раздел</h3>
+            </div>
+        </div>
+        <div class="actions actions_section">
+            <div class="actions__btn" id="add-section_new">
+                <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>
+                <h3 class="actions__name">Создать раздел</h3>
+            </div>
+        </div>
+        <div class="actions actions_document">
+            <div class="actions__btn" id="add-document">
+                <span class="actions__icon"><i class='bx bx-file'></i></span>
+                <h3 class="actions__name">Загрузить документ</h3>
+            </div>
+        </div>
+    </div>
+    <div class="notice">
+        <div class="notice__title">
+            <span>Хроника событий</span>
+        </div>
+        <div class="notice__row">
+            <div class="notice__content">
+                <div class="notice__icon notice_icon-load-red">
+                    <i class='bx bx-chevron-down-circle'></i>
+                </div>
+                <div class="notice__body">
+                    <div class="notice__section-code">18-06/2021</div>
+                    <div class="notice__theme">Загружены повторные замечания</div>
+                    <div class="notice__msg"></div>
+                    <div class="notice__btns"><a href="#">Просмотреть</a> | <a href="#">Прочитано</a></div>
+                    <div class="notice__date">12.01.22 17:25:08</div>
                 </div>
             </div>
             <div class="actions actions_section">
@@ -167,9 +219,8 @@
                 <div class="popup__title">Создание проекта</div>
                 <form action="" method="post" class="form">
                     {% csrf_token %}
-
                     <div class="form__field">
-                        <label>Код</label>
+                        <label>Шифр</label>
                         <input type='text' class="form__input">
                     </div>
                     <div class="form__field">
@@ -187,82 +238,12 @@
                         </div>
                     </div>
                     <div class="form__field">
-                        <label>Дата следующей загрузки</label>
+                        <label>Срок экспертизы</label>
                         <input type='date' class="form__input">
                     </div>
                     <div class="form__submit">
                         <button type="submit" class="form__submit-btn">Создать проект</button>
                     </div>
-
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="popup" id="popup-section">
-        <div class="popup__body">
-            <div class="popup__content">
-                <a href="#" class="popup__close" id="popup__close_sec">X</a>
-                <div class="popup__title">Добавить раздел</div>
-                <form action="" method="post" class="form">
-                    {% csrf_token %}
-                    <div class="form__field">
-                        <label>Выбор раздела</label>
-                        <div class="form__select">
-                            <select>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form__field">
-                        <label>Выбор проекта</label>
-                        <div class="form__select">
-                            <select>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form__field">
-                        <label>Наименование</label>
-                        <input type='text' class="form__input">
-                    </div>
-                    <div class="form__field">
-                        <label>Выбор компании</label>
-                        <div class="form__select">
-                            <select>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form__field">
-                        <label>Выбор ответственногого</label>
-                        <div class="form__select">
-                            <select>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form__field">
-                        <label>Выбор эксперта</label>
-                        <div class="form__select">
-                            <select>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form__submit">
-                        <button type="submit" class="form__submit-btn">Создать раздел</button>
-                    </div>
-
                 </form>
             </div>
         </div>
