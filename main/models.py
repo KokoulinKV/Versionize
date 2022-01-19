@@ -1,4 +1,7 @@
-from django.db import models
+import hashlib
+
+from django.core.exceptions import ValidationError
+from django.db import models, IntegrityError
 from user.models import User, Company
 
 
@@ -24,6 +27,9 @@ class Section(models.Model):
     expert = models.ForeignKey(User,
                                on_delete=models.CASCADE,
                                related_name='expert_id')
+
+    def __str__(self):
+        return self.name
 
     def get_sections(self):
         return self.objects.all()
@@ -54,7 +60,7 @@ class Document(models.Model):
     #  Если ранее был загружен документ в раздел с идентичным section_id,
     #  то берём номер версии предыдущего + 1, если нет - 1.
     version = models.IntegerField()
-    variation = models.IntegerField()
+    variation = models.IntegerField(null=True)
     # TODO Предусмотреть автоматический расчёт md5
     md5 = models.CharField(max_length=32)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
@@ -68,6 +74,29 @@ class Document(models.Model):
     #  пример: номера страниц 3, 42, 44-48. С помощью regexp смотрим первую цифру и используем её для сортировки
     def get_linked_adjustments(self):
         return Adjustment.objects.filter(document=self).order_by('id')
+
+    def save(self, *args, **kwargs):
+        if not self.pk:  # file is new, not update old object in database!
+            md5 = hashlib.md5()
+            for chunk in self.doc_path.chunks():
+                md5.update(chunk)
+            self.md5 = md5.hexdigest()
+
+        if Document.objects.filter(section_id=self.section):
+            if not Document.objects.filter(md5=self.md5):
+                last_vers_query = Document.objects.filter(section_id=self.section).values('version')
+                last_version = last_vers_query[len(last_vers_query) - 1]['version']
+                self.version = last_version + 1
+            else:
+                raise ValidationError('')
+        else:
+            self.version = 1
+        # TODO перенести на форму для вода значения пользователем, предварительно обдумав какие значения
+        #  и как будут вводиться. Предлагаю для защиты оставить так.
+
+        self.variation = self.version - 1
+
+        return super(Document, self).save(*args, **kwargs)
 
 
 class Adjustment(models.Model):
