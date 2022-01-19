@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, TemplateView
+from django.core.exceptions import ValidationError
+from django.shortcuts import render
+from django.views.generic import ListView, DetailView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from main.forms import DocumentForm
-from main.models import Section, Company, Document, Project
+from main.models import Section, Company, Document
 
 
 def _get_form(request, formcls, prefix):
@@ -26,6 +26,7 @@ class Index(LoginRequiredMixin, TemplateView):
         context['title'] = 'Versionize - Сводная таблица проекта'
         context['document'] = DocumentForm(instance=self.request.document)
         # context['next_form'] = NextForm(instance=self.request.next_form)
+        print(context)
         return context
 
     def get(self, request, *args, **kwargs):
@@ -37,9 +38,16 @@ class Index(LoginRequiredMixin, TemplateView):
         doc_form = _get_form(request, DocumentForm, 'doc_form_pre')
         # next_form = _get_form(request, NextForm, 'next_form_pre')
         if doc_form.is_bound and doc_form.is_valid():
-            doc_form.save()
+            try:
+                doc_form.save()
+                # Чистим форму от введенных данных
+                doc_form.data = {'doc_form_pre-status': '', 'doc_form_pre-name': '', 'doc_form_pre-section': '',
+                                 'doc_form_pre': ''}
+            except ValidationError:
+                errors = 'Данная версия документа уже была загружена. Загрузите корректную новую версию.'
+                return self.render_to_response({'doc_form': doc_form, 'errors': errors})
         # elif next_form.is_bound and next_form.is_valid():
-        # next_form.save()
+            # next_form.save()
         return self.render_to_response({'doc_form': doc_form})
         # return self.render_to_response({'doc_form': doc_form}, {'next_form': next_form})
 
