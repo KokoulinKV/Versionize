@@ -9,193 +9,156 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
         {% block title %}
-        Versionize
+        Versionize | User Profile
         {% endblock %}
     </title>
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <!--  -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
-    <link rel="stylesheet" href="{% static 'css/fontawesome_5.15.4/css/all.min.css' %}">
     {% block css %}
 
     {% endblock %}
 </head>
 
 <body>
-    <div class="wrapper">
-        <!-- ! Этот элемент можно использовать в base.html -->
-        <header class="header">
-            <nav class="header__nav">
-                <div class="header__left-section">
-                    <a href="{% url 'main:index' user.id %}" class="header__user-profile-link"><i class='bx bxl-tux'></i></a>
-                    <a href="{% url 'main:total' %}" class="header__user-profile-link">Сводная</a>
-                    <a href="{% url 'main:companies' %}" class="header__user-profile-link">Компании</a>
-                </div>
-                <div class="header__right-section">
-                    <i class='bx bx-search'></i>
-                    {% if user.is_staff or user.is_superuser %}
-                    <a class="header__user-profile-link" href="{% url 'admins:index' %}"><i
-                            class='bx bx-wrench'></i></a>
-                    {% endif %}
-                    <div class="header__user-profile">
-                        <a class="header__user-profile-link" href="{% url 'main:index' user.id %}"><i
-                                class='bx bx-user-circle'></i>
-                            <span>{{ user.username|default:'Пользователь' }}</span></a>
-                    </div>
-                    <i class='bx bx-windows'></i>
-                    <a class="header__user-profile-link" href="{% url 'user:logout' %}"><i class='bx bx-exit'></i></a>
-                </div>
-            </nav>
-        </header>
-        <!-- ! Конец -->
-        <main class="workspace">
-            <!-- ! Этот элемент можно использовать в base.html -->
-            <!-- Сайд меню -->
-            <nav class="sidebar-nav">
-                <ul class="sidebar-nav__list">
-                    <li>
-                        <a href="#" id="btn" class="arrow">
-                            <i class='bx bx-folder'></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" id="btn">
-                            <i class='bx bx-calendar'></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" id="btn">
-                            <i class='bx bx-star'></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" id="btn">
-                            <i class='bx bx-time-five'></i>
-                        </a>
-
-                    </li>
-                    <li>
-                        <a href="#" id="btn">
-                            <i class='bx bx-grid-alt'></i>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <div class="sub-menu">
-                <div>
-                    <div class="sub-menu-top">
-                        <div class="sub-menu-top__list-title">
-                            <span>Папки действий</span>
-                            <i class='bx bx-chevron-left'></i>
-                        </div>
-                        <ul class="sub-menu-top__list">
-                            <li>
-                                <div class="sub-menu-top__list-child" id="tasks">
-                                    <i class='bx bx-chevron-right'></i>
-                                    <span>Задачи</span>
-                                </div>
-                                <ul class="sub-menu-top__sub-list" id="task">
-                                    <li>Черновики</li>
-                                    <li>Возврат от исполнителя</li>
-                                    <li>Назначенные</li>
-                                    <li>В работе</li>
-                                    <li>Для контроля</li>
-                                    <li>Наблюдаемые</li>
-                                </ul>
-                            </li>
-                            <li>
-                                <div class="sub-menu-top__list-child" id="docs">
-                                    <i class='bx bx-chevron-right'></i>
-                                    <span>Документы</span>
-                                </div>
-                                <ul class="sub-menu-top__sub-list" id="doc">
-                                    <li>Черновики</li>
-                                    <li>Доработка</li>
-                                    <li>Ознакомление</li>
-                                    <li>Подготовка</li>
-                                </ul>
-                            </li>
-                            <li>
-                                <div class="sub-menu-top__list-child" id="chancellery">
-                                    <i class='bx bx-chevron-right'></i>
-                                    <span>Канцелярия</span>
-                                </div>
-                                <ul class="sub-menu-top__sub-list" id="chancery">
-                                    <li>Обработка писем</li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <div class="sub-menu-top__list-title">
-                            <span>Папки поиска</span>
-                        </div>
-                        <ul class="sub-menu-top__list">
-                            <li>
-                                <div class="sub-menu-top__list-child" id="my_tasks">
-                                    <i class='bx bx-chevron-right'></i>
-                                    <span>Все мои задачи</span>
-                                </div>
-                                <ul class="sub-menu-top__sub-list" id="my_task">
-                                    <li>Поставленные мной</li>
-                                    <li>Полученные</li>
-                                </ul>
-                            </li>
-                            <li>
-                                <div class="sub-menu-top__list-child" id="my_docs">
-                                    <i class='bx bx-chevron-right'></i>
-                                    <span>Все мои документы</span>
-                                </div>
-                                <ul class="sub-menu-top__sub-list" id="my_doc">
-                                    <li>Согласованные мной</li>
-                                    <li>Утвержденные мной</li>
-                                    <li>После ознакомления</li>
-                                </ul>
-                            </li>
-                            <li>
-                                <div class="sub-menu-top__list-child" id="my_contracts">
-                                    <i class='bx bx-chevron-right'></i>
-                                    <span>Все мои договора</span>
-                                </div>
-                                <ul class="sub-menu-top__sub-list" id="my_contract">
-                                    <li>Согласованные мной</li>
-                                    <li>Утвержденные мной</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="sub-menu__other">
-                    <i class='bx bx-calendar'></i>
-                    <i class='bx bx-star'></i>
-                    <i class='bx bx-time-five'></i>
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar__logo-content">
+            <div class="sidebar__logo">
+                <i class='bx bxl-vimeo'></i>
+                <div class="sidebar__logo-name">Versionize</div>
+            </div>
+            <i class='bx bx-menu' id="menu-btn"></i>
+        </div>
+        <ul class="sidebar__list">
+            <li>
+                <i class='bx bx-search' id="searchBtn"></i>
+                <input type="text" placeholder="Поиск...">
+                <span class="sidebar__tooltip">Поиск</span>
+            </li>
+            <li>
+                <a href="{% url 'main:companies' %}">
                     <i class='bx bx-grid-alt'></i>
+                    <span class="sidebar__link-name">Компании</span>
+                </a>
+                <span class="sidebar__tooltip">Компании</span>
+            </li>
+            <li>
+                <a href="{% url 'main:index' user.id%}">
+                    <i class='bx bx-user'></i>
+                    <span class="sidebar__link-name">Пользователь</span>
+                </a>
+                <span class="sidebar__tooltip">Пользователь</span>
+            </li>
+            <li>
+                <a href="{% url 'main:section2' %}">
+                    <i class='bx bx-chat'></i>
+                    <span class="sidebar__link-name">Раздел</span>
+                </a>
+                <span class="sidebar__tooltip">Раздел</span>
+            </li>
+            <li>
+                <a href="{% url 'main:total' %}">
+                    <i class='bx bx-pie-chart-alt-2'></i>
+                    <span class="sidebar__link-name">Сводная</span>
+                </a>
+                <span class="sidebar__tooltip">Сводная</span>
+            </li>
+            <li>
+                <a href="{% url 'main:document2' %}">
+                    <i class='bx bx-folder'></i>
+                    <span class="sidebar__link-name">Документы</span>
+                </a>
+                <span class="sidebar__tooltip">Документы</span>
+            </li>
+
+            <!-- Доступ в админку -->
+            {% if user.is_staff or user.is_superuser %}
+            <li>
+                <a href="{% url 'admins:index' %}">
+                    <i class='bx bx-cog'></i>
+                    <span class="sidebar__link-name">Настройки</span>
+                </a>
+                <span class="sidebar__tooltip">Настройки</span>
+            </li>
+            {% endif %}
+        </ul>
+        <div class="sidebar__profile-content">
+            <div class="sidebar__profile">
+                <div class="sidebar__profile-details">
+                    <img src="{% static 'img/comments_img.webp' %}" alt="">
+                    <div class="sidebar__profile-data">
+                        <div class="sidebar__profile-name">{{ user.username|default:'Пользователь' }}</div>
+                        <div class="sidebar__profile-company">Versionize team</div>
+                        <div class="sidebar__profile-job">Python Dev</div>
+                    </div>
                 </div>
+                <a href="{% url 'main:index' user.id %}"><i class='bx bx-log-out' id="log-out"></i></a>
             </div>
-            <!-- ! Конец -->
-            <!-- Рабочее пространство -->
-            <div class="desktop">
-                <div class="desktop__title">
-                    {% block workspace-title %}
+        </div>
+    </nav>
+    <main class="workspace">
+        {% block workspace %}
 
-                    {% endblock %}
-                </div>
-                <div class="desktop__workspace">
-                    {% block workspace %}
+        {% endblock %}
+    </main>
+    <!-- ============== POP UP ============== -->
+    <!-- Формы вызова уневерсальная, чтобы ее вызвать в классе элемента должен быть класс popupBtn -->
+    {% block popup %}
 
-                    {% endblock %}
-                </div>
-                {% block workspace-events %}
+    {% endblock %}
 
-                {% endblock %}
+    <!-- Код Александра -->
+    <!-- <div class="project">
+        <div class="project__bar">
+            <div class="project__name">
+                <h3>{{ active_project_code }}</h3><span>{{ active_project_name }}</span>
             </div>
-            <div class="notice" id="notice">
-                {% block notice %}
-
-                {% endblock %}
-            </div>
-        </main>
+            <div class="project__data">Следующая загрузка: {{ active_project_next_upload|date:'d.m.y' }}</div>
+            <div class="project__data">Итоговая загрузка: {{ active_project_exp_date|date:'d.m.y' }}</div>
+        </div>
     </div>
-    <script src="{% static 'js/side_menu.js' %}"></script>
+    <div class="workspace__container">
+        <div class="workspace__left">
+            <div class="user">
+                <div class="user__info">
+                    <h4>Иванов Иван Иванович</h4>
+                    <p>СтройСнапПродакшн</p>
+                    <p>Должность: Директор</p>
+                    <p>Роль: ГИП</p>
+                </div>
+                <div class="user__avatar">
+                    <div class="user__photo">
+                        <img class="" width="150px"
+                            src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                    </div>
+                </div>
+            </div>
+            <div class="user-settings">
+                <p>E-mail: test@yandex.ru</p>
+                <p>Тел: 8(800)540-56-23</p>
+                <p>Факс: 8(800)540-56-23</p>
+            </div>
+            <div class="user-projects">
+                <h1>Проекты</h1>
+                <div class="user-projects__content">
+                    <h3 class="user-projects__sign">18-03/2021</h3>
+                    <h3>"Реконструкция производстенного здания на территории фабрики"</h3>
+                </div>
+                <div class="user-projects__content">
+                    <h3 class="user-projects__sign">55-12/2021</h3>
+                    <h3>"Строительство 18-ти этажного здания на участке с кадастровым номером 23:2342:10000023:14"
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="workspace__right"></div>
+    </div> -->
+
 </body>
+<!-- defer - ждем загрузки страницы -->
+<!-- Todo перейти на jquery, чтобы запускать скрипты после загрузки контента -->
+<script defer src="{% static 'js/pop-up.js' %}"></script>
+<script defer src="{% static 'js/side-nav.js' %}"></script>
 
 </html>
