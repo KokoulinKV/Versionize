@@ -1,13 +1,47 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView, TemplateView
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from main.forms import DocumentForm
 from main.models import Section, Company, Document, Project
 
 
-class Index(LoginRequiredMixin, ListView):
-    model = Project
+def _get_form(request, formcls, prefix):
+    if prefix in request.POST:
+        data = request.POST
+        if request.FILES:
+            files = request.FILES
+            return formcls(data, files, prefix=prefix)
+    else:
+        None
+    return formcls(data, prefix=prefix)
+
+
+class Index(LoginRequiredMixin, TemplateView):
     template_name = 'main/lk2.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Versionize - Сводная таблица проекта'
+        context['document'] = DocumentForm(instance=self.request.document)
+        # context['next_form'] = NextForm(instance=self.request.next_form)
+        return context
+
+    def get(self, request, *args, **kwargs):
+        return self.render_to_response({'doc_form': DocumentForm(prefix='doc_form_pre')})
+        # return self.render_to_response({'doc_form': DocumentForm(prefix='doc_form_pre'),
+        #                                  'next_form': NextForm(prefix='next_form_pre')})
+
+    def post(self, request, *args, **kwargs):
+        doc_form = _get_form(request, DocumentForm, 'doc_form_pre')
+        # next_form = _get_form(request, NextForm, 'next_form_pre')
+        if doc_form.is_bound and doc_form.is_valid():
+            doc_form.save()
+        # elif next_form.is_bound and next_form.is_valid():
+        # next_form.save()
+        return self.render_to_response({'doc_form': doc_form})
+        # return self.render_to_response({'doc_form': doc_form}, {'next_form': next_form})
 
 
 class TotalListView(LoginRequiredMixin, ListView):
