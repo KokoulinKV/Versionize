@@ -27,7 +27,6 @@ class Index(LoginRequiredMixin, TemplateView):
         context['title'] = 'Versionize - Сводная таблица проекта'
         context['document'] = DocumentForm(instance=self.request.document)
         # context['next_form'] = NextForm(instance=self.request.next_form)
-        print(context)
         return context
 
     def get(self, request, *args, **kwargs):
