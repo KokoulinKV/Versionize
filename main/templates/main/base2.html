@@ -44,13 +44,6 @@
                 <span class="sidebar__tooltip">Компании</span>
             </li>
             <li>
-                <a href="{% url 'main:company2' %}">
-                    <i class='bx bx-grid-alt'></i>
-                    <span class="sidebar__link-name">Компания</span>
-                </a>
-                <span class="sidebar__tooltip">Компания</span>
-            </li>
-            <li>
                 <a href="{% url 'main:index' user.id%}">
                     <i class='bx bx-user'></i>
                     <span class="sidebar__link-name">Пользователь</span>
@@ -70,13 +63,6 @@
                     <span class="sidebar__link-name">Сводная</span>
                 </a>
                 <span class="sidebar__tooltip">Сводная</span>
-            </li>
-            <li>
-                <a href="{% url 'main:total2' %}">
-                    <i class='bx bx-pie-chart-alt-2'></i>
-                    <span class="sidebar__link-name">Сводная2</span>
-                </a>
-                <span class="sidebar__tooltip">Сводная2</span>
             </li>
             <li>
                 <a href="{% url 'main:document2' %}">

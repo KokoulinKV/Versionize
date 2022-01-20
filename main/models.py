@@ -16,6 +16,9 @@ class Project(models.Model):
     def get_projects(self):
         return self.objects.all()
 
+    def get_admin(self):
+        return User.objects.get(id=self.admin.id)
+
 
 class Section(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)

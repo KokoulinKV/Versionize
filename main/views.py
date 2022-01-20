@@ -1,7 +1,7 @@
 import PyPDF2 as PyPDF2
 from django.core.exceptions import ValidationError
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, TemplateView
+from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from main.forms import DocumentForm
@@ -60,7 +60,7 @@ class Index(LoginRequiredMixin, TemplateView):
 
 class TotalListView(LoginRequiredMixin, ListView):
     model = Section
-    template_name = 'main/total.html'
+    template_name = 'main/total2.html'
 
     def get_queryset(self):
         queryset = self.model.objects.filter(project_id=self.request.session['active_project_id'])
@@ -80,7 +80,7 @@ class TotalListView(LoginRequiredMixin, ListView):
 
 class SectionDetailView(LoginRequiredMixin, DetailView):
     model = Section
-    template_name = 'main/section.html'
+    template_name = 'main/section2.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -90,7 +90,7 @@ class SectionDetailView(LoginRequiredMixin, DetailView):
 
 class CompanyListView(LoginRequiredMixin, ListView):
     model = Company
-    template_name = 'main/companies.html'
+    template_name = 'main/companies2.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -100,7 +100,7 @@ class CompanyListView(LoginRequiredMixin, ListView):
 
 class DocumentDetailView(LoginRequiredMixin, DetailView):
     model = Document
-    template_name = 'main/document.html'
+    template_name = 'main/document2.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
