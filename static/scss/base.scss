@@ -577,9 +577,11 @@ body {
     // }
 
     &__file-body {
+        flex-grow: 1;
     }
 
     &__file-name {
+        text-align: center;
     }
 
     &__file-md {

@@ -688,6 +688,16 @@ body {
   color: #2d2b49;
 }
 
+.project__file-body {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+.project__file-name {
+  text-align: center;
+}
+
 .project__file-md {
   font-size: 10px;
   text-align: center;

@@ -1,7 +1,7 @@
 import PyPDF2 as PyPDF2
 from django.core.exceptions import ValidationError
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from main.forms import DocumentForm
@@ -30,7 +30,8 @@ class Index(LoginRequiredMixin, TemplateView):
         return context
 
     def get(self, request, *args, **kwargs):
-        return self.render_to_response({'doc_form': DocumentForm(prefix='doc_form_pre')})
+        return self.render_to_response(
+            {'doc_form': DocumentForm(prefix='doc_form_pre')})
         # return self.render_to_response({'doc_form': DocumentForm(prefix='doc_form_pre'),
         #                                  'next_form': NextForm(prefix='next_form_pre')})
 
@@ -44,14 +45,24 @@ class Index(LoginRequiredMixin, TemplateView):
 
                 doc_form.save()
                 # Чистим форму от введенных данных
-                doc_form.data = {'doc_form_pre-status': '', 'doc_form_pre-name': '', 'doc_form_pre-section': '',
-                                 'doc_form_pre': ''}
+                doc_form.data = {
+                    'doc_form_pre-status': '',
+                    'doc_form_pre-name': '',
+                    'doc_form_pre-section': '',
+                    'doc_form_pre': ''
+                }
             except ValidationError:
                 errors = 'Данная версия документа уже была загружена. Загрузите корректную новую версию.'
-                return self.render_to_response({'doc_form': doc_form, 'errors': errors})
+                return self.render_to_response({
+                    'doc_form': doc_form,
+                    'errors': errors
+                })
             except TypeError:
                 errors = 'Документ должен быть в формате ".pdf"'
-                return self.render_to_response({'doc_form': doc_form, 'errors': errors})
+                return self.render_to_response({
+                    'doc_form': doc_form,
+                    'errors': errors
+                })
         # elif next_form.is_bound and next_form.is_valid():
         # next_form.save()
         return self.render_to_response({'doc_form': doc_form})
@@ -63,11 +74,12 @@ class TotalListView(LoginRequiredMixin, ListView):
     template_name = 'main/total2.html'
 
     def get_queryset(self):
-        queryset = self.model.objects.filter(project_id=self.request.session['active_project_id'])
+        queryset = self.model.objects.filter(
+            project_id=self.request.session['active_project_id'])
         ordering = self.get_ordering()
         if ordering:
             if isinstance(ordering, str):
-                ordering = (ordering,)
+                ordering = (ordering, )
             queryset = queryset.order_by(*ordering)
 
         return queryset
@@ -100,7 +112,7 @@ class CompanyListView(LoginRequiredMixin, ListView):
 
 class DocumentDetailView(LoginRequiredMixin, DetailView):
     model = Document
-    template_name = 'main/document2.html'
+    template_name = 'main/document.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
