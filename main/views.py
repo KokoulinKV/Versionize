@@ -14,8 +14,7 @@ def _get_form(request, formcls, prefix):
         if request.FILES:
             files = request.FILES
             return formcls(data, files, prefix=prefix)
-    else:
-        None
+    data = None
     return formcls(data, prefix=prefix)
 
 
