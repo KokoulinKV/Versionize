@@ -47,3 +47,18 @@ popup_secCloseIcon2.addEventListener('click', (e) => {
 
 
 
+let newForm_close = document.getElementById('newform-close')
+let newForm_add = document.getElementById('secRefAdd')
+let submitSec = document.getElementById('subSecAdd')
+const newForm = document.getElementById('newForm')
+
+
+newForm_add.addEventListener('click', (e) => {
+    newForm.classList.toggle('new-form_open')
+})
+submitSec.addEventListener('click', (e) => {
+    newForm.classList.toggle('new-form_open')
+})
+newForm_close.addEventListener('click', (e) => {
+    newForm.classList.toggle('new-form_open')
+})
