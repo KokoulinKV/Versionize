@@ -687,12 +687,14 @@ body {
     transition: all 0.5s ease 0s;
     opacity: 0;
     visibility: hidden;
+    display: none;
     overflow-y: auto;
     overflow-x: hidden;
 
     &_open {
         opacity: 1;
         visibility: visible;
+        display: block;
 
         &__content {
             transform: perspective(600px) translate(0px, 0%) rotateX(0deg);
