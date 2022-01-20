@@ -120,5 +120,4 @@ class DocumentDetailView(LoginRequiredMixin, DetailView):
         return context
 
 
-def company2(request):
-    return render(request, 'main/company2.html')
+
