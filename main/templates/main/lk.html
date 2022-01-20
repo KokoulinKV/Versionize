@@ -1,154 +1,323 @@
 {% extends 'main/base.html' %}
 {% load static %}
-{% block title %}
-    Versionize
-{% endblock %}
 
-
-{% block workspace-title %}
-        <h3>Илья Владимирович, добро пожаловать в систему Versionize</h3>
-{% endblock %}
 {% block workspace %}
-        <input type="date">
-        <div class="desktop__actions">
-                <div class="desktop__action">
-                    <a href="#">
-                        <img src="{% static 'img/task_big.png' %}" alt="{% static 'contract_big.png' %}">
-                        <span>Создать задачу</span>
-                    </a>
+<div class="ext-workspace">
+    <div class="left-block">
+        <!-- Можно использовать как для пользователя, так и для эксперта/ответственногого -->
+        <h2 class="block-title">Пользователь:</h2>
+        <div class="person">
+            <div class="person__content">
+                <div class="person__avatar">
+                    <img class="" width="125px"
+                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
                 </div>
-                <div class="desktop__action">
-                    <a href="#">
-                        <img src="{% static 'img/document_big.png' %}" alt="{% static 'contract_big.png' %}">
-                        <span>Создать документ</span>
-                    </a>
+                <div class="person__text">
+                    <span class="person__name">{{ user.last_name }} {{ user.first_name }} {{ user.patronymic }}</span>
+                    <span class="person__job">
+                        <i class='bx bxs-business'></i>{{ user.get_usercompany_info.company }}</span>
+                    <span class="person__post"><i class='bx bx-id-card'></i>{{ object.get_position }}</span>
+                    <span class="person__role"><i class='bx bx-male'></i>{{ object.get_project_role }}</span>
                 </div>
-                <div class="desktop__action">
-                    <a href="#">
-                        <img src="{% static 'img/contract_big.png' %}" alt="{% static 'contract_big.png' %}">
-                        <span>Создать договор</span>
-                    </a>
-                </div>
-                <div class="desktop__action">
-                    <a href="#">
-                        <img src="{% static 'img/meeting_big.png' %}" alt="{% static 'contract_big.png' %}">
-                        <span>Создать совещание</span>
-                    </a>
-                </div>
+            </div>
+            <div class="person__contacts">
+                <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ user.phone }}</span>
+                <span class="person__mail"><i class='bx bx-mail-send'></i>{{ user.email }}</span>
+                <span class="person__actions"><i class='bx bx-dots-horizontal-rounded'></i></span>
+            </div>
         </div>
-{% endblock %}
-{% block workspace-events %}
-    <div class="desktop__ivents">
-        <!-- Если нет событий, то уведомляем обычной надписью -->
-        <p>Нет событий</p>
-        <!-- Если для пользователя есть события, то выводим их -->
-        <div class="desktop__ivents-content">
-            <div class="desktop__ivents-top-row">
-                <div class="desktop__ivents-date">Сегодня</div>
-                <!-- ? Возможно стоит вывести выше и в отдельный блок -->
-                <div class="desktop__ivents-pagination">1-5 строки из n <i class='bx bx-chevron-left'></i><i
-                        class='bx bx-chevron-right'></i></div>
-            </div>
-            <div class="desktop__ivents-body">
-                <div class="desktop__ivents-message">
-                    <div class="desktop__ivents-message-title">Установить обновление для системы
-                        [НомерЗадачи]
+        {% if active_project_id %}
+        <h2 class="block-title">Активный проект:</h2>
+        <div class="project">
+            <div class="project__info">
+                <div class="project__info-title">{{ active_project_code }}</div>
+                <div class="project__info-data">
+                    <div class="project__data">
+                        <span>Следующая загрузка:</span>
+                        <p>{{ active_project_next_upload|date:'d.m.Y' }}</p>
                     </div>
-                    <div class="desktop__ivents-message-text">Установить обновление для системы</div>
-                </div>
-                <div class="desktop__ivents-info">
-                    <div class="desktop__ivents-info-date">До 31.12.2021 18:00</div>
-                    <!-- Todo сделать выпадающий список из статусов -->
-                    <div class="desktop__ivents-info-status">В работе <i class='bx bx-chevron-down'></i>
+                    <div class="project__data">
+                        <span>Срок экспертизы до:</span>
+                        <p>{{ active_project_exp_date|date:'d.m.Y' }}</p>
                     </div>
                 </div>
             </div>
-            <div class="desktop__ivents-top-row">
-                <div class="desktop__ivents-date">Завтра</div>
-                <!-- ? Возможно стоит вывести выше и в отдельный блок
-                <div class="desktop__ivents-pagination">1-5 строки из n <i class='bx bx-chevron-left' ></i><i class='bx bx-chevron-right' ></i></div> -->
+        </div>
+        {% else %}
+        <h2 class="block-title">Активный проект:</h2>
+        <div class="project">
+            <div class="project__info">
+                <div class="project__info-title">Проект не выбран</div>
             </div>
-            <div class="desktop__ivents-body">
-                <div class="desktop__ivents-message">
-                    <div class="desktop__ivents-message-title">Проверить документ [НомерДокумента]</div>
-                    <div class="desktop__ivents-message-text">Печковский А.С назначил Вас ответственным
-                        за....
+        </div>
+        {% endif %}
+        <!-- Блок кнопок -->
+        <h2 class="block-title">Действия:</h2>
+        <div class="actions actions_project">
+            <div class="actions__btn" id="add-project">
+                <span class="actions__icon"><i class='bx bx-folder-plus'></i></span>
+                <h3 class="actions__name">Создать проект</h3>
+            </div>
+        </div>
+        <div class="actions actions_section">
+            <div class="actions__btn" id="add-section">
+                <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>
+                <h3 class="actions__name">Добавить раздел</h3>
+            </div>
+        </div>
+        <div class="actions actions_section">
+            <div class="actions__btn" id="add-section_new">
+                <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>
+                <h3 class="actions__name">Создать раздел</h3>
+            </div>
+        </div>
+        <div class="actions actions_document">
+            <div class="actions__btn" id="add-document">
+                <span class="actions__icon"><i class='bx bx-file'></i></span>
+                <h3 class="actions__name">Загрузить документ</h3>
+            </div>
+        </div>
+    </div>
+    <div class="notice">
+        <div class="notice__title">
+            <span>Хроника событий</span>
+        </div>
+        <div class="notice__row">
+            <div class="notice__content">
+                <div class="notice__icon notice_icon-load-red">
+                    <i class='bx bx-chevron-down-circle'></i>
+                </div>
+                <div class="notice__body">
+                    <div class="notice__section-code">18-06/2021</div>
+                    <div class="notice__theme">Загружены повторные замечания</div>
+                    <div class="notice__msg"></div>
+                    <div class="notice__btns"><a href="#">Просмотреть</a> | <a href="#">Прочитано</a></div>
+                    <div class="notice__date">12.01.22 17:25:08</div>
+                </div>
+            </div>
+            <div class="notice__content">
+                <div class="notice__icon notice_icon-load-msg"><i class='bx bx-mail-send'></i></div>
+                <div class="notice__body">
+                    <div class="notice__section-code">18-06/2021</div>
+                    <div class="notice__theme">Александр Петров (ООО "СтройИнжОбследование") в разделе ИЭИ
+                        пишет:</div>
+                    <div class="notice__msg">Виктор Васильевич, для корректировки повторных замечаний к
+                        разделу ИЭИ необходимо повторно запросить справку о фоновых концетрациях загрязняющих
+                        веществ. В приложенной в отчете справке фигурирует неактуальное наименование объекта.
+                        Эксперт настаивает на том, что наименования в справке и отчете должны быть идентичными.
                     </div>
-                </div>
-                <div class="desktop__ivents-info">
-                    <div class="desktop__ivents-info-date">До 05.01.2021 18:00</div>
-                    <!-- Todo сделать выпадающий список из статусов -->
-                    <div class="desktop__ivents-info-status">В работе <i class='bx bx-chevron-down'></i>
+                    <div class="notice__btns">
+                        <a href="#">Просмотреть</a> | <a href="#">Прочитано</a>
                     </div>
+                    <div class="notice__date">12.01.22 12:29:12</div>
                 </div>
             </div>
-            <div class="desktop__ivents-top-row">
-                <div class="desktop__ivents-date">Завтра</div>
-                <!-- ? Возможно стоит вывести выше и в отдельный блок
-                <div class="desktop__ivents-pagination">1-5 строки из n <i class='bx bx-chevron-left' ></i><i class='bx bx-chevron-right' ></i></div> -->
-            </div>
-            <div class="desktop__ivents-body">
-                <div class="desktop__ivents-message">
-                    <div class="desktop__ivents-message-title">Совещание</div>
-                    <div class="desktop__ivents-message-text">Совещание на тему ГОСТ 31.12.22</div>
+            <div class="notice__content">
+                <div class="notice__icon notice_icon-load-grn">
+                    <i class='bx bx-chevron-down-circle'></i>
                 </div>
-                <div class="desktop__ivents-info">
-                    <div class="desktop__ivents-info-date">Начало 10.01.2022 10:00</div>
-                    <div class="desktop__ivents-info-date">До 10.01.2022 15:00</div>
+                <div class="notice__body">
+                    <div class="notice__section-code">55-12/2020</div>
+                    <div class="notice__theme">Загружена новая версия документа раздела КР</div>
+                    <div class="notice__msg"></div>
+                    <div class="notice__btns"><a href="#">Просмотреть</a> | <a href="#">Прочитано</a></div>
+                    <div class="notice__date">12.01.22 10:13:11</div>
+                </div>
+            </div>
+            <div class="notice__content">
+                <div class="notice__icon notice_icon-load-red">
+                    <i class='bx bx-calendar-exclamation'></i>
+                </div>
+                <div class="notice__body">
+                    <div class="notice__section-code">55-12/2020</div>
+                    <div class="notice__theme">До назначенной даты загрузки осталось 3 дня!</div>
+                    <div class="notice__msg"></div>
+                    <div class="notice__btns"><a href="#">Просмотреть</a> | <a href="#">Прочитано</a></div>
+                    <div class="notice__date">10.01.22 17:22:12</div>
+                </div>
+            </div>
+            <div class="notice__content">
+                <div class="notice__icon notice_icon-load-red">
+                    <i class='bx bx-chevron-down-circle'></i>
+                </div>
+                <div class="notice__body">
+                    <div class="notice__section-code">55-12/2020</div>
+                    <div class="notice__theme">Загружены повторные замечания</div>
+                    <div class="notice__msg"></div>
+                    <div class="notice__btns"><a href="#">Просмотреть</a> | <a href="#">Прочитано</a></div>
+                    <div class="notice__date">10.01.22 16:20:10</div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
-{% block notice %}
-            <div class="notice__content">
-                <div class="notice__title">
-                    <h4>Уведомления</h4>
+{% block popup %}
+<div class="popup" id="popup-project">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_pro">X</a>
+            <div class="popup__title">Создание проекта</div>
+            <form action="" method="post" class="form">
+                {% csrf_token %}
+
+                <div class="form__field">
+                    <label>Шифр</label>
+                    <input type='text' class="form__input">
                 </div>
-                <div class="notice__messages">
-                    <div class="notice__message">
-                        <div class="notice__message-title">
-                            <i class='bx bxs-circle notice__message_green'></i>
-                            <h5>Уведомление Утверждение</h5>
-                        </div>
-                        <div class="notice__message-body">
-                            <p>Прошу проверить и утвердить документ <b>10-03/2020-ИГИ</b></p>
-                        </div>
-                        <div class="notice__message-btns">
-                            <a href="#">Просмотреть</a> | <a href="#">Удалить</a>
-                        </div>
-                    </div>
-                    <div class="notice__message">
-                        <div class="notice__message-title">
-                            <i class='bx bxs-circle notice__message_red'></i>
-                            <h5>Уведомление Отмененно</h5>
-                        </div>
-                        <div class="notice__message-body">
-                            <p>Приложение к документу <b>10-03/2020-КР</b> просрочено</p>
-                        </div>
-                        <div class="notice__message-btns">
-                            <a href="#">Просмотреть</a> | <a href="#">Удалить</a>
-                        </div>
-                    </div>
-                    <div class="notice__message">
-                        <div class="notice__message-title">
-                            <i class='bx bxs-circle notice__message_blue'></i>
-                            <h5>Уведомление Ознакомление</h5>
-                        </div>
-                        <div class="notice__message-body">
-                            <p>Отменен документ<b>10-03/2020-ИГИ</b>. Новая инструкция № 00025 выслана. Подготовить
-                                новые документы</p>
-                        </div>
-                        <div class="notice__message-btns">
-                            <a href="#">Просмотреть</a> | <a href="#">Удалить</a>
-                        </div>
+                <div class="form__field">
+                    <label>Наименование</label>
+                    <input type='text' class="form__input">
+                </div>
+                <div class="form__field">
+                    <label>Ответственный</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
                     </div>
                 </div>
-            </div>
-            <div class="notice__buttom-block">
-                <a href="#">Удалить все</a>
-                <span>1 - 3/6</span>
-                <i class='bx bx-chevron-left'></i>
-                <i class='bx bx-chevron-right'></i>
-            </div>
-            {% endblock %}
+                <div class="form__field">
+                    <label>Срок экспертизы</label>
+                    <input type='date' class="form__input">
+                </div>
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn">Создать проект</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<div class="popup" id="popup-section">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_sec">X</a>
+            <div class="popup__title">Добавить раздел</div>
+            <form action="" method="post" class="form">
+                {% csrf_token %}
+                <div class="form__field">
+                    <label>Выбор раздела</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Выбор проекта</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Наименование</label>
+                    <input type='text' class="form__input">
+                </div>
+                <div class="form__field">
+                    <label>Выбор компании</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Выбор ответственногого</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Выбор эксперта</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn">Создать раздел</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<div class="popup" id="popup-section2">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_sec2">X</a>
+            <div class="popup__title">Создать раздел</div>
+            <form action="" method="post" class="form">
+                {% csrf_token %}
+                <div class="form__field">
+                    <label>Наименование</label>
+                    <input type='text' class="form__input">
+                </div>
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn">Создать раздел</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<div class="popup" id="popup-document">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_doc">X</a>
+            <div class="popup__title">Загрузка документа</div>
+            <form action="" method="post" class="form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form__field">
+                    <label for="{{ doc_form.status.id_for_label }}">Статус</label>
+                    <div class="form__select">
+                        {{ doc_form.status }}
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label for="{{ doc_form.name.id_for_label }}">Наименование</label>
+                    {{ doc_form.name }}
+                </div>
+                <div class="form__field">
+                    <label for="{{ doc_form.doc_path.id_for_label }}">Файл</label>
+                    {{ doc_form.doc_path }}
+                </div>
+                <div class="form__field">
+                    <label for="{{ doc_form.section.id_for_label }}">Раздел</label>
+                    <div class="form__select">
+                        {{ doc_form.section }}
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label for="{{ doc_form.note.id_for_label }}">Примечания</label>
+                    {{ doc_form.note }}
+                </div>
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn" name="{{ doc_form.prefix }}" value="Submit">
+                        Создать документ
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
