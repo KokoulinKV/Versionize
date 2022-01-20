@@ -11,7 +11,7 @@ class User(AbstractUser):
         return f'{self.last_name} {self.first_name} {self.patronymic}'
 
     def get_usercompany_info(self):
-        return UserCompanyInfo.objects.get(id=self.id)
+        return UserCompanyInfo.objects.get(user_id=self.id)
 
     def get_company(self):
         user_company_info = self.get_usercompany_info()
