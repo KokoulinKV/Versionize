@@ -1,6 +1,5 @@
-import PyPDF2 as PyPDF2
+# import PyPDF2 as PyPDF2
 from django.core.exceptions import ValidationError
-from django.shortcuts import render
 from django.views.generic import ListView, DetailView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -14,7 +13,8 @@ def _get_form(request, formcls, prefix):
         if request.FILES:
             files = request.FILES
             return formcls(data, files, prefix=prefix)
-    data = None
+    else:
+        data = None
     return formcls(data, prefix=prefix)
 
 
@@ -40,7 +40,7 @@ class Index(LoginRequiredMixin, TemplateView):
         if doc_form.is_bound and doc_form.is_valid():
             try:
                 # Проверяем на .pdf
-                PyPDF2.PdfFileReader(open(doc_form.files, "rb"))
+                # PyPDF2.PdfFileReader(open(doc_form.files, "rb"))
 
                 doc_form.save()
                 # Чистим форму от введенных данных
@@ -56,12 +56,12 @@ class Index(LoginRequiredMixin, TemplateView):
                     'doc_form': doc_form,
                     'errors': errors
                 })
-            except TypeError:
-                errors = 'Документ должен быть в формате ".pdf"'
-                return self.render_to_response({
-                    'doc_form': doc_form,
-                    'errors': errors
-                })
+            # except TypeError:
+            #     errors = 'Документ должен быть в формате ".pdf"'
+            #     return self.render_to_response({
+            #         'doc_form': doc_form,
+            #         'errors': errors
+            #     })
         # elif next_form.is_bound and next_form.is_valid():
         # next_form.save()
         return self.render_to_response({'doc_form': doc_form})
