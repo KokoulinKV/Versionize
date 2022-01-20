@@ -37,13 +37,13 @@ popup_proCloseIcon.addEventListener('click', (e) => {
     project.classList.toggle('popup_open')
 })
 
-popup_section2.addEventListener('click', (e) => {
-    sect2.classList.toggle('popup_open')
-})
+// popup_section2.addEventListener('click', (e) => {
+//     sect2.classList.toggle('popup_open')
+// })
 
-popup_secCloseIcon2.addEventListener('click', (e) => {
-    sect2.classList.toggle('popup_open')
-})
+// popup_secCloseIcon2.addEventListener('click', (e) => {
+//     sect2.classList.toggle('popup_open')
+// })
 
 
 
