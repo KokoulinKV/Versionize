@@ -156,7 +156,7 @@
 <div class="popup" id="popup-project">
     <div class="popup__body">
         <div class="popup__content">
-            <a href="#" class="popup__close" id="popup__close_pro">X</a>
+            <a href="#" class="popup__close" id="popup__close_pro"><i class='bx bx-plus-circle form-close'></i></a>
             <div class="popup__title">Создание проекта</div>
             <form action="" method="post" class="form">
                 {% csrf_token %}
@@ -194,7 +194,7 @@
 <div class="popup" id="popup-section">
     <div class="popup__body">
         <div class="popup__content">
-            <a href="#" class="popup__close" id="popup__close_sec">X</a>
+            <a href="#" class="popup__close" id="popup__close_sec"><i class='bx bx-plus-circle form-close'></i></a>
             <div class="popup__title">Добавить раздел</div>
             <form action="" method="post" class="form">
                 {% csrf_token %}
@@ -207,6 +207,9 @@
                             <option value="">3</option>
                         </select>
                     </div>
+                    <span id="secRefAdd">
+                        <i class='bx bx-plus' id="secRefAdd"></i>
+                    </span>
                 </div>
                 <div class="form__field">
                     <label>Выбор проекта</label>
@@ -258,6 +261,22 @@
 
             </form>
         </div>
+        <div class="new-form" id="newForm">
+            <div class="new-from__body">
+                <a href="#" class="new-form__close" id="new-form__close">
+                    <i class='bx bx-plus-circle form-close' id="newform-close"></i></a>
+                <div class="new-form__title">Cоздать раздел</div>
+                <form action="#">
+                    <div class="form__field">
+                        <label>Наименование</label>
+                        <input type='text' class="form__input">
+                    </div>
+                    <div class="form__submit">
+                        <button type="submit" class="form__submit-btn" id='subSecAdd'>Создать раздел</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 <div class="popup" id="popup-section2">
@@ -282,7 +301,7 @@
 <div class="popup" id="popup-document">
     <div class="popup__body">
         <div class="popup__content">
-            <a href="#" class="popup__close" id="popup__close_doc">X</a>
+            <a href="#" class="popup__close" id="popup__close_doc"><i class='bx bx-plus-circle form-close'></i></a>
             <div class="popup__title">Загрузка документа</div>
             <form action="" method="post" class="form" enctype="multipart/form-data">
                 {% csrf_token %}
