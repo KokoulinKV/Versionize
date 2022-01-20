@@ -809,6 +809,7 @@ body {
   transition: all 0.5s ease 0s;
   opacity: 0;
   visibility: hidden;
+  display: none;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -816,6 +817,7 @@ body {
 .popup_open {
   opacity: 1;
   visibility: visible;
+  display: block;
 }
 
 .popup_open__content {
