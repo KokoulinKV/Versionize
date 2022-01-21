@@ -29,7 +29,7 @@ Versionize | Total table
         <div class="person">
             <div class="person__content">
                 <div class="person__text">
-                    {% with object_list.1.project.get_admin as admin %}
+                    {% with object_list.0.project.get_admin as admin %}
                     <span class="person__name">{{ admin.get_fullname }}</span>
                     <span class="person__job"><i class='bx bxs-business'></i>{{ admin.get_company.name }}</span>
                     <span class="person__post"><i class='bx bx-id-card'></i>{{ admin.get_position }}</span>
@@ -244,44 +244,38 @@ Versionize | Total table
 <div class="popup" id="popup-document">
     <div class="popup__body">
         <div class="popup__content">
-            <a href="#" class="popup__close" id="popup__close_doc">X</a>
+            <a href="#" class="popup__close" id="popup__close_doc"><i class='bx bx-plus-circle form-close'></i></a>
             <div class="popup__title">Загрузка документа</div>
-            <form action="" method="post" class="form">
+            <form action="" method="post" class="form" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form__field">
-                    <label>Статус</label>
+                    <label for="{{ doc_form.status.id_for_label }}">Статус</label>
                     <div class="form__select">
-                        <select>
-                            <option value="">Номер1</option>
-                            <option value="">Номер2</option>
-                            <option value="">Номер3</option>
-                        </select>
+                        {{ doc_form.status }}
                     </div>
                 </div>
                 <div class="form__field">
-                    <label>Наименование</label>
-                    <input type='tezt' class="form__input">
+                    <label for="{{ doc_form.name.id_for_label }}">Наименование</label>
+                    {{ doc_form.name }}
                 </div>
                 <div class="form__field">
-                    <label>Файл</label>
-                    <input type='file' class="form__input" accept=".pdf">
+                    <label for="{{ doc_form.doc_path.id_for_label }}">Файл</label>
+                    {{ doc_form.doc_path }}
                 </div>
                 <div class="form__field">
-                    <label>Раздел</label>
+                    <label for="{{ doc_form.section.id_for_label }}">Раздел</label>
                     <div class="form__select">
-                        <select>
-                            <option value="">Номер1</option>
-                            <option value="">Номер2</option>
-                            <option value="">Номер3</option>
-                        </select>
+                        {{ doc_form.section }}
                     </div>
                 </div>
                 <div class="form__field">
-                    <label>Примечания</label>
-                    <textarea class="form__textarea"></textarea>
+                    <label for="{{ doc_form.note.id_for_label }}">Примечания</label>
+                    {{ doc_form.note }}
                 </div>
                 <div class="form__submit">
-                    <button type="submit" class="form__submit-btn">Создать документ</button>
+                    <button type="submit" class="form__submit-btn" name="{{ doc_form.prefix }}" value="Submit">
+                        Создать документ
+                    </button>
                 </div>
 
             </form>
