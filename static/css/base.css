@@ -469,6 +469,7 @@ body {
 }
 
 .person__mail {
+  margin-top: 5px;
   font-size: 16px;
   font-weight: 300;
   display: -webkit-box;
@@ -486,9 +487,6 @@ body {
   display: inline-flex;
   -ms-flex-wrap: nowrap;
       flex-wrap: nowrap;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
@@ -728,6 +726,40 @@ body {
   font-size: 10px;
   text-align: center;
   margin: 2px 0;
+}
+
+.project__btn {
+  height: 40px;
+  width: 200px;
+  background: #7380ec;
+  border-radius: 55px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.02);
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.02);
+}
+
+.project__btn-body {
+  height: 100%;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.project__btn-body i {
+  font-size: 40px;
+  color: #fff;
+}
+
+.project__btn-text {
+  font-size: 20px;
+  color: #fff;
+  margin-left: 8px;
 }
 
 .block-title {
