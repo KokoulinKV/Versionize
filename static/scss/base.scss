@@ -269,7 +269,10 @@ body {
 }
 
 // FEATURE
-
+.main {
+    width: 100%;
+    padding: 25px 30px 0 15px;
+}
 .relative-table {
     &__title {
     }

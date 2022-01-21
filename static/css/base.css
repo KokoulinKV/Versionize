@@ -318,6 +318,11 @@ body {
   left: 240px;
 }
 
+.main {
+  width: 100%;
+  padding: 25px 30px 0 15px;
+}
+
 .ext-workspace {
   height: 100%;
   display: -webkit-box;
