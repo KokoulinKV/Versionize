@@ -22,7 +22,7 @@ def clear_form_data(form_data):
     """
     Clears the values of the immutable QueryDict instance
     """
-    empty_dict = {}
+    empty_dict = {'csrfmiddlewaretoken': form_data['csrfmiddlewaretoken']}
     for key in form_data.keys():
         empty_dict[form_data[key]] = ''
     return empty_dict
