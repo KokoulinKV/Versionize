@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <!-- Boxicons CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <!--  -->
+    <link rel="stylesheet" href="../css/base.min.css">
+</head>
+
+<body>
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar__logo-content">
+            <div class="sidebar__logo">
+                <i class='bx bxl-vimeo'></i>
+                <div class="sidebar__logo-name">Versionize</div>
+            </div>
+            <i class='bx bx-menu' id="menu-btn"></i>
+        </div>
+        <ul class="sidebar__list">
+            <li>
+                <i class='bx bx-search' id="searchBtn"></i>
+                <input type="text" placeholder="Поиск...">
+                <span class="sidebar__tooltip">Поиск</span>
+            </li>
+            <li>
+                <a href="{% url 'main:companies' %}">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="sidebar__link-name">Компании</span>
+                </a>
+                <span class="sidebar__tooltip">Компании</span>
+            </li>
+            <li>
+                <a href="{% url 'main:index' user.id%}">
+                    <i class='bx bx-user'></i>
+                    <span class="sidebar__link-name">Пользователь</span>
+                </a>
+                <span class="sidebar__tooltip">Пользователь</span>
+            </li>
+            <li>
+                <a href="{% url 'main:section' 1 %}">
+                    <i class='bx bx-chat'></i>
+                    <span class="sidebar__link-name">Раздел</span>
+                </a>
+                <span class="sidebar__tooltip">Раздел</span>
+            </li>
+            <li>
+                <a href="{% url 'main:total' %}">
+                    <i class='bx bx-pie-chart-alt-2'></i>
+                    <span class="sidebar__link-name">Сводная</span>
+                </a>
+                <span class="sidebar__tooltip">Сводная</span>
+            </li>
+            <li>
+                <a href="{% url 'main:document' 1 %}">
+                    <i class='bx bx-folder'></i>
+                    <span class="sidebar__link-name">Документы</span>
+                </a>
+                <span class="sidebar__tooltip">Документы</span>
+            </li>
+            <li>
+                <a href="{% url 'admins:index' %}">
+                    <i class='bx bx-cog'></i>
+                    <span class="sidebar__link-name">Настройки</span>
+                </a>
+                <span class="sidebar__tooltip">Настройки</span>
+            </li>
+        </ul>
+        <div class="sidebar__profile-content">
+            <div class="sidebar__profile">
+                <div class="sidebar__profile-details">
+                    <img src="../img/comments_img.webp" alt="">
+                    <div class="sidebar__profile-data">
+                        <div class="sidebar__profile-name">Панков Илья Владимирович</div>
+                        <div class="sidebar__profile-company">Versionize team</div>
+                        <div class="sidebar__profile-job">Python Dev</div>
+                    </div>
+                </div>
+                <a href="{% url 'main:index' user.id %}"><i class='bx bx-log-out' id="log-out"></i></a>
+            </div>
+        </div>
+    </nav>
+    <main class="workspace">
+        <div class="ext-workspace">
+            <div class="left-block">
+                <!-- Можно использовать как для пользователя, так и для эксперта/ответственногого -->
+                <h2 class="block-title">Пользователь:</h2>
+                <div class="person">
+                    <div class="person__content">
+                        <div class="person__avatar">
+                            <img class="" width="125px"
+                                src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                        </div>
+                        <div class="person__text">
+                            <span class="person__name">Панков Илья Владимирович</span>
+                            <span class="person__job">
+                                <i class='bx bxs-business'></i>Versionize team</span>
+                            <span class="person__post"><i class='bx bx-id-card'></i>Python Dev</span>
+                            <span class="person__role"><i class='bx bx-male'></i>FrontEnd</span>
+                        </div>
+                    </div>
+                    <div class="person__contacts">
+                        <span class="person__phone"><i class='bx bx-mobile-alt'></i>89164805666</span>
+                        <span class="person__mail"><i class='bx bx-mail-send'></i>alexandertestmail@yandex.ru</span>
+                        <span class="person__actions"><i class='bx bx-dots-horizontal-rounded'></i></span>
+                    </div>
+                </div>
+                <h2 class="block-title">Активный проект:</h2>
+                <div class="project">
+                    <div class="project__info">
+                        <div class="project__info-title">28-100/2020</div>
+                        <div class="project__info-data">
+                            <div class="project__data">
+                                <span>Следующая загрузка:</span>
+                                <p>11/11/11</p>
+                            </div>
+                            <div class="project__data">
+                                <span>Срок экспертизы до:</span>
+                                <p>11/11/11</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="block-title">Активный проект:</h2>
+                <div class="project">
+                    <div class="project__info">
+                        <div class="project__info-title">Проект не выбран</div>
+                    </div>
+                </div>
+                <h2 class="block-title">Действия:</h2>
+                <div class="actions actions_project">
+                    <div class="actions__btn" id="add-project">
+                        <span class="actions__icon"><i class='bx bx-folder-plus'></i></span>
+                        <h3 class="actions__name">Создать проект</h3>
+                    </div>
+                </div>
+                <div class="actions actions_section">
+                    <div class="actions__btn" id="add-section">
+                        <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>
+                        <h3 class="actions__name">Добавить раздел</h3>
+                    </div>
+                </div>
+                <div class="actions actions_document">
+                    <div class="actions__btn" id="add-document">
+                        <span class="actions__icon"><i class='bx bx-file'></i></span>
+                        <h3 class="actions__name">Загрузить документ</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="notice">
+            </div>
+        </div>
+</body>
+<!-- defer - ждем загрузки страницы -->
+<!-- Todo перейти на jquery, чтобы запускать скрипты после загрузки контента -->
+<!-- <script defer src="../js/pop-up.js"></script> -->
+<script defer src="../js/side-nav.js"></script>
+
+</html>

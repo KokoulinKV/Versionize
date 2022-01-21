@@ -57,6 +57,8 @@ newForm_add.addEventListener('click', (e) => {
     newForm.classList.toggle('new-form_open')
 })
 submitSec.addEventListener('click', (e) => {
+    // отключаем обновление страницы
+    e.preventDefault()
     newForm.classList.toggle('new-form_open')
 })
 newForm_close.addEventListener('click', (e) => {
