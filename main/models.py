@@ -21,22 +21,24 @@ class Project(models.Model):
 
 
 class StandartSection(models.Model):
+    PROJECT_TYPE_CHOICES = {
+        (1, 'Площадной объект'),
+        (2, 'Линейный объект'),
+    }
     abbreviation = models.CharField(max_length=16)
     name = models.CharField(max_length=256)
-
-
+    project_type = models.IntegerField(max_length=1, blank=True, choices=PROJECT_TYPE_CHOICES)
 
 
 class Section(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     name = models.CharField(max_length=64)
+    # TODO поле не должно иметь возможности оставаться пустым при запуске проекта.
+    #  Сделано для разработки.
+    abbreviation = models.CharField(max_length=16, blank=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    responsible = models.ForeignKey(User,
-                                    db_index=True,
-                                    on_delete=models.CASCADE)
-    expert = models.ForeignKey(User,
-                               on_delete=models.CASCADE,
-                               related_name='expert_id')
+    responsible = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, db_index=True)
+    expert = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, related_name='expert_id')
 
     def __str__(self):
         return self.name
