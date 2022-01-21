@@ -1,4 +1,5 @@
 import hashlib
+from tabnanny import verbose
 
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -6,8 +7,9 @@ from user.models import User, Company
 
 
 class Project(models.Model):
-    code = models.CharField(max_length=64)
-    name = models.CharField(max_length=512)
+    code = models.CharField(max_length=64, verbose_name='Шифр проекта')
+    name = models.CharField(max_length=512,
+                            verbose_name='Наименование проекта')
     created_at = models.DateTimeField(auto_now=True)
     exp_date = models.DateField()
     next_upload = models.DateField()
@@ -18,6 +20,10 @@ class Project(models.Model):
 
     def get_admin(self):
         return User.objects.get(id=self.admin.id)
+
+    class Meta:
+        verbose_name = 'Проект'
+        verbose_name_plural = "Проекты"
 
 
 class Section(models.Model):
@@ -45,6 +51,10 @@ class Section(models.Model):
 
     def get_linked_remarks(self):
         return Remark.objects.filter(section=self).order_by('id')
+
+    class Meta:
+        verbose_name = 'Раздел'
+        verbose_name_plural = "Разделы"
 
 
 class Document(models.Model):
@@ -87,8 +97,10 @@ class Document(models.Model):
 
         if Document.objects.filter(section_id=self.section):
             if not Document.objects.filter(md5=self.md5):
-                last_vers_query = Document.objects.filter(section_id=self.section).values('version')
-                last_version = last_vers_query[len(last_vers_query) - 1]['version']
+                last_vers_query = Document.objects.filter(
+                    section_id=self.section).values('version')
+                last_version = last_vers_query[len(last_vers_query) -
+                                               1]['version']
                 self.version = last_version + 1
             else:
                 raise ValidationError('')
@@ -100,6 +112,10 @@ class Document(models.Model):
         self.variation = self.version - 1
 
         return super(Document, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'Документ'
+        verbose_name_plural = "Документы"
 
 
 class Adjustment(models.Model):
@@ -120,6 +136,10 @@ class Adjustment(models.Model):
     def get_document_adjustments(self, selected_document_id):
         return self.objects.filter(document=selected_document_id)
 
+    class Meta:
+        verbose_name = 'Вид корректирования'
+        verbose_name_plural = "Виды корректирования"
+
 
 class Remark(models.Model):
     number = models.IntegerField()
@@ -136,6 +156,10 @@ class Remark(models.Model):
     def get_section_remarks(self, selected_section_id):
         return self.objects.filter(section=selected_section_id)
 
+    class Meta:
+        verbose_name = 'Замечание'
+        verbose_name_plural = "Замечания"
+
 
 class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -148,3 +172,7 @@ class Comment(models.Model):
                                  related_name='parent')
     created_at = models.DateTimeField(auto_now=True)
     body = models.CharField(max_length=1024)
+
+    class Meta:
+        verbose_name = 'Комментарий'
+        verbose_name_plural = "Комментарии"
