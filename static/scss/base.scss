@@ -271,12 +271,25 @@ body {
 // ============================ LK2.HTML SETTINGS ========================== //
 // -----------------------------------------
 .ext-workspace {
-    display: flex;
-    // width: 100%;
-    // width: calc(100% - 78px);
     height: 100%;
-    flex-wrap: nowrap;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    &__input {
+        display: flex;
+        // width: 100%;
+        // width: calc(100% - 78px);
+        // height: 100%;
+        flex-wrap: nowrap;
+        overflow: hidden;
+        flex-grow: 1;
+    }
+    &__footer {
+        height: 60px;
+        border-top: rgba(0, 0, 0, 0.02) solid 1px;
+        background: #fafbfc;
+        z-index: 7;
+    }
 }
 // .sidebar_active ~ .ext-workspace {
 //     width: calc(100% - 240px);
