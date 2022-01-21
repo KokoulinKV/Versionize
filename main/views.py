@@ -17,6 +17,13 @@ def _get_form(request, formcls, prefix):
         data = None
     return formcls(data, prefix=prefix)
 
+def _clean_form_data(form):
+    new_data=form.data.copy()
+    for v, k in new_data.items():
+        if v!='csrfmiddlewaretoken':
+            new_data[v] = ''
+    form.data = new_data
+    return form
 
 class Index(LoginRequiredMixin, TemplateView):
     template_name = 'main/lk.html'
@@ -39,17 +46,9 @@ class Index(LoginRequiredMixin, TemplateView):
         # next_form = _get_form(request, NextForm, 'next_form_pre')
         if doc_form.is_bound and doc_form.is_valid():
             try:
-                # Проверяем на .pdf
-                # PyPDF2.PdfFileReader(open(doc_form.files, "rb"))
-
                 doc_form.save()
                 # Чистим форму от введенных данных
-                doc_form.data = {
-                    'doc_form_pre-status': '',
-                    'doc_form_pre-name': '',
-                    'doc_form_pre-section': '',
-                    'doc_form_pre': ''
-                }
+                doc_form=_clean_form_data(doc_form)
             except ValidationError:
                 errors = 'Данная версия документа уже была загружена. Загрузите корректную новую версию.'
                 return self.render_to_response({
@@ -74,11 +73,6 @@ class TotalListView(LoginRequiredMixin, TemplateView):
     def get_queryset(self):
         queryset = Section.objects.filter(
             project_id=self.request.session['active_project_id'])
-        # ordering = self.get_ordering()
-        # if ordering:
-        #     if isinstance(ordering, str):
-        #         ordering = (ordering, )
-        #     queryset = queryset.order_by(*ordering)
         return queryset
 
     def get(self, request, *args, **kwargs):
@@ -98,12 +92,7 @@ class TotalListView(LoginRequiredMixin, TemplateView):
             try:
                 doc_form.save()
                 # Чистим форму от введенных данных
-                doc_form.data = {
-                    'doc_form_pre-status': '',
-                    'doc_form_pre-name': '',
-                    'doc_form_pre-section': '',
-                    'doc_form_pre': ''
-                }
+                doc_form=_clean_form_data(doc_form)
             except ValidationError:
                 errors = 'Данная версия документа уже была загружена. Загрузите корректную новую версию.'
                 return self.render_to_response({
@@ -131,12 +120,7 @@ class SectionDetailView(LoginRequiredMixin, DetailView):
             try:
                 doc_form.save()
                 # Чистим форму от введенных данных
-                doc_form.data = {
-                    'doc_form_pre-status': '',
-                    'doc_form_pre-name': '',
-                    'doc_form_pre-section': '',
-                    'doc_form_pre': ''
-                }
+                doc_form=_clean_form_data(doc_form)
             except ValidationError:
                 errors = 'Данная версия документа уже была загружена. Загрузите корректную новую версию.'
                 return self.render_to_response({
