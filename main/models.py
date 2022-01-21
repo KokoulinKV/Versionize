@@ -20,14 +20,14 @@ class Project(models.Model):
         return User.objects.get(id=self.admin.id)
 
 
-class StandartSection(models.Model):
+class StandardSection(models.Model):
     PROJECT_TYPE_CHOICES = {
         (1, 'Площадной объект'),
         (2, 'Линейный объект'),
     }
     abbreviation = models.CharField(max_length=16)
     name = models.CharField(max_length=256)
-    project_type = models.IntegerField(max_length=1, blank=True, choices=PROJECT_TYPE_CHOICES)
+    project_type = models.IntegerField(blank=True, choices=PROJECT_TYPE_CHOICES)
 
 
 class Section(models.Model):
