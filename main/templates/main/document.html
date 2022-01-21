@@ -1,131 +1,266 @@
 {% extends 'main/base.html' %}
 {% load static %}
-{% block title %}
-    Versionize
-{% endblock %}
 
-{% block workspace-title %}
-    {% if active_project_id %}
-        <div class="desktop__title-obj-name">
-            <h1>{{ active_project_code }}</h1>
-            <span>{{ active_project_name }}</span>
-        </div>
-        <div class="desktop__title-obj-date">
-            <p>Следующая загрузка: <span>{{ active_project_next_upload|date:'d.m.y' }}</span></p>
-        </div>
-        <div class="desktop__title-obj-date">
-            <p>Итоговая загрузка: <span>{{ active_project_exp_date|date:'d.m.y' }}</span></p>
-        </div>
-    {% else %}
-        <div class="desktop__title-obj-info">
-            <h1>Активный проект не выбран</h1>
-        </div>
-    {% endif %}
+
+{% block title %}
+Versionize | Document card
 {% endblock %}
 {% block workspace %}
-<div class="desktop__workspace-table">
-    <table class="content-table">
-        <thead>
-            <tr>
-                <th>Лист</th>
-                <th>Содержание изменения</th>
-                <th>Код</th>
-                <th>Примечание</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for adjustment in document.get_linked_adjustments %}
-            <tr>
-                <td>{{ adjustment.pages }}</td>
-                <td>{{ adjustment.body }}</td>
-                <td>{{ adjustment.code }}</td>
-                <td>{{ adjustment.note }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <button type="button" class="download-button">
-        <span class="download-button__text">Загрузить документ</span>
-        <span class="download-button__icon">
-            <i class='bx bx-cloud-upload'></i>
-        </span>
-    </button>
-    <hr class="space-beetween">
-    <div class="workspace-comments">
-        <div class="workspace-comments__title">
-            <div class="workspace-comments__total">7 Комментариев</div>
-            <div class="workspace-comments__func"><i class='bx bx-filter'></i>Упорядочить</div>
-            <div class="workspace-comments__func" id="hide"><i class='bx
-                    bx-hide'></i>Скрыть/Показать</div>
+<div class="ext-workspace">
+    <div class="left-block">
+        <!-- Можно использовать как для пользователя, так и для эксперта/ответственногого -->
+        <h2 class="block-title">Активный проект:</h2>
+        <div class="project">
+            <div class="project__info">
+                <div class="project__info-title">{{ active_project_code }}</div>
+                <div class="project__info-data">
+                    <div class="project__data">
+                        <span>Следующая загрузка:</span>
+                        <p>{{ active_project_next_upload|date:'d.m.Y' }}</p>
+                    </div>
+                    <div class="project__data">
+                        <span>Срок экспертизы до:</span>
+                        <p>{{ active_project_exp_date|date:'d.m.Y' }}</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="workspace-comments__content" id="workspace-comments__content">
-            <!-- Тело одного коммента -->
-            <div class="workspace-comments__body">
-                <div class="workspace-comments__avatar">
-                    <img src="{% static 'img/comments_img.webp' %}" alt="comments_img.webp">
-                </div>
-                <div class="workspace-comments__text">
-                    <div class="workspace-comments__text-header">
-                        <span>Панков Илья Владимирович | Jun 12, 2022 |</span>
-                        <a href="#">Ответить</a>
-                    </div>
-                    <div class="workspace-comments__text-body">Lorem ipsum dolor
-                        sit amet, consectetur adipisicing elit. Natus unde est
-                        dignissimos ex ipsam molestiae doloribus quidem alias
-                        sint eos impedit animi quam nesciunt temporibus sed
-                        error, aut fugiat cumque.</div>
+        <h2 class="block-title">Ответственный:</h2>
+        <div class="person">
+            <div class="person__content">
+                <div class="person__text">
+                    {% with document.section.responsible as responsible %}
+                    <span class="person__name">{{ responsible.get_fullname }}</span>
+                    <span class="person__job"><i class='bx bxs-business'></i>{{ responsible.get_company.name }}</span>
+                    <span class="person__post"><i class='bx bx-id-card'></i>{{ responsible.get_position }}</span>
+                    <span class="person__role"><i class='bx bx-male'></i>{{ responsible.get_project_role }}</span>
+                    <span class="person__phone"><i class='bx bx-mobile-alt'></i>s{{ responsible.phone }}</span>
+                    <span class="person__mail"><i class='bx bx-mail-send'></i>{{ responsible.email }}</span>
+                    {% endwith %}
                 </div>
             </div>
-            <div class="workspace-comments__body">
-                <div class="workspace-comments__avatar">
-                    <img src="{% static 'img/comments_img.webp' %}" alt="comments_img.webp">
-                </div>
-                <div class="workspace-comments__text">
-                    <div class="workspace-comments__text-header">
-                        <span>Панков Илья Владимирович | Jun 12, 2022 |</span>
-                        <a href="#">Ответить</a>
-                    </div>
-                    <div class="workspace-comments__text-body">Lorem ipsum dolor
-                        sit amet consectetur, adipisicing elit. Eligendi
-                        molestias provident ut alias, adipisci explicabo magnam
-                        minus impedit, esse quam ad deleniti quasi odit
-                        repudiandae, corporis consequatur totam accusamus. Amet,
-                        repellat laboriosam, iure cupiditate exercitationem
-                        officia illum deserunt in voluptatem consequuntur porro
-                        animi, quas nobis quia ipsum dignissimos dolore at ex
-                        maiores sint totam! Sapiente illo error distinctio
-                        iusto! Magnam, autem hic? Nemo, tenetur explicabo.
-                        Quidem fugiat autem quasi est, maiores necessitatibus,
-                        ea blanditiis, omnis ducimus amet voluptates. Nostrum
-                        alias eligendi deleniti necessitatibus tenetur error
-                        nesciunt corrupti id sequi quasi, incidunt perferendis
-                        libero cupiditate vel placeat odit deserunt consectetur
-                        dignissimos porro rerum rem sit exercitationem? Vitae,
-                        repudiandae voluptate incidunt et architecto quisquam
-                        eius consequuntur est reprehenderit illo corporis earum
-                        neque animi sed saepe, velit dolore sapiente ab odio
-                        alias! In neque, dicta deserunt non dolores doloribus a,
-                        modi facilis beatae expedita ipsa nesciunt velit. Dicta
-                        magnam perspiciatis commodi fugit ducimus.</div>
+        </div>
+        <h2 class="block-title">Файл:</h2>
+        <div class="project__file">
+            <div class="project__file-conten">
+                <div class="project__file-body">
+                    <div class="project__file-name">{{ document.name }}</div>
+                    <div class="project__file-md">MD5: {{ document.md5 }}</div>
+                    <div class="project__file-ver">Вер.: {{ document.version }}</div>
+                    <div class="project__file-chnge-ver">Изм.: {{ document.variation }}</div>
                 </div>
             </div>
-            <div class="workspace-comments__body">
-                <div class="workspace-comments__avatar">
-                    <img src="{% static 'img/comments_img.webp' %}" alt="comments_img.webp">
-                </div>
-                <div class="workspace-comments__text">
-                    <div class="workspace-comments__text-header">
-                        <span>Панков Илья Владимирович | Jun 12, 2022 |</span>
-                        <a href="#">Ответить</a>
-                    </div>
-                    <div class="workspace-comments__text-body">Lorem ipsum dolor
-                        sit amet consectetur adipisicing elit. Illum
-                        perspiciatis cupiditate quaerat voluptas debitis ipsa
-                        voluptate similique modi sed? Aperiam voluptates ad
-                        dicta animi quisquam? Vel nostrum similique impedit
-                        numquam.</div>
-                </div>
+        </div>
+        <!-- Блок кнопок -->
+        <div class="actions actions_section">
+            <div class="actions__btn" id="add-section">
+                <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>
+                <h3 class="actions__name">Сформировать ИУЛ</h3>
             </div>
+        </div>
+        <div class="actions actions_section">
+            <div class="actions__btn" id="add-section">
+                <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>
+                <h3 class="actions__name">Сформировать разрешение на внесение изменений</h3>
+            </div>
+        </div>
+    </div>
+    <div class="notice">
+        {% if object %}
+        <div class="general-table">
+            <h2>Перечень корректировок</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Лист</th>
+                        <th>Содержание изменения</th>
+                        <th>Код</th>
+                        <th>Примечание</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for adjustment in document.get_linked_adjustments %}
+                    <tr>
+                        <td>{{ adjustment.pages }}</td>
+                        <td>{{ adjustment.body }}</td>
+                        <td>{{ adjustment.code }}</td>
+                        <td>{{ adjustment.note }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a href="#" class="general-table__btn">Показать еще</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+{% block popup %}
+<div class="popup" id="popup-project">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_pro">X</a>
+            <div class="popup__title">Создание проекта</div>
+            <form action="" method="post" class="form">
+                {% csrf_token %}
+
+                <div class="form__field">
+                    <label>Шифр</label>
+                    <input type='text' class="form__input">
+                </div>
+                <div class="form__field">
+                    <label>Наименование</label>
+                    <input type='text' class="form__input">
+                </div>
+                <div class="form__field">
+                    <label>Ответственный</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Срок экспертизы</label>
+                    <input type='date' class="form__input">
+                </div>
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn">Создать проект</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<div class="popup" id="popup-section">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_sec">X</a>
+            <div class="popup__title">Добавить раздел</div>
+            <form action="" method="post" class="form">
+                {% csrf_token %}
+                <div class="form__field">
+                    <label>Выбор раздела</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Выбор проекта</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Наименование</label>
+                    <input type='text' class="form__input">
+                </div>
+                <div class="form__field">
+                    <label>Выбор компании</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Выбор ответственногого</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Выбор эксперта</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn">Создать раздел</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<div class="popup" id="popup-section2">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_sec2">X</a>
+            <div class="popup__title">Создать раздел</div>
+            <form action="" method="post" class="form">
+                {% csrf_token %}
+                <div class="form__field">
+                    <label>Наименование</label>
+                    <input type='text' class="form__input">
+                </div>
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn">Создать раздел</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<div class="popup" id="popup-document">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_doc">X</a>
+            <div class="popup__title">Загрузка документа</div>
+            <form action="" method="post" class="form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form__field">
+                    <label for="{{ doc_form.status.id_for_label }}">Статус</label>
+                    <div class="form__select">
+                        {{ doc_form.status }}
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label for="{{ doc_form.name.id_for_label }}">Наименование</label>
+                    {{ doc_form.name }}
+                </div>
+                <div class="form__field">
+                    <label for="{{ doc_form.doc_path.id_for_label }}">Файл</label>
+                    {{ doc_form.doc_path }}
+                </div>
+                <div class="form__field">
+                    <label for="{{ doc_form.section.id_for_label }}">Раздел</label>
+                    <div class="form__select">
+                        {{ doc_form.section }}
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label for="{{ doc_form.note.id_for_label }}">Примечания</label>
+                    {{ doc_form.note }}
+                </div>
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn" name="{{ doc_form.prefix }}" value="Submit">
+                        Создать документ
+                    </button>
+                </div>
+
+            </form>
         </div>
     </div>
 </div>

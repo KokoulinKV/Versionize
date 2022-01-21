@@ -1,52 +1,117 @@
 {% extends 'main/base.html' %}
 {% load static %}
-{% block title %}
-    Versionize
-{% endblock %}
 
-{% block workspace-title %}
-    {% if active_project_id %}
-        <div class="desktop__title-obj-name">
-            <h1>{{ active_project_code }}</h1>
-            <span>{{ active_project_name }}</span>
-        </div>
-        <div class="desktop__title-obj-date">
-            <p>Следующая загрузка: <span>{{ active_project_next_upload|date:'d.m.y' }}</span></p>
-        </div>
-        <div class="desktop__title-obj-date">
-            <p>Итоговая загрузка: <span>{{ active_project_exp_date|date:'d.m.y' }}</span></p>
-        </div>
-    {% else %}
-        <div class="desktop__title-obj-name">
-            <h1>Активный проект не выбран</h1>
-        </div>
-    {% endif %}
+{% block title %}
+Versionize | Company card
 {% endblock %}
 {% block workspace %}
-    <div class="desktop__workspace-table">
-        <table class="content-table">
-            <thead>
-            <tr>
-                <th>Название</th>
-                <th>Менеджер</th>
-                <th>Телефон</th>
-                <th>Эл.почта</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for company in object_list %}
-                <tr>
-                    <td>{{ company.name }}</td>
-                    {% if not company.manager %}
-                        <td>-</td>
-                    {% else %}
-                        <td>{{ company.manager.last_name }} {{ company.manager.first_name }} {{ company.manager.patronymic }}</td>
-                    {% endif %}
-                    <td>{{ company.phone }}</td>
-                    <td>{{ company.email }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+<div class="ext-workspace">
+    {% if active_project_id %}
+    <div class="left-block">
+        <h2 class="block-title">Активный проект:</h2>
+        <div class="project">
+            <div class="project__info">
+                <div class="project__info-title">{{ active_project_code }}</div>
+                <div class="project__info-data">
+                    <div class="project__data">
+                        <span>Следующая загрузка:</span>
+                        <p>{{ active_project_next_upload|date:'d.m.Y' }}</p>
+                    </div>
+                    <div class="project__data">
+                        <span>Срок экспертизы до:</span>
+                        <p>{{ active_project_exp_date|date:'d.m.Y' }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Блок кнопок -->
+        <h2 class="block-title">Действия:</h2>
+        <div class="actions actions_document">
+            <div class="actions__btn" id="add-document">
+                <span class="actions__icon"><i class='bx bx-file'></i></span>
+                <h3 class="actions__name">Создать компанию</h3>
+            </div>
+        </div>
     </div>
+    {% endif %}
+    <div class="notice">
+        <div class="general-table">
+            <h2>Перечень компаний</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Менеджер</th>
+                        <th>Телефон</th>
+                        <th>Эл.почта</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for company in object_list %}
+                    <tr>
+                        <td><a href="#">{{ company.name }}</a></td>
+                        {% if not company.manager %}
+                        <td>-</td>
+                        {% else %}
+                        <td>{{ company.manager.get_fullname }}</td>
+                        {% endif %}
+                        <td>{{ company.phone }}</td>
+                        <td>{{ company.email }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {# <a href="#" class="general-table__btn">Показать еще</a>#}
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block popup %}
+<div class="popup" id="popup">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close">X</a>
+            <div class="popup__title">SOME FORM</div>
+            <form action="" method="post" class="form"></form>
+            <div class="form">
+                <div class="form__field">
+                    <label>Text</label>
+                    <input type='text' class="form__input">
+                </div>
+                <div class="form__field">
+                    <label>Password</label>
+                    <input type='password' class="form__input">
+                </div>
+                <div class="form__field">
+                    <label>Custom select</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">Select</option>
+                            <option value="">Male</option>
+                            <option value="">Section</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Email</label>
+                    <input type='tezt' class="form__input">
+                </div>
+                <div class="form__field">
+                    <label>Phone</label>
+                    <textarea class="form__textarea"></textarea>
+                </div>
+                <div class="form__field form_terms">
+                    <label class="form__checkbox">
+                        <input type="checkbox">
+                        <span class="form__checkmark"></span>
+                    </label>
+                    <p>Some action</p>
+                </div>
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn">Action</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
