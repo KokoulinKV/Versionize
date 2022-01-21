@@ -13,7 +13,10 @@ Versionize | Section card
             <h2 class="block-title">Активный проект:</h2>
             <div class="project">
                 <div class="project__info">
-                    <div class="project__info-title">{{ active_project_code }}</div>
+                    <div class="project__info-title">
+                        {{ active_project_code }}
+                        <p>{{ active_project_name }}</p>
+                    </div>
                     <div class="project__info-data">
                         <div class="project__data">
                             <span>Следующая загрузка:</span>
@@ -83,7 +86,7 @@ Versionize | Section card
                             <th>Скачать</th>
                             <th>Md5</th>
                             <th>Версия</th>
-                            <th>№ посл. изм.</th>
+                            <th>Изм.</th>
                             <th>Примечания</th>
                         </tr>
                     </thead>
@@ -93,7 +96,7 @@ Versionize | Section card
                             <td>{{ document.created_at|date:'d.m.y' }} <br>
                                 {{ document.created_at|date:'H:i' }}</td>
                             <td><a href="{% url 'main:document' document.id %}">{{ document.name }}</a></td>
-                            <td><a href="#"><i class="far fa-save"></i></a></td>
+                            <td><a href="#"><i class='bx bx-save'></i></a></td>
                             <td>{{ document.md5 }}</td>
                             <td>{{ document.version }}</td>
                             <td>{{ document.variation }}</td>
