@@ -6,64 +6,78 @@ Versionize | Company card
 {% endblock %}
 {% block workspace %}
 <div class="ext-workspace">
-    {% if active_project_id %}
-    <div class="left-block">
-        <h2 class="block-title">Активный проект:</h2>
-        <div class="project">
-            <div class="project__info">
-                <div class="project__info-title">{{ active_project_code }}</div>
-                <div class="project__info-data">
-                    <div class="project__data">
-                        <span>Следующая загрузка:</span>
-                        <p>{{ active_project_next_upload|date:'d.m.Y' }}</p>
-                    </div>
-                    <div class="project__data">
-                        <span>Срок экспертизы до:</span>
-                        <p>{{ active_project_exp_date|date:'d.m.Y' }}</p>
+    <div class="ext-workspace__input">
+        {% if active_project_id %}
+        <div class="left-block">
+            <h2 class="block-title">Активный проект:</h2>
+            <div class="project">
+                <div class="project__info">
+                    <div class="project__info-title">{{ active_project_code }}</div>
+                    <div class="project__info-data">
+                        <div class="project__data">
+                            <span>Следующая загрузка:</span>
+                            <p>{{ active_project_next_upload|date:'d.m.Y' }}</p>
+                        </div>
+                        <div class="project__data">
+                            <span>Срок экспертизы до:</span>
+                            <p>{{ active_project_exp_date|date:'d.m.Y' }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
+            <!-- Блок кнопок -->
+            <h2 class="block-title">Действия:</h2>
+            <div class="actions actions_document">
+                <div class="actions__btn" id="add-document">
+                    <span class="actions__icon"><i class='bx bx-file'></i></span>
+                    <h3 class="actions__name">Создать компанию</h3>
+                </div>
+            </div>
         </div>
-        <!-- Блок кнопок -->
-        <h2 class="block-title">Действия:</h2>
-        <div class="actions actions_document">
-            <div class="actions__btn" id="add-document">
-                <span class="actions__icon"><i class='bx bx-file'></i></span>
-                <h3 class="actions__name">Создать компанию</h3>
+        {% endif %}
+        <div class="main">
+            <div class="general-table">
+                <h2>Перечень компаний</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Название</th>
+                            <th>Менеджер</th>
+                            <th>Телефон</th>
+                            <th>Эл.почта</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for company in object_list %}
+                        <tr>
+                            <td><a href="#">{{ company.name }}</a></td>
+                            {% if not company.manager %}
+                            <td>-</td>
+                            {% else %}
+                            <td>{{ company.manager.get_fullname }}</td>
+                            {% endif %}
+                            <td>{{ company.phone }}</td>
+                            <td>{{ company.email }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {# <a href="#" class="general-table__btn">Показать еще</a>#}
             </div>
         </div>
     </div>
-    {% endif %}
-    <div class="notice">
-        <div class="general-table">
-            <h2>Перечень компаний</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Название</th>
-                        <th>Менеджер</th>
-                        <th>Телефон</th>
-                        <th>Эл.почта</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for company in object_list %}
-                    <tr>
-                        <td><a href="#">{{ company.name }}</a></td>
-                        {% if not company.manager %}
-                        <td>-</td>
-                        {% else %}
-                        <td>{{ company.manager.get_fullname }}</td>
-                        {% endif %}
-                        <td>{{ company.phone }}</td>
-                        <td>{{ company.email }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            {# <a href="#" class="general-table__btn">Показать еще</a>#}
+    <div class="ext-workspace__footer">
+        <div class="notification">
+            <button class="notification__btn">
+                <span><i class='bx bxs-bell'></i>
+                    <div class="notification__dot"></div>
+                </span>
+            </button>
         </div>
+        <div class="language">Смена языка</div>
+        <div class="theme">Dark/Light mode</div>
     </div>
+</div>
 </div>
 {% endblock %}
 {% block popup %}
