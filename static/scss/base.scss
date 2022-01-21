@@ -167,7 +167,7 @@ body {
     &__profile {
         position: relative;
         padding: 10px 6px;
-        height: 60px;
+        // height: 60px;
         background: none;
         transition: all 0.5s ease;
     }
@@ -180,7 +180,7 @@ body {
         align-items: center;
         opacity: 0;
         pointer-events: none;
-        white-space: nowrap;
+        white-space: normal;
 
         & img {
             height: 45px;
