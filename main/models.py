@@ -10,8 +10,11 @@ class Project(models.Model):
     name = models.CharField(max_length=512)
     created_at = models.DateTimeField(auto_now=True)
     exp_date = models.DateField()
-    next_upload = models.DateField()
+    next_upload = models.DateField(blank=True)
     admin = models.ForeignKey(User, db_index=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
 
     def get_projects(self):
         return self.objects.all()
@@ -20,16 +23,28 @@ class Project(models.Model):
         return User.objects.get(id=self.admin.id)
 
 
+class StandardSection(models.Model):
+    PROJECT_TYPE_CHOICES = {
+        (1, 'Площадной объект'),
+        (2, 'Линейный объект'),
+    }
+    abbreviation = models.CharField(max_length=16)
+    name = models.CharField(max_length=256)
+    project_type = models.IntegerField(blank=True, choices=PROJECT_TYPE_CHOICES)
+
+    def __str__(self):
+        return self.abbreviation
+
+
 class Section(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     name = models.CharField(max_length=64)
+    # TODO поле не должно иметь возможности оставаться пустым при запуске проекта.
+    #  Сделано для разработки.
+    abbreviation = models.CharField(max_length=16, blank=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    responsible = models.ForeignKey(User,
-                                    db_index=True,
-                                    on_delete=models.CASCADE)
-    expert = models.ForeignKey(User,
-                               on_delete=models.CASCADE,
-                               related_name='expert_id')
+    responsible = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, db_index=True)
+    expert = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name='expert_id')
 
     def __str__(self):
         return self.name

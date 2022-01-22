@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.views.generic import ListView, DetailView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from main.forms import DocumentForm
+from main.forms import DocumentForm, AddSectionForm
 from main.models import Section, Company, Document
 
 
@@ -18,6 +18,16 @@ def _get_form(request, formcls, prefix):
     return formcls(data, prefix=prefix)
 
 
+def clear_form_data(form_data):
+    """
+    Clears the values of the immutable QueryDict instance
+    """
+    empty_dict = {'csrfmiddlewaretoken': form_data['csrfmiddlewaretoken']}
+    for key in form_data.keys():
+        empty_dict[form_data[key]] = ''
+    return empty_dict
+
+
 class Index(LoginRequiredMixin, TemplateView):
     template_name = 'main/lk.html'
 
@@ -25,46 +35,39 @@ class Index(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Versionize - Сводная таблица проекта'
         context['document'] = DocumentForm(instance=self.request.document)
+        context['add_section'] = AddSectionForm(instance=self.request.add_section)
         # context['next_form'] = NextForm(instance=self.request.next_form)
         return context
 
     def get(self, request, *args, **kwargs):
         return self.render_to_response(
-            {'doc_form': DocumentForm(prefix='doc_form_pre')})
+            {'doc_form': DocumentForm(prefix='doc_form_pre'),
+             'add_section_form': AddSectionForm(prefix='add_section_form_pre')})
         # return self.render_to_response({'doc_form': DocumentForm(prefix='doc_form_pre'),
         #                                  'next_form': NextForm(prefix='next_form_pre')})
 
     def post(self, request, *args, **kwargs):
         doc_form = _get_form(request, DocumentForm, 'doc_form_pre')
+        add_section_form = _get_form(request, AddSectionForm, 'add_section_form_pre')
         # next_form = _get_form(request, NextForm, 'next_form_pre')
         if doc_form.is_bound and doc_form.is_valid():
             try:
-                # Проверяем на .pdf
-                # PyPDF2.PdfFileReader(open(doc_form.files, "rb"))
-
                 doc_form.save()
-                # Чистим форму от введенных данных
-                doc_form.data = {
-                    'doc_form_pre-status': '',
-                    'doc_form_pre-name': '',
-                    'doc_form_pre-section': '',
-                    'doc_form_pre': ''
-                }
+                doc_form.data = clear_form_data(doc_form.data)
             except ValidationError:
                 errors = 'Данная версия документа уже была загружена. Загрузите корректную новую версию.'
+                # TODO Подумать как записывать ошибки нескольких форм
                 return self.render_to_response({
                     'doc_form': doc_form,
                     'errors': errors
                 })
-            # except TypeError:
-            #     errors = 'Документ должен быть в формате ".pdf"'
-            #     return self.render_to_response({
-            #         'doc_form': doc_form,
-            #         'errors': errors
-            #     })
+        elif add_section_form.is_bound and add_section_form.is_valid():
+            add_section_form.save()
+            add_section_form.data = clear_form_data(add_section_form.data)
         # elif next_form.is_bound and next_form.is_valid():
         # next_form.save()
-        return self.render_to_response({'doc_form': doc_form})
+        return self.render_to_response({'doc_form': doc_form,
+                                        'add_section_form': add_section_form})
         # return self.render_to_response({'doc_form': doc_form}, {'next_form': next_form})
 
 
@@ -74,50 +77,50 @@ class TotalListView(LoginRequiredMixin, TemplateView):
     def get_queryset(self):
         queryset = Section.objects.filter(
             project_id=self.request.session['active_project_id'])
-        # ordering = self.get_ordering()
-        # if ordering:
-        #     if isinstance(ordering, str):
-        #         ordering = (ordering, )
-        #     queryset = queryset.order_by(*ordering)
         return queryset
-
-    def get(self, request, *args, **kwargs):
-        return self.render_to_response(
-            {'doc_form': DocumentForm(prefix='doc_form_pre'), 'object_list': self.get_queryset()})
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Versionize - Сводная таблица проекта'
         context['document'] = DocumentForm(instance=self.request.document)
+        context['add_section'] = AddSectionForm(instance=self.request.add_section)
         return context
 
+    def get(self, request, *args, **kwargs):
+        return self.render_to_response(
+            {'doc_form': DocumentForm(prefix='doc_form_pre'),
+             'add_section_form': AddSectionForm(prefix='add_section_form_pre'),
+             'object_list': self.get_queryset()})
 
     def post(self, request, *args, **kwargs):
         doc_form = _get_form(request, DocumentForm, 'doc_form_pre')
+        add_section_form = _get_form(request, AddSectionForm, 'add_section_form_pre')
         if doc_form.is_bound and doc_form.is_valid():
             try:
                 doc_form.save()
-                # Чистим форму от введенных данных
-                doc_form.data = {
-                    'doc_form_pre-status': '',
-                    'doc_form_pre-name': '',
-                    'doc_form_pre-section': '',
-                    'doc_form_pre': ''
-                }
+                doc_form.data = clear_form_data(doc_form.data)
             except ValidationError:
                 errors = 'Данная версия документа уже была загружена. Загрузите корректную новую версию.'
                 return self.render_to_response({
                     'doc_form': doc_form,
                     'errors': errors
                 })
-        return self.render_to_response({'doc_form': doc_form, 'object_list': self.get_queryset()})
+        elif add_section_form.is_bound and add_section_form.is_valid():
+            add_section_form.save()
+            add_section_form.data = clear_form_data(add_section_form.data)
+
+        return self.render_to_response({'doc_form': doc_form,
+                                        'add_section_form': add_section_form,
+                                        'object_list': self.get_queryset()})
+
 
 class SectionDetailView(LoginRequiredMixin, DetailView):
     model = Section
     template_name = 'main/section.html'
+
     def get(self, request, *args, **kwargs):
         return self.render_to_response(
-            {'doc_form': DocumentForm(prefix='doc_form_pre'),'section': self.get_object()})
+            {'doc_form': DocumentForm(prefix='doc_form_pre'), 'section': self.get_object()})
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -164,6 +167,3 @@ class DocumentDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Versionize - Документ'
         return context
-
-
-
