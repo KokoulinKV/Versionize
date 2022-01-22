@@ -92,10 +92,11 @@
                 <tbody>
                     {% for section in object_list %}
                     {% with section.get_latest_linked_document as document %}
+                        {% if document %}
                     <tr>
                         <td title='{{ document.md5 }}'><i class='bx bxs-file-md'></i></td>
                         <td><a href="{% url 'main:section' section.id %}">
-                                <span class='_code-green'>{{ section.project.code }}</span></a></td>
+                                <span class='_code-green'>{{ section.abbreviation }}</span></a></td>
                         <td><i class='bx bx-check-circle'></i></td>
                         <td><a href="#"><i class='bx bx-save'></i></a></td>
                         <td>{{ document.status }}</td>
@@ -104,6 +105,7 @@
                         <td class="general-table__note">{{ document.note }}</td>
                         <td><a href="#">{{ section.company }}</a></td>
                     </tr>
+                        {% endif %}
                     {% endwith %}
                     {% endfor %}
                 </tbody>
