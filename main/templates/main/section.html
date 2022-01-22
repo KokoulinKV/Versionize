@@ -45,86 +45,85 @@ Versionize | Section card
                             }}</span>
                         <span class="person__post"><i class='bx bx-id-card'></i>{{ responsible.get_position }}</span>
                         <span class="person__role"><i class='bx bx-male'></i>{{ responsible.get_project_role }}</span>
-                        <span class="person__phone"><i class='bx bx-mobile-alt'></i>s{{ responsible.phone }}</span>
+                        <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ responsible.phone }}</span>
                         <span class="person__mail"><i class='bx bx-mail-send'></i>{{ responsible.email }}</span>
                         {% endwith %}
                     </div>
                 </div>
-            </div>
-            <h2 class="block-title">Эксперт:</h2>
-            <div class="person">
-                <div class="person__content">
-                    <div class="person__text">
-                        {% with section.expert as expert %}
-                        <span class="person__name">{{ expert.get_fullname }}</span>
-                        <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ expert.phone }}</span>
-                        <span class="person__mail"><i class='bx bx-mail-send'></i>{{ expert.email }}</span>
-                        {% endwith %}
+                <h2 class="block-title">Эксперт:</h2>
+                <div class="person">
+                    <div class="person__content">
+                        <div class="person__text">
+                            {% with section.expert as expert %}
+                            <span class="person__name">{{ expert.get_fullname }}</span>
+                            <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ expert.phone }}</span>
+                            <span class="person__mail"><i class='bx bx-mail-send'></i>{{ expert.email }}</span>
+                            {% endwith %}
+                        </div>
                     </div>
                 </div>
+                <!-- Блок кнопок -->
+                <h2 class="block-title">Действия:</h2>
+                <div class="actions actions_document">
+                    <div class="actions__btn" id="add-document">
+                        <span class="actions__icon"><i class='bx bx-file'></i></span>
+                        <h3 class="actions__name">Загрузить документ</h3>
+                    </div>
+                </div>
+                {% endif %}
             </div>
-            <!-- Блок кнопок -->
-            <h2 class="block-title">Действия:</h2>
-            <div class="actions actions_document">
-                <div class="actions__btn" id="add-document">
-                    <span class="actions__icon"><i class='bx bx-file'></i></span>
-                    <h3 class="actions__name">Загрузить документ</h3>
+            <div class="main">
+                <div class="general-table">
+                    {% if active_project_id %}
+                    {% if section.get_linked_documents %}
+                    <h2>Сводная таблица</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Дата загрузки</th>
+                                <th>Имя файла</th>
+                                <th>Скачать</th>
+                                <th>Md5</th>
+                                <th>Версия</th>
+                                <th>Изм.</th>
+                                <th>Примечания</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for document in section.get_linked_documents %}
+                            <tr>
+                                <td>{{ document.created_at|date:'d.m.y' }} <br>
+                                    {{ document.created_at|date:'H:i' }}</td>
+                                <td><a href="{% url 'main:document' document.id %}">{{ document.name }}</a></td>
+                                <td><a href="#"><i class='bx bx-save'></i></a></td>
+                                <td>{{ document.md5 }}</td>
+                                <td>{{ document.version }}</td>
+                                <td>{{ document.variation }}</td>
+                                <td>{{ document.note }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <h2>Загруженные файлы отсутствуют</h2>
+                    {% endif %}
+                    {% endif %}
                 </div>
             </div>
-            {% endif %}
         </div>
-        <div class="main">
-            <div class="general-table">
-                {% if active_project_id %}
-                {% if section.get_linked_documents %}
-                <h2>Сводная таблица</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Дата загрузки</th>
-                            <th>Имя файла</th>
-                            <th>Скачать</th>
-                            <th>Md5</th>
-                            <th>Версия</th>
-                            <th>Изм.</th>
-                            <th>Примечания</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for document in section.get_linked_documents %}
-                        <tr>
-                            <td>{{ document.created_at|date:'d.m.y' }} <br>
-                                {{ document.created_at|date:'H:i' }}</td>
-                            <td><a href="{% url 'main:document' document.id %}">{{ document.name }}</a></td>
-                            <td><a href="#"><i class='bx bx-save'></i></a></td>
-                            <td>{{ document.md5 }}</td>
-                            <td>{{ document.version }}</td>
-                            <td>{{ document.variation }}</td>
-                            <td>{{ document.note }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                {% else %}
-                <h2>Загруженные файлы отсутствуют</h2>
-                {% endif %}
-                {% endif %}
+        <div class="ext-workspace__footer">
+            <div class="notification">
+                <button class="notification__btn">
+                    <span><i class='bx bxs-bell'></i>
+                        <div class="notification__dot"></div>
+                    </span>
+                </button>
             </div>
+            <div class="language">Смена языка</div>
+            <div class="theme">Dark/Light mode</div>
         </div>
     </div>
-    <div class="ext-workspace__footer">
-        <div class="notification">
-            <button class="notification__btn">
-                <span><i class='bx bxs-bell'></i>
-                    <div class="notification__dot"></div>
-                </span>
-            </button>
-        </div>
-        <div class="language">Смена языка</div>
-        <div class="theme">Dark/Light mode</div>
-    </div>
-</div>
-<!-- <button type="button" class="download-button popupBtn">
+    <!-- <button type="button" class="download-button popupBtn">
             <span class="download-button__text">Загрузить документ</span>
             <span class="download-button__icon">
                 <i class='bx bx-cloud-upload'></i>
@@ -265,179 +264,173 @@ Versionize | Section card
             </table>
             <a href="#" class="general-table__btn">Показать еще</a>
         </div> -->
-{% endblock %}
-{% block popup %}
-<div class="popup" id="popup-project">
-    <div class="popup__body">
-        <div class="popup__content">
-            <a href="#" class="popup__close" id="popup__close_pro">X</a>
-            <div class="popup__title">Создание проекта</div>
-            <form action="" method="post" class="form">
-                {% csrf_token %}
+    {% endblock %}
+    {% block popup %}
+    <div class="popup" id="popup-project">
+        <div class="popup__body">
+            <div class="popup__content">
+                <a href="#" class="popup__close" id="popup__close_pro">X</a>
+                <div class="popup__title">Создание проекта</div>
+                <form action="" method="post" class="form">
+                    {% csrf_token %}
 
-                <div class="form__field">
-                    <label>Шифр</label>
-                    <input type='text' class="form__input">
-                </div>
-                <div class="form__field">
-                    <label>Наименование</label>
-                    <input type='text' class="form__input">
-                </div>
-                <div class="form__field">
-                    <label>Ответственный</label>
-                    <div class="form__select">
-                        <select>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
+                    <div class="form__field">
+                        <label>Шифр</label>
+                        <input type='text' class="form__input">
                     </div>
-                </div>
-                <div class="form__field">
-                    <label>Срок экспертизы</label>
-                    <input type='date' class="form__input">
-                </div>
-                <div class="form__submit">
-                    <button type="submit" class="form__submit-btn">Создать проект</button>
-                </div>
+                    <div class="form__field">
+                        <label>Наименование</label>
+                        <input type='text' class="form__input">
+                    </div>
+                    <div class="form__field">
+                        <label>Ответственный</label>
+                        <div class="form__select">
+                            <select>
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form__field">
+                        <label>Срок экспертизы</label>
+                        <input type='date' class="form__input">
+                    </div>
+                    <div class="form__submit">
+                        <button type="submit" class="form__submit-btn">Создать проект</button>
+                    </div>
 
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-<div class="popup" id="popup-section">
-    <div class="popup__body">
-        <div class="popup__content">
-            <a href="#" class="popup__close" id="popup__close_sec">X</a>
-            <div class="popup__title">Добавить раздел</div>
-            <form action="" method="post" class="form">
-                {% csrf_token %}
-                <div class="form__field">
-                    <label>Выбор раздела</label>
-                    <div class="form__select">
-                        <select>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
+    <div class="popup" id="popup-section">
+        <div class="popup__body">
+            <div class="popup__content">
+                <a href="#" class="popup__close" id="popup__close_sec">X</a>
+                <div class="popup__title">Добавить раздел</div>
+                <form action="" method="post" class="form">
+                    {% csrf_token %}
+                    <div class="form__field">
+                        <label>Выбор раздела</label>
+                        <div class="form__select">
+                            <select>
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="form__field">
-                    <label>Выбор проекта</label>
-                    <div class="form__select">
-                        <select>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
+                    <div class="form__field">
+                        <label>Выбор проекта</label>
+                        <div class="form__select">
+                            <select>
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="form__field">
-                    <label>Наименование</label>
-                    <input type='text' class="form__input">
-                </div>
-                <div class="form__field">
-                    <label>Выбор компании</label>
-                    <div class="form__select">
-                        <select>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
+                    <div class="form__field">
+                        <label>Наименование</label>
+                        <input type='text' class="form__input">
                     </div>
-                </div>
-                <div class="form__field">
-                    <label>Выбор ответственногого</label>
-                    <div class="form__select">
-                        <select>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
+                    <div class="form__field">
+                        <label>Выбор компании</label>
+                        <div class="form__select">
+                            <select>
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="form__field">
-                    <label>Выбор эксперта</label>
-                    <div class="form__select">
-                        <select>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
+                    <div class="form__field">
+                        <label>Выбор ответственногого</label>
+                        <div class="form__select">
+                            <select>
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="form__submit">
-                    <button type="submit" class="form__submit-btn">Создать раздел</button>
-                </div>
+                    <div class="form__field">
+                        <label>Выбор эксперта</label>
+                        <div class="form__select">
+                            <select>
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form__submit">
+                        <button type="submit" class="form__submit-btn">Создать раздел</button>
+                    </div>
 
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-<div class="popup" id="popup-section2">
-    <div class="popup__body">
-        <div class="popup__content">
-            <a href="#" class="popup__close" id="popup__close_sec2">X</a>
-            <div class="popup__title">Создать раздел</div>
-            <form action="" method="post" class="form">
-                {% csrf_token %}
-                <div class="form__field">
-                    <label>Наименование</label>
-                    <input type='text' class="form__input">
-                </div>
-                <div class="form__submit">
-                    <button type="submit" class="form__submit-btn">Создать раздел</button>
-                </div>
+    <div class="popup" id="popup-section2">
+        <div class="popup__body">
+            <div class="popup__content">
+                <a href="#" class="popup__close" id="popup__close_sec2">X</a>
+                <div class="popup__title">Создать раздел</div>
+                <form action="" method="post" class="form">
+                    {% csrf_token %}
+                    <div class="form__field">
+                        <label>Наименование</label>
+                        <input type='text' class="form__input">
+                    </div>
+                    <div class="form__submit">
+                        <button type="submit" class="form__submit-btn">Создать раздел</button>
+                    </div>
 
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-<div class="popup" id="popup-document">
-    <div class="popup__body">
-        <div class="popup__content">
-            <a href="#" class="popup__close" id="popup__close_doc">X</a>
-            <div class="popup__title">Загрузка документа</div>
-            <form action="" method="post" class="form">
-                {% csrf_token %}
-                <div class="form__field">
-                    <label>Статус</label>
-                    <div class="form__select">
-                        <select>
-                            <option value="">Номер1</option>
-                            <option value="">Номер2</option>
-                            <option value="">Номер3</option>
-                        </select>
+    <div class="popup" id="popup-document">
+        <div class="popup__body">
+            <div class="popup__content">
+                <a href="#" class="popup__close" id="popup__close_doc"><i class='bx bx-plus-circle form-close'></i></a>
+                <div class="popup__title">Загрузка документа</div>
+                <form action="" method="post" class="form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form__field">
+                        <label for="{{ doc_form.status.id_for_label }}">Статус</label>
+                        <div class="form__select">
+                            {{ doc_form.status }}
+                        </div>
                     </div>
-                </div>
-                <div class="form__field">
-                    <label>Наименование</label>
-                    <input type='tezt' class="form__input">
-                </div>
-                <div class="form__field">
-                    <label>Файл</label>
-                    <input type='file' class="form__input" accept=".pdf">
-                </div>
-                <div class="form__field">
-                    <label>Раздел</label>
-                    <div class="form__select">
-                        <select>
-                            <option value="">Номер1</option>
-                            <option value="">Номер2</option>
-                            <option value="">Номер3</option>
-                        </select>
+                    <div class="form__field">
+                        <label for="{{ doc_form.name.id_for_label }}">Наименование</label>
+                        {{ doc_form.name }}
                     </div>
-                </div>
-                <div class="form__field">
-                    <label>Примечания</label>
-                    <textarea class="form__textarea"></textarea>
-                </div>
-                <div class="form__submit">
-                    <button type="submit" class="form__submit-btn">Создать документ</button>
-                </div>
+                    <div class="form__field">
+                        <label for="{{ doc_form.doc_path.id_for_label }}">Файл</label>
+                        {{ doc_form.doc_path }}
+                    </div>
+                    <div class="form__field">
+                        <label for="{{ doc_form.section.id_for_label }}">Раздел</label>
+                        <div class="form__select">
+                            {{ doc_form.section }}
+                        </div>
+                    </div>
+                    <div class="form__field">
+                        <label for="{{ doc_form.note.id_for_label }}">Примечания</label>
+                        {{ doc_form.note }}
+                    </div>
+                    <div class="form__submit">
+                        <button type="submit" class="form__submit-btn" name="{{ doc_form.prefix }}" value="Submit">
+                            Создать документ
+                        </button>
+                    </div>
 
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-{% endblock %}
+    {% endblock %}

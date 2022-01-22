@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-Versionize | Total table
+{{ titile }}
 {% endblock %}
 {% block workspace %}
 <div class="ext-workspace">
@@ -29,19 +29,19 @@ Versionize | Total table
                     </div>
                 </div>
             </div>
-            <h2 class="block-title">Главный инженер проекта:</h2>
-            <div class="person">
-                <div class="person__content">
-                    <div class="person__text">
-                        {% with object_list.1.project.get_admin as admin %}
-                        <span class="person__name">{{ admin.get_fullname }}</span>
-                        <span class="person__job"><i class='bx bxs-business'></i>{{ admin.get_company.name }}</span>
-                        <span class="person__post"><i class='bx bx-id-card'></i>{{ admin.get_position }}</span>
-                        <span class="person__role"><i class='bx bx-male'></i>{{ admin.get_project_role }}</span>
-                        <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ admin.phone }}</span>
-                        <span class="person__mail"><i class='bx bx-mail-send'></i>{{ admin.email }}</span>
-                        {% endwith %}
-                    </div>
+        </div>
+        <h2 class="block-title">Главный инженер проекта:</h2>
+        <div class="person">
+            <div class="person__content">
+                <div class="person__text">
+                    {% with object_list.0.project.get_admin as admin %}
+                    <span class="person__name">{{ admin.get_fullname }}</span>
+                    <span class="person__job"><i class='bx bxs-business'></i>{{ admin.get_company.name }}</span>
+                    <span class="person__post"><i class='bx bx-id-card'></i>{{ admin.get_position }}</span>
+                    <span class="person__role"><i class='bx bx-male'></i>{{ admin.get_project_role }}</span>
+                    <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ admin.phone }}</span>
+                    <span class="person__mail"><i class='bx bx-mail-send'></i>{{ admin.email }}</span>
+                    {% endwith %}
                 </div>
             </div>
             {% else %}
@@ -60,70 +60,63 @@ Versionize | Total table
                     <h3 class="actions__name">Добавить раздел</h3>
                 </div>
             </div>
-            <div class="actions actions_section">
-                <div class="actions__btn" id="add-section_new">
-                    <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>
-                    <h3 class="actions__name">Создать раздел</h3>
-                </div>
-            </div>
-            <div class="actions actions_document">
-                <div class="actions__btn" id="add-document">
-                    <span class="actions__icon"><i class='bx bx-file'></i></span>
-                    <h3 class="actions__name">Загрузить документ</h3>
-                </div>
-            </div>
         </div>
-        <div class="main">
-            <div class="general-table">
-                <h2>Сводная таблица</h2>
-                {% if active_project_id %}
-                {% if object_list %}
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Md5</th>
-                            <th>Шифр раздела</th>
-                            <th>Загружен</th>
-                            <th>Скачать</th>
-                            <th>Статус</th>
-                            <th>Версия</th>
-                            <th>№ посл. изм.</th>
-                            <th>Примечания</th>
-                            <th>Исполнитель</th>
-                            <!-- <th>Диаграмма Ганта</th> -->
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for section in object_list %}
-                        {% with section.get_latest_linked_document as document %}
-                        <tr>
-                            <td title='{{ document.md5 }}'><i class='bx bxs-file-md'></i></td>
-                            <td><a href="{% url 'main:section' section.id %}">
-                                    <span class='_code-green'>{{ section.project.code }}</span></a></td>
-                            <td><i class='bx bx-check-circle'></i></td>
-                            <td><a href="#"><i class='bx bx-save'></i></a></td>
-                            <td>{{ document.status }}</td>
-                            <td>{{ document.version }}</td>
-                            <td>{{ document.variation }}</td>
-                            <td class="general-table__note">{{ document.note }}</td>
-                            <td><a href="#">{{ section.company }}</a></td>
-                        </tr>
-                        {% endwith %}
-                        {% endfor %}
-                    </tbody>
-                </table>
-                {% endif %}
-                {% endif %}
+        {# <div class="actions actions_section">#}
+            {# <div class="actions__btn" id="add-section_new">#}
+                {# <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>#}
+                {# <h3 class="actions__name">Создать раздел</h3>#}
+                {# </div>#}
+            {# </div>#}
+        <div class="actions actions_document">
+            <div class="actions__btn" id="add-document">
+                <span class="actions__icon"><i class='bx bx-file'></i></span>
+                <h3 class="actions__name">Загрузить документ</h3>
             </div>
         </div>
     </div>
-    <div class="ext-workspace__footer">
-        <div class="notification">
-            <button class="notification__btn">
-                <span><i class='bx bxs-bell'></i>
-                    <div class="notification__dot"></div>
-                </span>
-            </button>
+    <div class="notice">
+        <div class="general-table">
+            <h2>Сводная таблица</h2>
+            {% if active_project_id %}
+            {% if object_list %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Md5</th>
+                        <th>Шифр раздела</th>
+                        <th>Загружен</th>
+                        <th>Скачать</th>
+                        <th>Статус</th>
+                        <th>Версия</th>
+                        <th>№ посл. изм.</th>
+                        <th>Примечания</th>
+                        <th>Исполнитель</th>
+                        <!-- <th>Диаграмма Ганта</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for section in object_list %}
+                    {% with section.get_latest_linked_document as document %}
+                    {% if document %}
+                    <tr>
+                        <td title='{{ document.md5 }}'><i class='bx bxs-file-md'></i></td>
+                        <td><a href="{% url 'main:section' section.id %}">
+                                <span class='_code-green'>{{ section.abbreviation }}</span></a></td>
+                        <td><i class='bx bx-check-circle'></i></td>
+                        <td><a href="#"><i class='bx bx-save'></i></a></td>
+                        <td>{{ document.status }}</td>
+                        <td>{{ document.version }}</td>
+                        <td>{{ document.variation }}</td>
+                        <td class="general-table__note">{{ document.note }}</td>
+                        <td><a href="#">{{ section.company }}</a></td>
+                    </tr>
+                    {% endif %}
+                    {% endwith %}
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+            {% endif %}
         </div>
         <div class="language">Смена языка</div>
         <div class="theme">Dark/Light mode</div>
@@ -177,61 +170,51 @@ Versionize | Total table
             <form action="" method="post" class="form">
                 {% csrf_token %}
                 <div class="form__field">
-                    <label>Выбор раздела</label>
+                    <label for="{{ add_section_form.project.id_for_label }}">Выбор проекта</label>
                     <div class="form__select">
-                        <select>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
+                        {{ add_section_form.project }}
                     </div>
                 </div>
                 <div class="form__field">
-                    <label>Выбор проекта</label>
-                    <div class="form__select">
-                        <select>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
-                    </div>
+                    <label for="{{ add_section_form.abbreviation.id_for_label }}">Шифр раздела</label>
+                    {{ add_section_form.abbreviation }}
+                    {# <span id="secRefAdd">#}
+                        {# <i class='bx bx-plus' id="secRefAdd"></i>#}
+                        {# </span>#}
                 </div>
                 <div class="form__field">
-                    <label>Наименование</label>
-                    <input type='text' class="form__input">
+                    <label for="{{ add_section_form.name.id_for_label }}">Наименование</label>
+                    {{ add_section_form.name }}
                 </div>
                 <div class="form__field">
-                    <label>Выбор компании</label>
+                    <label for="{{ add_section_form.company.id_for_label }}">Выбор компании</label>
                     <div class="form__select">
-                        <select>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
+                        {{ add_section_form.company }}
                     </div>
                 </div>
-                <div class="form__field">
-                    <label>Выбор ответственногого</label>
-                    <div class="form__select">
-                        <select>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form__field">
-                    <label>Выбор эксперта</label>
-                    <div class="form__select">
-                        <select>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
-                    </div>
-                </div>
+                {# <div class="form__field">#}
+                    {# <label>Выбор ответственного</label>#}
+                    {# <div class="form__select">#}
+                        {# <select>#}
+                            {# <option value="">1</option>#}
+                            {# <option value="">2</option>#}
+                            {# <option value="">3</option>#}
+                            {# </select>#}
+                        {# </div>#}
+                    {# </div>#}
+                {# <div class="form__field">#}
+                    {# <label>Выбор эксперта</label>#}
+                    {# <div class="form__select">#}
+                        {# <select>#}
+                            {# <option value="">1</option>#}
+                            {# <option value="">2</option>#}
+                            {# <option value="">3</option>#}
+                            {# </select>#}
+                        {# </div>#}
+                    {# </div>#}
                 <div class="form__submit">
-                    <button type="submit" class="form__submit-btn">Создать раздел</button>
+                    <button type="submit" class="form__submit-btn" name="{{ add_section_form.prefix }}"
+                        value="Submit">Создать раздел</button>
                 </div>
 
             </form>
@@ -260,44 +243,38 @@ Versionize | Total table
 <div class="popup" id="popup-document">
     <div class="popup__body">
         <div class="popup__content">
-            <a href="#" class="popup__close" id="popup__close_doc">X</a>
+            <a href="#" class="popup__close" id="popup__close_doc"><i class='bx bx-plus-circle form-close'></i></a>
             <div class="popup__title">Загрузка документа</div>
-            <form action="" method="post" class="form">
+            <form action="" method="post" class="form" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form__field">
-                    <label>Статус</label>
+                    <label for="{{ doc_form.status.id_for_label }}">Статус</label>
                     <div class="form__select">
-                        <select>
-                            <option value="">Номер1</option>
-                            <option value="">Номер2</option>
-                            <option value="">Номер3</option>
-                        </select>
+                        {{ doc_form.status }}
                     </div>
                 </div>
                 <div class="form__field">
-                    <label>Наименование</label>
-                    <input type='tezt' class="form__input">
+                    <label for="{{ doc_form.name.id_for_label }}">Наименование</label>
+                    {{ doc_form.name }}
                 </div>
                 <div class="form__field">
-                    <label>Файл</label>
-                    <input type='file' class="form__input" accept=".pdf">
+                    <label for="{{ doc_form.doc_path.id_for_label }}">Файл</label>
+                    {{ doc_form.doc_path }}
                 </div>
                 <div class="form__field">
-                    <label>Раздел</label>
+                    <label for="{{ doc_form.section.id_for_label }}">Раздел</label>
                     <div class="form__select">
-                        <select>
-                            <option value="">Номер1</option>
-                            <option value="">Номер2</option>
-                            <option value="">Номер3</option>
-                        </select>
+                        {{ doc_form.section }}
                     </div>
                 </div>
                 <div class="form__field">
-                    <label>Примечания</label>
-                    <textarea class="form__textarea"></textarea>
+                    <label for="{{ doc_form.note.id_for_label }}">Примечания</label>
+                    {{ doc_form.note }}
                 </div>
                 <div class="form__submit">
-                    <button type="submit" class="form__submit-btn">Создать документ</button>
+                    <button type="submit" class="form__submit-btn" name="{{ doc_form.prefix }}" value="Submit">
+                        Создать документ
+                    </button>
                 </div>
 
             </form>

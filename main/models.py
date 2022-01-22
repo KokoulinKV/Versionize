@@ -12,11 +12,12 @@ class Project(models.Model):
     created_at = models.DateTimeField(auto_now=True,
                                       verbose_name='Дата создания')
     exp_date = models.DateField()
-    next_upload = models.DateField()
-    admin = models.ForeignKey(User,
-                              db_index=True,
-                              on_delete=models.CASCADE,
-                              verbose_name='Создал')
+    next_upload = models.DateField(blank=True)
+    admin = models.ForeignKey(
+        User, db_index=True, on_delete=models.CASCADE, verbose_name='Создал')
+
+    def __str__(self):
+        return self.name
 
     def get_projects(self):
         return self.objects.all()
@@ -29,22 +30,34 @@ class Project(models.Model):
         verbose_name_plural = "Проекты"
 
 
+class StandardSection(models.Model):
+    PROJECT_TYPE_CHOICES = {
+        (1, 'Площадной объект'),
+        (2, 'Линейный объект'),
+    }
+    abbreviation = models.CharField(max_length=16)
+    name = models.CharField(max_length=256)
+    project_type = models.IntegerField(
+        blank=True, choices=PROJECT_TYPE_CHOICES)
+
+    def __str__(self):
+        return self.abbreviation
+
+
 class Section(models.Model):
-    project = models.ForeignKey(Project,
-                                on_delete=models.CASCADE,
-                                verbose_name='Проект')
+    project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, verbose_name='Проект')
     name = models.CharField(max_length=64, verbose_name='Наименование')
-    company = models.ForeignKey(Company,
-                                on_delete=models.CASCADE,
-                                verbose_name='Организация')
-    responsible = models.ForeignKey(User,
-                                    db_index=True,
-                                    on_delete=models.CASCADE,
-                                    verbose_name='Ответственный')
-    expert = models.ForeignKey(User,
-                               on_delete=models.CASCADE,
-                               related_name='expert_id',
-                               verbose_name='Эксперт')
+    # TODO поле не должно иметь возможности оставаться пустым при запуске проекта.
+    #  Сделано для разработки.
+    abbreviation = models.CharField(
+        max_length=16, blank=True, verbose_name='Аббревиатура')
+    company = models.ForeignKey(
+        Company, on_delete=models.CASCADE, verbose_name='Организация')
+    responsible = models.ForeignKey(
+        User, on_delete=models.CASCADE, blank=True, null=True, db_index=True, verbose_name='Ответственный')
+    expert = models.ForeignKey(User, on_delete=models.CASCADE, blank=True,
+                               null=True, related_name='expert_id', verbose_name='Эксперт')
 
     def __str__(self):
         return self.name

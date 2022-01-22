@@ -218,64 +218,51 @@
             <form action="" method="post" class="form">
                 {% csrf_token %}
                 <div class="form__field">
-                    <label>Выбор раздела</label>
+                    <label for="{{ add_section_form.project.id_for_label }}">Выбор проекта</label>
                     <div class="form__select">
-                        <select>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
-                    </div>
-                    <span id="secRefAdd">
-                        <i class='bx bx-plus' id="secRefAdd"></i>
-                    </span>
-                </div>
-                <div class="form__field">
-                    <label>Выбор проекта</label>
-                    <div class="form__select">
-                        <select>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
+                        {{ add_section_form.project }}
                     </div>
                 </div>
                 <div class="form__field">
-                    <label>Наименование</label>
-                    <input type='text' class="form__input">
+                    <label for="{{ add_section_form.abbreviation.id_for_label }}">Шифр раздела</label>
+                        {{ add_section_form.abbreviation }}
+{#                    <span id="secRefAdd">#}
+{#                        <i class='bx bx-plus' id="secRefAdd"></i>#}
+{#                    </span>#}
                 </div>
                 <div class="form__field">
-                    <label>Выбор компании</label>
-                    <div class="form__select">
-                        <select>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
-                    </div>
+                    <label for="{{ add_section_form.name.id_for_label }}">Наименование</label>
+                    {{ add_section_form.name }}
                 </div>
                 <div class="form__field">
-                    <label>Выбор ответственногого</label>
+                    <label for="{{ add_section_form.company.id_for_label }}">Выбор компании</label>
                     <div class="form__select">
-                        <select>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
+                        {{ add_section_form.company }}
                     </div>
                 </div>
-                <div class="form__field">
-                    <label>Выбор эксперта</label>
-                    <div class="form__select">
-                        <select>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
-                    </div>
-                </div>
+{#                <div class="form__field">#}
+{#                    <label>Выбор ответственного</label>#}
+{#                    <div class="form__select">#}
+{#                        <select>#}
+{#                            <option value="">1</option>#}
+{#                            <option value="">2</option>#}
+{#                            <option value="">3</option>#}
+{#                        </select>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="form__field">#}
+{#                    <label>Выбор эксперта</label>#}
+{#                    <div class="form__select">#}
+{#                        <select>#}
+{#                            <option value="">1</option>#}
+{#                            <option value="">2</option>#}
+{#                            <option value="">3</option>#}
+{#                        </select>#}
+{#                    </div>#}
+{#                </div>#}
                 <div class="form__submit">
-                    <button type="submit" class="form__submit-btn">Создать раздел</button>
+                    <button type="submit" class="form__submit-btn"
+                            name="{{ add_section_form.prefix }}" value="Submit">Создать раздел</button>
                 </div>
 
             </form>
