@@ -2,6 +2,7 @@ import hashlib
 from tabnanny import verbose
 
 from django.core.exceptions import ValidationError
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from user.models import User, Company
 
@@ -89,7 +90,8 @@ class Document(models.Model):
         ('Отрицательное', 'Отрицательное'),
     )
     name = models.CharField(max_length=128, verbose_name='Наименование')
-    doc_path = models.FileField(upload_to='main_docs', verbose_name='Путь')
+    doc_path = models.FileField(upload_to='main_docs', verbose_name='Путь',
+                                validators=[FileExtensionValidator(allowed_extensions=['pdf'])])
     section = models.ForeignKey(Section,
                                 on_delete=models.CASCADE,
                                 verbose_name='Раздел')

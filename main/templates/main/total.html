@@ -50,6 +50,7 @@
                     <div class="project__info-title">Проект не выбран</div>
                 </div>
             </div>
+        {% endif %}
             <!-- Блок кнопок -->
             <h2 class="block-title">Действия:</h2>
             <div class="actions actions_section">
@@ -58,20 +59,21 @@
                     <h3 class="actions__name">Добавить раздел</h3>
                 </div>
             </div>
+
             <div class="actions actions_document">
                 <div class="actions__btn" id="add-document">
                     <span class="actions__icon"><i class='bx bx-file'></i></span>
                     <h3 class="actions__name">Загрузить документ</h3>
                 </div>
             </div>
-            {% endif %}
+
         </div>
         <div class="main">
             <div class="relative-table">
                 <div class="relative-table__title">
                     <div class="relative-table__left-block"><i class='bx bx-detail'></i> Сводная таблица</div>
                     <div class="relative-table__right-block">
-                        <button>Скачать все</button>
+                        <a href="{% url 'main:document_download_all' active_project_id %}"><button>Скачать все</button></a>
                     </div>
                 </div>
                 <form action="#" class="form-table">
@@ -96,20 +98,27 @@
                         <tbody>
                             {% for section in object_list %}
                             {% with section.get_latest_linked_document as document %}
-                            {% if document %}
+
                             <tr>
                                 <td title='{{ document.md5 }}'><i class='bx bxs-file-md'></i></td>
                                 <td><a href="{% url 'main:section' section.id %}">
                                         <span class='_code-green'>{{ section.abbreviation }}</span></a></td>
                                 <td><i class='bx bx-check-circle'></i></td>
-                                <td><a href="#"><i class='bx bx-save'></i></a></td>
+                                {% if document %}
+                                <td title='{{ document.doc_path }}'>
+                                    <a href="{% url 'main:document_download' document.id %}">
+                                        <i class='bx bx-save'></i></a></td>
+                                {% else %}
+                                    <td><a href="#">
+                                        <i class='bx bx-save'></i></a></td>
+                                {% endif %}
                                 <td>{{ document.status }}</td>
                                 <td>{{ document.version }}</td>
                                 <td>{{ document.variation }}</td>
                                 <td class="general-table__note">{{ document.note }}</td>
                                 <td><a href="#">{{ section.company }}</a></td>
                             </tr>
-                            {% endif %}
+
                             {% endwith %}
                             {% endfor %}
                         </tbody>
@@ -321,7 +330,7 @@
                 </div>
                 <div class="form__submit">
                     <button type="submit" class="form__submit-btn" name="{{ doc_form.prefix }}" value="Submit">
-                        Создать документ
+                        Загрузить документ
                     </button>
                 </div>
 

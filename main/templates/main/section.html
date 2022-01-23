@@ -103,7 +103,14 @@ Versionize | Section card
                                 <td>{{ document.created_at|date:'d.m.y' }} <br>
                                     {{ document.created_at|date:'H:i' }}</td>
                                 <td><a href="{% url 'main:document' document.id %}">{{ document.name }}</a></td>
-                                <td><a href="#"><i class='bx bx-save'></i></a></td>
+                                {% if document %}
+                                <td title='{{ document.doc_path }}'>
+                                    <a href="{% url 'main:document_download' document.id %}">
+                                        <i class='bx bx-save'></i></a></td>
+                                {% else %}
+                                    <td><a href="#">
+                                        <i class='bx bx-save'></i></a></td>
+                                {% endif %}
                                 <td>{{ document.md5 }}</td>
                                 <td>{{ document.version }}</td>
                                 <td>{{ document.variation }}</td>
