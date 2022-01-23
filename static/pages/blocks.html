@@ -155,11 +155,14 @@
                 <div class="main">
                     <div class="relative-table">
                         <div class="relative-table__title">
-                            <i class='bx bx-detail'></i> Таблица
+                            <div class="relative-table__left-block"><i class='bx bx-detail'></i> Таблица</div>
+                            <div class="relative-table__right-block">
+                                <button>Скачать все</button>
+                            </div>
                         </div>
                         <form action="#" class="form-table">
                             <div class="form-table__search">
-                                <span>Полнотекстовый поиск...</span>
+                                <span>Поиск:</span>
                                 <input type="text" name="" id="">
                             </div>
                             <table class="form-table__table">
@@ -198,7 +201,16 @@
                             </table>
                         </form>
                         <div class="relative-table__footer">
-                            <div class="relative-table__paginator">Пагинация</div>
+                            <ul class="relative-table__paginator">
+                                <li>
+                                    <a href="#"><span>«</span></a>
+                                </li>
+                                <li><a href=""><span>1</span></a></li>
+                                <li><a href=""><span>2</span></a></li>
+                                <li><a href=""><span>3</span></a></li>
+                                <li><a href=""><span>4</span></a></li>
+                                <li><a href=""><span>»</span></a></li>
+                            </ul>
                             <div class="relative-table__select">
                                 <select name="" id="">
                                     <option value="0: 2">2 строки</option>
