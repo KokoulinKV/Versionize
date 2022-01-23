@@ -1,10 +1,14 @@
-# import PyPDF2 as PyPDF2
+import os
+import zipfile
+
 from django.core.exceptions import ValidationError
+from django.http import HttpResponse, Http404
 from django.views.generic import ListView, DetailView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from Versionize import settings
 from main.forms import DocumentForm, AddSectionForm
-from main.models import Section, Company, Document
+from main.models import Section, Company, Document, Project
 
 
 def _get_form(request, formcls, prefix):
@@ -167,3 +171,54 @@ class DocumentDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Versionize - Документ'
         return context
+
+
+class DocumentDownload(LoginRequiredMixin, TemplateView):
+    template_name = 'main/total.html'
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        path = Document.objects.filter(id=context['pk']).values('doc_path')[0]['doc_path']
+        file_path = os.path.join(settings.MEDIA_ROOT, path)
+        if os.path.exists(file_path):
+            with open(file_path, 'rb') as fh:
+                response = HttpResponse(fh.read(), content_type="application/octet-stream", )
+                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+                return response
+        raise Http404
+
+
+class DocumentDownloadAllOfTotal(LoginRequiredMixin, TemplateView):
+    template_name = 'main/total.html'
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        project = Project.objects.filter(id=context['pk'])[0]
+        sections = Section.objects.filter(project_id=context['pk'])
+        files_download = []
+        for section in sections:
+            document = Document.objects.filter(section=section).values('doc_path').latest('created_at')['doc_path']
+            dir, document = document.split('/')
+            files_download.append(document)
+
+        document_dir = 'media/main_docs'
+        zip_name = f'{project}_docs.zip'
+        archive = zipfile.ZipFile(f'media/main_docs/{zip_name}', 'w')
+        rootdir = os.path.basename(document_dir)
+
+        for root, dir, files in os.walk(document_dir):
+            for file in files:
+                if file in files_download:
+                    filepath = os.path.join(root, file)
+                    parentpath = os.path.relpath(filepath, document_dir)
+                    arcname = os.path.join(rootdir, parentpath)
+                    archive.write(filepath, arcname)
+        archive.close()
+
+        file_path = os.path.join(document_dir, zip_name)
+        if os.path.exists(file_path):
+            with open(file_path, 'rb') as fh:
+                response = HttpResponse(fh.read(), content_type="application/zip", )
+                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+                return response
+        raise Http404
