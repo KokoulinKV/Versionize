@@ -8,17 +8,20 @@ from user.models import User, Company
 
 
 class Project(models.Model):
+    PROJECT_TYPE_CHOICES = {
+        (1, 'Площадной'),
+        (2, 'Линейный'),
+    }
     code = models.CharField(max_length=64, verbose_name='Шифр')
     name = models.CharField(max_length=512, verbose_name='Наименование')
-    created_at = models.DateTimeField(auto_now=True,
-                                      verbose_name='Дата создания')
-    exp_date = models.DateField()
-    next_upload = models.DateField(blank=True)
-    admin = models.ForeignKey(
-        User, db_index=True, on_delete=models.CASCADE, verbose_name='Создал')
+    created_at = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
+    exp_date = models.DateField(blank=True, null=True, verbose_name='Срок экспертизы')
+    next_upload = models.DateField(blank=True, null=True, verbose_name='Следующая загрузка')
+    admin = models.ForeignKey(User, blank=True, null=True, db_index=True, on_delete=models.CASCADE, verbose_name='ГИП')
+    project_type = models.IntegerField(blank=True, choices=PROJECT_TYPE_CHOICES, verbose_name='Тип объекта')
 
     def __str__(self):
-        return self.name
+        return self.code
 
     def get_projects(self):
         return self.objects.all()
@@ -33,8 +36,8 @@ class Project(models.Model):
 
 class StandardSection(models.Model):
     PROJECT_TYPE_CHOICES = {
-        (1, 'Площадной объект'),
-        (2, 'Линейный объект'),
+        (1, 'Площадной'),
+        (2, 'Линейный'),
     }
     abbreviation = models.CharField(max_length=16)
     name = models.CharField(max_length=256)
