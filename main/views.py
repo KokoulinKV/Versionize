@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 from django.http import HttpResponse, Http404
 from django.views.generic import ListView, DetailView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from transliterate import translit
 
 from Versionize import settings
 from main.forms import DocumentForm, AddSectionForm, CreateProjectForm
@@ -187,11 +188,29 @@ class DocumentDownload(LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         path = Document.objects.filter(id=context['pk']).values('doc_path')[0]['doc_path']
-        file_path = os.path.join(settings.MEDIA_ROOT, path)
-        if os.path.exists(file_path):
-            with open(file_path, 'rb') as fh:
+        dir, document = path.split('/')
+        document_dir = os.path.join(settings.MEDIA_ROOT, dir)
+        translit_doc_name= translit(document, language_code='ru', reversed=True)
+        zip_name = f'{translit_doc_name}.zip'
+        zip_path = f'{settings.MEDIA_ROOT}/downloads/{zip_name}'
+        archive = zipfile.ZipFile(zip_path, 'w')
+        rootdir = os.path.basename(document_dir)
+
+        for root, dir, files in os.walk(document_dir):
+            for file in files:
+                if file == document:
+                    filepath = os.path.join(root, file)
+                    parentpath = os.path.relpath(filepath, document_dir)
+                    arcname = os.path.join(rootdir, parentpath)
+                    archive.write(filepath, arcname)
+
+        archive.close()
+
+
+        if os.path.exists(zip_path):
+            with open(zip_path, 'rb') as fh:
                 response = HttpResponse(fh.read(), content_type="application/octet-stream", )
-                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+                response['Content-Disposition'] = 'inline; filename=' + f'{zip_name}'
                 return response
         raise Http404
 
@@ -209,9 +228,11 @@ class DocumentDownloadAllOfTotal(LoginRequiredMixin, TemplateView):
             dir, document = document.split('/')
             files_download.append(document)
 
-        document_dir = 'media/main_docs'
+        document_dir = os.path.join(settings.MEDIA_ROOT, dir)
         zip_name = f'{project}_docs.zip'
-        archive = zipfile.ZipFile(f'media/main_docs/{zip_name}', 'w')
+        translit_zip_name = translit(zip_name, language_code='ru', reversed=True)
+        zip_path = f'{settings.MEDIA_ROOT}/downloads/{zip_name}'
+        archive = zipfile.ZipFile(zip_path, 'w')
         rootdir = os.path.basename(document_dir)
 
         for root, dir, files in os.walk(document_dir):
@@ -223,10 +244,9 @@ class DocumentDownloadAllOfTotal(LoginRequiredMixin, TemplateView):
                     archive.write(filepath, arcname)
         archive.close()
 
-        file_path = os.path.join(document_dir, zip_name)
-        if os.path.exists(file_path):
-            with open(file_path, 'rb') as fh:
+        if os.path.exists(zip_path):
+            with open(zip_path, 'rb') as fh:
                 response = HttpResponse(fh.read(), content_type="application/zip", )
-                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+                response['Content-Disposition'] = 'inline; filename=' + f'{translit_zip_name}'
                 return response
         raise Http404
