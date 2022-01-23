@@ -120,3 +120,8 @@ class UserCompanyInfo(models.Model):
     class Meta:
         verbose_name = 'Организация'
         verbose_name_plural = "Организации"
+
+    @receiver(post_save, sender=User)
+    def create_userinfo(sender, instance, created, **kwargs):
+        if created:
+            UserCompanyInfo.objects.create(user=instance)
