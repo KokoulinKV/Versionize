@@ -1,6 +1,7 @@
 from django import forms
 
 from main.models import Document, Section, Project, Company
+from user.models import User
 
 
 class DocumentForm(forms.ModelForm):
@@ -20,7 +21,7 @@ class DocumentForm(forms.ModelForm):
 class AddSectionForm(forms.ModelForm):
     project = forms.ModelChoiceField(queryset=Project.objects.all().order_by('code'))
     abbreviation = forms.CharField(widget=forms.TextInput(attrs={'class': 'form__input',
-                                                                'placeholder': 'Введите шифр раздела'}))
+                                                                 'placeholder': 'Введите шифр раздела'}))
     company = forms.ModelChoiceField(queryset=Company.objects.all().order_by('name'))
     name = forms.CharField(widget=forms.Textarea(attrs={'class': 'form__textarea',
                                                         'placeholder': 'Введите полное наименование раздела'}))
@@ -28,3 +29,19 @@ class AddSectionForm(forms.ModelForm):
     class Meta:
         model = Section
         fields = ('project', 'abbreviation', 'company', 'name')
+
+
+class CreateProjectForm(forms.ModelForm):
+    code = forms.CharField(widget=forms.TextInput(attrs={'class': 'form__input',
+                                                         'placeholder': 'Введите шифр проекта'}))
+    name = forms.CharField(
+        widget=forms.Textarea(attrs={'class': 'form__input',
+                                     'placeholder': 'Введите Наименование объекта'}))
+
+    admin = forms.ModelChoiceField(queryset=User.objects.filter(usercompanyinfo__chief_project_engineer=True))
+    exp_date = forms.DateField(required=False, widget=forms.TextInput(attrs={'type': 'date',
+                                                                             'class': "form__input"}))
+
+    class Meta:
+        model = Project
+        fields = ('code', 'name', 'project_type', 'admin', 'exp_date')

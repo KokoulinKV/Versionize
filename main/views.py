@@ -7,7 +7,7 @@ from django.views.generic import ListView, DetailView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from Versionize import settings
-from main.forms import DocumentForm, AddSectionForm
+from main.forms import DocumentForm, AddSectionForm, CreateProjectForm
 from main.models import Section, Company, Document, Project
 
 
@@ -40,19 +40,22 @@ class Index(LoginRequiredMixin, TemplateView):
         context['title'] = 'Versionize - Сводная таблица проекта'
         context['document'] = DocumentForm(instance=self.request.document)
         context['add_section'] = AddSectionForm(instance=self.request.add_section)
+        context['create_project'] = CreateProjectForm(instance=self.request.create_project)
         # context['next_form'] = NextForm(instance=self.request.next_form)
         return context
 
     def get(self, request, *args, **kwargs):
         return self.render_to_response(
             {'doc_form': DocumentForm(prefix='doc_form_pre'),
-             'add_section_form': AddSectionForm(prefix='add_section_form_pre')})
+             'add_section_form': AddSectionForm(prefix='add_section_form_pre'),
+             'create_project_form': CreateProjectForm(prefix='create_project_form_pre')})
         # return self.render_to_response({'doc_form': DocumentForm(prefix='doc_form_pre'),
         #                                  'next_form': NextForm(prefix='next_form_pre')})
 
     def post(self, request, *args, **kwargs):
         doc_form = _get_form(request, DocumentForm, 'doc_form_pre')
         add_section_form = _get_form(request, AddSectionForm, 'add_section_form_pre')
+        create_project_form = _get_form(request, CreateProjectForm, 'create_project_form_pre')
         # next_form = _get_form(request, NextForm, 'next_form_pre')
         if doc_form.is_bound and doc_form.is_valid():
             try:
@@ -68,10 +71,15 @@ class Index(LoginRequiredMixin, TemplateView):
         elif add_section_form.is_bound and add_section_form.is_valid():
             add_section_form.save()
             add_section_form.data = clear_form_data(add_section_form.data)
+
+        elif create_project_form.is_bound and create_project_form.is_valid():
+            create_project_form.save()
+            create_project_form.data = clear_form_data(create_project_form.data)
         # elif next_form.is_bound and next_form.is_valid():
         # next_form.save()
         return self.render_to_response({'doc_form': doc_form,
-                                        'add_section_form': add_section_form})
+                                        'add_section_form': add_section_form,
+                                        'create_project_form': create_project_form})
         # return self.render_to_response({'doc_form': doc_form}, {'next_form': next_form})
 
 
