@@ -6,242 +6,171 @@ Versionize | Section card
 {% endblock %}
 {% block workspace %}
 <div class="ext-workspace">
-    <div class="left-block">
-        <!-- Можно использовать как для пользователя, так и для эксперта/ответственногого -->
+    <div class="ext-workspace__input">
         {% if active_project_id %}
-        <h2 class="block-title">Активный проект:</h2>
-        <div class="project">
-            <div class="project__info">
-                <div class="project__info-title">{{ active_project_code }}</div>
-                <div class="project__info-data">
-                    <div class="project__data">
-                        <span>Следующая загрузка:</span>
-                        <p>{{ active_project_next_upload|date:'d.m.Y' }}</p>
+        <div class="left-block">
+            <!-- Можно использовать как для пользователя, так и для эксперта/ответственногого -->
+            <h2 class="block-title">Активный проект:</h2>
+            <div class="project">
+                <div class="project__info">
+                    <div class="project__info-title">
+                        {{ active_project_code }}
+                        <p>{{ active_project_name }}</p>
                     </div>
-                    <div class="project__data">
-                        <span>Срок экспертизы до:</span>
-                        <p>{{ active_project_exp_date|date:'d.m.Y' }}</p>
+                    <div class="project__info-data">
+                        <div class="project__data">
+                            <span>Следующая загрузка:</span>
+                            <p>{{ active_project_next_upload|date:'d.m.Y' }}</p>
+                        </div>
+                        <div class="project__data">
+                            <span>Срок экспертизы до:</span>
+                            <p>{{ active_project_exp_date|date:'d.m.Y' }}</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="project__btn">
+                    <div class="project__btn-body">
+                        <i class='bx bx-cloud-download'></i>
+                        <span class="project__btn-text">Скачать</span>
+                    </div>
+                </button>
+            </div>
+            <h2 class="block-title">Ответственный:</h2>
+            <div class="person">
+                <div class="person__content">
+                    <div class="person__text">
+                        {% with section.responsible as responsible %}
+                        <span class="person__name">{{ responsible.get_fullname }}</span>
+                        <span class="person__job">
+                            <i class='bx bxs-business'></i>{{ responsible.get_company.name}}</span>
+                        <span class="person__post"><i class='bx bx-id-card'></i>{{ responsible.get_position }}</span>
+                        <span class="person__role"><i class='bx bx-male'></i>{{ responsible.get_project_role }}</span>
+                        <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ responsible.phone }}</span>
+                        <span class="person__mail"><i class='bx bx-mail-send'></i>{{ responsible.email }}</span>
+                        {% endwith %}
+                    </div>
+                </div>
+                <h2 class="block-title">Эксперт:</h2>
+                <div class="person">
+                    <div class="person__content">
+                        <div class="person__text">
+                            {% with section.expert as expert %}
+                            <span class="person__name">{{ expert.get_fullname }}</span>
+                            <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ expert.phone }}</span>
+                            <span class="person__mail"><i class='bx bx-mail-send'></i>{{ expert.email }}</span>
+                            {% endwith %}
+                        </div>
+                    </div>
+                </div>
+                <!-- Блок кнопок -->
+                <h2 class="block-title">Действия:</h2>
+                <div class="actions actions_document">
+                    <div class="actions__btn" id="add-document">
+                        <span class="actions__icon"><i class='bx bx-file'></i></span>
+                        <h3 class="actions__name">Загрузить документ</h3>
                     </div>
                 </div>
             </div>
         </div>
-        <h2 class="block-title">Ответственный:</h2>
-        <div class="person">
-            <div class="person__content">
-                <div class="person__text">
-                    {% with section.responsible as responsible %}
-                    <span class="person__name">{{ responsible.get_fullname }}</span>
-                    <span class="person__job"><i class='bx bxs-business'></i>{{ responsible.get_company.name }}</span>
-                    <span class="person__post"><i class='bx bx-id-card'></i>{{ responsible.get_position }}</span>
-                    <span class="person__role"><i class='bx bx-male'></i>{{ responsible.get_project_role }}</span>
-                    <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ responsible.phone }}</span>
-                    <span class="person__mail"><i class='bx bx-mail-send'></i>{{ responsible.email }}</span>
-                    {% endwith %}
+        <div class="main">
+            <div class="relative-table">
+                <div class="relative-table__title">
+                    <div class="relative-table__left-block"><i class='bx bx-detail'></i> Таблица</div>
+                    <div class="relative-table__right-block">
+                        <button>Скачать все</button>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <h2 class="block-title">Эксперт:</h2>
-        <div class="person">
-            <div class="person__content">
-                <div class="person__text">
-                    {% with section.expert as expert %}
-                    <span class="person__name">{{ expert.get_fullname }}</span>
-                    <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ expert.phone }}</span>
-                    <span class="person__mail"><i class='bx bx-mail-send'></i>{{ expert.email }}</span>
-                    {% endwith %}
+                <form action="#" class="form-table">
+                    <div class="form-table__search">
+                        <span>Поиск:</span>
+                        <input type="text" name="" id="">
+                    </div>
+                    {% if active_project_id %}
+                    {% if section.get_linked_documents %}
+                    <table class="form-table__table">
+                        <thead>
+                            <th>Дата загрузки</th>
+                            <th>Имя файла</th>
+                            <th>Скачать</th>
+                            <th>Md5</th>
+                            <th>Версия</th>
+                            <th>Изм.</th>
+                            <th>Примечания</th>
+                        </thead>
+                        <tbody>
+                            {% for document in section.get_linked_documents %}
+                            <tr class='form-table__table_odd'>
+                                <td>{{ document.created_at|date:'d.m.y' }} <br>
+                                    {{ document.created_at|date:'H:i' }}</td>
+                                <td><a href="{% url 'main:document' document.id %}">{{ document.name }}</a></td>
+                                <td><a href="#"><i class='bx bx-save'></i></a></td>
+                                <td>{{ document.md5 }}</td>
+                                <td>{{ document.version }}</td>
+                                <td>{{ document.variation }}</td>
+                                <td>{{ document.note }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <h2>Загруженные файлы отсутствуют</h2>
+                    {% endif %}
+                    {% endif %}
+                </form>
+                <div class="relative-table__footer">
+                    <ul class="relative-table__paginator">
+                        <li>
+                            <a href="#"><span>«</span></a>
+                        </li>
+                        <li><a href=""><span>1</span></a></li>
+                        <li><a href=""><span>2</span></a></li>
+                        <li><a href=""><span>3</span></a></li>
+                        <li><a href=""><span>4</span></a></li>
+                        <li><a href=""><span>»</span></a></li>
+                    </ul>
+                    <div class="relative-table__select">
+                        <select name="" id="">
+                            <option value="0: 2">2 строки</option>
+                            <option value="0: 6">4 строки</option>
+                            <option value="0: 10">10 строк</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <!-- Блок кнопок -->
-        <h2 class="block-title">Действия:</h2>
-        <div class="actions actions_document">
-            <div class="actions__btn" id="add-document">
-                <span class="actions__icon"><i class='bx bx-file'></i></span>
-                <h3 class="actions__name">Загрузить документ</h3>
             </div>
         </div>
         {% endif %}
     </div>
-    <div class="notice">
-        <div class="general-table">
-            {% if active_project_id %}
-            {% if section.get_linked_documents %}
-            <h2>Сводная таблица</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Дата загрузки</th>
-                        <th>Имя файла</th>
-                        <th>Скачать</th>
-                        <th>Md5</th>
-                        <th>Версия</th>
-                        <th>№ посл. изм.</th>
-                        <th>Примечания</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for document in section.get_linked_documents %}
-                    <tr>
-                        <td>{{ document.created_at|date:'d.m.y' }} <br>
-                            {{ document.created_at|date:'H:i' }}</td>
-                        <td><a href="{% url 'main:document' document.id %}">{{ document.name }}</a></td>
-                        <td><a href="#"><i class="far fa-save"></i></a></td>
-                        <td>{{ document.md5 }}</td>
-                        <td>{{ document.version }}</td>
-                        <td>{{ document.variation }}</td>
-                        <td>{{ document.note }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            {% else %}
-            <h2>Загруженные файлы отсутствуют</h2>
-            {% endif %}
-            {% endif %}
+    <div class="ext-workspace__footer">
+        <div class="notification">
+            <span class='notification__bell'><i class='bx bxs-bell'></i>
+                <div class="notification__dot"><i class='bx bxs-circle'></i></div>
+            </span>
+            <!-- <div class="notification__popup">
+                <div class="notification__popup-title">Уведомления</div>
+                <div class='notification__popup-content'>
+                    <div class="notification__popup-body">
+                        <div class="notification__popup-item">
+                            <div class="notification__popup-warn"></div>
+                            <div class="notification__popup-message">
+                                <div class="notification__popup-message-title">Загружены повторные замечания
+                                </div>
+                                <div class="notification__popup-message-text">Эксперт загрузил повторные
+                                    замечания</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notification__pupup-btn"></div>
+            </div> -->
         </div>
+        <div class="language">
+            <span><i class='bx bx-world'></i>
+
+            </span>
+        </div>
+        <div class="theme">Dark/Light mode</div>
     </div>
 </div>
-<!-- <button type="button" class="download-button popupBtn">
-            <span class="download-button__text">Загрузить документ</span>
-            <span class="download-button__icon">
-                <i class='bx bx-cloud-upload'></i>
-            </span>
-        </button>
-        <div class="general-table">
-            <h2>Сводная таблица</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>№</th>
-                        <th>Вывод о несоответствии</th>
-                        <th>Ссылка на материалы</th>
-                        <th>Основание</th>
-                        <th>Ответ исполнителя</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>
-                            <div contenteditable>Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Non
-                                voluptatum, perferendis
-                                dolorum corporis fuga perspiciatis debitis illo
-                                eveniet, ut at sed iure doloribus
-                                assumenda harum explicabo ipsa repudiandae
-                                reprehenderit neque!</div>
-                        </td>
-                        <td>
-                            <div contenteditable>Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Non
-                                voluptatum, perferendis
-                                dolorum corporis fuga perspiciatis debitis illo
-                                eveniet, ut at sed iure doloribus
-                                assumenda harum explicabo ipsa repudiandae
-                                reprehenderit neque!</div>
-                        </td>
-                        <td>
-                            <div contenteditable>Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Non
-                                voluptatum, perferendis
-                                dolorum corporis fuga perspiciatis debitis illo
-                                eveniet, ut at sed iure doloribus
-                                assumenda harum explicabo ipsa repudiandae
-                                reprehenderit neque!</div>
-                        </td>
-                        <td>
-                            <div contenteditable>Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Non
-                                voluptatum, perferendis
-                                dolorum corporis fuga perspiciatis debitis illo
-                                eveniet, ut at sed iure doloribus
-                                assumenda harum explicabo ipsa repudiandae
-                                reprehenderit neque!</div>
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>
-                            <div contenteditable>Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Non
-                                voluptatum, perferendis
-                                dolorum corporis fuga perspiciatis debitis illo
-                                eveniet, ut at sed iure doloribus
-                                assumenda harum explicabo ipsa repudiandae
-                                reprehenderit neque!</div>
-                        </td>
-                        <td>
-                            <div contenteditable>Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Non
-                                voluptatum, perferendis
-                                dolorum corporis fuga perspiciatis debitis illo
-                                eveniet, ut at sed iure doloribus
-                                assumenda harum explicabo ipsa repudiandae
-                                reprehenderit neque!</div>
-                        </td>
-                        <td>
-                            <div contenteditable>Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Non
-                                voluptatum, perferendis
-                                dolorum corporis fuga perspiciatis debitis illo
-                                eveniet, ut at sed iure doloribus
-                                assumenda harum explicabo ipsa repudiandae
-                                reprehenderit neque!</div>
-                        </td>
-                        <td>
-                            <div contenteditable>Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Non
-                                voluptatum, perferendis
-                                dolorum corporis fuga perspiciatis debitis illo
-                                eveniet, ut at sed iure doloribus
-                                assumenda harum explicabo ipsa repudiandae
-                                reprehenderit neque!</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>
-                            <div contenteditable>Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Non
-                                voluptatum, perferendis
-                                dolorum corporis fuga perspiciatis debitis illo
-                                eveniet, ut at sed iure doloribus
-                                assumenda harum explicabo ipsa repudiandae
-                                reprehenderit neque!</div>
-                        </td>
-                        <td>
-                            <div contenteditable>Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Non
-                                voluptatum, perferendis
-                                dolorum corporis fuga perspiciatis debitis illo
-                                eveniet, ut at sed iure doloribus
-                                assumenda harum explicabo ipsa repudiandae
-                                reprehenderit neque!</div>
-                        </td>
-                        <td>
-                            <div contenteditable>Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Non
-                                voluptatum, perferendis
-                                dolorum corporis fuga perspiciatis debitis illo
-                                eveniet, ut at sed iure doloribus
-                                assumenda harum explicabo ipsa repudiandae
-                                reprehenderit neque!</div>
-                        </td>
-                        <td>
-                            <div contenteditable>Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Non
-                                voluptatum, perferendis
-                                dolorum corporis fuga perspiciatis debitis illo
-                                eveniet, ut at sed iure doloribus
-                                assumenda harum explicabo ipsa repudiandae
-                                reprehenderit neque!</div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <a href="#" class="general-table__btn">Показать еще</a>
-        </div> -->
 {% endblock %}
 {% block popup %}
 <div class="popup" id="popup-project">

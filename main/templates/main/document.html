@@ -7,91 +7,159 @@ Versionize | Document card
 {% endblock %}
 {% block workspace %}
 <div class="ext-workspace">
-    <div class="left-block">
-        <!-- Можно использовать как для пользователя, так и для эксперта/ответственногого -->
-        <h2 class="block-title">Активный проект:</h2>
-        <div class="project">
-            <div class="project__info">
-                <div class="project__info-title">{{ active_project_code }}</div>
-                <div class="project__info-data">
-                    <div class="project__data">
-                        <span>Следующая загрузка:</span>
-                        <p>{{ active_project_next_upload|date:'d.m.Y' }}</p>
+    <div class="ext-workspace__input">
+        <div class="left-block">
+            <!-- Можно использовать как для пользователя, так и для эксперта/ответственногого -->
+            <h2 class="block-title">Активный проект:</h2>
+            <div class="project">
+                <div class="project__info">
+                    <div class="project__info-title">
+                        {{ active_project_code }}
+                        <p>{{ active_project_name }}</p>
                     </div>
-                    <div class="project__data">
-                        <span>Срок экспертизы до:</span>
-                        <p>{{ active_project_exp_date|date:'d.m.Y' }}</p>
+                    <div class="project__info-data">
+                        <div class="project__data">
+                            <span>Следующая загрузка:</span>
+                            <p>{{ active_project_next_upload|date:'d.m.Y' }}</p>
+                        </div>
+                        <div class="project__data">
+                            <span>Срок экспертизы до:</span>
+                            <p>{{ active_project_exp_date|date:'d.m.Y' }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <h2 class="block-title">Ответственный:</h2>
-        <div class="person">
-            <div class="person__content">
-                <div class="person__text">
-                    {% with document.section.responsible as responsible %}
-                    <span class="person__name">{{ responsible.get_fullname }}</span>
-                    <span class="person__job"><i class='bx bxs-business'></i>{{ responsible.get_company.name }}</span>
-                    <span class="person__post"><i class='bx bx-id-card'></i>{{ responsible.get_position }}</span>
-                    <span class="person__role"><i class='bx bx-male'></i>{{ responsible.get_project_role }}</span>
-                    <span class="person__phone"><i class='bx bx-mobile-alt'></i>s{{ responsible.phone }}</span>
-                    <span class="person__mail"><i class='bx bx-mail-send'></i>{{ responsible.email }}</span>
-                    {% endwith %}
+            <h2 class="block-title">Ответственный:</h2>
+            <div class="person">
+                <div class="person__content">
+                    <div class="person__text">
+                        {% with document.section.responsible as responsible %}
+                        <span class="person__name">{{ responsible.get_fullname }}</span>
+                        <span class="person__job">
+                            <i class='bx bxs-business'></i>{{ responsible.get_company.name }}</span>
+                        <span class="person__post"><i class='bx bx-id-card'></i>{{ responsible.get_position }}</span>
+                        <span class="person__role"><i class='bx bx-male'></i>{{ responsible.get_project_role }}</span>
+                        <span class="person__phone"><i class='bx bx-mobile-alt'></i>s{{ responsible.phone }}</span>
+                        <span class="person__mail"><i class='bx bx-mail-send'></i>{{ responsible.email }}</span>
+                        {% endwith %}
+                    </div>
+                </div>
+            </div>
+            <h2 class="block-title">Файл:</h2>
+            <div class="project">
+                <div class="project__file">
+                    <div class="project__file-conten">
+                        <div class="project__file-body">
+                            <div class="project__file-name">{{ document.name }}</div>
+                            <div class="project__file-md">MD5: {{ document.md5 }}</div>
+                            <div class="project__file-ver">Вер.: {{ document.version }}</div>
+                            <div class="project__file-chnge-ver">Изм.: {{ document.variation }}</div>
+                            <div class="relative-table__right-block">
+                                <button><a href="#">Скачать</a></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Блок кнопок -->
+            <div class="actions actions_section">
+                <div class="actions__btn" id="add-section">
+                    <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>
+                    <h3 class="actions__name">Сформировать ИУЛ</h3>
+                </div>
+            </div>
+            <div class="actions actions_section">
+                <div class="actions__btn" id="add-section">
+                    <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>
+                    <h3 class="actions__name">Сформировать разрешение на внесение изменений</h3>
                 </div>
             </div>
         </div>
-        <h2 class="block-title">Файл:</h2>
-        <div class="project__file">
-            <div class="project__file-conten">
-                <div class="project__file-body">
-                    <div class="project__file-name">{{ document.name }}</div>
-                    <div class="project__file-md">MD5: {{ document.md5 }}</div>
-                    <div class="project__file-ver">Вер.: {{ document.version }}</div>
-                    <div class="project__file-chnge-ver">Изм.: {{ document.variation }}</div>
+        <div class="main">
+            {% if object %}
+            <div class="relative-table">
+                <div class="relative-table__title">
+                    <div class="relative-table__left-block"><i class='bx bx-detail'></i>Перечень корректировок</div>
+                    <div class="relative-table__right-block">
+                        <button>Скачать все</button>
+                    </div>
+                </div>
+                <form action="#" class="form-table">
+                    <div class="form-table__search">
+                        <span>Поиск:</span>
+                        <input type="text" name="" id="">
+                    </div>
+                    <table class="form-table__table">
+                        <thead>
+                            <th>Лист</th>
+                            <th>Содержание изменения</th>
+                            <th>Код</th>
+                            <th>Примечание</th>
+                        </thead>
+                        <tbody>
+                            {% for adjustment in document.get_linked_adjustments %}
+                            <tr class='form-table__table_odd'>
+                                <td class='form-table__table_center'>{{ adjustment.pages }}</td>
+                                <td>{{ adjustment.body }}</td>
+                                <td>{{ adjustment.code }}</td>
+                                <td>{{ adjustment.note }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </form>
+                <div class="relative-table__footer">
+                    <ul class="relative-table__paginator">
+                        <li>
+                            <a href="#"><span>«</span></a>
+                        </li>
+                        <li><a href=""><span>1</span></a></li>
+                        <li><a href=""><span>2</span></a></li>
+                        <li><a href=""><span>3</span></a></li>
+                        <li><a href=""><span>4</span></a></li>
+                        <li><a href=""><span>»</span></a></li>
+                    </ul>
+                    <div class="relative-table__select">
+                        <select name="" id="">
+                            <option value="0: 2">2 строки</option>
+                            <option value="0: 6">4 строки</option>
+                            <option value="0: 10">10 строк</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- Блок кнопок -->
-        <div class="actions actions_section">
-            <div class="actions__btn" id="add-section">
-                <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>
-                <h3 class="actions__name">Сформировать ИУЛ</h3>
-            </div>
-        </div>
-        <div class="actions actions_section">
-            <div class="actions__btn" id="add-section">
-                <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>
-                <h3 class="actions__name">Сформировать разрешение на внесение изменений</h3>
-            </div>
+            {% endif %}
         </div>
     </div>
-    <div class="notice">
-        {% if object %}
-        <div class="general-table">
-            <h2>Перечень корректировок</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Лист</th>
-                        <th>Содержание изменения</th>
-                        <th>Код</th>
-                        <th>Примечание</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for adjustment in document.get_linked_adjustments %}
-                    <tr>
-                        <td>{{ adjustment.pages }}</td>
-                        <td>{{ adjustment.body }}</td>
-                        <td>{{ adjustment.code }}</td>
-                        <td>{{ adjustment.note }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <a href="#" class="general-table__btn">Показать еще</a>
+    <div class="ext-workspace__footer">
+        <div class="notification">
+            <span class='notification__bell'><i class='bx bxs-bell'></i>
+                <div class="notification__dot"><i class='bx bxs-circle'></i></div>
+            </span>
+            <!-- <div class="notification__popup">
+                <div class="notification__popup-title">Уведомления</div>
+                <div class='notification__popup-content'>
+                    <div class="notification__popup-body">
+                        <div class="notification__popup-item">
+                            <div class="notification__popup-warn"></div>
+                            <div class="notification__popup-message">
+                                <div class="notification__popup-message-title">Загружены повторные замечания
+                                </div>
+                                <div class="notification__popup-message-text">Эксперт загрузил повторные
+                                    замечания</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notification__pupup-btn"></div>
+            </div> -->
         </div>
-        {% endif %}
+        <div class="language">
+            <span><i class='bx bx-world'></i>
+
+            </span>
+        </div>
+        <div class="theme">Dark/Light mode</div>
     </div>
 </div>
 

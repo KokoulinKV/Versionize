@@ -2,117 +2,172 @@
 {% load static %}
 
 {% block title %}
-    {{ titile }}
+{{ titile }}
 {% endblock %}
 {% block workspace %}
 <div class="ext-workspace">
-    <div class="left-block">
-        <!-- Можно использовать как для пользователя, так и для эксперта/ответственного -->
-        {% if active_project_id %}
-        <h2 class="block-title">Активный проект:</h2>
-        <div class="project">
-            <div class="project__info">
-                <div class="project__info-title">{{ active_project_code }}</div>
-                <div class="project__info-data">
-                    <div class="project__data">
-                        <span>Следующая загрузка:</span>
-                        <p>{{ active_project_next_upload|date:'d.m.Y' }}</p>
+    <div class="ext-workspace__input">
+        <div class="left-block">
+            {% if active_project_id %}
+            <h2 class="block-title">Активный проект:</h2>
+            <div class="project">
+                <div class="project__info">
+                    <div class="project__info-title">
+                        {{ active_project_code }}
+                        <p>{{ active_project_name }}</p>
                     </div>
-                    <div class="project__data">
-                        <span>Срок экспертизы до:</span>
-                        <p>{{ active_project_exp_date|date:'d.m.Y' }}</p>
+                    <div class="project__info-data">
+                        <div class="project__data">
+                            <span>Следующая загрузка:</span>
+                            <p>{{ active_project_next_upload|date:'d.m.Y' }}</p>
+                        </div>
+                        <div class="project__data">
+                            <span>Срок экспертизы до:</span>
+                            <p>{{ active_project_exp_date|date:'d.m.Y' }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <h2 class="block-title">Главный инженер проекта:</h2>
-        <div class="person">
-            <div class="person__content">
-                <div class="person__text">
-                    {% with object_list.0.project.get_admin as admin %}
-                    <span class="person__name">{{ admin.get_fullname }}</span>
-                    <span class="person__job"><i class='bx bxs-business'></i>{{ admin.get_company.name }}</span>
-                    <span class="person__post"><i class='bx bx-id-card'></i>{{ admin.get_position }}</span>
-                    <span class="person__role"><i class='bx bx-male'></i>{{ admin.get_project_role }}</span>
-                    <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ admin.phone }}</span>
-                    <span class="person__mail"><i class='bx bx-mail-send'></i>{{ admin.email }}</span>
-                    {% endwith %}
+            <h2 class="block-title">Главный инженер проекта:</h2>
+            <div class="person">
+                <div class="person__content">
+                    <div class="person__text">
+                        {% with object_list.0.project.get_admin as admin %}
+                        <span class="person__name">{{ admin.get_fullname }}</span>
+                        <span class="person__job"><i class='bx bxs-business'></i>{{ admin.get_company.name }}</span>
+                        <span class="person__post"><i class='bx bx-id-card'></i>{{ admin.get_position }}</span>
+                        <span class="person__role"><i class='bx bx-male'></i>{{ admin.get_project_role }}</span>
+                        <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ admin.phone }}</span>
+                        <span class="person__mail"><i class='bx bx-mail-send'></i>{{ admin.email }}</span>
+                        {% endwith %}
+                    </div>
                 </div>
             </div>
-        </div>
-        {% else %}
-        <h2 class="block-title">Активный проект:</h2>
-        <div class="project">
-            <div class="project__info">
-                <div class="project__info-title">Проект не выбран</div>
+            {% else %}
+            <h2 class="block-title">Активный проект:</h2>
+            <div class="project">
+                <div class="project__info">
+                    <div class="project__info-title">Проект не выбран</div>
+                </div>
             </div>
-        </div>
-        {% endif %}
-        <!-- Блок кнопок -->
-        <h2 class="block-title">Действия:</h2>
-        <div class="actions actions_section">
-            <div class="actions__btn" id="add-section">
-                <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>
-                <h3 class="actions__name">Добавить раздел</h3>
+            <!-- Блок кнопок -->
+            <h2 class="block-title">Действия:</h2>
+            <div class="actions actions_section">
+                <div class="actions__btn" id="add-section">
+                    <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>
+                    <h3 class="actions__name">Добавить раздел</h3>
+                </div>
             </div>
+            <div class="actions actions_document">
+                <div class="actions__btn" id="add-document">
+                    <span class="actions__icon"><i class='bx bx-file'></i></span>
+                    <h3 class="actions__name">Загрузить документ</h3>
+                </div>
+            </div>
+            {% endif %}
         </div>
-{#        <div class="actions actions_section">#}
-{#            <div class="actions__btn" id="add-section_new">#}
-{#                <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>#}
-{#                <h3 class="actions__name">Создать раздел</h3>#}
-{#            </div>#}
-{#        </div>#}
-        <div class="actions actions_document">
-            <div class="actions__btn" id="add-document">
-                <span class="actions__icon"><i class='bx bx-file'></i></span>
-                <h3 class="actions__name">Загрузить документ</h3>
+        <div class="main">
+            <div class="relative-table">
+                <div class="relative-table__title">
+                    <div class="relative-table__left-block"><i class='bx bx-detail'></i> Сводная таблица</div>
+                    <div class="relative-table__right-block">
+                        <button>Скачать все</button>
+                    </div>
+                </div>
+                <form action="#" class="form-table">
+                    <div class="form-table__search">
+                        <span>Поиск:</span>
+                        <input type="text" name="" id="">
+                    </div>
+                    {% if active_project_id %}
+                    {% if object_list %}
+                    <table class="form-table__table">
+                        <thead>
+                            <th>Md5</th>
+                            <th>Шифр раздела</th>
+                            <th>Загружен</th>
+                            <th>Скачать</th>
+                            <th>Статус</th>
+                            <th>Версия</th>
+                            <th>№ посл. изм.</th>
+                            <th>Примечания</th>
+                            <th>Исполнитель</th>
+                        </thead>
+                        <tbody>
+                            {% for section in object_list %}
+                            {% with section.get_latest_linked_document as document %}
+                            {% if document %}
+                            <tr>
+                                <td title='{{ document.md5 }}'><i class='bx bxs-file-md'></i></td>
+                                <td><a href="{% url 'main:section' section.id %}">
+                                        <span class='_code-green'>{{ section.abbreviation }}</span></a></td>
+                                <td><i class='bx bx-check-circle'></i></td>
+                                <td><a href="#"><i class='bx bx-save'></i></a></td>
+                                <td>{{ document.status }}</td>
+                                <td>{{ document.version }}</td>
+                                <td>{{ document.variation }}</td>
+                                <td class="general-table__note">{{ document.note }}</td>
+                                <td><a href="#">{{ section.company }}</a></td>
+                            </tr>
+                            {% endif %}
+                            {% endwith %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% endif %}
+                    {% endif %}
+                </form>
+                <div class="relative-table__footer">
+                    <ul class="relative-table__paginator">
+                        <li>
+                            <a href="#"><span>«</span></a>
+                        </li>
+                        <li><a href=""><span>1</span></a></li>
+                        <li><a href=""><span>2</span></a></li>
+                        <li><a href=""><span>3</span></a></li>
+                        <li><a href=""><span>4</span></a></li>
+                        <li><a href=""><span>»</span></a></li>
+                    </ul>
+                    <div class="relative-table__select">
+                        <select name="" id="">
+                            <option value="0: 2">2 строки</option>
+                            <option value="0: 6">4 строки</option>
+                            <option value="0: 10">10 строк</option>
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="notice">
-        <div class="general-table">
-            <h2>Сводная таблица</h2>
-            {% if active_project_id %}
-            {% if object_list %}
-            <table>
-                <thead>
-                    <tr>
-                        <th>Md5</th>
-                        <th>Шифр раздела</th>
-                        <th>Загружен</th>
-                        <th>Скачать</th>
-                        <th>Статус</th>
-                        <th>Версия</th>
-                        <th>№ посл. изм.</th>
-                        <th>Примечания</th>
-                        <th>Исполнитель</th>
-                        <!-- <th>Диаграмма Ганта</th> -->
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for section in object_list %}
-                    {% with section.get_latest_linked_document as document %}
-                        {% if document %}
-                    <tr>
-                        <td title='{{ document.md5 }}'><i class='bx bxs-file-md'></i></td>
-                        <td><a href="{% url 'main:section' section.id %}">
-                                <span class='_code-green'>{{ section.abbreviation }}</span></a></td>
-                        <td><i class='bx bx-check-circle'></i></td>
-                        <td><a href="#"><i class='bx bx-save'></i></a></td>
-                        <td>{{ document.status }}</td>
-                        <td>{{ document.version }}</td>
-                        <td>{{ document.variation }}</td>
-                        <td class="general-table__note">{{ document.note }}</td>
-                        <td><a href="#">{{ section.company }}</a></td>
-                    </tr>
-                        {% endif %}
-                    {% endwith %}
-                    {% endfor %}
-                </tbody>
-            </table>
-            {% endif %}
-            {% endif %}
+    <div class="ext-workspace__footer">
+        <div class="notification">
+            <span class='notification__bell'><i class='bx bxs-bell'></i>
+                <div class="notification__dot"><i class='bx bxs-circle'></i></div>
+            </span>
+            <!-- <div class="notification__popup">
+                <div class="notification__popup-title">Уведомления</div>
+                <div class='notification__popup-content'>
+                    <div class="notification__popup-body">
+                        <div class="notification__popup-item">
+                            <div class="notification__popup-warn"></div>
+                            <div class="notification__popup-message">
+                                <div class="notification__popup-message-title">Загружены повторные замечания
+                                </div>
+                                <div class="notification__popup-message-text">Эксперт загрузил повторные
+                                    замечания</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notification__pupup-btn"></div>
+            </div> -->
         </div>
+        <div class="language">
+            <span><i class='bx bx-world'></i>
+
+            </span>
+        </div>
+        <div class="theme">Dark/Light mode</div>
     </div>
 </div>
 {% endblock %}
@@ -170,10 +225,10 @@
                 </div>
                 <div class="form__field">
                     <label for="{{ add_section_form.abbreviation.id_for_label }}">Шифр раздела</label>
-                        {{ add_section_form.abbreviation }}
-{#                    <span id="secRefAdd">#}
-{#                        <i class='bx bx-plus' id="secRefAdd"></i>#}
-{#                    </span>#}
+                    {{ add_section_form.abbreviation }}
+                    {# <span id="secRefAdd">#}
+                        {# <i class='bx bx-plus' id="secRefAdd"></i>#}
+                        {# </span>#}
                 </div>
                 <div class="form__field">
                     <label for="{{ add_section_form.name.id_for_label }}">Наименование</label>
@@ -185,29 +240,29 @@
                         {{ add_section_form.company }}
                     </div>
                 </div>
-{#                <div class="form__field">#}
-{#                    <label>Выбор ответственного</label>#}
-{#                    <div class="form__select">#}
-{#                        <select>#}
-{#                            <option value="">1</option>#}
-{#                            <option value="">2</option>#}
-{#                            <option value="">3</option>#}
-{#                        </select>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="form__field">#}
-{#                    <label>Выбор эксперта</label>#}
-{#                    <div class="form__select">#}
-{#                        <select>#}
-{#                            <option value="">1</option>#}
-{#                            <option value="">2</option>#}
-{#                            <option value="">3</option>#}
-{#                        </select>#}
-{#                    </div>#}
-{#                </div>#}
+                {# <div class="form__field">#}
+                    {# <label>Выбор ответственного</label>#}
+                    {# <div class="form__select">#}
+                        {# <select>#}
+                            {# <option value="">1</option>#}
+                            {# <option value="">2</option>#}
+                            {# <option value="">3</option>#}
+                            {# </select>#}
+                        {# </div>#}
+                    {# </div>#}
+                {# <div class="form__field">#}
+                    {# <label>Выбор эксперта</label>#}
+                    {# <div class="form__select">#}
+                        {# <select>#}
+                            {# <option value="">1</option>#}
+                            {# <option value="">2</option>#}
+                            {# <option value="">3</option>#}
+                            {# </select>#}
+                        {# </div>#}
+                    {# </div>#}
                 <div class="form__submit">
-                    <button type="submit" class="form__submit-btn"
-                            name="{{ add_section_form.prefix }}" value="Submit">Создать раздел</button>
+                    <button type="submit" class="form__submit-btn" name="{{ add_section_form.prefix }}"
+                        value="Submit">Создать раздел</button>
                 </div>
 
             </form>
