@@ -71,7 +71,7 @@
                 <div class="relative-table__title">
                     <div class="relative-table__left-block"><i class='bx bx-detail'></i> Сводная таблица</div>
                     <div class="relative-table__right-block">
-                        <button>Скачать все</button>
+                        <a href="{% url 'main:document_download_all' active_project_id %}"><button>Скачать все</button></a>
                     </div>
                 </div>
                 <form action="#" class="form-table">
@@ -102,7 +102,9 @@
                                 <td><a href="{% url 'main:section' section.id %}">
                                         <span class='_code-green'>{{ section.abbreviation }}</span></a></td>
                                 <td><i class='bx bx-check-circle'></i></td>
-                                <td><a href="#"><i class='bx bx-save'></i></a></td>
+                                <td title='{{ document.doc_path }}'>
+                                    <a href="{% url 'main:document_download' document.id %}">
+                                        <i class='bx bx-save'></i></a></td>
                                 <td>{{ document.status }}</td>
                                 <td>{{ document.version }}</td>
                                 <td>{{ document.variation }}</td>
