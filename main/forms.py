@@ -19,9 +19,8 @@ class DocumentForm(forms.ModelForm):
 
 class AddSectionForm(forms.ModelForm):
     project = forms.ModelChoiceField(queryset=Project.objects.all().order_by('code'))
-    abbreviation = forms.CharField(widget=forms.Textarea(attrs={'class': 'form__textarea',
-                                                                'placeholder': 'Введите шифр раздела',
-                                                                'height': '25px'}))
+    abbreviation = forms.CharField(widget=forms.TextInput(attrs={'class': 'form__input',
+                                                                'placeholder': 'Введите шифр раздела'}))
     company = forms.ModelChoiceField(queryset=Company.objects.all().order_by('name'))
     name = forms.CharField(widget=forms.Textarea(attrs={'class': 'form__textarea',
                                                         'placeholder': 'Введите полное наименование раздела'}))
