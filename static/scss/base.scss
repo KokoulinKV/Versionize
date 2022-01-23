@@ -635,15 +635,84 @@ body {
     }
 }
 .notification {
-    &__btn {
-    }
+    position: relative;
+    display: flex;
+    align-items: center;
 
     &__dot {
+        position: absolute;
+        top: 0px;
+        left: 37%;
+        font-size: 7px;
+        background-color: #d92550;
+        border: #fff solid 2px;
+        border-radius: 50%;
+        height: 11px;
+    }
+    &__popup {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translate(0px, -462px);
+        background: white;
+    }
+    &__bell {
+        background-image: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%) !important;
+        background-clip: text;
+        color: transparent;
+        opacity: 0.8;
+        transition: all 0.2s ease;
+        padding: 8px;
+        cursor: pointer;
+        font-size: 29px;
+    }
+
+    &__popup-title {
+    }
+
+    &__popup-content {
+    }
+
+    &__popup-body {
+    }
+
+    &__popup-item {
+        display: flex;
+        flex-wrap: nowrap;
+    }
+
+    &__popup-warn {
+        width: 5px;
+        height: 100%;
+    }
+
+    &__popup-message {
+    }
+
+    &__popup-message-title {
+    }
+
+    &__popup-message-text {
+    }
+
+    &__pupup-btn {
     }
 }
-.bxs-bell {
-}
+
 .language {
+    font-size: 29px;
+    padding: 8px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background-image: linear-gradient(180deg, #2af598 0%, #009efd 100%) !important;
+    background-clip: text;
+    color: transparent;
+    opacity: 0.8;
+    &:hover {
+        opacity: 1;
+    }
 }
 .theme {
 }
@@ -671,6 +740,9 @@ body {
         border-top: rgba(0, 0, 0, 0.02) solid 1px;
         background: #fafbfc;
         z-index: 7;
+        display: flex;
+        align-items: center;
+        padding: 5px 10px;
     }
 }
 // .sidebar_active ~ .ext-workspace {
