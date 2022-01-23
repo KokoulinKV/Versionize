@@ -3,6 +3,8 @@ from tabnanny import verbose
 
 from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.db import models
 from user.models import User, Company
 
@@ -18,7 +20,11 @@ class Project(models.Model):
     exp_date = models.DateField(blank=True, null=True, verbose_name='Срок экспертизы')
     next_upload = models.DateField(blank=True, null=True, verbose_name='Следующая загрузка')
     admin = models.ForeignKey(User, blank=True, null=True, db_index=True, on_delete=models.CASCADE, verbose_name='ГИП')
-    project_type = models.IntegerField(blank=True, choices=PROJECT_TYPE_CHOICES, verbose_name='Тип объекта')
+    project_type = models.IntegerField(blank=True, null=True, choices=PROJECT_TYPE_CHOICES, verbose_name='Тип объекта')
+
+    class Meta:
+        verbose_name = 'Проект'
+        verbose_name_plural = "Проекты"
 
     def __str__(self):
         return self.code
@@ -29,9 +35,7 @@ class Project(models.Model):
     def get_admin(self):
         return User.objects.get(id=self.admin.id)
 
-    class Meta:
-        verbose_name = 'Проект'
-        verbose_name_plural = "Проекты"
+
 
 
 class StandardSection(models.Model):
@@ -57,7 +61,7 @@ class Section(models.Model):
     abbreviation = models.CharField(
         max_length=16, blank=True, verbose_name='Аббревиатура')
     company = models.ForeignKey(
-        Company, on_delete=models.CASCADE, verbose_name='Организация')
+        Company, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Организация')
     responsible = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, null=True, db_index=True, verbose_name='Ответственный')
     expert = models.ForeignKey(User, on_delete=models.CASCADE, blank=True,
@@ -81,6 +85,14 @@ class Section(models.Model):
     class Meta:
         verbose_name = 'Раздел'
         verbose_name_plural = "Разделы"
+
+    @receiver(post_save, sender=Project)
+    def create_standard_sections(sender, instance, **kwargs):
+        obj_sections = StandardSection.objects.filter(project_type=instance.project_type)
+        for section in obj_sections:
+            Section.objects.create(name=section.name,
+                                   abbreviation=section.abbreviation,
+                                   project=instance)
 
 
 class Document(models.Model):
