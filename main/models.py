@@ -21,7 +21,7 @@ class Project(models.Model):
     project_type = models.IntegerField(blank=True, choices=PROJECT_TYPE_CHOICES, verbose_name='Тип объекта')
 
     def __str__(self):
-        return self.name
+        return self.code
 
     def get_projects(self):
         return self.objects.all()
