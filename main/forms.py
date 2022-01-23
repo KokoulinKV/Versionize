@@ -5,8 +5,10 @@ from main.models import Document, Section, Project, Company
 
 class DocumentForm(forms.ModelForm):
     name = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form__input', 'placeholder': 'Введите имя документа'}))
-    doc_path = forms.FileField(widget=forms.FileInput(attrs={'class': 'form__input', 'accept': ".pdf"}), required=False)
+        widget=forms.TextInput(attrs={'class': 'form__input',
+                                      'placeholder': 'Введите имя документа'}))
+    doc_path = forms.FileField(required=False, widget=forms.FileInput(attrs={'class': 'form__input',
+                                                                             'accept': ".pdf"}))
     section = forms.ModelChoiceField(queryset=Section.objects.all())
     note = forms.CharField(widget=forms.Textarea(attrs={'class': 'form__textarea'}))
 
