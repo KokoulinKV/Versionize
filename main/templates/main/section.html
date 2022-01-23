@@ -7,9 +7,9 @@ Versionize | Section card
 {% block workspace %}
 <div class="ext-workspace">
     <div class="ext-workspace__input">
+        {% if active_project_id %}
         <div class="left-block">
             <!-- Можно использовать как для пользователя, так и для эксперта/ответственногого -->
-            {% if active_project_id %}
             <h2 class="block-title">Активный проект:</h2>
             <div class="project">
                 <div class="project__info">
@@ -70,28 +70,36 @@ Versionize | Section card
                         <h3 class="actions__name">Загрузить документ</h3>
                     </div>
                 </div>
-                {% endif %}
             </div>
-            <div class="main">
-                <div class="general-table">
+        </div>
+        <div class="main">
+            <div class="relative-table">
+                <div class="relative-table__title">
+                    <div class="relative-table__left-block"><i class='bx bx-detail'></i> Таблица</div>
+                    <div class="relative-table__right-block">
+                        <button>Скачать все</button>
+                    </div>
+                </div>
+                <form action="#" class="form-table">
+                    <div class="form-table__search">
+                        <span>Поиск:</span>
+                        <input type="text" name="" id="">
+                    </div>
                     {% if active_project_id %}
                     {% if section.get_linked_documents %}
-                    <h2>Сводная таблица</h2>
-                    <table>
+                    <table class="form-table__table">
                         <thead>
-                            <tr>
-                                <th>Дата загрузки</th>
-                                <th>Имя файла</th>
-                                <th>Скачать</th>
-                                <th>Md5</th>
-                                <th>Версия</th>
-                                <th>Изм.</th>
-                                <th>Примечания</th>
-                            </tr>
+                            <th>Дата загрузки</th>
+                            <th>Имя файла</th>
+                            <th>Скачать</th>
+                            <th>Md5</th>
+                            <th>Версия</th>
+                            <th>Изм.</th>
+                            <th>Примечания</th>
                         </thead>
                         <tbody>
                             {% for document in section.get_linked_documents %}
-                            <tr>
+                            <tr class='form-table__table_odd'>
                                 <td>{{ document.created_at|date:'d.m.y' }} <br>
                                     {{ document.created_at|date:'H:i' }}</td>
                                 <td><a href="{% url 'main:document' document.id %}">{{ document.name }}</a></td>
@@ -108,329 +116,209 @@ Versionize | Section card
                     <h2>Загруженные файлы отсутствуют</h2>
                     {% endif %}
                     {% endif %}
+                </form>
+                <div class="relative-table__footer">
+                    <ul class="relative-table__paginator">
+                        <li>
+                            <a href="#"><span>«</span></a>
+                        </li>
+                        <li><a href=""><span>1</span></a></li>
+                        <li><a href=""><span>2</span></a></li>
+                        <li><a href=""><span>3</span></a></li>
+                        <li><a href=""><span>4</span></a></li>
+                        <li><a href=""><span>»</span></a></li>
+                    </ul>
+                    <div class="relative-table__select">
+                        <select name="" id="">
+                            <option value="0: 2">2 строки</option>
+                            <option value="0: 6">4 строки</option>
+                            <option value="0: 10">10 строк</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="ext-workspace__footer">
-            <div class="notification">
-                <button class="notification__btn">
-                    <span><i class='bx bxs-bell'></i>
-                        <div class="notification__dot"></div>
-                    </span>
-                </button>
-            </div>
-            <div class="language">Смена языка</div>
-            <div class="theme">Dark/Light mode</div>
+        {% endif %}
+    </div>
+    <div class="ext-workspace__footer">
+        <div class="notification">
+            <button class="notification__btn">
+                <span><i class='bx bxs-bell'></i>
+                    <div class="notification__dot"></div>
+                </span>
+            </button>
+        </div>
+        <div class="language">Смена языка</div>
+        <div class="theme">Dark/Light mode</div>
+    </div>
+</div>
+{% endblock %}
+{% block popup %}
+<div class="popup" id="popup-project">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_pro">X</a>
+            <div class="popup__title">Создание проекта</div>
+            <form action="" method="post" class="form">
+                {% csrf_token %}
+
+                <div class="form__field">
+                    <label>Шифр</label>
+                    <input type='text' class="form__input">
+                </div>
+                <div class="form__field">
+                    <label>Наименование</label>
+                    <input type='text' class="form__input">
+                </div>
+                <div class="form__field">
+                    <label>Ответственный</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Срок экспертизы</label>
+                    <input type='date' class="form__input">
+                </div>
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn">Создать проект</button>
+                </div>
+
+            </form>
         </div>
     </div>
-    <!-- <button type="button" class="download-button popupBtn">
-            <span class="download-button__text">Загрузить документ</span>
-            <span class="download-button__icon">
-                <i class='bx bx-cloud-upload'></i>
-            </span>
-        </button>
-        <div class="general-table">
-            <h2>Сводная таблица</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>№</th>
-                        <th>Вывод о несоответствии</th>
-                        <th>Ссылка на материалы</th>
-                        <th>Основание</th>
-                        <th>Ответ исполнителя</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>
-                            <div contenteditable>Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Non
-                                voluptatum, perferendis
-                                dolorum corporis fuga perspiciatis debitis illo
-                                eveniet, ut at sed iure doloribus
-                                assumenda harum explicabo ipsa repudiandae
-                                reprehenderit neque!</div>
-                        </td>
-                        <td>
-                            <div contenteditable>Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Non
-                                voluptatum, perferendis
-                                dolorum corporis fuga perspiciatis debitis illo
-                                eveniet, ut at sed iure doloribus
-                                assumenda harum explicabo ipsa repudiandae
-                                reprehenderit neque!</div>
-                        </td>
-                        <td>
-                            <div contenteditable>Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Non
-                                voluptatum, perferendis
-                                dolorum corporis fuga perspiciatis debitis illo
-                                eveniet, ut at sed iure doloribus
-                                assumenda harum explicabo ipsa repudiandae
-                                reprehenderit neque!</div>
-                        </td>
-                        <td>
-                            <div contenteditable>Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Non
-                                voluptatum, perferendis
-                                dolorum corporis fuga perspiciatis debitis illo
-                                eveniet, ut at sed iure doloribus
-                                assumenda harum explicabo ipsa repudiandae
-                                reprehenderit neque!</div>
-                        </td>
+</div>
+<div class="popup" id="popup-section">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_sec">X</a>
+            <div class="popup__title">Добавить раздел</div>
+            <form action="" method="post" class="form">
+                {% csrf_token %}
+                <div class="form__field">
+                    <label>Выбор раздела</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Выбор проекта</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Наименование</label>
+                    <input type='text' class="form__input">
+                </div>
+                <div class="form__field">
+                    <label>Выбор компании</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Выбор ответственногого</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label>Выбор эксперта</label>
+                    <div class="form__select">
+                        <select>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn">Создать раздел</button>
+                </div>
 
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>
-                            <div contenteditable>Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Non
-                                voluptatum, perferendis
-                                dolorum corporis fuga perspiciatis debitis illo
-                                eveniet, ut at sed iure doloribus
-                                assumenda harum explicabo ipsa repudiandae
-                                reprehenderit neque!</div>
-                        </td>
-                        <td>
-                            <div contenteditable>Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Non
-                                voluptatum, perferendis
-                                dolorum corporis fuga perspiciatis debitis illo
-                                eveniet, ut at sed iure doloribus
-                                assumenda harum explicabo ipsa repudiandae
-                                reprehenderit neque!</div>
-                        </td>
-                        <td>
-                            <div contenteditable>Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Non
-                                voluptatum, perferendis
-                                dolorum corporis fuga perspiciatis debitis illo
-                                eveniet, ut at sed iure doloribus
-                                assumenda harum explicabo ipsa repudiandae
-                                reprehenderit neque!</div>
-                        </td>
-                        <td>
-                            <div contenteditable>Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Non
-                                voluptatum, perferendis
-                                dolorum corporis fuga perspiciatis debitis illo
-                                eveniet, ut at sed iure doloribus
-                                assumenda harum explicabo ipsa repudiandae
-                                reprehenderit neque!</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>
-                            <div contenteditable>Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Non
-                                voluptatum, perferendis
-                                dolorum corporis fuga perspiciatis debitis illo
-                                eveniet, ut at sed iure doloribus
-                                assumenda harum explicabo ipsa repudiandae
-                                reprehenderit neque!</div>
-                        </td>
-                        <td>
-                            <div contenteditable>Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Non
-                                voluptatum, perferendis
-                                dolorum corporis fuga perspiciatis debitis illo
-                                eveniet, ut at sed iure doloribus
-                                assumenda harum explicabo ipsa repudiandae
-                                reprehenderit neque!</div>
-                        </td>
-                        <td>
-                            <div contenteditable>Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Non
-                                voluptatum, perferendis
-                                dolorum corporis fuga perspiciatis debitis illo
-                                eveniet, ut at sed iure doloribus
-                                assumenda harum explicabo ipsa repudiandae
-                                reprehenderit neque!</div>
-                        </td>
-                        <td>
-                            <div contenteditable>Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Non
-                                voluptatum, perferendis
-                                dolorum corporis fuga perspiciatis debitis illo
-                                eveniet, ut at sed iure doloribus
-                                assumenda harum explicabo ipsa repudiandae
-                                reprehenderit neque!</div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <a href="#" class="general-table__btn">Показать еще</a>
-        </div> -->
-    {% endblock %}
-    {% block popup %}
-    <div class="popup" id="popup-project">
-        <div class="popup__body">
-            <div class="popup__content">
-                <a href="#" class="popup__close" id="popup__close_pro">X</a>
-                <div class="popup__title">Создание проекта</div>
-                <form action="" method="post" class="form">
-                    {% csrf_token %}
-
-                    <div class="form__field">
-                        <label>Шифр</label>
-                        <input type='text' class="form__input">
-                    </div>
-                    <div class="form__field">
-                        <label>Наименование</label>
-                        <input type='text' class="form__input">
-                    </div>
-                    <div class="form__field">
-                        <label>Ответственный</label>
-                        <div class="form__select">
-                            <select>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form__field">
-                        <label>Срок экспертизы</label>
-                        <input type='date' class="form__input">
-                    </div>
-                    <div class="form__submit">
-                        <button type="submit" class="form__submit-btn">Создать проект</button>
-                    </div>
-
-                </form>
-            </div>
+            </form>
         </div>
     </div>
-    <div class="popup" id="popup-section">
-        <div class="popup__body">
-            <div class="popup__content">
-                <a href="#" class="popup__close" id="popup__close_sec">X</a>
-                <div class="popup__title">Добавить раздел</div>
-                <form action="" method="post" class="form">
-                    {% csrf_token %}
-                    <div class="form__field">
-                        <label>Выбор раздела</label>
-                        <div class="form__select">
-                            <select>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form__field">
-                        <label>Выбор проекта</label>
-                        <div class="form__select">
-                            <select>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form__field">
-                        <label>Наименование</label>
-                        <input type='text' class="form__input">
-                    </div>
-                    <div class="form__field">
-                        <label>Выбор компании</label>
-                        <div class="form__select">
-                            <select>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form__field">
-                        <label>Выбор ответственногого</label>
-                        <div class="form__select">
-                            <select>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form__field">
-                        <label>Выбор эксперта</label>
-                        <div class="form__select">
-                            <select>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form__submit">
-                        <button type="submit" class="form__submit-btn">Создать раздел</button>
-                    </div>
+</div>
+<div class="popup" id="popup-section2">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_sec2">X</a>
+            <div class="popup__title">Создать раздел</div>
+            <form action="" method="post" class="form">
+                {% csrf_token %}
+                <div class="form__field">
+                    <label>Наименование</label>
+                    <input type='text' class="form__input">
+                </div>
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn">Создать раздел</button>
+                </div>
 
-                </form>
-            </div>
+            </form>
         </div>
     </div>
-    <div class="popup" id="popup-section2">
-        <div class="popup__body">
-            <div class="popup__content">
-                <a href="#" class="popup__close" id="popup__close_sec2">X</a>
-                <div class="popup__title">Создать раздел</div>
-                <form action="" method="post" class="form">
-                    {% csrf_token %}
-                    <div class="form__field">
-                        <label>Наименование</label>
-                        <input type='text' class="form__input">
+</div>
+<div class="popup" id="popup-document">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_doc"><i class='bx bx-plus-circle form-close'></i></a>
+            <div class="popup__title">Загрузка документа</div>
+            <form action="" method="post" class="form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form__field">
+                    <label for="{{ doc_form.status.id_for_label }}">Статус</label>
+                    <div class="form__select">
+                        {{ doc_form.status }}
                     </div>
-                    <div class="form__submit">
-                        <button type="submit" class="form__submit-btn">Создать раздел</button>
+                </div>
+                <div class="form__field">
+                    <label for="{{ doc_form.name.id_for_label }}">Наименование</label>
+                    {{ doc_form.name }}
+                </div>
+                <div class="form__field">
+                    <label for="{{ doc_form.doc_path.id_for_label }}">Файл</label>
+                    {{ doc_form.doc_path }}
+                </div>
+                <div class="form__field">
+                    <label for="{{ doc_form.section.id_for_label }}">Раздел</label>
+                    <div class="form__select">
+                        {{ doc_form.section }}
                     </div>
+                </div>
+                <div class="form__field">
+                    <label for="{{ doc_form.note.id_for_label }}">Примечания</label>
+                    {{ doc_form.note }}
+                </div>
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn" name="{{ doc_form.prefix }}" value="Submit">
+                        Создать документ
+                    </button>
+                </div>
 
-                </form>
-            </div>
+            </form>
         </div>
     </div>
-    <div class="popup" id="popup-document">
-        <div class="popup__body">
-            <div class="popup__content">
-                <a href="#" class="popup__close" id="popup__close_doc"><i class='bx bx-plus-circle form-close'></i></a>
-                <div class="popup__title">Загрузка документа</div>
-                <form action="" method="post" class="form" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div class="form__field">
-                        <label for="{{ doc_form.status.id_for_label }}">Статус</label>
-                        <div class="form__select">
-                            {{ doc_form.status }}
-                        </div>
-                    </div>
-                    <div class="form__field">
-                        <label for="{{ doc_form.name.id_for_label }}">Наименование</label>
-                        {{ doc_form.name }}
-                    </div>
-                    <div class="form__field">
-                        <label for="{{ doc_form.doc_path.id_for_label }}">Файл</label>
-                        {{ doc_form.doc_path }}
-                    </div>
-                    <div class="form__field">
-                        <label for="{{ doc_form.section.id_for_label }}">Раздел</label>
-                        <div class="form__select">
-                            {{ doc_form.section }}
-                        </div>
-                    </div>
-                    <div class="form__field">
-                        <label for="{{ doc_form.note.id_for_label }}">Примечания</label>
-                        {{ doc_form.note }}
-                    </div>
-                    <div class="form__submit">
-                        <button type="submit" class="form__submit-btn" name="{{ doc_form.prefix }}" value="Submit">
-                            Создать документ
-                        </button>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-    </div>
-    {% endblock %}
+</div>
+{% endblock %}

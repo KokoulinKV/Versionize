@@ -72,29 +72,56 @@ Versionize | Document card
         </div>
         <div class="main">
             {% if object %}
-            <div class="general-table">
-                <h2>Перечень корректировок</h2>
-                <table>
-                    <thead>
-                        <tr>
+            <div class="relative-table">
+                <div class="relative-table__title">
+                    <div class="relative-table__left-block"><i class='bx bx-detail'></i>Перечень корректировок</div>
+                    <div class="relative-table__right-block">
+                        <button>Скачать все</button>
+                    </div>
+                </div>
+                <form action="#" class="form-table">
+                    <div class="form-table__search">
+                        <span>Поиск:</span>
+                        <input type="text" name="" id="">
+                    </div>
+                    <table class="form-table__table">
+                        <thead>
                             <th>Лист</th>
                             <th>Содержание изменения</th>
                             <th>Код</th>
                             <th>Примечание</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for adjustment in document.get_linked_adjustments %}
-                        <tr>
-                            <td>{{ adjustment.pages }}</td>
-                            <td>{{ adjustment.body }}</td>
-                            <td>{{ adjustment.code }}</td>
-                            <td>{{ adjustment.note }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                <a href="#" class="general-table__btn">Показать еще</a>
+                        </thead>
+                        <tbody>
+                            {% for adjustment in document.get_linked_adjustments %}
+                            <tr class='form-table__table_odd'>
+                                <td class='form-table__table_center'>{{ adjustment.pages }}</td>
+                                <td>{{ adjustment.body }}</td>
+                                <td>{{ adjustment.code }}</td>
+                                <td>{{ adjustment.note }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </form>
+                <div class="relative-table__footer">
+                    <ul class="relative-table__paginator">
+                        <li>
+                            <a href="#"><span>«</span></a>
+                        </li>
+                        <li><a href=""><span>1</span></a></li>
+                        <li><a href=""><span>2</span></a></li>
+                        <li><a href=""><span>3</span></a></li>
+                        <li><a href=""><span>4</span></a></li>
+                        <li><a href=""><span>»</span></a></li>
+                    </ul>
+                    <div class="relative-table__select">
+                        <select name="" id="">
+                            <option value="0: 2">2 строки</option>
+                            <option value="0: 6">4 строки</option>
+                            <option value="0: 10">10 строк</option>
+                        </select>
+                    </div>
+                </div>
             </div>
             {% endif %}
         </div>
