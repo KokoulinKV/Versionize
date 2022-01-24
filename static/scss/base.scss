@@ -904,37 +904,6 @@ body {
         cursor: pointer;
         font-size: 29px;
     }
-
-    &__popup-title {
-    }
-
-    &__popup-content {
-    }
-
-    &__popup-body {
-    }
-
-    &__popup-item {
-        display: flex;
-        flex-wrap: nowrap;
-    }
-
-    &__popup-warn {
-        width: 5px;
-        height: 100%;
-    }
-
-    &__popup-message {
-    }
-
-    &__popup-message-title {
-    }
-
-    &__popup-message-text {
-    }
-
-    &__pupup-btn {
-    }
 }
 
 .language {
@@ -953,6 +922,100 @@ body {
     }
 }
 .theme {
+}
+.pop-mini {
+    box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03), 0 0.9375rem 1.40625rem rgba(4, 9, 20, 0.03),
+        0 0.25rem 0.53125rem rgba(4, 9, 20, 0.05), 0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03);
+    width: 400px;
+    z-index: 123;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+    position: absolute;
+    background: #fff;
+    bottom: 60px;
+    &__header {
+        background-size: cover;
+        padding: 1.5rem 0.5rem;
+        text-align: center;
+        background: linear-gradient(to top right, #ff99ff 0%, #ffff66 100%);
+    }
+
+    &__title {
+        font-weight: 500;
+        font-size: 1.25rem;
+        margin: 0;
+    }
+
+    &__subtitle {
+        margin: 5px 0 0;
+        opacity: 0.8;
+        font-size: 1rem;
+    }
+
+    &__body {
+        position: static;
+        height: 240px;
+        overflow: scroll;
+        overflow-x: scroll;
+        overflow-x: hidden;
+    }
+
+    &__content {
+        padding-left: 20px;
+        padding-top: 25px;
+    }
+
+    &__footer {
+        border-top: 1px solid rgba(0, 0, 0, 0.2);
+        padding: 0.5rem 1rem;
+        z-index: 23;
+    }
+    &__btn {
+        text-align: center;
+        & button {
+            outline: none !important;
+            border-top-left-radius: 50px;
+            border-bottom-left-radius: 50px;
+            border-top-right-radius: 50px;
+            border-bottom-right-radius: 50px;
+            cursor: pointer;
+            // box-shadow: 0 0.125rem 0.625rem rgb(68, 64, 84 / 40%), 0 0.0625rem 0.125rem rgb(68, 64, 84 / 50%);
+            padding: 0.25rem 1rem;
+            font-size: 0.8rem;
+            line-height: 1.5;
+            color: #fff;
+            background-color: #444054;
+            border-color: #444054;
+        }
+    }
+}
+.not {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    &__dot {
+        margin-right: 15px;
+        font-size: 25px;
+        color: green;
+    }
+
+    &__body {
+        flex-grow: 1;
+    }
+
+    &__title {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        margin: 0 0 0.5rem;
+        padding: 4px 0 0;
+        font-weight: bold;
+    }
+
+    &__text {
+        color: #6c757d;
+        margin: 0 0 0.5rem;
+        font-size: 0.7rem;
+    }
 }
 
 //
