@@ -223,9 +223,10 @@ class DocumentDownloadAllOfTotal(LoginRequiredMixin, TemplateView):
         sections = Section.objects.filter(project_id=context['pk'])
         files_download = []
         for section in sections:
-            document = Document.objects.filter(section=section).values('doc_path').latest('created_at')['doc_path']
-            dir, document = document.split('/')
-            files_download.append(document)
+            if  Document.objects.filter(section=section):
+                document = Document.objects.filter(section=section).values('doc_path').latest('created_at')['doc_path']
+                dir, document = document.split('/')
+                files_download.append(document)
 
         document_dir = os.path.join(settings.MEDIA_ROOT, dir)
         zip_name = f'{project}_docs.zip'
