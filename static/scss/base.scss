@@ -460,6 +460,7 @@ body {
             margin-right: 8px;
             background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%) !important;
             background-clip: text;
+            -webkit-background-clip: text;
             color: transparent;
         }
     }
@@ -633,6 +634,7 @@ body {
             margin-right: 8px;
             background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%) !important;
             background-clip: text;
+            -webkit-background-clip: text;
             color: transparent;
         }
     }
@@ -885,6 +887,7 @@ body {
         background-color: #d92550;
         border: #fff solid 2px;
         border-radius: 50%;
+        opacity: 0.8;
         height: 11px;
     }
     &__popup {
@@ -897,12 +900,19 @@ body {
     &__bell {
         background-image: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%) !important;
         background-clip: text;
+        -webkit-background-clip: text;
         color: transparent;
         opacity: 0.8;
         transition: all 0.2s ease;
         padding: 8px;
         cursor: pointer;
         font-size: 29px;
+        &:hover {
+            opacity: 1;
+        }
+        &:hover + &__dot {
+            opacity: 1;
+        }
     }
 }
 
@@ -915,6 +925,7 @@ body {
     cursor: pointer;
     background-image: linear-gradient(180deg, #2af598 0%, #009efd 100%) !important;
     background-clip: text;
+    -webkit-background-clip: text;
     color: transparent;
     opacity: 0.8;
     &:hover {
