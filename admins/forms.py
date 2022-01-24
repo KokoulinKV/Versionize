@@ -131,7 +131,8 @@ class CompanyRegistrationFrom(forms.ModelForm):
     )
     manager = forms.ModelChoiceField(
         required=False,
-        queryset=User.objects.all(),
+        queryset=User.objects.select_related().exclude(
+            id__in=(Company.objects.filter(manager__isnull=False).values('manager'))),
         empty_label='Выберете пользователя',
         widget=forms.Select(attrs={'class': 'form-control py-8',
                                    'placeholder': 'Выберите менеджера'})

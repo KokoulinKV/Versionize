@@ -191,6 +191,14 @@ class CompanyCreateView(CreateView):
         context['title'] = 'Create company'
         return context
 
+    def form_valid(self, form):
+        formset = form.save()
+        user = formset.manager
+        company = formset.id
+        query = UserCompanyInfo.objects.select_related().filter(user_id=user)
+        query.update(company=company)
+        return super().form_valid(form)
+
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, request, *args, **kwargs):
         return super(CompanyCreateView, self).dispatch(request, *args, **kwargs)
@@ -211,9 +219,7 @@ class CompanyEditView(UpdateView):
         formset = form.save()
         user = formset.manager
         company = formset.id
-        print(user,'|' ,company)
         query = UserCompanyInfo.objects.select_related().filter(user_id=user)
-        print(query)
         query.update(company=company)
         return super().form_valid(form)
 
