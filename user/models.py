@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -11,13 +12,18 @@ class User(AbstractUser):
         verbose_name='Изображение',
     )
     phone = models.CharField(
-        verbose_name='Номер телефона',
         max_length=20,
-        null=True,
+        blank=True,
+        verbose_name='Номер телефона',
     )
-    patronymic = models.CharField(verbose_name='Отчество',
-                                  max_length=30,
-                                  null=True)
+    patronymic = models.CharField(
+        max_length=30,
+        blank=True,
+        verbose_name='Отчество',)
+
+    class Meta:
+        verbose_name = 'Пользователь'
+        verbose_name_plural = "Пользователи"
 
     def get_fullname(self):
         return f'{self.last_name} {self.first_name} {self.patronymic}'
@@ -44,39 +50,36 @@ class User(AbstractUser):
         else:
             return 'Пользователь'
 
-    class Meta:
-        verbose_name = 'Пользователь'
-        verbose_name_plural = "Пользователи"
-
 
 class Company(models.Model):
     name = models.CharField(
-        verbose_name='Наименование',
         max_length=64,
+        verbose_name='Наименование',
     )
     phone = models.CharField(
         max_length=20,
-        null=True,
+        blank=True,
         verbose_name='Номер телефона',
     )
     email = models.EmailField(
         max_length=256,
-        null=True,
+        blank=True,
         verbose_name='Эл. почта',
     )
     manager = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
+        blank=True,
         null=True,
         verbose_name='Менеджер',
     )
 
-    def __str__(self):
-        return self.name
-
     class Meta:
         verbose_name = 'Компания'
         verbose_name_plural = "Компании"
+
+    def __str__(self):
+        return self.name
 
 
 class UserCompanyInfo(models.Model):
@@ -88,16 +91,16 @@ class UserCompanyInfo(models.Model):
         verbose_name='Пользователь',
     )
     department = models.CharField(
-        verbose_name='Отделение',
         max_length=128,
         blank=True,
+        verbose_name='Отделение',
     )
     company = models.ForeignKey(
         Company,
         on_delete=models.CASCADE,
-        verbose_name='Организация',
         blank=True,
-        null=True
+        null=True,
+        verbose_name='Организация',
     )
     expert = models.BooleanField(
         default=False,
@@ -112,16 +115,21 @@ class UserCompanyInfo(models.Model):
         verbose_name='Помощник',
     )
     position = models.CharField(
-        verbose_name='Роль',
         max_length=128,
         blank=True,
-        null=True)
+        verbose_name='Роль',)
 
     class Meta:
         verbose_name = 'Организация'
         verbose_name_plural = "Организации"
 
+    def save(self, *args, **kwargs):
+        if int(self.expert + self.assistant + self.chief_project_engineer) > 1:
+            raise ValidationError('Пользователь не может совмещать позиции ГИПа, ассистента и эксперта одновременно')
+        else:
+            return super(UserCompanyInfo, self).save(*args, **kwargs)
+
     @receiver(post_save, sender=User)
-    def create_userinfo(sender, instance, created, **kwargs):
-        if created:
+    def create_userinfo(sender, instance, **kwargs):
+        if kwargs['created']:
             UserCompanyInfo.objects.create(user=instance)
