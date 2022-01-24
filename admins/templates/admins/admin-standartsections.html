@@ -30,7 +30,10 @@
                                                 Линейный
                                             {% endif %}</td>
                                         <td>{{ section.abbreviation }}</td>
-                                        <td>{{ section.name }}</td>
+                                        <td>
+                                            <a href="{% url 'admins:admins_sections_update' section.id %}"
+                                               style="color: dodgerblue">{{ section.name }}</a>
+                                        </td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

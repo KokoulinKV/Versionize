@@ -270,7 +270,7 @@ class CreateStandartSections(CreateView):
     model = StandardSection
     template_name = 'admins/admin-standartsection-create.html'
     form_class = StandardSectionCreateForm
-    success_url = reverse_lazy('admins:index')
+    success_url = reverse_lazy('admins:admins_sections')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CreateStandartSections, self).get_context_data(**kwargs)
@@ -295,3 +295,19 @@ class StandartSectionsListView(ListView):
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, request, *args, **kwargs):
         return super(StandartSectionsListView, self).dispatch(request, *args, **kwargs)
+
+
+class StandartSectionsEditView(UpdateView):
+    model = StandardSection
+    template_name = 'admins/admin-standartsections-edit.html'
+    form_class = StandardSectionCreateForm
+    success_url = reverse_lazy('admins:admins_sections')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(StandartSectionsEditView, self).get_context_data(**kwargs)
+        context['title'] = 'Edit standard sections'
+        return context
+
+    @method_decorator(user_passes_test(lambda u: u.is_superuser))
+    def dispatch(self, request, *args, **kwargs):
+        return super(StandartSectionsEditView, self).dispatch(request, *args, **kwargs)

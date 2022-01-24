@@ -2,7 +2,7 @@ from django.urls import path
 
 from admins.views import UserCreateView, UserListView, UserEditView, UserDeleteView, UserRehubView, CompanyListView, \
     CompanyEditView, CompanyCreateView, CompanyAdminDelete, CompanyAdminDeleteMessage, UserAddInfoView, \
-    UserInfoListView, UserInfoEdit, CreateStandartSections, StandartSectionsListView
+    UserInfoListView, UserInfoEdit, CreateStandartSections, StandartSectionsListView, StandartSectionsEditView
 
 app_name = 'admins'
 
@@ -30,4 +30,6 @@ urlpatterns = [
     # Standart Sections
     path('sections_create/', CreateStandartSections.as_view(), name='admins_sections_create'),
     path('sections/', StandartSectionsListView.as_view(), name='admins_sections'),
+    path('sections_update/<int:pk>', StandartSectionsEditView.as_view(), name='admins_sections_update'),
+
 ]
