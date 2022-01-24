@@ -280,3 +280,18 @@ class CreateStandartSections(CreateView):
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, request, *args, **kwargs):
         return super(CreateStandartSections, self).dispatch(request, *args, **kwargs)
+
+
+
+class StandartSectionsListView(ListView):
+    model = StandardSection
+    template_name = 'admins/admin-standartsections.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(StandartSectionsListView, self).get_context_data(**kwargs)
+        context['title'] = 'Standard sections'
+        return context
+
+    @method_decorator(user_passes_test(lambda u: u.is_superuser))
+    def dispatch(self, request, *args, **kwargs):
+        return super(StandartSectionsListView, self).dispatch(request, *args, **kwargs)

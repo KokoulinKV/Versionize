@@ -2,7 +2,7 @@ from django.urls import path
 
 from admins.views import UserCreateView, UserListView, UserEditView, UserDeleteView, UserRehubView, CompanyListView, \
     CompanyEditView, CompanyCreateView, CompanyAdminDelete, CompanyAdminDeleteMessage, UserAddInfoView, \
-    UserInfoListView, UserInfoEdit, CreateStandartSections
+    UserInfoListView, UserInfoEdit, CreateStandartSections, StandartSectionsListView
 
 app_name = 'admins'
 
@@ -28,5 +28,6 @@ urlpatterns = [
     path('companies_delete/<int:pk>', CompanyAdminDelete.as_view(), name='admins_companies_delete'),
 
     # Standart Sections
-    path('sections/', CreateStandartSections.as_view(), name='admins_sections_create'),
+    path('sections_create/', CreateStandartSections.as_view(), name='admins_sections_create'),
+    path('sections/', StandartSectionsListView.as_view(), name='admins_sections'),
 ]
