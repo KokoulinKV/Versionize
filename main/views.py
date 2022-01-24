@@ -214,7 +214,6 @@ class DocumentDownload(LoginRequiredMixin, TemplateView):
                 return response
         raise Http404
 
-
 class DocumentDownloadAllOfTotal(LoginRequiredMixin, TemplateView):
     template_name = 'main/total.html'
 
@@ -250,3 +249,40 @@ class DocumentDownloadAllOfTotal(LoginRequiredMixin, TemplateView):
                 response['Content-Disposition'] = 'inline; filename=' + f'{translit_zip_name}'
                 return response
         raise Http404
+
+class DocumentDownloadAllOfSection(LoginRequiredMixin, TemplateView):
+    template_name = 'main/total.html'
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        section = Section.objects.filter(id=context['pk']).values('name')[0]['name']
+        documents = Document.objects.filter(section_id=context['pk']).values('doc_path')
+        files_download = []
+        for document in documents:
+            document = document['doc_path']
+            dir, document = document.split('/')
+            files_download.append(document)
+
+        document_dir = os.path.join(settings.MEDIA_ROOT, dir)
+        zip_name = f'{section}_docs.zip'
+        translit_zip_name = translit(zip_name, language_code='ru', reversed=True)
+        zip_path = f'{settings.MEDIA_ROOT}/downloads/{zip_name}'
+        archive = zipfile.ZipFile(zip_path, 'w')
+        rootdir = os.path.basename(document_dir)
+
+        for root, dir, files in os.walk(document_dir):
+            for file in files:
+                if file in files_download:
+                    filepath = os.path.join(root, file)
+                    parentpath = os.path.relpath(filepath, document_dir)
+                    arcname = os.path.join(rootdir, parentpath)
+                    archive.write(filepath, arcname)
+        archive.close()
+
+        if os.path.exists(zip_path):
+            with open(zip_path, 'rb') as fh:
+                response = HttpResponse(fh.read(), content_type="application/zip", )
+                response['Content-Disposition'] = 'inline; filename=' + f'{translit_zip_name}'
+                return response
+        raise Http404
+

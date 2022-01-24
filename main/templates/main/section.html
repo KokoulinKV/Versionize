@@ -77,7 +77,7 @@ Versionize | Section card
                 <div class="relative-table__title">
                     <div class="relative-table__left-block"><i class='bx bx-detail'></i> Таблица</div>
                     <div class="relative-table__right-block">
-                        <button>Скачать все</button>
+                        <a href="{% url 'main:document_download_all_section' section.id %}"><button>Скачать все</button></a>
                     </div>
                 </div>
                 <form action="#" class="form-table">
