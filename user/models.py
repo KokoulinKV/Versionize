@@ -1,5 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class User(AbstractUser):
@@ -81,7 +83,6 @@ class UserCompanyInfo(models.Model):
     user = models.OneToOneField(
         User,
         unique=True,
-        null=False,
         db_index=True,
         on_delete=models.CASCADE,
         verbose_name='Пользователь',
@@ -95,6 +96,8 @@ class UserCompanyInfo(models.Model):
         Company,
         on_delete=models.CASCADE,
         verbose_name='Организация',
+        blank=True,
+        null=True
     )
     expert = models.BooleanField(
         default=False,
@@ -108,10 +111,17 @@ class UserCompanyInfo(models.Model):
         default=False,
         verbose_name='Помощник',
     )
-    position = models.CharField(verbose_name='Роль',
-                                max_length=128,
-                                blank=True)
+    position = models.CharField(
+        verbose_name='Роль',
+        max_length=128,
+        blank=True,
+        null=True)
 
     class Meta:
         verbose_name = 'Организация'
         verbose_name_plural = "Организации"
+
+    @receiver(post_save, sender=User)
+    def create_userinfo(sender, instance, created, **kwargs):
+        if created:
+            UserCompanyInfo.objects.create(user=instance)
