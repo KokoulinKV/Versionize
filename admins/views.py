@@ -263,7 +263,7 @@ class CompanyAdminDelete(UpdateView):
 
 
 '''
-    Views for standartsections:  create 
+    Views for standartsections:  list, create, edit, delete message and delete 
 '''
 
 class CreateStandartSections(CreateView):
