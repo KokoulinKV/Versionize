@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
+from main.models import StandardSection
 from user.models import User, Company, UserCompanyInfo
 
 
@@ -173,3 +174,31 @@ class CompanyEditForm(forms.ModelForm):
     class Meta:
         model = Company
         fields = ('name', 'manager', 'phone', 'email',)
+
+
+
+class StandardSectionCreateForm(forms.ModelForm):
+    PROJECT_TYPE_CHOICES = {
+        (1, 'Площадной'),
+        (2, 'Линейный'),
+    }
+    abbreviation = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'class': 'form-control py-8',
+                   'placeholder': 'Введите название организации'}),
+        max_length=16
+    )
+    name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'class': 'form-control py-8',
+                   'placeholder': 'Введите название организации'}),
+        max_length=256
+    )
+    project_type = forms.ChoiceField(
+        choices=PROJECT_TYPE_CHOICES,
+        widget=forms.Select(attrs={'class': 'form-control py-8'})
+    )
+
+    class Meta:
+        model = StandardSection
+        fields = ('abbreviation', 'name', 'project_type', )
