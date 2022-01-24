@@ -2,7 +2,7 @@ from django.urls import path
 
 # !Дать нормальные названия, передалть в cbv
 from main.views import TotalListView, CompanyListView, SectionDetailView, DocumentDetailView, Index, DocumentDownload, \
-    DocumentDownloadAllOfTotal
+    DocumentDownloadAllOfTotal, DocumentDownloadAllOfSection
 
 
 app_name = 'main'
@@ -15,4 +15,5 @@ urlpatterns = [
     path('total/', TotalListView.as_view(), name='total'),
     path('document_download/<int:pk>', DocumentDownload.as_view(), name='document_download'),
     path('document_download_all/<int:pk>', DocumentDownloadAllOfTotal.as_view(), name='document_download_all'),
+    path('document_download_all_section/<int:pk>', DocumentDownloadAllOfSection.as_view(), name='document_download_all_section'),
 ]
