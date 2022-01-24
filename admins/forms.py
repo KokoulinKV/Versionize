@@ -82,7 +82,7 @@ class UserAddInfoForm(forms.ModelForm):
 
     class Meta:
         model = UserCompanyInfo
-        fields = ('__all__',)
+        fields = ('__all__')
 
 
 class UserCompanyInfoForm(forms.ModelForm):
