@@ -934,6 +934,89 @@ body {
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
   margin-bottom: 30px !important;
+  padding: 2rem 2.25rem;
+}
+
+.project-progress__title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.project-progress__title a {
+  color: #181c32 !important;
+  word-wrap: break-word;
+  font-size: 1.15rem !important;
+  font-weight: 600 !important;
+}
+
+.project-progress__title span {
+  color: #a1a5b7 !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+}
+
+.project-progress__bar {
+  margin-top: 2.5rem !important;
+}
+
+.project-progress__bar-title {
+  color: #181c32 !important;
+  font-weight: 600 !important;
+  padding-bottom: 0.75rem !important;
+}
+
+.project-progress__bar-container {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.project-progress__load {
+  white-space: nowrap;
+  width: 75%;
+  -webkit-transition: width 0.6s ease;
+  transition: width 0.6s ease;
+  height: 5px;
+  background: red;
+  border-radius: 5px;
+}
+
+.project-progress__team {
+  margin-top: 2rem !important;
+}
+
+.project-progress__team-title {
+  color: #181c32 !important;
+  font-weight: 600 !important;
+  padding-bottom: 0.75rem !important;
+}
+
+.project-progress__man {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.project-progress__man a {
+  display: inline-block;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  position: relative;
+  border-radius: 0.95rem;
+}
+
+.project-progress__man img {
+  width: 35px;
+  height: 35px;
 }
 
 .notification {
