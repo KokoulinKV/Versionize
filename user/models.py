@@ -122,6 +122,12 @@ class UserCompanyInfo(models.Model):
         verbose_name = 'Организация'
         verbose_name_plural = "Организации"
 
+    def save(self, *args, **kwargs):
+        if int(self.expert + self.assistant + self.chief_project_engineer) > 1:
+            raise ValidationError('Пользователь не может совмещать позиции ГИПа, ассистента и эксперта одновременно')
+        else:
+            return super(UserCompanyInfo, self).save(*args, **kwargs)
+
     @receiver(post_save, sender=User)
     def create_userinfo(sender, instance, **kwargs):
         if kwargs['created']:
