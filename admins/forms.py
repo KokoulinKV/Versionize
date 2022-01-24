@@ -54,8 +54,8 @@ class UserCompanyInfoForm(forms.ModelForm):
     company = forms.ModelChoiceField(queryset=Company.objects.all(), empty_label=None,
                                      widget=forms.Select(attrs={'class': 'form-control py-8',
                                                                 'placeholder': 'Введите название организации'}))
-    department = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control py-8', 'placeholder': 'Введите название отдела'}))
+    department = forms.CharField(required=False,
+                                 widget=forms.TextInput(attrs={'class': 'form-control py-8', 'placeholder': 'Введите название отдела'}))
     expert = forms.BooleanField(required=False)
     chief_project_engineer = forms.BooleanField(required=False)
     assistant = forms.BooleanField(required=False)
@@ -69,13 +69,20 @@ class CompanyRegistrationFrom(forms.ModelForm):
     name = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control py-8', 'placeholder': 'Введите название организации'}))
     phone = forms.CharField(
+        required=False,
         widget=forms.TextInput(attrs={'class': 'form-control py-8', 'placeholder': 'Введите номер телефона'}))
     email = forms.CharField(
+        required=False,
         widget=forms.EmailInput(attrs={'class': 'form-control py-8', 'placeholder': 'Введите email'}))
+    manager = forms.ModelChoiceField(
+        required=False,
+        queryset=User.objects.all(),
+        empty_label='Выберете пользователя',
+        widget=forms.Select(attrs={'class': 'form-control py-8', 'placeholder': 'Выберите менеджера'}))
 
     class Meta:
         model = Company
-        fields = ('name', 'phone', 'email',)
+        fields = ('name', 'phone', 'email', 'manager')
 
 
 class CompanyEditForm(forms.ModelForm):

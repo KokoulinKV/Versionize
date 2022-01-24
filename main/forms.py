@@ -11,7 +11,7 @@ class DocumentForm(forms.ModelForm):
     doc_path = forms.FileField(required=False, widget=forms.FileInput(attrs={'class': 'form__input',
                                                                              'accept': ".pdf"}))
     section = forms.ModelChoiceField(queryset=Section.objects.all())
-    note = forms.CharField(widget=forms.Textarea(attrs={'class': 'form__textarea'}))
+    note = forms.CharField(required=False, widget=forms.Textarea(attrs={'class': 'form__textarea'}))
 
     class Meta:
         model = Document
