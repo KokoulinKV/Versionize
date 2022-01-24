@@ -64,3 +64,6 @@ submitSec.addEventListener('click', (e) => {
 newForm_close.addEventListener('click', (e) => {
     newForm.classList.toggle('new-form_open')
 })
+
+
+

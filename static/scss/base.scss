@@ -933,6 +933,10 @@ body {
     position: absolute;
     background: #fff;
     bottom: 60px;
+    display: none;
+    &_open {
+        display: block;
+    }
     &__header {
         background-size: cover;
         padding: 1.5rem 0.5rem;
