@@ -311,3 +311,36 @@ class StandartSectionsEditView(UpdateView):
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, request, *args, **kwargs):
         return super(StandartSectionsEditView, self).dispatch(request, *args, **kwargs)
+
+
+class StandartSectionsDeleteMessage(UpdateView):
+    model = StandardSection
+    template_name = 'admins/admin-sections-message.html'
+    form_class = StandardSectionCreateForm
+    success_url = reverse_lazy('admins:admins_sections')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(StandartSectionsDeleteMessage, self).get_context_data(**kwargs)
+        context['title'] = 'Message'
+        return context
+
+    @method_decorator(user_passes_test(lambda u: u.is_superuser))
+    def dispatch(self, request, *args, **kwargs):
+        return super(StandartSectionsDeleteMessage, self).dispatch(request, *args, **kwargs)
+
+
+class StandartSectionsDelete(UpdateView):
+    model = StandardSection
+    template_name = 'admins/admin-sections-message.html'
+    form_class = StandardSectionCreateForm
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(StandartSectionsDelete, self).get_context_data(**kwargs)
+        context['title'] = 'Users'
+        return context
+
+    @method_decorator(user_passes_test(lambda u: u.is_superuser))
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.delete()
+        return HttpResponseRedirect(reverse_lazy('admins:admins_sections'))
