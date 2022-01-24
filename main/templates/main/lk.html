@@ -65,7 +65,7 @@
                 <h2 class="block-title">Выбрать актив. проект</h2>
                 <div class="form__select">
                     {% user-projects user.id as projects%}
-                    <select>
+                    <select id="activeProjectChge">
                         {% for project in projects%}
                         <option value="{{ project.code }}">{{ project.code }}</option>
                         {% endfor %}
