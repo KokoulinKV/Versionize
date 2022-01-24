@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -122,6 +123,6 @@ class UserCompanyInfo(models.Model):
         verbose_name_plural = "Организации"
 
     @receiver(post_save, sender=User)
-    def create_userinfo(sender, instance, created, **kwargs):
-        if created:
+    def create_userinfo(sender, instance, **kwargs):
+        if kwargs['created']:
             UserCompanyInfo.objects.create(user=instance)
