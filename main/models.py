@@ -19,7 +19,7 @@ class Project(models.Model):
     created_at = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
     exp_date = models.DateField(blank=True, null=True, verbose_name='Срок экспертизы')
     next_upload = models.DateField(blank=True, null=True, verbose_name='Следующая загрузка')
-    admin = models.ForeignKey(User, blank=True, null=True, db_index=True, on_delete=models.CASCADE, verbose_name='ГИП')
+    admin = models.ForeignKey(User, db_index=True, on_delete=models.CASCADE, verbose_name='ГИП')
     project_type = models.IntegerField(blank=True, null=True, choices=PROJECT_TYPE_CHOICES, verbose_name='Тип объекта')
 
     class Meta:
@@ -46,7 +46,7 @@ class StandardSection(models.Model):
     abbreviation = models.CharField(max_length=16)
     name = models.CharField(max_length=256)
     project_type = models.IntegerField(
-        blank=True, choices=PROJECT_TYPE_CHOICES)
+        blank=True, null=True, choices=PROJECT_TYPE_CHOICES)
 
     def __str__(self):
         return self.abbreviation
@@ -59,13 +59,13 @@ class Section(models.Model):
     # TODO поле не должно иметь возможности оставаться пустым при запуске проекта.
     #  Сделано для разработки.
     abbreviation = models.CharField(
-        max_length=16, blank=True, verbose_name='Аббревиатура')
+        max_length=16, verbose_name='Аббревиатура')
     company = models.ForeignKey(
-        Company, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Организация')
+        Company, blank=True, null=True, on_delete=models.CASCADE, verbose_name='Организация',)
     responsible = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, null=True, db_index=True, verbose_name='Ответственный')
-    expert = models.ForeignKey(User, on_delete=models.CASCADE, blank=True,
-                               null=True, related_name='expert_id', verbose_name='Эксперт')
+    expert = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True,
+                               related_name='expert_id', verbose_name='Эксперт')
 
     def __str__(self):
         return self.name
@@ -117,7 +117,7 @@ class Document(models.Model):
     variation = models.IntegerField(verbose_name='Изменение')
     # TODO Предусмотреть автоматический расчёт md5
     md5 = models.CharField(max_length=32)
-    status = models.CharField(max_length=20,
+    status = models.CharField(max_length=20, blank=True,
                               choices=STATUS_CHOICES,
                               verbose_name='Статус')
     created_at = models.DateTimeField(auto_now=True, verbose_name='Создан')
@@ -202,7 +202,7 @@ class Remark(models.Model):
     expert = models.ForeignKey(User,
                                on_delete=models.CASCADE,
                                verbose_name='Эксперт')
-    date = models.DateField(auto_now=True, verbose_name='Дата')
+    date = models.DateField(verbose_name='Дата')
     body = models.CharField(max_length=1024, verbose_name='Содержание')
     link = models.CharField(max_length=256, blank=True, verbose_name='Ссылка')
     basis = models.CharField(max_length=512,
@@ -227,14 +227,19 @@ class Comment(models.Model):
     recipient = models.ForeignKey(User,
                                   on_delete=models.CASCADE,
                                   related_name='recipient',
-                                  verbose_name='Получатель')
+                                  verbose_name='Получатель',
+                                  blank=True,)
     document = models.ForeignKey(Document,
                                  on_delete=models.CASCADE,
-                                 verbose_name='Документ')
+                                 verbose_name='Документ',
+                                 blank=True,
+                                 null=True)
     reply_to = models.ForeignKey('self',
                                  on_delete=models.CASCADE,
                                  related_name='parent',
-                                 verbose_name='Переслать')
+                                 verbose_name='Переслать',
+                                 blank=True,
+                                 null=True,)
     created_at = models.DateTimeField(auto_now=True,
                                       verbose_name='Дата создания')
     body = models.CharField(max_length=1024, verbose_name='Содержание')

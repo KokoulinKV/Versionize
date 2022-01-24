@@ -14,11 +14,11 @@ class User(AbstractUser):
     phone = models.CharField(
         verbose_name='Номер телефона',
         max_length=20,
-        null=True,
+        blank=True,
     )
     patronymic = models.CharField(verbose_name='Отчество',
                                   max_length=30,
-                                  null=True)
+                                  blank=True)
 
     def get_fullname(self):
         return f'{self.last_name} {self.first_name} {self.patronymic}'
@@ -57,17 +57,18 @@ class Company(models.Model):
     )
     phone = models.CharField(
         max_length=20,
-        null=True,
+        blank=True,
         verbose_name='Номер телефона',
     )
     email = models.EmailField(
         max_length=256,
-        null=True,
+        blank=True,
         verbose_name='Эл. почта',
     )
     manager = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
+        blank=True,
         null=True,
         verbose_name='Менеджер',
     )
@@ -98,7 +99,7 @@ class UserCompanyInfo(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Организация',
         blank=True,
-        null=True
+        null=True,
     )
     expert = models.BooleanField(
         default=False,
@@ -115,8 +116,7 @@ class UserCompanyInfo(models.Model):
     position = models.CharField(
         verbose_name='Роль',
         max_length=128,
-        blank=True,
-        null=True)
+        blank=True)
 
     class Meta:
         verbose_name = 'Организация'
