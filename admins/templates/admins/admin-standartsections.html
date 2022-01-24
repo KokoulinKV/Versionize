@@ -1,0 +1,57 @@
+{% extends 'admins/admin_base.html' %}
+
+{% block content %}
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid">
+                <h1 class="mt-4">Пользователи</h1>
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table mr-1"></i>
+                        Пользователи
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Тип проекта</th>
+                                    <th>Аббревиатура</th>
+                                    <th>Название раздела</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for section in object_list %}
+                                    <tr>
+                                        <td>
+                                            {% if section.project_type == 1 %}
+                                                Площадной
+                                            {% else %}
+                                                Линейный
+                                            {% endif %}</td>
+                                        <td>{{ section.abbreviation }}</td>
+                                        <td>
+                                            <a href="{% url 'admins:admins_sections_update' section.id %}"
+                                               style="color: dodgerblue">{{ section.name }}</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'admins:admins_sections_create' %}">
+                            <button class="btn btn-success">Добавить раздел</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid">
+
+            </div>
+        </footer>
+    </div>
+{% endblock %}

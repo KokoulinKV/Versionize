@@ -1,0 +1,62 @@
+{% extends 'admins/admin_base.html' %}
+
+{% block content %}
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid">
+                <h1 class="mt-4">Редактирование сведений о разделе | {{ standardsection.name }}</h1>
+                {% for errors in form.errors %}
+                    {{ errors }}
+                {% endfor %}
+                <div class="card-body">
+                    <form action="{% url 'admins:admins_sections_update' standardsection.id %}" method="post"
+                          enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="small mb-1" for="{{ form.abbreviation.id_for_label }}">Аббревиатура</label>
+                                    {{ form.abbreviation }}
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="small mb-1" for="{{ form.name.id_for_label }}">Название</label>
+                                    {{ form.name }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="small mb-1" for="{{ form.project_type.id_for_label }}">Тип проекта</label>
+                                    {{ form.project_type }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-12" style="margin-top: 33px;">
+                                <input class="btn btn-info btn-block" type="submit" value="Сохранить">
+                            </div>
+                        </div>
+                    </form>
+                    <form action="{% url 'admins:admins_standartsections_delete_message' standardsection.id %}" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-lg-12" style="margin-top: 33px;">
+                                <input class="btn btn-danger btn-block" type="submit" value="Удалить">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid">
+                <div class="d-flex align-items-center justify-content-between small">
+
+                </div>
+            </div>
+        </footer>
+    </div>
+{% endblock %}
