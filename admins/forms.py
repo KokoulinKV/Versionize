@@ -98,6 +98,12 @@ class UserCompanyInfoForm(forms.ModelForm):
             attrs={'class': 'form-control py-8',
                    'placeholder': 'Введите название отдела'})
     )
+    position = forms.CharField(
+        required=False,
+        widget=forms.TextInput(
+            attrs={'class': 'form-control py-8',
+                   'placeholder': 'Введите должность'})
+    )
     expert = forms.BooleanField(
         required=False
     )
@@ -110,7 +116,7 @@ class UserCompanyInfoForm(forms.ModelForm):
 
     class Meta:
         model = UserCompanyInfo
-        fields = ('company', 'department', 'expert', 'chief_project_engineer', 'assistant',)
+        fields = ('company', 'department', 'position', 'expert', 'chief_project_engineer', 'assistant',)
 
 
 class CompanyRegistrationFrom(forms.ModelForm):
