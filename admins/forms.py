@@ -6,27 +6,50 @@ from user.models import User, Company, UserCompanyInfo
 
 class UserRegistrationForm(UserCreationForm):
     username = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control py-8', 'placeholder': 'Введите никнейм'}))
+        widget=forms.TextInput(attrs={'class': 'form-control py-8',
+                                      'placeholder': 'Введите никнейм'})
+    )
     email = forms.CharField(
-        widget=forms.EmailInput(attrs={'class': 'form-control py-8', 'placeholder': 'Введите email'}))
-    image = forms.ImageField(widget=forms.FileInput(), required=False)
+        widget=forms.EmailInput(attrs={'class': 'form-control py-8',
+                                       'placeholder': 'Введите email'})
+    )
+    image = forms.ImageField(
+        required=False,
+        widget=forms.FileInput()
+    )
     first_name = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control py-8', 'placeholder': 'Введите имя'}))
+        widget=forms.TextInput(
+            attrs={'class': 'form-control py-8',
+                   'placeholder': 'Введите имя'})
+    )
     last_name = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control py-8', 'placeholder': 'Введите фамилию'}))
+        widget=forms.TextInput(
+            attrs={'class': 'form-control py-8',
+                   'placeholder': 'Введите фамилию'})
+    )
     patronymic = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control py-8', 'placeholder': 'Введите Отчество'}))
+        widget=forms.TextInput(
+            attrs={'class': 'form-control py-8',
+                   'placeholder': 'Введите Отчество'})
+    )
     phone = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control py-8', 'placeholder': 'Введите номер телефона'}))
+        widget=forms.TextInput(attrs={'class': 'form-control py-8',
+                                      'placeholder': 'Введите номер телефона'})
+    )
     password1 = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control py-8', 'placeholder': 'Введите пароль'}))
+        widget=forms.PasswordInput(attrs={'class': 'form-control py-8',
+                                          'placeholder': 'Введите пароль'})
+    )
     password2 = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control py-8', 'placeholder': 'Повторите пароль'}))
+        widget=forms.PasswordInput(attrs={'class': 'form-control py-8',
+                                          'placeholder': 'Повторите пароль'})
+    )
 
     class Meta:
         model = User
         fields = (
-            'username', 'email', 'image', 'first_name', 'last_name', 'patronymic', 'phone', 'password1', 'password2',
+            'username', 'email', 'image', 'first_name',
+            'last_name', 'patronymic', 'phone', 'password1', 'password2',
         )
 
 
@@ -35,30 +58,55 @@ class UserAddInfoForm(forms.ModelForm):
         queryset=User.objects.select_related().exclude(id__in=(UserCompanyInfo.objects.values('user'))),
         empty_label='Выберете пользователя',
         widget=forms.Select(attrs={'class': 'form-control py-8',
-                                   'placeholder': 'Выберите название организации'}))
-    company = forms.ModelChoiceField(queryset=Company.objects.all(), empty_label='Выберите организацию',
-                                     widget=forms.Select(attrs={'class': 'form-control py-8',
-                                                                'placeholder': 'Введите название организации'}))
+                                   'placeholder': 'Выберите название организации'})
+    )
+    company = forms.ModelChoiceField(
+        queryset=Company.objects.all(),
+        empty_label='Выберите организацию',
+        widget=forms.Select(attrs={'class': 'form-control py-8',
+                                   'placeholder': 'Введите название организации'})
+    )
     department = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control py-8', 'placeholder': 'Введите название отдела'}))
-    expert = forms.BooleanField(required=False)
-    chief_project_engineer = forms.BooleanField(required=False)
-    assistant = forms.BooleanField(required=False)
+        widget=forms.TextInput(attrs={'class': 'form-control py-8',
+                                      'placeholder': 'Введите название отдела'})
+    )
+    expert = forms.BooleanField(
+        required=False
+    )
+    chief_project_engineer = forms.BooleanField(
+        required=False
+    )
+    assistant = forms.BooleanField(
+        required=False
+    )
 
     class Meta:
         model = UserCompanyInfo
-        fields = ('__all__')
+        fields = ('__all__',)
 
 
 class UserCompanyInfoForm(forms.ModelForm):
-    company = forms.ModelChoiceField(queryset=Company.objects.all(), empty_label=None,
-                                     widget=forms.Select(attrs={'class': 'form-control py-8',
-                                                                'placeholder': 'Введите название организации'}))
-    department = forms.CharField(required=False,
-                                 widget=forms.TextInput(attrs={'class': 'form-control py-8', 'placeholder': 'Введите название отдела'}))
-    expert = forms.BooleanField(required=False)
-    chief_project_engineer = forms.BooleanField(required=False)
-    assistant = forms.BooleanField(required=False)
+    company = forms.ModelChoiceField(
+        queryset=Company.objects.all(),
+        empty_label=None,
+        widget=forms.Select(attrs={'class': 'form-control py-8',
+                                   'placeholder': 'Введите название организации'})
+    )
+    department = forms.CharField(
+        required=False,
+        widget=forms.TextInput(
+            attrs={'class': 'form-control py-8',
+                   'placeholder': 'Введите название отдела'})
+    )
+    expert = forms.BooleanField(
+        required=False
+    )
+    chief_project_engineer = forms.BooleanField(
+        required=False
+    )
+    assistant = forms.BooleanField(
+        required=False
+    )
 
     class Meta:
         model = UserCompanyInfo
@@ -67,18 +115,27 @@ class UserCompanyInfoForm(forms.ModelForm):
 
 class CompanyRegistrationFrom(forms.ModelForm):
     name = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control py-8', 'placeholder': 'Введите название организации'}))
+        widget=forms.TextInput(
+            attrs={'class': 'form-control py-8',
+                   'placeholder': 'Введите название организации'})
+    )
     phone = forms.CharField(
         required=False,
-        widget=forms.TextInput(attrs={'class': 'form-control py-8', 'placeholder': 'Введите номер телефона'}))
+        widget=forms.TextInput(attrs={'class': 'form-control py-8',
+                                      'placeholder': 'Введите номер телефона'})
+    )
     email = forms.CharField(
         required=False,
-        widget=forms.EmailInput(attrs={'class': 'form-control py-8', 'placeholder': 'Введите email'}))
+        widget=forms.EmailInput(attrs={'class': 'form-control py-8',
+                                       'placeholder': 'Введите email'})
+    )
     manager = forms.ModelChoiceField(
         required=False,
         queryset=User.objects.all(),
         empty_label='Выберете пользователя',
-        widget=forms.Select(attrs={'class': 'form-control py-8', 'placeholder': 'Выберите менеджера'}))
+        widget=forms.Select(attrs={'class': 'form-control py-8',
+                                   'placeholder': 'Выберите менеджера'})
+    )
 
     class Meta:
         model = Company
@@ -87,14 +144,24 @@ class CompanyRegistrationFrom(forms.ModelForm):
 
 class CompanyEditForm(forms.ModelForm):
     name = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control py-8', 'placeholder': 'Введите название организации'}))
-    manager = forms.ModelChoiceField(queryset=User.objects.select_related().exclude(
-        id__in=(Company.objects.filter(manager__isnull=False).values('manager'))), empty_label='Выберете пользователя',
-        widget=forms.Select(attrs={'class': 'form-control py-8'}))
+        widget=forms.TextInput(
+            attrs={'class': 'form-control py-8',
+                   'placeholder': 'Введите название организации'})
+    )
+    manager = forms.ModelChoiceField(
+        queryset=User.objects.select_related().exclude(
+            id__in=(Company.objects.filter(manager__isnull=False).values('manager'))),
+        empty_label='Выберете пользователя',
+        widget=forms.Select(attrs={'class': 'form-control py-8'})
+    )
     phone = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control py-8', 'placeholder': 'Введите номер телефона'}))
+        widget=forms.TextInput(attrs={'class': 'form-control py-8',
+                                      'placeholder': 'Введите номер телефона'})
+    )
     email = forms.CharField(
-        widget=forms.EmailInput(attrs={'class': 'form-control py-8', 'placeholder': 'Введите email'}))
+        widget=forms.EmailInput(attrs={'class': 'form-control py-8',
+                                       'placeholder': 'Введите email'})
+    )
 
     class Meta:
         model = Company
