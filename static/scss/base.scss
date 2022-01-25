@@ -432,6 +432,9 @@ body {
         &_center {
             text-align: center;
         }
+        &_hide{
+            display: none;
+        }
     }
 }
 .task-list {

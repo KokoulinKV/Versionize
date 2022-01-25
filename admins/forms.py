@@ -185,13 +185,13 @@ class StandardSectionCreateForm(forms.ModelForm):
     abbreviation = forms.CharField(
         widget=forms.TextInput(
             attrs={'class': 'form-control py-8',
-                   'placeholder': 'Введите название организации'}),
+                   'placeholder': 'Введите аббревиатуру раздела'}),
         max_length=16
     )
     name = forms.CharField(
         widget=forms.TextInput(
             attrs={'class': 'form-control py-8',
-                   'placeholder': 'Введите название организации'}),
+                   'placeholder': 'Введите наименование раздела'}),
         max_length=256
     )
     project_type = forms.ChoiceField(
