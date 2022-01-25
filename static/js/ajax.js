@@ -8,18 +8,20 @@ $(document).ready(function () {
             type: 'POST',
             dataType: 'json',
             data: {
-                select: $(this).val(),
+                project_id: $(this).val(),
                 csrfmiddlewaretoken: $('[name=csrfmiddlewaretoken]').val(),
             },
             // если успешно, то
             success: function (response) {
-                console.log('Успешно')
+                if (response.status == true) {
+                    alert('Вы сменили активный проект')
+                    location.reload()
+                }
             },
             // если ошибка, то
             error: function (response) {
                 // предупредим об ошибке
                 console.log('Ошибка')
-                console.log(response);
             }
         });
     });

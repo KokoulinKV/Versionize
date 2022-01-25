@@ -64,10 +64,13 @@
             <div class="project">
                 <h2 class="block-title">Выбрать актив. проект</h2>
                 <div class="form__select">
-                    {% user-projects user.id as projects%}
+                    {% user-projects user.id as projects %}
                     <select id="activeProjectChge">
-                        {% for project in projects%}
-                        <option value="{{ project.code }}">{{ project.code }}</option>
+                        {% if active_project_id %}
+                        <option value="{{ active_project_id }}">{{ active_project_code }}</option>
+                        {% endif %}
+                        {% for project in projects %}
+                        <option value="{{ project.id }}">{{ project.code }}</option>
                         {% endfor %}
                     </select>
                 </div>

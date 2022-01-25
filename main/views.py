@@ -6,11 +6,17 @@ from django.http import HttpResponse, Http404
 from django.views.generic import ListView, DetailView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from transliterate import translit
+from django.http import JsonResponse
 
 from Versionize import settings
 from main.forms import DocumentForm, AddSectionForm, CreateProjectForm
 from main.models import Section, Company, Document, Project
 
+def ajax_check(request):
+    # Проверяем отправлен ли нам post запрос через ajax
+    if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
+        return True
+    return False
 
 def _get_form(request, formcls, prefix):
     if prefix in request.POST:
@@ -57,7 +63,17 @@ class Index(LoginRequiredMixin, TemplateView):
         doc_form = _get_form(request, DocumentForm, 'doc_form_pre')
         add_section_form = _get_form(request, AddSectionForm, 'add_section_form_pre')
         create_project_form = _get_form(request, CreateProjectForm, 'create_project_form_pre')
-        # next_form = _get_form(request, NextForm, 'next_form_pre')
+        
+        # @TheSleepyNomad
+        # Выполнем проверку на ajax запрос
+        if request.method == 'POST' and ajax_check(request):
+            # В текущей версии разработки меняем только текущий активный проект
+            # Todo написать алгоритм, по которому будем определять имя функции ajax
+            project_id = request.POST.get('project_id', None) # Пользователь выбирает наименование/код, но передаем id, так как наименование пока может повторяться
+            request.session['active_project_id'] = project_id
+            response = {'status': True}
+            return JsonResponse(response)
+            
         if doc_form.is_bound and doc_form.is_valid():
             try:
                 doc_form.save()
