@@ -13,7 +13,9 @@ class UserLoginForm(AuthenticationForm):
         widget=forms.PasswordInput(attrs={'class': 'auth-form__control',
                                           'placeholder': 'Введите пароль'})
     )
-
+    remember_me = forms.BoolenField(
+        required=False,
+    )
     class Meta:
         model = User
-        fields = ('password', 'email',)
+        fields = ('password', 'email', 'remember_me')
