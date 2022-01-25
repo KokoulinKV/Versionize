@@ -13,7 +13,10 @@ $(document).ready(function () {
             },
             // если успешно, то
             success: function (response) {
-                alert('Вы сменили активный проект')
+                if (response.status == true) {
+                    alert('Вы сменили активный проект')
+                    location.reload()
+                }
             },
             // если ошибка, то
             error: function (response) {
