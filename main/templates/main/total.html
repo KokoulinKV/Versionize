@@ -79,7 +79,7 @@
                 <form action="#" class="form-table">
                     <div class="form-table__search">
                         <span>Поиск:</span>
-                        <input type="text" name="" id="">
+                        <input type="text" name="" id="tableSearch">
                     </div>
                     {% if active_project_id %}
                     {% if object_list %}
@@ -97,7 +97,7 @@
                             <th>Исполнитель</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="table">
                             {% for section in object_list %}
                             {% with section.get_latest_linked_document as document %}
 

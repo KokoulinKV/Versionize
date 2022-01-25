@@ -87,7 +87,7 @@ Versionize | Document card
                 <form action="#" class="form-table">
                     <div class="form-table__search">
                         <span>Поиск:</span>
-                        <input type="text" name="" id="">
+                        <input type="text" name="" id="tableSearch">
                     </div>
                     <table class="form-table__table">
                         <thead>
@@ -96,9 +96,9 @@ Versionize | Document card
                             <th>Код</th>
                             <th>Примечание</th>
                         </thead>
-                        <tbody>
+                        <tbody id="table">
                             {% for adjustment in document.get_linked_adjustments %}
-                            <tr class='form-table__table_odd'>
+                            <tr>
                                 <td class='form-table__table_center'>{{ adjustment.pages }}</td>
                                 <td>{{ adjustment.body }}</td>
                                 <td>{{ adjustment.code }}</td>
