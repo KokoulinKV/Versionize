@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, UpdateView, ListView
 
 from admins.forms import UserRegistrationForm, CompanyRegistrationFrom, CompanyEditForm, \
-    UserCompanyInfoForm, UserAddInfoForm, StandardSectionCreateForm
+    UserCompanyInfoForm, UserAddInfoForm, StandardSectionCreateForm, UserEditForm
 from main.models import StandardSection
 
 from user.models import User, Company, UserCompanyInfo
@@ -50,7 +50,7 @@ class UserCreateView(CreateView):
 class UserEditView(UpdateView):
     model = User
     template_name = 'admins/admin-users-edit.html'
-    form_class = UserRegistrationForm
+    form_class = UserEditForm
     success_url = reverse_lazy('admins:index')
 
     def get_context_data(self, *, object_list=None, **kwargs):
