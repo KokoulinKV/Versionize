@@ -51,16 +51,16 @@ Versionize | Company card
                         <span>Поиск:</span>
                         <input type="text" name="" id="">
                     </div>
-                    <table class="form-table__table" id="table">
+                    <table class="form-table__table" >
                         <thead>
                             <th>Название</th>
                             <th>Менеджер</th>
                             <th>Телефон</th>
                             <th>Эл.почта</th>
                         </thead>
-                        <tbody>
+                        <tbody id="table">
                             {% for company in object_list %}
-                            <tr class='form-table__table_odd'>
+                            <tr>
                                 <td class='form-table__table_center'><a href="#">{{ company.name }}</a></td>
                                 {% if not company.manager %}
                                 <td>-</td>
