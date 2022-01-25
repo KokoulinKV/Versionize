@@ -367,3 +367,44 @@ class Comment(models.Model):
     class Meta:
         verbose_name = 'Комментарий'
         verbose_name_plural = 'Комментарии'
+
+
+
+class RemarksDocs(models.Model):
+    name = models.CharField(
+        max_length=128,
+        verbose_name='Наименование',
+    )
+    doc_path = models.FileField(
+        upload_to='main_remarks',
+        verbose_name='Путь'
+    )
+    to_project = models.ForeignKey(
+        Project,
+        on_delete=models.CASCADE,
+        verbose_name='Проект',
+        blank=True,
+        null=True,
+    )
+    to_section = models.ForeignKey(
+        Section,
+        on_delete=models.CASCADE,
+        verbose_name='Раздел',
+        blank=True,
+        null=True,
+    )
+    to_document = models.ForeignKey(
+        Document,
+        on_delete=models.CASCADE,
+        verbose_name='Документ',
+        blank=True,
+        null=True,
+    )
+    created_at = models.DateTimeField(
+        auto_now=True,
+        verbose_name='Создан',
+    )
+
+    class Meta:
+        verbose_name = 'Документ'
+        verbose_name_plural = 'Документы'

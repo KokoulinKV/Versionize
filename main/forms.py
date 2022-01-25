@@ -1,6 +1,6 @@
 from django import forms
 
-from main.models import Document, Section, Project, Company
+from main.models import Document, Section, Project, Company, RemarksDocs
 from user.models import User
 
 
@@ -70,3 +70,20 @@ class CreateProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ('code', 'name', 'project_type', 'admin', 'exp_date')
+
+class AddRemarkDocProjectForm(forms.ModelForm):
+    name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form__input',
+                                      'placeholder': 'Введите имя документа'})
+    )
+    project = forms.ModelChoiceField(
+        queryset=Project.objects.all()
+    )
+    doc_path = forms.FileField(
+        required=False,
+        widget=forms.FileInput(attrs={'class': 'form__input'})
+    )
+
+    class Meta:
+        model = RemarksDocs
+        fields = ('name','project','doc_path',)
