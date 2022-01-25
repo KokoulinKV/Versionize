@@ -6,12 +6,57 @@ $(document).ready(function () {
     // console.log($('#table'));
     table_rows = $('#table').children() // Получаем список всех строк из таблицы
     for (let i = 0; i < table_rows.length; i++) {
+
         // четным устанавливаем один стиль, нечетным другой
         if (i % 2) {
+
             table_rows[i].classList.add('form-table__table_even');
+
         } else {
+
             table_rows[i].classList.add('form-table__table_odd');
+
+        };
+    };
+
+    // Так как у нас пока одна таблица, то вешаем на все кнопки
+    $('#tableSelect').change(function () {
+
+        // Проверяем есть ли уже скрытые строки
+        hide_rows = $('.form-table__table_hide')
+
+        // Если пользователь снова захочет отобразить всю таблицу
+        if ($(this).val() == '-') {
+
+            for (let i = 0; i < table_rows.length; i++) {
+
+                table_rows[i].classList.remove('form-table__table_hide');
+            };
+
         }
-    }
-    console.log(table_rows);
+        if (hide_rows.length == 0) {
+
+            // Если таблица полность отображена, то скрываем до нужного количества
+            for (let i = 0; i < table_rows.length; i++) {
+
+                if (i >= $(this).val()) {
+                    table_rows[i].classList.add('form-table__table_hide');
+                };
+            };
+        } else {
+
+            // Если строки есть, то сначала удаляем модификатор для скрытия и накладываем новый
+            for (let i = 0; i < table_rows.length; i++) {
+
+                table_rows[i].classList.remove('form-table__table_hide');
+            };
+
+            // И снова добавляем класс и скрываем лишние строки
+            for (let i = 0; i < table_rows.length; i++) {
+                if (i >= $(this).val()) {
+                    table_rows[i].classList.add('form-table__table_hide');
+                };
+            };
+        };
+    });
 });
