@@ -111,8 +111,11 @@ class TotalListView(LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         remarkdoc_form = AddRemarkDocProjectForm(prefix='remarkdoc_form_pre')
         remarkdoc_form.fields['to_project'].queryset =\
-            Project.objects.filter(id=request.session['active_project_id'])
-
+            Project.objects.filter(id=request.session['active_project_id']).filter(
+                id__in=Section.objects.filter(
+                    id__in=Document.objects.all().values('section_id')
+                ).values('project_id')
+            )
         context = self.get_context_data(**kwargs)
         to_response = {'doc_form': DocumentForm(prefix='doc_form_pre'),
                        'add_section_form': AddSectionForm(prefix='add_section_form_pre'),
@@ -161,7 +164,7 @@ class SectionDetailView(LoginRequiredMixin, DetailView):
 
         remarkdoc_form = AddRemarkDocSectionForm(prefix='remarkdoc_form_pre')
         remarkdoc_form.fields['to_section'].queryset = \
-            Section.objects.filter(id=kwargs['pk'])
+            Section.objects.filter(id=kwargs['pk']).filter(id__in=Document.objects.all().values('section_id'))
 
         to_response = {'doc_form': DocumentForm(prefix='doc_form_pre'),
                        'remarkdoc_form': remarkdoc_form,
