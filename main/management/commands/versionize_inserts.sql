@@ -69,9 +69,9 @@ INSERT INTO `user_usercompanyinfo` (`id`, `department`, `expert`, `chief_project
 INSERT INTO `user_usercompanyinfo` (`id`, `department`, `expert`, `chief_project_engineer`, `assistant`, `user_id`, `company_id`, `position`) VALUES (29, '', 1, 0, 0, 29, 10, 'Эксперт');
 INSERT INTO `user_usercompanyinfo` (`id`, `department`, `expert`, `chief_project_engineer`, `assistant`, `user_id`, `company_id`, `position`) VALUES (30, '', 1, 0, 0, 30, 10, 'Эксперт');
 
-INSERT INTO `main_project` (`id`, `name`, `created_at`, `exp_date`, `next_upload`, `admin_id`, `code`, `project_type`) VALUES (1, 'Реконструкция здания больницы', '2021-11-03 11:20:07', '2022-01-08', '2022-01-09', 2, '18-06/2021', 1);
-INSERT INTO `main_project` (`id`, `name`, `created_at`, `exp_date`, `next_upload`, `admin_id`, `code`, `project_type`) VALUES (2, 'Капитальный ремонт участка а/д м4 Дон', '2021-12-07 00:48:55', '2021-12-14', '2021-12-17', 3, '20-06/2021', 2);
-INSERT INTO `main_project` (`id`, `name`, `created_at`, `exp_date`, `next_upload`, `admin_id`, `code`, `project_type`) VALUES (3, 'Строительство 16-ти этажного дома по ул. Гоголя', '2021-07-24 23:54:46', '2022-01-09', '2021-12-18', 3, '14-05/2019', 1);
+INSERT INTO `main_project` (`id`, `name`, `created_at`, `exp_date`, `next_upload`, `admin_id`, `code`, `project_type`) VALUES (1, 'Реконструкция здания больницы', '2021-11-03 11:20:07', '2022-01-08', '2022-01-09', 2, '18-06-2021', 1);
+INSERT INTO `main_project` (`id`, `name`, `created_at`, `exp_date`, `next_upload`, `admin_id`, `code`, `project_type`) VALUES (2, 'Капитальный ремонт участка а/д м4 Дон', '2021-12-07 00:48:55', '2021-12-14', '2021-12-17', 3, '20-06-2021', 2);
+INSERT INTO `main_project` (`id`, `name`, `created_at`, `exp_date`, `next_upload`, `admin_id`, `code`, `project_type`) VALUES (3, 'Строительство 16-ти этажного дома по ул. Гоголя', '2021-07-24 23:54:46', '2022-01-09', '2021-12-18', 3, '14-05-2019', 1);
 
 INSERT INTO `main_section` (`id`, `project_id`, `name`, `company_id`, `responsible_id`, `expert_id`, `abbreviation`) VALUES (1, 1, 'Пояснительная записка', 1, 4, 30, 'ПЗ');
 INSERT INTO `main_section` (`id`, `project_id`, `name`, `company_id`, `responsible_id`, `expert_id`, `abbreviation`) VALUES (2, 1, 'Архитектурные решения', 1, 2, NULL, 'АР');
