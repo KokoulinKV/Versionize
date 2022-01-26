@@ -70,6 +70,12 @@ Versionize | Section card
                         <h3 class="actions__name">Загрузить документ</h3>
                     </div>
                 </div>
+                <div class="actions actions_section">
+                    <div class="actions__btn" id="add-remarkdoc">
+                        <span class="actions__icon"><i class='bx bx-file'></i></span>
+                        <h3 class="actions__name">Загрузить замечания</h3>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="main">
@@ -407,4 +413,38 @@ Versionize | Section card
         </div>
     </div>
 </div>
+<div class="popup" id="popup-remarkdoc">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_remarkdoc"><i class='bx bx-plus-circle form-close'></i></a>
+            <div class="popup__title">Загрузка замечаний</div>
+            <form action="" method="post" class="form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form__field">
+                    <label for="{{ remarkdoc_form.name.id_for_label }}">Наименование</label>
+                    {{ remarkdoc_form.name }}
+                </div>
+                <div class="form__field">
+                    <label for="{{ remarkdoc_form.section.id_for_label }}">Раздел</label>
+                    <div class="form__select">
+                        {{ remarkdoc_form.section }}
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label for="{{ remarkdoc_form.doc_path.id_for_label }}">Файл</label>
+                    {{ remarkdoc_form.doc_path }}
+                </div>
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn" name="{{ remarkdoc_form.prefix }}" value="Submit">
+                        Загрузить замечания
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+    <script defer src="{% static 'js/pop-up-section.js' %}"></script>
 {% endblock %}
