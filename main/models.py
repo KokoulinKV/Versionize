@@ -212,6 +212,9 @@ class Document(models.Model):
     def get_linked_adjustments(self):
         return Adjustment.objects.filter(document=self).order_by('id')
 
+    def get_doc_comments(self):
+        return Comment.objects.filter(document=self).order_by('created_at')
+
     def save(self, *args, **kwargs):
         if not self.pk:  # file is new, not update old object in database!
             md5 = hashlib.md5()
@@ -350,6 +353,7 @@ class Comment(models.Model):
         # blank=True,
         # null=True,
         verbose_name='Документ',
+        related_name='doc_comments'
     )
     # reply_to = models.ForeignKey(
     #     'self',
