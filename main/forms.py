@@ -87,3 +87,22 @@ class AddRemarkDocProjectForm(forms.ModelForm):
     class Meta:
         model = RemarksDocs
         fields = ('name','project','doc_path',)
+
+
+
+class AddRemarkDocSectionForm(forms.ModelForm):
+    name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form__input',
+                                      'placeholder': 'Введите имя документа'})
+    )
+    section = forms.ModelChoiceField(
+        queryset=Section.objects.all()
+    )
+    doc_path = forms.FileField(
+        required=False,
+        widget=forms.FileInput(attrs={'class': 'form__input'})
+    )
+
+    class Meta:
+        model = RemarksDocs
+        fields = ('name','section','doc_path',)
