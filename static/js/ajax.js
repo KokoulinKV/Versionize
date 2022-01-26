@@ -27,4 +27,36 @@ $(document).ready(function () {
             }
         });
     });
+    $('#commentInput').keydown(function (e){
+        // Проверяем что нажат именно Enter, а в значении не пробел и не пустая строка
+        if(e.keyCode === 13 && $(this).val() != ' ' && $(this).val() != ''){
+            // Сохраняем полученное сообщение и очищаем поле
+            commentBody = $(this).val()
+            console.log(commentBody);
+            $(this).val('') // очищаем поле
+            $.ajax({
+                url: "",
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    commentBody: commentBody,
+                    csrfmiddlewaretoken: $('[name=csrfmiddlewaretoken]').val(),
+                },
+                // если успешно, то
+                success: function (response) {
+                    if (response.status == true) {
+                        alert('Вы отправили сообщение')
+                        location.reload()
+                    }
+                },
+                // если ошибка, то
+                error: function (response) {
+                    // предупредим об ошибке
+                    console.log('Ошибка')
+                    console.log(response)
+                    
+                }
+            });
+        }
+    });
 });
