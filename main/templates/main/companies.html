@@ -42,25 +42,22 @@ Versionize | Company card
             <div class="relative-table">
                 <div class="relative-table__title">
                     <div class="relative-table__left-block"><i class='bx bx-detail'></i> Компании</div>
-                    <div class="relative-table__right-block">
-                        <button>Скачать все</button>
-                    </div>
                 </div>
                 <form action="#" class="form-table">
                     <div class="form-table__search">
                         <span>Поиск:</span>
-                        <input type="text" name="" id="">
+                        <input type="text" name="" id="tableSearch">
                     </div>
-                    <table class="form-table__table">
+                    <table class="form-table__table" >
                         <thead>
                             <th>Название</th>
                             <th>Менеджер</th>
                             <th>Телефон</th>
                             <th>Эл.почта</th>
                         </thead>
-                        <tbody>
+                        <tbody id="table">
                             {% for company in object_list %}
-                            <tr class='form-table__table_odd'>
+                            <tr>
                                 <td class='form-table__table_center'><a href="#">{{ company.name }}</a></td>
                                 {% if not company.manager %}
                                 <td>-</td>
@@ -75,7 +72,8 @@ Versionize | Company card
                     </table>
                 </form>
                 <div class="relative-table__footer">
-                    <ul class="relative-table__paginator">
+                    <!-- Todo восстановить, когда будет готов функционал -->
+                    <!-- <ul class="relative-table__paginator">
                         <li>
                             <a href="#"><span>«</span></a>
                         </li>
@@ -84,12 +82,13 @@ Versionize | Company card
                         <li><a href=""><span>3</span></a></li>
                         <li><a href=""><span>4</span></a></li>
                         <li><a href=""><span>»</span></a></li>
-                    </ul>
+                    </ul> -->
                     <div class="relative-table__select">
-                        <select name="" id="">
-                            <option value="0: 2">2 строки</option>
-                            <option value="0: 6">4 строки</option>
-                            <option value="0: 10">10 строк</option>
+                        <select name="" id="tableSelect">
+                            <option value="2">2 строки</option>
+                            <option value="4">4 строки</option>
+                            <option value="10">10 строк</option>
+                            <option value="-">Показать все</option>
                         </select>
                     </div>
                 </div>

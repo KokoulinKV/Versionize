@@ -12,6 +12,7 @@
         Versionize | User Profile
         {% endblock %}
     </title>
+    <link rel="shortcut icon" href="{% static 'img/app_icon_542px.ico' %}">
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
     <!--  -->
@@ -99,62 +100,12 @@
     </nav>
     <main class="workspace">
         {% block workspace %}
-
         {% endblock %}
     </main>
     <!-- ============== POP UP ============== -->
     <!-- Формы вызова уневерсальная, чтобы ее вызвать в классе элемента должен быть класс popupBtn -->
     {% block popup %}
-
     {% endblock %}
-
-    <!-- Код Александра -->
-    <!-- <div class="project">
-        <div class="project__bar">
-            <div class="project__name">
-                <h3>{{ active_project_code }}</h3><span>{{ active_project_name }}</span>
-            </div>
-            <div class="project__data">Следующая загрузка: {{ active_project_next_upload|date:'d.m.y' }}</div>
-            <div class="project__data">Итоговая загрузка: {{ active_project_exp_date|date:'d.m.y' }}</div>
-        </div>
-    </div>
-    <div class="workspace__container">
-        <div class="workspace__left">
-            <div class="user">
-                <div class="user__info">
-                    <h4>Иванов Иван Иванович</h4>
-                    <p>СтройСнапПродакшн</p>
-                    <p>Должность: Директор</p>
-                    <p>Роль: ГИП</p>
-                </div>
-                <div class="user__avatar">
-                    <div class="user__photo">
-                        <img class="" width="150px"
-                            src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-                    </div>
-                </div>
-            </div>
-            <div class="user-settings">
-                <p>E-mail: test@yandex.ru</p>
-                <p>Тел: 8(800)540-56-23</p>
-                <p>Факс: 8(800)540-56-23</p>
-            </div>
-            <div class="user-projects">
-                <h1>Проекты</h1>
-                <div class="user-projects__content">
-                    <h3 class="user-projects__sign">18-03/2021</h3>
-                    <h3>"Реконструкция производстенного здания на территории фабрики"</h3>
-                </div>
-                <div class="user-projects__content">
-                    <h3 class="user-projects__sign">55-12/2021</h3>
-                    <h3>"Строительство 18-ти этажного здания на участке с кадастровым номером 23:2342:10000023:14"
-                    </h3>
-                </div>
-            </div>
-        </div>
-        <div class="workspace__right"></div>
-    </div> -->
-
 </body>
 <!-- defer - ждем загрузки страницы -->
 <!-- Todo перейти на jquery, чтобы запускать скрипты после загрузки контента -->
@@ -163,5 +114,6 @@
 <script defer src="{% static 'js/side-nav.js' %}"></script>
 <script defer src="{% static 'js/ajax.js' %}"></script>
 <script defer src="{% static 'js/not-pop.js' %}"></script>
+<script defer src="{% static 'js/style.js' %}"></script>
 
 </html>

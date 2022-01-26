@@ -79,7 +79,7 @@
                 <form action="#" class="form-table">
                     <div class="form-table__search">
                         <span>Поиск:</span>
-                        <input type="text" name="" id="">
+                        <input type="text" name="" id="tableSearch">
                     </div>
                     {% if active_project_id %}
                     {% if object_list %}
@@ -97,7 +97,7 @@
                             <th>Исполнитель</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="table">
                             {% for section in object_list %}
                             {% with section.get_latest_linked_document as document %}
 
@@ -151,7 +151,8 @@
                     {% endif %}
                 </form>
                 <div class="relative-table__footer">
-                    <ul class="relative-table__paginator">
+                    <!-- Todo восстановить, когда будет готов функционал -->
+                    <!-- <ul class="relative-table__paginator">
                         <li>
                             <a href="#"><span>«</span></a>
                         </li>
@@ -160,12 +161,13 @@
                         <li><a href=""><span>3</span></a></li>
                         <li><a href=""><span>4</span></a></li>
                         <li><a href=""><span>»</span></a></li>
-                    </ul>
+                    </ul> -->
                     <div class="relative-table__select">
-                        <select name="" id="">
-                            <option value="0: 2">2 строки</option>
-                            <option value="0: 6">4 строки</option>
-                            <option value="0: 10">10 строк</option>
+                        <select name="" id="tableSelect">
+                            <option value="2">2 строки</option>
+                            <option value="6">4 строки</option>
+                            <option value="10">10 строк</option>
+                            <option value="-">Показать все</option>
                         </select>
                     </div>
                 </div>

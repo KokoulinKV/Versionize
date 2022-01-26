@@ -13,7 +13,7 @@ class UserLoginForm(AuthenticationForm):
         widget=forms.PasswordInput(attrs={'class': 'auth-form__control',
                                           'placeholder': 'Введите пароль'})
     )
-
+    
     class Meta:
         model = User
         fields = ('password', 'email',)

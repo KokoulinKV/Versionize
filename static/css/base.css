@@ -519,6 +519,10 @@ body {
   text-align: center;
 }
 
+.form-table__table_hide {
+  display: none;
+}
+
 .task-list {
   width: 100%;
 }
