@@ -139,38 +139,25 @@ Versionize | Document card
                     <div class="comment-box__body">
                         <div class="comment-box__scroll-area">
                             <div class="comment-box__prefer-scroll">
+                                {% for comment in document.get_doc_comments %}
                                 <div class="comment-box__message">
                                     <div class="comment-box__avatar">
                                         <img class="" width="125px"
                                             src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
                                     </div>
                                     <div class="comment-box__text-body">
-                                        <div class="comment-box__text">Lorem ipsum, dolor sit amet consectetur
-                                            adipisicing elit. Sapiente magni eligendi eius quaerat officiis quis
-                                            placeat est a ad ex.</div>
+                                        <div class="comment-box__text">{{ comment.body }}</div>
                                         <div class="comment-box__data">
-                                            <i class='bx bxs-calendar'></i>11:01 | Вчера
+                                            <i class='bx bxs-calendar'></i>{{ comment.created_at|date:'d.m.Y H:i:s'}}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="comment-box__my-message">
-                                    <div class="comment-box__text-body">
-                                        <div class="comment-box__my-text">Lorem ipsum dolor sit amet consectetur
-                                            adipisicing elit. Veniam, quos.</div>
-                                        <div class="comment-box__my-data">
-                                            <i class='bx bxs-calendar'></i>11:01 | Вчера
-                                        </div>
-                                    </div>
-                                    <div class="comment-box__avatar">
-                                        <img class="" width="125px"
-                                            src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-                                    </div>
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
                     <div class="comment-box__footer">
-                        <input type="text" class="comment-box__input" placeholder="Отправить....">
+                        <input type="text" class="comment-box__input" placeholder="Отправить...." id="#commentInput">
                     </div>
                 </div>
             </div>
