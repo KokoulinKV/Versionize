@@ -23,7 +23,7 @@ if __name__ == "__main__":
     conn = sqlite3.connect(os.path.join(BASE_DIR, 'db.sqlite3'))
     cursor = conn.cursor()
 
-    with open('versionize_inserts.sql') as file:
+    with open('versionize_inserts.sql', 'r', encoding='utf-8') as file:
         for sql_command in file.readlines():
             cursor.execute(f'{sql_command}')
             conn.commit()
