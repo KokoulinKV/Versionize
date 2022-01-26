@@ -22,5 +22,5 @@ def get_user_project(filter=None):
         return Notification.objects.all()
 
     else:
-        return Notification.objects.filter(to_user=filter).exclude(user_has_seen=True).order_by('-date')
+        return Notification.objects.filter(to_user=filter).exclude(user_has_seen=True).order_by('-data')
 
