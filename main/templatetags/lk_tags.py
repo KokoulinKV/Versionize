@@ -16,8 +16,11 @@ def get_user_project(filter=None):
     else:
         return Project.objects.filter(admin_id=filter)
 
-@register.inclusion_tag('main/lk.html', takes_context=True)
-def show_notifications(context):
-    request_user = context['request'].user
-    notifications = Notification.objects.filter(to_user=request.user.id).exclude(user_has_seen=True).order_by('-date')
-    return {'notifications': notifications}
+@register.simple_tag(name='notifications')
+def get_user_project(filter=None):
+    if not filter:
+        return Notification.objects.all()
+
+    else:
+        return Notification.objects.filter(to_user=filter).exclude(user_has_seen=True).order_by('-date')
+
