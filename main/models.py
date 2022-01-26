@@ -89,7 +89,7 @@ class Section(models.Model):
         verbose_name='Проект',
     )
     name = models.CharField(
-        max_length=64,
+        max_length=256,
         verbose_name='Наименование',
     )
     # TODO поле не должно иметь возможности оставаться пустым при запуске проекта.
