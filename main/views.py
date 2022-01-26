@@ -47,19 +47,15 @@ class Index(LoginRequiredMixin, TemplateView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Versionize - Сводная таблица проекта'
-        context['document'] = DocumentForm(instance=self.request.document)
-        context['add_section'] = AddSectionForm(instance=self.request.add_section)
-        context['create_project'] = CreateProjectForm(instance=self.request.create_project)
-        # context['next_form'] = NextForm(instance=self.request.next_form)
         return context
 
     def get(self, request, *args, **kwargs):
-        return self.render_to_response(
-            {'doc_form': DocumentForm(prefix='doc_form_pre'),
+        context = self.get_context_data(**kwargs)
+        to_response = {'doc_form': DocumentForm(prefix='doc_form_pre'),
              'add_section_form': AddSectionForm(prefix='add_section_form_pre'),
-             'create_project_form': CreateProjectForm(prefix='create_project_form_pre')})
-        # return self.render_to_response({'doc_form': DocumentForm(prefix='doc_form_pre'),
-        #                                  'next_form': NextForm(prefix='next_form_pre')})
+             'create_project_form': CreateProjectForm(prefix='create_project_form_pre')}
+        to_response = to_response | context
+        return self.render_to_response(to_response)
 
     def post(self, request, *args, **kwargs):
         doc_form = _get_form(request, DocumentForm, 'doc_form_pre')
@@ -94,12 +90,9 @@ class Index(LoginRequiredMixin, TemplateView):
         elif create_project_form.is_bound and create_project_form.is_valid():
             create_project_form.save()
             create_project_form.data = clear_form_data(create_project_form.data)
-        # elif next_form.is_bound and next_form.is_valid():
-        # next_form.save()
         return self.render_to_response({'doc_form': doc_form,
                                         'add_section_form': add_section_form,
                                         'create_project_form': create_project_form})
-        # return self.render_to_response({'doc_form': doc_form}, {'next_form': next_form})
 
 
 class TotalListView(LoginRequiredMixin, TemplateView):
@@ -113,17 +106,24 @@ class TotalListView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Versionize - Сводная таблица проекта'
-        context['document'] = DocumentForm(instance=self.request.document)
-        context['add_section'] = AddSectionForm(instance=self.request.add_section)
-        context['remarkdoc'] = AddRemarkDocProjectForm(instance=self.request.remarkdoc)
         return context
 
     def get(self, request, *args, **kwargs):
-        return self.render_to_response(
-            {'doc_form': DocumentForm(prefix='doc_form_pre'),
-             'add_section_form': AddSectionForm(prefix='add_section_form_pre'),
-             'remarkdoc_form': AddRemarkDocProjectForm(prefix='remarkdoc_form_pre'),
-             'object_list': self.get_queryset()})
+        remarkdoc_form = AddRemarkDocProjectForm(prefix='remarkdoc_form_pre')
+        remarkdoc_form.fields['to_project'].queryset =\
+            Project.objects.filter(id=request.session['active_project_id']).filter(
+                id__in=Section.objects.filter(
+                    id__in=Document.objects.all().values('section_id')
+                ).values('project_id')
+            )
+        context = self.get_context_data(**kwargs)
+        to_response = {'doc_form': DocumentForm(prefix='doc_form_pre'),
+                       'add_section_form': AddSectionForm(prefix='add_section_form_pre'),
+                       'remarkdoc_form': remarkdoc_form,
+                       'object_list': self.get_queryset()}
+        to_response = to_response | context
+        return self.render_to_response(to_response)
+
 
     def post(self, request, *args, **kwargs):
         doc_form = _get_form(request, DocumentForm, 'doc_form_pre')
@@ -159,11 +159,19 @@ class SectionDetailView(LoginRequiredMixin, DetailView):
     template_name = 'main/section.html'
 
     def get(self, request, *args, **kwargs):
-        return self.render_to_response(
-            {'doc_form': DocumentForm(prefix='doc_form_pre'),
-             'remarkdoc_form': AddRemarkDocSectionForm(prefix='remarkdoc_form_pre'),
-             'section': self.get_object()
-             })
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+
+        remarkdoc_form = AddRemarkDocSectionForm(prefix='remarkdoc_form_pre')
+        remarkdoc_form.fields['to_section'].queryset = \
+            Section.objects.filter(id=kwargs['pk']).filter(id__in=Document.objects.all().values('section_id'))
+
+        to_response = {'doc_form': DocumentForm(prefix='doc_form_pre'),
+                       'remarkdoc_form': remarkdoc_form,
+                       'section': self.get_object()}
+        to_response = to_response | context
+        return self.render_to_response(to_response)
+
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -176,13 +184,7 @@ class SectionDetailView(LoginRequiredMixin, DetailView):
         if doc_form.is_bound and doc_form.is_valid():
             try:
                 doc_form.save()
-                # Чистим форму от введенных данных
-                doc_form.data = {
-                    'doc_form_pre-status': '',
-                    'doc_form_pre-name': '',
-                    'doc_form_pre-section': '',
-                    'doc_form_pre': ''
-                }
+                doc_form.data = clear_form_data(doc_form.data)
             except ValidationError:
                 errors = 'Данная версия документа уже была загружена. Загрузите корректную новую версию.'
                 return self.render_to_response({

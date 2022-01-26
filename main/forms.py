@@ -76,8 +76,12 @@ class AddRemarkDocProjectForm(forms.ModelForm):
         widget=forms.TextInput(attrs={'class': 'form__input',
                                       'placeholder': 'Введите имя документа'})
     )
-    project = forms.ModelChoiceField(
-        queryset=Project.objects.all()
+    to_project = forms.ModelChoiceField(
+        queryset=Project.objects.filter(
+            id__in=Section.objects.filter(
+                id__in=Document.objects.all().values('section_id')
+            ).values('project_id')
+        )
     )
     doc_path = forms.FileField(
         required=False,
@@ -86,7 +90,7 @@ class AddRemarkDocProjectForm(forms.ModelForm):
 
     class Meta:
         model = RemarksDocs
-        fields = ('name','project','doc_path',)
+        fields = ('name','to_project','doc_path',)
 
 
 
@@ -95,14 +99,21 @@ class AddRemarkDocSectionForm(forms.ModelForm):
         widget=forms.TextInput(attrs={'class': 'form__input',
                                       'placeholder': 'Введите имя документа'})
     )
-    section = forms.ModelChoiceField(
-        queryset=Section.objects.all()
+    to_section = forms.ModelChoiceField(
+        queryset=Section.objects.filter(id__in=Document.objects.all().values('section_id'))
     )
     doc_path = forms.FileField(
         required=False,
         widget=forms.FileInput(attrs={'class': 'form__input'})
     )
+    
+    def save(self, commit=True):
+        remark = super(AddRemarkDocSectionForm, self).save()
+        last_doc_in_section_id =Document.objects.filter(section=remark.to_section).values('id').latest('created_at')
+        get_remark = RemarksDocs.objects.filter(id=remark.id)
+        get_remark.update(to_document=last_doc_in_section_id['id'])
+        return remark
 
     class Meta:
         model = RemarksDocs
-        fields = ('name','section','doc_path',)
+        fields = ('name','to_section','doc_path',)
