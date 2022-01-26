@@ -114,6 +114,11 @@
 <script defer src="{% static 'js/ajax.js' %}"></script>
 <script defer src="{% static 'js/not-pop.js' %}"></script>
 <script defer src="{% static 'js/style.js' %}"></script>
+<script>
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+</script>
 {% block script %}
 {% endblock %}
 
