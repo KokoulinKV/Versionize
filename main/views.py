@@ -9,8 +9,10 @@ from transliterate import translit
 from django.http import JsonResponse
 
 from Versionize import settings
-from main.forms import DocumentForm, AddSectionForm, CreateProjectForm, AddRemarkDocProjectForm
-from main.models import Section, Company, Document, Project
+
+from main.forms import DocumentForm, AddSectionForm, CreateProjectForm
+from main.models import Section, Company, Document, Project, Comment, AddRemarkDocProjectForm
+
 
 def ajax_check(request):
     # Проверяем отправлен ли нам post запрос через ajax
@@ -205,6 +207,18 @@ class DocumentDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Versionize - Документ'
         return context
+
+    def post(self, request, *args, **kwargs):
+        # @TheSleepyNomad
+        # Выполнем проверку на ajax запрос
+        if request.method == 'POST' and ajax_check(request):
+            new_comment = Comment(
+                author_id=request.user.id, 
+                document_id=self.kwargs['pk'],
+                body=request.POST.get('commentBody'),)
+            new_comment.save()
+            response = {'status': True}
+            return JsonResponse(response)
 
 
 class DocumentDownload(LoginRequiredMixin, TemplateView):

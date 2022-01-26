@@ -53,6 +53,57 @@ class UserRegistrationForm(UserCreationForm):
             'last_name', 'patronymic', 'phone', 'password1', 'password2',
         )
 
+# Временное решение
+class UserEditForm(UserCreationForm):
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control py-8',
+                                      'placeholder': 'Введите никнейм'})
+    )
+    email = forms.CharField(
+        widget=forms.EmailInput(attrs={'class': 'form-control py-8',
+                                       'placeholder': 'Введите email'})
+    )
+    image = forms.ImageField(
+        required=False,
+        widget=forms.FileInput()
+    )
+    first_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'class': 'form-control py-8',
+                   'placeholder': 'Введите имя'})
+    )
+    last_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'class': 'form-control py-8',
+                   'placeholder': 'Введите фамилию'})
+    )
+    patronymic = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'class': 'form-control py-8',
+                   'placeholder': 'Введите Отчество'})
+    )
+    phone = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control py-8',
+                                      'placeholder': 'Введите номер телефона'})
+    )
+    password1 = forms.CharField(
+        required=False,
+        widget=forms.PasswordInput(attrs={'class': 'form-control py-8',
+                                          'placeholder': 'Введите пароль'})
+    )
+    password2 = forms.CharField(
+        required=False,
+        widget=forms.PasswordInput(attrs={'class': 'form-control py-8',
+                                          'placeholder': 'Повторите пароль'})
+    )
+
+    class Meta:
+        model = User
+        fields = (
+            'username', 'email', 'image', 'first_name',
+            'last_name', 'patronymic', 'phone', 'password1', 'password2',
+        )
+
 
 class UserAddInfoForm(forms.ModelForm):
     user = forms.ModelChoiceField(
