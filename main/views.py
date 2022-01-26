@@ -10,8 +10,8 @@ from django.http import JsonResponse
 
 from Versionize import settings
 
-from main.forms import DocumentForm, AddSectionForm, CreateProjectForm
-from main.models import Section, Company, Document, Project, Comment, AddRemarkDocProjectForm
+from main.forms import DocumentForm, AddSectionForm, CreateProjectForm, AddRemarkDocSectionForm, AddRemarkDocProjectForm
+from main.models import Section, Company, Document, Project, Comment
 
 
 def ajax_check(request):
@@ -160,16 +160,19 @@ class SectionDetailView(LoginRequiredMixin, DetailView):
 
     def get(self, request, *args, **kwargs):
         return self.render_to_response(
-            {'doc_form': DocumentForm(prefix='doc_form_pre'), 'section': self.get_object()})
+            {'doc_form': DocumentForm(prefix='doc_form_pre'),
+             'remarkdoc_form': AddRemarkDocSectionForm(prefix='remarkdoc_form_pre'),
+             'section': self.get_object()
+             })
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Versionize - Раздел'
-        context['document'] = DocumentForm(instance=self.request.document)
         return context
 
     def post(self, request, *args, **kwargs):
         doc_form = _get_form(request, DocumentForm, 'doc_form_pre')
+        remarkdoc_form = _get_form(request, AddRemarkDocSectionForm, 'remarkdoc_form_pre')
         if doc_form.is_bound and doc_form.is_valid():
             try:
                 doc_form.save()
@@ -186,7 +189,12 @@ class SectionDetailView(LoginRequiredMixin, DetailView):
                     'doc_form': doc_form,
                     'errors': errors
                 })
-        return self.render_to_response({'doc_form': doc_form, 'section': self.get_object()})
+        elif remarkdoc_form.is_bound and remarkdoc_form.is_valid():
+            remarkdoc_form.save()
+            remarkdoc_form.data = clear_form_data(remarkdoc_form.data)
+        return self.render_to_response({'doc_form': doc_form,
+                                        'remarkdoc_form': remarkdoc_form,
+                                        'section': self.get_object()})
 
 
 class CompanyListView(LoginRequiredMixin, ListView):
