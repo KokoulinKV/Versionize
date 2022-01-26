@@ -332,73 +332,21 @@
             <div class="pop-mini" id="pop-min">
                 <div class="pop-mini__header">
                     <div class="pop-mini__title">Уведомления</div>
-                    <div class="pop-mini__subtitle">У Вас 13 пропущенных уведомлений</div>
+                    <div class="pop-mini__subtitle">У Вас {{ notifications.count }} пропущенных уведомлений</div>
                 </div>
                 <div class="pop-mini__body">
                     <div class="pop-mini__content">
+                        {% for notification in notifications %}
                         <div class="not">
                             <div class="not__dot">
                                 <i class='bx bx-radio-circle'></i>
                             </div>
                             <div class="not__body">
-                                <div class="not__title">Уведомление</div>
+                                <div class="not__title">Уведомление от {{ notifications.from_user }}</div>
                                 <div class="not__text">Текст уведомления</div>
                             </div>
                         </div>
-                        <div class="not">
-                            <div class="not__dot">
-                                <i class='bx bx-radio-circle'></i>
-                            </div>
-                            <div class="not__body">
-                                <div class="not__title">Уведомление</div>
-                                <div class="not__text">Текст уведомления</div>
-                            </div>
-                        </div>
-                        <div class="not">
-                            <div class="not__dot">
-                                <i class='bx bx-radio-circle'></i>
-                            </div>
-                            <div class="not__body">
-                                <div class="not__title">Уведомление</div>
-                                <div class="not__text">Текст уведомления</div>
-                            </div>
-                        </div>
-                        <div class="not">
-                            <div class="not__dot">
-                                <i class='bx bx-radio-circle'></i>
-                            </div>
-                            <div class="not__body">
-                                <div class="not__title">Уведомление</div>
-                                <div class="not__text">Текст уведомления</div>
-                            </div>
-                        </div>
-                        <div class="not">
-                            <div class="not__dot">
-                                <i class='bx bx-radio-circle'></i>
-                            </div>
-                            <div class="not__body">
-                                <div class="not__title">Уведомление</div>
-                                <div class="not__text">Текст уведомления</div>
-                            </div>
-                        </div>
-                        <div class="not">
-                            <div class="not__dot">
-                                <i class='bx bx-radio-circle'></i>
-                            </div>
-                            <div class="not__body">
-                                <div class="not__title">Уведомление</div>
-                                <div class="not__text">Текст уведомления</div>
-                            </div>
-                        </div>
-                        <div class="not">
-                            <div class="not__dot">
-                                <i class='bx bx-radio-circle'></i>
-                            </div>
-                            <div class="not__body">
-                                <div class="not__title">Уведомление</div>
-                                <div class="not__text">Текст уведомления</div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
                 <div class="pop-mini__footer">
