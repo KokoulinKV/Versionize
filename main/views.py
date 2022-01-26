@@ -9,8 +9,10 @@ from transliterate import translit
 from django.http import JsonResponse
 
 from Versionize import settings
+
 from main.forms import DocumentForm, AddSectionForm, CreateProjectForm
-from main.models import Section, Company, Document, Project
+from main.models import Section, Company, Document, Project, Comment, AddRemarkDocProjectForm
+
 
 def ajax_check(request):
     # Проверяем отправлен ли нам post запрос через ajax
@@ -113,17 +115,21 @@ class TotalListView(LoginRequiredMixin, TemplateView):
         context['title'] = 'Versionize - Сводная таблица проекта'
         context['document'] = DocumentForm(instance=self.request.document)
         context['add_section'] = AddSectionForm(instance=self.request.add_section)
+        context['remarkdoc'] = AddRemarkDocProjectForm(instance=self.request.remarkdoc)
         return context
 
     def get(self, request, *args, **kwargs):
         return self.render_to_response(
             {'doc_form': DocumentForm(prefix='doc_form_pre'),
              'add_section_form': AddSectionForm(prefix='add_section_form_pre'),
+             'remarkdoc_form': AddRemarkDocProjectForm(prefix='remarkdoc_form_pre'),
              'object_list': self.get_queryset()})
 
     def post(self, request, *args, **kwargs):
         doc_form = _get_form(request, DocumentForm, 'doc_form_pre')
         add_section_form = _get_form(request, AddSectionForm, 'add_section_form_pre')
+        remarkdoc_form = _get_form(request, AddRemarkDocProjectForm, 'remarkdoc_form_pre')
+
         if doc_form.is_bound and doc_form.is_valid():
             try:
                 doc_form.save()
@@ -138,8 +144,13 @@ class TotalListView(LoginRequiredMixin, TemplateView):
             add_section_form.save()
             add_section_form.data = clear_form_data(add_section_form.data)
 
+        elif remarkdoc_form.is_bound and remarkdoc_form.is_valid():
+            remarkdoc_form.save()
+            remarkdoc_form.data = clear_form_data(remarkdoc_form.data)
+
         return self.render_to_response({'doc_form': doc_form,
                                         'add_section_form': add_section_form,
+                                        'remarkdoc_form': remarkdoc_form,
                                         'object_list': self.get_queryset()})
 
 
@@ -196,6 +207,18 @@ class DocumentDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Versionize - Документ'
         return context
+
+    def post(self, request, *args, **kwargs):
+        # @TheSleepyNomad
+        # Выполнем проверку на ajax запрос
+        if request.method == 'POST' and ajax_check(request):
+            new_comment = Comment(
+                author_id=request.user.id, 
+                document_id=self.kwargs['pk'],
+                body=request.POST.get('commentBody'),)
+            new_comment.save()
+            response = {'status': True}
+            return JsonResponse(response)
 
 
 class DocumentDownload(LoginRequiredMixin, TemplateView):
