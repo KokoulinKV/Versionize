@@ -213,7 +213,7 @@ class Document(models.Model):
         return Adjustment.objects.filter(document=self).order_by('id')
 
     def get_doc_comments(self):
-        return Comment.objects.filter(document=self).order_by('created_at')
+        return Comment.objects.filter(document=self).order_by('created_at')[::-1]
 
     def save(self, *args, **kwargs):
         if not self.pk:  # file is new, not update old object in database!

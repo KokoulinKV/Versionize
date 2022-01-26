@@ -202,7 +202,7 @@ class DocumentDetailView(LoginRequiredMixin, DetailView):
         # Выполнем проверку на ajax запрос
         if request.method == 'POST' and ajax_check(request):
             new_comment = Comment(
-                author_id=request.session['_auth_user_id'], 
+                author_id=request.user.id, 
                 document_id=self.kwargs['pk'],
                 body=request.POST.get('commentBody'),)
             new_comment.save()

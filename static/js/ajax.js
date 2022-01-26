@@ -45,6 +45,7 @@ $(document).ready(function () {
                 // если успешно, то
                 success: function (response) {
                     if (response.status == true) {
+                        // Todo реализовать добавление комментария без перезагрузки
                         alert('Вы отправили сообщение')
                         location.reload()
                     }
