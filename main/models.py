@@ -212,6 +212,9 @@ class Document(models.Model):
     def get_linked_adjustments(self):
         return Adjustment.objects.filter(document=self).order_by('id')
 
+    def get_doc_comments(self):
+        return Comment.objects.filter(document=self).order_by('created_at')[::-1]
+
     def save(self, *args, **kwargs):
         if not self.pk:  # file is new, not update old object in database!
             md5 = hashlib.md5()
@@ -241,11 +244,11 @@ class Document(models.Model):
 
 class Adjustment(models.Model):
     CODE_CHOICES = (
-        (1, 'Введение усовершенствований'),
-        (2, 'Изменение стандартов и норм'),
-        (3, 'Дополнительные требования заказчика'),
-        (4, 'Устранение ошибок'),
-        (5, 'Другие причины'),
+        ('1', 'Введение усовершенствований'),
+        ('2', 'Изменение стандартов и норм'),
+        ('3', 'Дополнительные требования заказчика'),
+        ('4', 'Устранение ошибок'),
+        ('5', 'Другие причины'),
     )
     section = models.ForeignKey(
         Section,
@@ -328,33 +331,38 @@ class Remark(models.Model):
 
 
 class Comment(models.Model):
+    """
+    Данная таблица хранит в себе комментарии к документам.
+    Для чата или уведомлений будет сделана новая модель, более подоходящая к этим сущностям
+    """
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         verbose_name='Автор',
     )
-    recipient = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        blank=True,
-        related_name='recipient',
-        verbose_name='Получатель',
-    )
+    # recipient = models.ForeignKey(
+    #     User,
+    #     on_delete=models.CASCADE,
+    #     blank=True,
+    #     related_name='recipient',
+    #     verbose_name='Получатель',
+    # )
     document = models.ForeignKey(
         Document,
         on_delete=models.CASCADE,
-        blank=True,
-        null=True,
+        # blank=True,
+        # null=True,
         verbose_name='Документ',
+        related_name='doc_comments'
     )
-    reply_to = models.ForeignKey(
-        'self',
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True,
-        related_name='parent',
-        verbose_name='Переслать',
-    )
+    # reply_to = models.ForeignKey(
+    #     'self',
+    #     on_delete=models.CASCADE,
+    #     blank=True,
+    #     null=True,
+    #     related_name='parent',
+    #     verbose_name='Переслать',
+    # )
     created_at = models.DateTimeField(
         auto_now=True,
         verbose_name='Дата создания',

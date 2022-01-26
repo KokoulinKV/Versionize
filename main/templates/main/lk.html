@@ -294,49 +294,7 @@
                     </div>
                 </div>
             </div>
-            <div class="comment-box">
-                <div class="comment-box__wrapper">
-                    <div class="comment-box__header">
-                        <i class='bx bx-printer'></i>Комменты
-                    </div>
-                    <div class="comment-box__body">
-                        <div class="comment-box__scroll-area">
-                            <div class="comment-box__prefer-scroll">
-                                <div class="comment-box__message">
-                                    <div class="comment-box__avatar">
-                                        <img class="" width="125px"
-                                            src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-                                    </div>
-                                    <div class="comment-box__text-body">
-                                        <div class="comment-box__text">Lorem ipsum, dolor sit amet consectetur
-                                            adipisicing elit. Sapiente magni eligendi eius quaerat officiis quis
-                                            placeat est a ad ex.</div>
-                                        <div class="comment-box__data">
-                                            <i class='bx bxs-calendar'></i>11:01 | Вчера
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="comment-box__my-message">
-                                    <div class="comment-box__text-body">
-                                        <div class="comment-box__my-text">Lorem ipsum dolor sit amet consectetur
-                                            adipisicing elit. Veniam, quos.</div>
-                                        <div class="comment-box__my-data">
-                                            <i class='bx bxs-calendar'></i>11:01 | Вчера
-                                        </div>
-                                    </div>
-                                    <div class="comment-box__avatar">
-                                        <img class="" width="125px"
-                                            src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="comment-box__footer">
-                        <input type="text" class="comment-box__input" placeholder="Отправить....">
-                    </div>
-                </div>
-            </div>
+            
             <div class="project-progress">
                 <div class="project-progress__title">
                     <a href="">Название проекта</a>
@@ -373,74 +331,23 @@
             </div>
             <div class="pop-mini" id="pop-min">
                 <div class="pop-mini__header">
+                    {% notifications user.id as notification %}
                     <div class="pop-mini__title">Уведомления</div>
-                    <div class="pop-mini__subtitle">У Вас 13 пропущенных уведомлений</div>
+                    <div class="pop-mini__subtitle">У Вас {{ notification.count }} пропущенных уведомлений</div>
                 </div>
                 <div class="pop-mini__body">
                     <div class="pop-mini__content">
+                        {% for notice in notification %}
                         <div class="not">
                             <div class="not__dot">
                                 <i class='bx bx-radio-circle'></i>
                             </div>
                             <div class="not__body">
-                                <div class="not__title">Уведомление</div>
+                                <div class="not__title">Уведомление от {{ notice.from_user }}</div>
                                 <div class="not__text">Текст уведомления</div>
                             </div>
                         </div>
-                        <div class="not">
-                            <div class="not__dot">
-                                <i class='bx bx-radio-circle'></i>
-                            </div>
-                            <div class="not__body">
-                                <div class="not__title">Уведомление</div>
-                                <div class="not__text">Текст уведомления</div>
-                            </div>
-                        </div>
-                        <div class="not">
-                            <div class="not__dot">
-                                <i class='bx bx-radio-circle'></i>
-                            </div>
-                            <div class="not__body">
-                                <div class="not__title">Уведомление</div>
-                                <div class="not__text">Текст уведомления</div>
-                            </div>
-                        </div>
-                        <div class="not">
-                            <div class="not__dot">
-                                <i class='bx bx-radio-circle'></i>
-                            </div>
-                            <div class="not__body">
-                                <div class="not__title">Уведомление</div>
-                                <div class="not__text">Текст уведомления</div>
-                            </div>
-                        </div>
-                        <div class="not">
-                            <div class="not__dot">
-                                <i class='bx bx-radio-circle'></i>
-                            </div>
-                            <div class="not__body">
-                                <div class="not__title">Уведомление</div>
-                                <div class="not__text">Текст уведомления</div>
-                            </div>
-                        </div>
-                        <div class="not">
-                            <div class="not__dot">
-                                <i class='bx bx-radio-circle'></i>
-                            </div>
-                            <div class="not__body">
-                                <div class="not__title">Уведомление</div>
-                                <div class="not__text">Текст уведомления</div>
-                            </div>
-                        </div>
-                        <div class="not">
-                            <div class="not__dot">
-                                <i class='bx bx-radio-circle'></i>
-                            </div>
-                            <div class="not__body">
-                                <div class="not__title">Уведомление</div>
-                                <div class="not__text">Текст уведомления</div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
                 <div class="pop-mini__footer">
