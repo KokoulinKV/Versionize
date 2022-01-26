@@ -34,6 +34,7 @@ class UserRegistrationForm(UserCreationForm):
                    'placeholder': 'Введите Отчество'})
     )
     phone = forms.CharField(
+        required=False,
         widget=forms.TextInput(attrs={'class': 'form-control py-8',
                                       'placeholder': 'Введите номер телефона'})
     )
