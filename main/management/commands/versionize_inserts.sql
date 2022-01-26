@@ -81,7 +81,7 @@ INSERT INTO `main_section` (`id`, `project_id`, `name`, `company_id`, `responsib
 INSERT INTO `main_section` (`id`, `project_id`, `name`, `company_id`, `responsible_id`, `expert_id`, `abbreviation`) VALUES (6, 1, 'Проект организации строительства', 4, 21, 30, 'ПОС');
 INSERT INTO `main_section` (`id`, `project_id`, `name`, `company_id`, `responsible_id`, `expert_id`, `abbreviation`) VALUES (7, 1, 'Перечень мероприятий по охране окружающей среды', 6, 28, NULL, 'ООС');
 INSERT INTO `main_section` (`id`, `project_id`, `name`, `company_id`, `responsible_id`, `expert_id`, `abbreviation`) VALUES (8, 1, 'Мероприятия по обеспечению пожарной безопасности', 5, 8, 29, 'ПБ');
-INSERT INTO `main_section` (`id`, `project_id`, `name`, `company_id`, `responsible_id`, `expert_id`, `abbreviation`) VALUES (9, 1, 'Мероприятия по обеспечению доступа инвалидов', 10, 1, NULL, 'ОДИ');
+INSERT INTO `main_section` (`id`, `project_id`, `name`, `company_id`, `responsible_id`, `expert_id`, `abbreviation`) VALUES (9, 1, 'Мероприятия по обеспечению доступа инвалидов', 9, 1, NULL, 'ОДИ');
 INSERT INTO `main_section` (`id`, `project_id`, `name`, `company_id`, `responsible_id`, `expert_id`, `abbreviation`) VALUES (10, 2, 'Пояснительная записка', 1, 24, 29, 'ПЗ');
 INSERT INTO `main_section` (`id`, `project_id`, `name`, `company_id`, `responsible_id`, `expert_id`, `abbreviation`) VALUES (11, 2, 'Проект полосы отвода', 1, 7, 30, 'ППО');
 INSERT INTO `main_section` (`id`, `project_id`, `name`, `company_id`, `responsible_id`, `expert_id`, `abbreviation`) VALUES (12, 2, 'Технологические и конструктивные решения линейного объекта. Искусственные сооружения', 1, 12, 29, 'ТКР');
