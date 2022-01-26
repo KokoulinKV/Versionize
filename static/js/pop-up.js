@@ -2,15 +2,19 @@ let popup_doc = document.getElementById('add-document')
 let popup_section = document.getElementById('add-section')
 let popup_section2 = document.getElementById('add-section_new')
 let popup_project = document.getElementById('add-project')
+let popup_remarkdoc = document.getElementById('add-remarkdoc')
 let popup_docCloseIcon = document.getElementById('popup__close_doc')
 let popup_secCloseIcon = document.getElementById('popup__close_sec')
 let popup_secCloseIcon2 = document.getElementById('popup__close_sec2')
 let popup_proCloseIcon = document.getElementById('popup__close_pro')
+let popup_remarkdocCloseIcon = document.getElementById('popup__close_remarkdoc')
+
 
 const docum = document.getElementById('popup-document')
 const sect = document.getElementById('popup-section')
 const sect2 = document.getElementById('popup-section2')
 const project = document.getElementById('popup-project')
+const remarkdoc = document.getElementById('popup-remarkdoc')
 
 popup_doc.addEventListener('click', (e) => {
 
@@ -27,6 +31,15 @@ popup_section.addEventListener('click', (e) => {
 
 popup_secCloseIcon.addEventListener('click', (e) => {
     sect.classList.toggle('popup_open')
+})
+
+popup_remarkdoc.addEventListener('click', (e) => {
+
+    remarkdoc.classList.toggle('popup_open')
+})
+
+popup_remarkdocCloseIcon.addEventListener('click', (e) => {
+    remarkdoc.classList.toggle('popup_open')
 })
 
 popup_project.addEventListener('click', (e) => {
