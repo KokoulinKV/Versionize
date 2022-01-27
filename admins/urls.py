@@ -1,9 +1,9 @@
 from django.urls import path
-
+# from django.contrib.auth import views as auth_views
 from admins.views import UserCreateView, UserListView, UserEditView, UserDeleteView, UserRehubView, CompanyListView, \
     CompanyEditView, CompanyCreateView, CompanyAdminDelete, CompanyAdminDeleteMessage, \
     UserInfoListView, UserInfoEdit, CreateStandartSections, StandartSectionsListView, StandartSectionsEditView, \
-    StandartSectionsDeleteMessage, StandartSectionsDelete
+    StandartSectionsDeleteMessage, StandartSectionsDelete, UserChangePasswordView
 
 app_name = 'admins'
 
@@ -12,6 +12,7 @@ urlpatterns = [
     path('', UserListView.as_view(), name='index'),
     path('users/', UserCreateView.as_view(), name='admins_users_create'),
     path('users_update/<int:pk>', UserEditView.as_view(), name='admins_users_update'),
+    path('users_change_password/<int:pk>', UserChangePasswordView.as_view(), name='users_change_password'),
     path('users_delete/<int:pk>', UserDeleteView.as_view(), name='admins_users_delete'),
     path('users_rehub/<int:pk>', UserRehubView.as_view(), name='admins_users_rehub'),
 
