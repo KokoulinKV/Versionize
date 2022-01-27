@@ -82,8 +82,8 @@
                 <div class="form__select">
                     {% user-projects user.id as projects %}
                     <select id="activeProjectChge">
-                        {% if active_project_id %}
-                        <option value="{{ active_project_id }}">{{ active_project_code }}</option>
+                        {% if user.get_project_role == 'ГИП' %}
+                        <option value="ХА">ХА</option>
                         {% endif %}
                         {% for project in projects %}
                         <option value="{{ project.id }}">{{ project.code }}</option>
