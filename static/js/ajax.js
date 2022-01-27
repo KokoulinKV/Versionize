@@ -1,7 +1,9 @@
-// В этом файле будут все ajax функции
+// В этом файле будут функции для ajax запросов
+// Ждем, когда DOM страницы загрузиться и начинаем вешать наши функции на объекты
 $(document).ready(function () {
-    // Ждем, когда DOM страницы загрузиться и начинаем вешать наши функции на объекты
+    
 
+    // @TheSleepyNomad
     // Смена активного проекта в личном кабинете пользователя
     $('#activeProjectChge').change(function () {
         console.log()
@@ -27,6 +29,10 @@ $(document).ready(function () {
             }
         });
     });
+
+    
+    // @TheSleepyNomad
+    // Отправка комментариев к документу
     $('#commentInput').keydown(function (e){
         // Проверяем что нажат именно Enter, а в значении не пробел и не пустая строка
         if(e.keyCode === 13 && $(this).val() != ' ' && $(this).val() != ''){
@@ -46,7 +52,7 @@ $(document).ready(function () {
                 success: function (response) {
                     if (response.status == true) {
                         // Todo реализовать добавление комментария без перезагрузки
-                        alert('Вы отправили сообщение')
+                        // alert('Вы отправили сообщение')
                         location.reload()
                     }
                 },

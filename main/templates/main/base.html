@@ -65,6 +65,14 @@
                 </a>
                 <span class="sidebar__tooltip">Сводная</span>
             </li>
+            
+            <li>
+                <a href="{% url 'main:projects' %}">
+                    <i class='bx bx-archive'></i>
+                    <span class="sidebar__link-name">Проекты</span>
+                </a>
+                <span class="sidebar__tooltip">Проекты</span>
+            </li>
             <li>
                 <a href="{% url 'main:document' 1 %}">
                     <i class='bx bx-folder'></i>
@@ -110,16 +118,8 @@
 <!-- defer - ждем загрузки страницы -->
 <!-- Todo перейти на jquery, чтобы запускать скрипты после загрузки контента -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script defer src="{% static 'js/side-nav.js' %}"></script>
 <script defer src="{% static 'js/ajax.js' %}"></script>
-<script defer src="{% static 'js/not-pop.js' %}"></script>
 <script defer src="{% static 'js/style.js' %}"></script>
-<script>
-if ( window.history.replaceState ) {
-  window.history.replaceState( null, null, window.location.href );
-}
-</script>
-{% block script %}
-{% endblock %}
+<script defer src="{% static 'js/bugs-killer.js' %}"></script>
 
 </html>

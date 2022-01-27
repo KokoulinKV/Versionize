@@ -1,12 +1,11 @@
 from django.db import models
 from django.utils import timezone
 from user.models import User
-from main.models import Document
 
 
 # Create your models here.
 class Notification(models.Model):
-    # 1 - Уведомление, 2 - Сообщение, 3 - Встреча и тд
+    # 1 - Создание проекта, 2 - Создание раздела, 3 - Приглашение к проекту
     notification_type = models.IntegerField()
     to_user = models.ForeignKey(User,
                                 related_name='notification_to',

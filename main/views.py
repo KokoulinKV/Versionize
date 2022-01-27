@@ -336,3 +336,25 @@ class DocumentDownloadAllOfSection(LoginRequiredMixin, TemplateView):
                 return response
         raise Http404
 
+
+# @TheSleepyNomad
+class ProjectDetailView(LoginRequiredMixin, DetailView):
+    model = Project
+    template_name = 'main/project.html'
+    context_object_name = 'project'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Versionize - Проект'
+        return context
+
+
+class ProjectListView(LoginRequiredMixin, ListView):
+    model = Project
+    template_name = 'main/projects.html'
+    context_object_name = 'projects'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Versionize - Компании'
+        return context
