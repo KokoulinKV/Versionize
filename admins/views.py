@@ -150,7 +150,7 @@ class UserInfoEdit(UpdateView):
         formset = form.save()
         user = formset.user_id
         company = formset.company_id
-        check_manager = Company.objects.filter(manager_id=user).values('id')
+        check_manager = Company.objects.filter(manager_id=user).values('id')[0]['id']
         if check_manager and not (company == check_manager):
             manager_company_id = check_manager[0]['id']
             query = Company.objects.filter(id=manager_company_id)
