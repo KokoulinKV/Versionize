@@ -436,3 +436,6 @@ class RemarksDocs(models.Model):
     class Meta:
         verbose_name = 'Документ'
         verbose_name_plural = 'Документы'
+
+    def __str__(self):
+        return self.name
