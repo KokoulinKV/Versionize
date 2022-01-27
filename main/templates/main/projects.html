@@ -11,7 +11,7 @@
         <div class="main">
             <div class="relative-table">
                 <div class="relative-table__title">
-                    <div class="relative-table__left-block"><i class='bx bx-detail'></i>Проекты</div>
+                    <div class="relative-table__left-block"><i class='bx bx-archive'></i>Проекты</div>
                     <!-- <div class="relative-table__right-block">
                         <button>Скачать все</button>
                     </div> -->
@@ -35,7 +35,7 @@
                             {% for project in projects %}
                             <tr>
                                 <td class='form-table__table_center'>{{ project.code }}</td>
-                                <td>{{ project.name }}</td>
+                                <td><a href="{% url 'main:project' project.id %}">{{ project.name }}</a></td>
                                 <td>{{ project.created_at }}</td>
                                 <td>{{ project.exp_date }}</td>
                                 <td>{{ project.next_upload }}</td>
