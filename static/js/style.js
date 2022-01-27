@@ -80,6 +80,14 @@ $(document).ready(function () {
         });
     });
 
+
+
+    // @TheSleepyNomad
+    // Переход через select
+    $('#selectProject').change(function(){
+		window.location.href = $('option:selected',this).data('url');
+	});
+
     // @TheSleepyNomad
     // Открытие/закрытие бокового навигационного меню через кнопку меню и поле поиска
     $('#menu-btn, #searchBtn').click(function(){
