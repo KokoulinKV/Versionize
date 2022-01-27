@@ -1,0 +1,111 @@
+{% extends 'main/base.html' %}
+{% load lk_tags %}
+{% load static %}
+
+{% block workspace %}
+<div class="ext-workspace">
+    <div class="ext-workspace__input">
+        <!-- ? Он тут нужен -->
+        <!-- <div class="left-block">
+        </div> -->
+        <div class="main">
+            <div class="relative-table">
+                <div class="relative-table__title">
+                    <div class="relative-table__left-block"><i class='bx bx-detail'></i>Проекты</div>
+                    <!-- <div class="relative-table__right-block">
+                        <button>Скачать все</button>
+                    </div> -->
+                </div>
+                <form action="#" class="form-table">
+                    <div class="form-table__search">
+                        <span>Поиск:</span>
+                        <input type="text" name="" id="tableSearch">
+                    </div>
+                    <table class="form-table__table">
+                        <thead>
+                            <th>Шифр</th>
+                            <th>Наименование</th>
+                            <th>Дата создания</th>
+                            <th>Срок экспертизы</th>
+                            <th>Следующая загрузка</th>
+                            <th>ГИП</th>
+                            <th>Тип объекта</th>
+                        </thead>
+                        <tbody id="table">
+                            {% for project in projects %}
+                            <tr>
+                                <td class='form-table__table_center'>{{ project.code }}</td>
+                                <td>{{ project.name }}</td>
+                                <td>{{ project.created_at }}</td>
+                                <td>{{ project.exp_date }}</td>
+                                <td>{{ project.next_upload }}</td>
+                                <td>{{ project.admin }}</td>
+                                <td>{{ project.project_type }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </form>
+                <div class="relative-table__footer">
+                    <!-- Todo восстановить, когда будет готов функционал -->
+                    <!-- <ul class="relative-table__paginator">
+                        <li>
+                            <a href="#"><span>«</span></a>
+                        </li>
+                        <li><a href=""><span>1</span></a></li>
+                        <li><a href=""><span>2</span></a></li>
+                        <li><a href=""><span>3</span></a></li>
+                        <li><a href=""><span>4</span></a></li>
+                        <li><a href=""><span>»</span></a></li>
+                    </ul> -->
+                    <div class="relative-table__select">
+                        <select name="" id="tableSelect">
+                            <option value="2">2 строки</option>
+                            <option value="4">4 строки</option>
+                            <option value="10">10 строк</option>
+                            <option value="-">Показать все</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ext-workspace__footer">
+        <div class="notification" id="not-pop">
+            <div class='notification__bell'><i class='bx bxs-bell'></i>
+                <div class="notification__dot"><i class='bx bxs-circle'></i></div>
+            </div>
+            <div class="pop-mini" id="pop-min">
+                <div class="pop-mini__header">
+                    {% notifications user.id as notification %}
+                    <div class="pop-mini__title">Уведомления</div>
+                    <div class="pop-mini__subtitle">У Вас {{ notification.count }} пропущенных уведомлений</div>
+                </div>
+                <div class="pop-mini__body">
+                    <div class="pop-mini__content">
+                        {% for notice in notification %}
+                        <div class="not">
+                            <div class="not__dot">
+                                <i class='bx bx-radio-circle'></i>
+                            </div>
+                            <div class="not__body">
+                                <div class="not__title">Уведомление от {{ notice.from_user }}</div>
+                                <div class="not__text">Текст уведомления</div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="pop-mini__footer">
+                    <div class="pop-mini__btn"><button>Посмотреть все</button></div>
+                </div>
+            </div>
+        </div>
+        <div class="language">
+            <span><i class='bx bx-world'></i>
+            </span>
+        </div>
+        <div class="theme">Dark/Light mode</div>
+    </div>
+</div>
+{% endblock %}
