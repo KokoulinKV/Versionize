@@ -2,6 +2,7 @@
 // Для применения стилей нам надо дождаться загрузки DOM
 $(document).ready(function () {
 
+    // @TheSleepyNomad
     // Стилизация четных и нечетных строк
     table_rows = $('#table').children() // Получаем список всех строк из таблицы
     for (let i = 0; i < table_rows.length; i++) {
@@ -18,12 +19,13 @@ $(document).ready(function () {
         };
     };
 
+    // @TheSleepyNomad
     // Отображение определенного количества строк
     // Так как у нас пока одна таблица, то вешаем на все кнопки
     $('#tableSelect').change(function () {
 
         // Проверяем есть ли уже скрытые строки
-        hide_rows = $('.form-table__table_hide')
+        hide_rows = $('.form-table__table_hide');
 
         // Если пользователь снова захочет отобразить всю таблицу
         if ($(this).val() == '-') {
@@ -33,7 +35,7 @@ $(document).ready(function () {
                 table_rows[i].classList.remove('form-table__table_hide');
             };
 
-        }
+        };
         if (hide_rows.length == 0) {
 
             // Если таблица полность отображена, то скрываем до нужного количества
@@ -60,7 +62,7 @@ $(document).ready(function () {
         };
     });
 
-
+    // @TheSleepyNomad
     // Поиск по таблице
     // Получаем поле для ввода текса
     $('#tableSearch').keyup(function () { // функция запускаеться каждый раз, когда будет отждата клавиша
@@ -74,14 +76,24 @@ $(document).ready(function () {
             } else {
                 // показываем нужные
                 $(this).show();
-            }
+            };
         });
     });
 
-
+    // @TheSleepyNomad
     // Открытие/закрытие бокового навигационного меню через кнопку меню и поле поиска
     $('#menu-btn, #searchBtn').click(function(){
-        $('#sidebar').toggleClass('sidebar_active')
-    })
+        $('#sidebar').toggleClass('sidebar_active');
+    });
+
+
+
+    // Скрипты для pop-up окон
+
+    // @TheSleepyNomad
+    // Pop-up для уведомлений
+    $('#not-pop').click(function(){
+        $('#pop-min').toggleClass('pop-mini_open');
+    });
 
 });
