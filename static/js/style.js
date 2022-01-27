@@ -91,9 +91,44 @@ $(document).ready(function () {
     // Скрипты для pop-up окон
 
     // @TheSleepyNomad
-    // Pop-up для уведомлений
+    // Для вызова pop-up формы уведомлений
     $('#not-pop').click(function(){
         $('#pop-min').toggleClass('pop-mini_open');
     });
 
+    
+    // @TheSleepyNomad
+    // Для вызова pop-up формы добавления документа
+    $('#add-document, #popup__close_doc').click(function(){
+        $('#popup-document').toggleClass('popup_open');
+    });
+
+
+    // @TheSleepyNomad
+    // Для вызова pop-up формы добавления раздела
+    $('#add-section, #popup__close_sec').click(function(){
+        $('#popup-section').toggleClass('popup_open');
+    });
+
+
+    // @TheSleepyNomad
+    // Для вызова pop-up формы добавления проекта
+    $('#add-project, #popup__close_pro').click(function(){
+        $('#popup-project').toggleClass('popup_open');
+    });
+
+
+    // @TheSleepyNomad
+    // Для вызова pop-up формы добавления корректировок
+    $('#add-remarkdoc, #popup__close_remarkdoc').click(function(){
+        $('#popup-remarkdoc').toggleClass('popup_open');
+    });
+
+
+    // @TheSleepyNomad
+    // Для вызова pop-up формы добавления корректировок
+    $('#secRefAdd, #subSecAdd, #newform-close').click(function(e){
+        e.preventDefault()
+        $('#newForm').toggleClass('new-form_open');
+    });
 });
