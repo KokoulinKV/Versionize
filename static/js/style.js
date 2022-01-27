@@ -3,7 +3,6 @@
 $(document).ready(function () {
 
     // Стилизация четных и нечетных строк
-    // console.log($('#table'));
     table_rows = $('#table').children() // Получаем список всех строк из таблицы
     for (let i = 0; i < table_rows.length; i++) {
 

@@ -61,6 +61,7 @@ class Project(models.Model):
     def get_admin(self):
         return User.objects.get(id=self.admin.id)
 
+
 @receiver(post_save, sender=Project)
 def notification_for_users(sender,instance,created,**kwargs):
     """
