@@ -106,38 +106,6 @@ class UserEditForm(UserCreationForm):
         )
 
 
-class UserAddInfoForm(forms.ModelForm):
-    user = forms.ModelChoiceField(
-        queryset=User.objects.select_related().exclude(id__in=(UserCompanyInfo.objects.values('user'))),
-        empty_label='Выберете пользователя',
-        widget=forms.Select(attrs={'class': 'form-control py-8',
-                                   'placeholder': 'Выберите название организации'})
-    )
-    company = forms.ModelChoiceField(
-        queryset=Company.objects.all(),
-        empty_label='Выберите организацию',
-        widget=forms.Select(attrs={'class': 'form-control py-8',
-                                   'placeholder': 'Введите название организации'})
-    )
-    department = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control py-8',
-                                      'placeholder': 'Введите название отдела'})
-    )
-    expert = forms.BooleanField(
-        required=False
-    )
-    chief_project_engineer = forms.BooleanField(
-        required=False
-    )
-    assistant = forms.BooleanField(
-        required=False
-    )
-
-    class Meta:
-        model = UserCompanyInfo
-        fields = ('__all__')
-
-
 class UserCompanyInfoForm(forms.ModelForm):
     company = forms.ModelChoiceField(
         queryset=Company.objects.all(),
