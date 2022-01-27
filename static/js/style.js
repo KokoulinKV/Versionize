@@ -86,8 +86,6 @@ $(document).ready(function () {
         $('#sidebar').toggleClass('sidebar_active');
     });
 
-
-
     // Скрипты для pop-up окон
 
     // @TheSleepyNomad
@@ -96,13 +94,11 @@ $(document).ready(function () {
         $('#pop-min').toggleClass('pop-mini_open');
     });
 
-    
     // @TheSleepyNomad
     // Для вызова pop-up формы добавления документа
     $('#add-document, #popup__close_doc').click(function(){
         $('#popup-document').toggleClass('popup_open');
     });
-
 
     // @TheSleepyNomad
     // Для вызова pop-up формы добавления раздела
@@ -110,20 +106,17 @@ $(document).ready(function () {
         $('#popup-section').toggleClass('popup_open');
     });
 
-
     // @TheSleepyNomad
     // Для вызова pop-up формы добавления проекта
     $('#add-project, #popup__close_pro').click(function(){
         $('#popup-project').toggleClass('popup_open');
     });
 
-
     // @TheSleepyNomad
     // Для вызова pop-up формы добавления корректировок
     $('#add-remarkdoc, #popup__close_remarkdoc').click(function(){
         $('#popup-remarkdoc').toggleClass('popup_open');
     });
-
 
     // @TheSleepyNomad
     // Для вызова pop-up формы добавления корректировок
