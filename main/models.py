@@ -5,6 +5,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.db import models
 from user.models import User, Company
+from service.models import Notification
 
 
 class Project(models.Model):
@@ -59,6 +60,24 @@ class Project(models.Model):
 
     def get_admin(self):
         return User.objects.get(id=self.admin.id)
+
+@receiver(post_save, sender=Project)
+def notification_for_users(sender,instance,created,**kwargs):
+    """
+    @TheSleepyNomad
+    Функция будет создавать уведомления для пользователей, когда ГИП создает новый проект
+    """
+    # Выполянем кол, только если запись успешна создана
+    if created:
+        # Todo разобраться в ER-диаграмме БД и отправлять только тем пользователям, которых ГИП укажет в проекте
+        # Делаем выборку всех пользователей, кроме ГИПа и для каждого из списка создаем уведомление
+        users = User.objects.all().exclude(id=instance.admin.id)
+        for user in users:
+            notice = Notification.objects.create(
+                notification_type=1,
+                to_user=user,
+                from_user=instance.admin)
+            notice.save()
 
 
 class StandardSection(models.Model):
