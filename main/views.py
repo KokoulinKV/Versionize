@@ -82,6 +82,8 @@ class Index(LoginRequiredMixin, TemplateView):
                 # TODO Подумать как записывать ошибки нескольких форм
                 return self.render_to_response({
                     'doc_form': doc_form,
+                    'add_section_form': add_section_form,
+                    'create_project_form': create_project_form,
                     'errors': errors
                 })
         elif add_section_form.is_bound and add_section_form.is_valid():
@@ -146,6 +148,9 @@ class TotalListView(LoginRequiredMixin, TemplateView):
                 errors = 'Данная версия документа уже была загружена. Загрузите корректную новую версию.'
                 return self.render_to_response({
                     'doc_form': doc_form,
+                    'add_section_form': add_section_form,
+                    'remarkdoc_form': remarkdoc_form,
+                    'object_list': self.get_queryset(),
                     'errors': errors
                 })
         elif add_section_form.is_bound and add_section_form.is_valid():
@@ -155,7 +160,6 @@ class TotalListView(LoginRequiredMixin, TemplateView):
         elif remarkdoc_form.is_bound and remarkdoc_form.is_valid():
             remarkdoc_form.save()
             remarkdoc_form.data = clear_form_data(remarkdoc_form.data)
-
         return HttpResponseRedirect(reverse('main:total'))
         # return self.render_to_response({'doc_form': doc_form,
         #                                 'add_section_form': add_section_form,
@@ -208,6 +212,8 @@ class SectionDetailView(LoginRequiredMixin, DetailView):
                 errors = 'Данная версия документа уже была загружена. Загрузите корректную новую версию.'
                 return self.render_to_response({
                     'doc_form': doc_form,
+                    'remarkdoc_form': remarkdoc_form,
+                    'section': self.get_object(),
                     'errors': errors
                 })
         elif remarkdoc_form.is_bound and remarkdoc_form.is_valid():
@@ -357,6 +363,38 @@ class DocumentDownloadAllOfSection(LoginRequiredMixin, TemplateView):
                 return response
         raise Http404
 
+
+class RemarkDocDownload(LoginRequiredMixin, TemplateView):
+    template_name = 'main/total.html'
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        path = RemarksDocs.objects.filter(id=context['pk']).values('doc_path')[0]['doc_path']
+        dir, document = path.split('/')
+        document_dir = os.path.join(settings.MEDIA_ROOT, dir)
+        translit_doc_name= translit(document, language_code='ru', reversed=True)
+        zip_name = f'{translit_doc_name}.zip'
+        zip_path = f'{settings.MEDIA_ROOT}/downloads/{zip_name}'
+        archive = zipfile.ZipFile(zip_path, 'w')
+        rootdir = os.path.basename(document_dir)
+
+        for root, dir, files in os.walk(document_dir):
+            for file in files:
+                if file == document:
+                    filepath = os.path.join(root, file)
+                    parentpath = os.path.relpath(filepath, document_dir)
+                    arcname = os.path.join(rootdir, parentpath)
+                    archive.write(filepath, arcname)
+
+        archive.close()
+
+
+        if os.path.exists(zip_path):
+            with open(zip_path, 'rb') as fh:
+                response = HttpResponse(fh.read(), content_type="application/octet-stream", )
+                response['Content-Disposition'] = 'inline; filename=' + f'{zip_name}'
+                return response
+        raise Http404
 
 # @TheSleepyNomad
 class ProjectDetailView(LoginRequiredMixin, DetailView):
