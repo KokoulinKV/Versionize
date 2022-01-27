@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, UpdateView, ListView
 
 from admins.forms import UserRegistrationForm, CompanyRegistrationFrom, CompanyEditForm, \
-    UserCompanyInfoForm, StandardSectionCreateForm, UserEditForm
+    UserCompanyInfoForm, StandardSectionCreateForm, UserEditForm, UserChangePasswordForm
 from main.models import StandardSection
 
 from user.models import User, Company, UserCompanyInfo
@@ -62,6 +62,21 @@ class UserEditView(UpdateView):
     def dispatch(self, request, *args, **kwargs):
         return super(UserEditView, self).dispatch(request, *args, **kwargs)
 
+
+class UserChangePasswordView(UpdateView):
+    model = User
+    template_name = 'admins/admin-users-change-password.html'
+    form_class = UserChangePasswordForm
+    success_url = reverse_lazy('admins:index')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(UserChangePasswordView, self).get_context_data(**kwargs)
+        context['title'] = 'Edit user'
+        return context
+
+    @method_decorator(user_passes_test(lambda u: u.is_superuser))
+    def dispatch(self, request, *args, **kwargs):
+        return super(UserChangePasswordView, self).dispatch(request,*args, **kwargs)
 
 class UserDeleteView(UpdateView):
     model = User
