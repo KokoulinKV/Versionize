@@ -2,7 +2,8 @@ import os
 import zipfile
 
 from django.core.exceptions import ValidationError
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.urls import reverse
 from django.views.generic import ListView, DetailView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from transliterate import translit
@@ -11,7 +12,7 @@ from django.http import JsonResponse
 from Versionize import settings
 
 from main.forms import DocumentForm, AddSectionForm, CreateProjectForm, AddRemarkDocSectionForm, AddRemarkDocProjectForm
-from main.models import Section, Company, Document, Project, Comment
+from main.models import Section, Company, Document, Project, Comment, RemarksDocs
 
 
 def ajax_check(request):
@@ -54,7 +55,7 @@ class Index(LoginRequiredMixin, TemplateView):
         to_response = {'doc_form': DocumentForm(prefix='doc_form_pre'),
              'add_section_form': AddSectionForm(prefix='add_section_form_pre'),
              'create_project_form': CreateProjectForm(prefix='create_project_form_pre')}
-        to_response = to_response | context
+        to_response.update(context)
         return self.render_to_response(to_response)
 
     def post(self, request, *args, **kwargs):
@@ -117,11 +118,18 @@ class TotalListView(LoginRequiredMixin, TemplateView):
                 ).values('project_id')
             )
         context = self.get_context_data(**kwargs)
+        actualremark = RemarksDocs.objects.filter(to_project=
+                                                      self.get_queryset().values('id')[0]['id'])
+        if actualremark:
+            actualremark = actualremark.latest('created_at')
+
         to_response = {'doc_form': DocumentForm(prefix='doc_form_pre'),
                        'add_section_form': AddSectionForm(prefix='add_section_form_pre'),
                        'remarkdoc_form': remarkdoc_form,
-                       'object_list': self.get_queryset()}
-        to_response = to_response | context
+                       'object_list': self.get_queryset(),
+                       'actualremark': actualremark
+                       }
+        to_response.update(context)
         return self.render_to_response(to_response)
 
 
@@ -148,10 +156,11 @@ class TotalListView(LoginRequiredMixin, TemplateView):
             remarkdoc_form.save()
             remarkdoc_form.data = clear_form_data(remarkdoc_form.data)
 
-        return self.render_to_response({'doc_form': doc_form,
-                                        'add_section_form': add_section_form,
-                                        'remarkdoc_form': remarkdoc_form,
-                                        'object_list': self.get_queryset()})
+        return HttpResponseRedirect(reverse('main:total'))
+        # return self.render_to_response({'doc_form': doc_form,
+        #                                 'add_section_form': add_section_form,
+        #                                 'remarkdoc_form': remarkdoc_form,
+        #                                 'object_list': self.get_queryset()})
 
 
 class SectionDetailView(LoginRequiredMixin, DetailView):
@@ -162,14 +171,22 @@ class SectionDetailView(LoginRequiredMixin, DetailView):
         self.object = self.get_object()
         context = self.get_context_data(object=self.object)
 
+        doc_form = DocumentForm(prefix='doc_form_pre')
+        doc_form.fields['section'].queryset = Section.objects.filter(id=kwargs['pk'])
+
         remarkdoc_form = AddRemarkDocSectionForm(prefix='remarkdoc_form_pre')
         remarkdoc_form.fields['to_section'].queryset = \
             Section.objects.filter(id=kwargs['pk']).filter(id__in=Document.objects.all().values('section_id'))
 
-        to_response = {'doc_form': DocumentForm(prefix='doc_form_pre'),
+        actualremark = RemarksDocs.objects.filter(to_section=kwargs['pk'])
+        if actualremark:
+            actualremark = actualremark.latest('created_at')
+
+        to_response = {'doc_form': doc_form,
                        'remarkdoc_form': remarkdoc_form,
-                       'section': self.get_object()}
-        to_response = to_response | context
+                       'section': self.get_object(),
+                       'actualremark': actualremark}
+        to_response.update(context)
         return self.render_to_response(to_response)
 
 
@@ -184,7 +201,9 @@ class SectionDetailView(LoginRequiredMixin, DetailView):
         if doc_form.is_bound and doc_form.is_valid():
             try:
                 doc_form.save()
+                section = doc_form.data['doc_form_pre-section']
                 doc_form.data = clear_form_data(doc_form.data)
+                return HttpResponseRedirect(reverse('main:section', args=(section)))
             except ValidationError:
                 errors = 'Данная версия документа уже была загружена. Загрузите корректную новую версию.'
                 return self.render_to_response({
@@ -193,10 +212,12 @@ class SectionDetailView(LoginRequiredMixin, DetailView):
                 })
         elif remarkdoc_form.is_bound and remarkdoc_form.is_valid():
             remarkdoc_form.save()
+            section = remarkdoc_form.data['remarkdoc_form_pre-to_section']
             remarkdoc_form.data = clear_form_data(remarkdoc_form.data)
-        return self.render_to_response({'doc_form': doc_form,
-                                        'remarkdoc_form': remarkdoc_form,
-                                        'section': self.get_object()})
+            return HttpResponseRedirect(reverse('main:section', args=(section)))
+        # return self.render_to_response({'doc_form': doc_form,
+        #                                 'remarkdoc_form': remarkdoc_form,
+        #                                 'section': self.get_object()})
 
 
 class CompanyListView(LoginRequiredMixin, ListView):
