@@ -1,5 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.validators import UnicodeUsernameValidator
+from django.core.exceptions import ValidationError
 
 from main.models import StandardSection
 from user.models import User, Company, UserCompanyInfo
@@ -55,10 +57,15 @@ class UserRegistrationForm(UserCreationForm):
         )
 
 # Временное решение
-class UserEditForm(UserCreationForm):
+class UserEditForm(forms.ModelForm):
+    username_validator = UnicodeUsernameValidator()
     username = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control py-8',
-                                      'placeholder': 'Введите никнейм'})
+                                      'placeholder': 'Введите никнейм'}),
+        validators=[username_validator],
+        error_messages={
+            'unique': ("A user with that username already exists."),
+        }
     )
     email = forms.CharField(
         widget=forms.EmailInput(attrs={'class': 'form-control py-8',
@@ -87,55 +94,48 @@ class UserEditForm(UserCreationForm):
         widget=forms.TextInput(attrs={'class': 'form-control py-8',
                                       'placeholder': 'Введите номер телефона'})
     )
-    password1 = forms.CharField(
-        required=False,
-        widget=forms.PasswordInput(attrs={'class': 'form-control py-8',
-                                          'placeholder': 'Введите пароль'})
-    )
-    password2 = forms.CharField(
-        required=False,
-        widget=forms.PasswordInput(attrs={'class': 'form-control py-8',
-                                          'placeholder': 'Повторите пароль'})
-    )
 
     class Meta:
         model = User
         fields = (
             'username', 'email', 'image', 'first_name',
-            'last_name', 'patronymic', 'phone', 'password1', 'password2',
+            'last_name', 'patronymic', 'phone',
         )
 
 
-class UserAddInfoForm(forms.ModelForm):
-    user = forms.ModelChoiceField(
-        queryset=User.objects.select_related().exclude(id__in=(UserCompanyInfo.objects.values('user'))),
-        empty_label='Выберете пользователя',
-        widget=forms.Select(attrs={'class': 'form-control py-8',
-                                   'placeholder': 'Выберите название организации'})
-    )
-    company = forms.ModelChoiceField(
-        queryset=Company.objects.all(),
-        empty_label='Выберите организацию',
-        widget=forms.Select(attrs={'class': 'form-control py-8',
-                                   'placeholder': 'Введите название организации'})
-    )
-    department = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control py-8',
-                                      'placeholder': 'Введите название отдела'})
-    )
-    expert = forms.BooleanField(
-        required=False
-    )
-    chief_project_engineer = forms.BooleanField(
-        required=False
-    )
-    assistant = forms.BooleanField(
-        required=False
-    )
+class UserChangePasswordForm(forms.ModelForm):
+    error_messages = {
+        'password_mismatch': ('The two password fields didn’t match.'),
+    }
+
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control py-8',
+                                          'placeholder': 'Введите пароль'}))
+    password2 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control py-8',
+                                          'placeholder': 'Введите пароль'}))
 
     class Meta:
-        model = UserCompanyInfo
-        fields = ('__all__')
+        model = User
+        fields = ('password','password2',)
+
+    def save(self, commit=True):
+        if self.cleaned_data["password"] == self.cleaned_data["password2"]:
+            user = super(UserChangePasswordForm, self).save(commit=True)
+            user.set_password(self.cleaned_data["password"])
+            if commit:
+                user.save()
+            return user
+
+    def clean_password2(self):
+        password = self.cleaned_data.get("password")
+        password2 = self.cleaned_data.get("password2")
+        if password and password2 and password != password2:
+            raise ValidationError(
+                self.error_messages['password_mismatch'],
+                code='password_mismatch',
+            )
+        return password2
 
 
 class UserCompanyInfoForm(forms.ModelForm):

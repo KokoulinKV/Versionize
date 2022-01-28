@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, UpdateView, ListView
 
 from admins.forms import UserRegistrationForm, CompanyRegistrationFrom, CompanyEditForm, \
-    UserCompanyInfoForm, UserAddInfoForm, StandardSectionCreateForm, UserEditForm
+    UserCompanyInfoForm, StandardSectionCreateForm, UserEditForm, UserChangePasswordForm
 from main.models import StandardSection
 
 from user.models import User, Company, UserCompanyInfo
@@ -63,6 +63,21 @@ class UserEditView(UpdateView):
         return super(UserEditView, self).dispatch(request, *args, **kwargs)
 
 
+class UserChangePasswordView(UpdateView):
+    model = User
+    template_name = 'admins/admin-users-change-password.html'
+    form_class = UserChangePasswordForm
+    success_url = reverse_lazy('admins:index')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(UserChangePasswordView, self).get_context_data(**kwargs)
+        context['title'] = 'Edit user'
+        return context
+
+    @method_decorator(user_passes_test(lambda u: u.is_superuser))
+    def dispatch(self, request, *args, **kwargs):
+        return super(UserChangePasswordView, self).dispatch(request,*args, **kwargs)
+
 class UserDeleteView(UpdateView):
     model = User
     template_name = 'admins/admin-users-edit.html'
@@ -100,7 +115,7 @@ class UserRehubView(UpdateView):
 
 
 '''
-    Views for data about user's companies: list, create, edit, delete and rehub
+    Views for data about user's companies: list, edit, delete and rehub
     Main user data: username, firstname, lastname, patronymic, image, email, phone, password
 '''
 
@@ -119,22 +134,6 @@ class UserInfoListView(ListView):
         return super(UserInfoListView, self).dispatch(request, *args, **kwargs)
 
 
-class UserAddInfoView(CreateView):
-    model = UserCompanyInfo
-    template_name = 'admins/admin-users-addinfo.html'
-    form_class = UserAddInfoForm
-    success_url = reverse_lazy('admins:admins_usersinfo')
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(UserAddInfoView, self).get_context_data(**kwargs)
-        context['title'] = 'Add information about user'
-        return context
-
-    @method_decorator(user_passes_test(lambda u: u.is_superuser))
-    def dispatch(self, request, *args, **kwargs):
-        return super(UserAddInfoView, self).dispatch(request, *args, **kwargs)
-
-
 class UserInfoEdit(UpdateView):
     model = UserCompanyInfo
     template_name = 'admins/admin-usersinfo-edit.html'
@@ -150,11 +149,13 @@ class UserInfoEdit(UpdateView):
         formset = form.save()
         user = formset.user_id
         company = formset.company_id
-        check_manager = Company.objects.filter(manager_id=user).values('id')[0]['id']
-        if check_manager and not (company == check_manager):
-            manager_company_id = check_manager[0]['id']
-            query = Company.objects.filter(id=manager_company_id)
-            query.update(manager=None)
+        check_manager = Company.objects.filter(manager_id=user).values('id')
+        if check_manager:
+            check_manager = check_manager[0]['id']
+            if not (company == check_manager):
+                manager_company_id = check_manager[0]['id']
+                query = Company.objects.filter(id=manager_company_id)
+                query.update(manager=None)
         return super().form_valid(form)
 
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
