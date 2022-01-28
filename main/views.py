@@ -2,7 +2,8 @@ import os
 import zipfile
 
 from django.core.exceptions import ValidationError
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.urls import reverse
 from django.views.generic import ListView, DetailView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from transliterate import translit
@@ -11,7 +12,7 @@ from django.http import JsonResponse
 from Versionize import settings
 
 from main.forms import DocumentForm, AddSectionForm, CreateProjectForm, AddRemarkDocSectionForm, AddRemarkDocProjectForm
-from main.models import Section, Company, Document, Project, Comment
+from main.models import Section, Company, Document, Project, Comment, RemarksDocs
 
 
 def ajax_check(request):
@@ -54,7 +55,7 @@ class Index(LoginRequiredMixin, TemplateView):
         to_response = {'doc_form': DocumentForm(prefix='doc_form_pre'),
              'add_section_form': AddSectionForm(prefix='add_section_form_pre'),
              'create_project_form': CreateProjectForm(prefix='create_project_form_pre')}
-        to_response = to_response | context
+        to_response.update(context)
         return self.render_to_response(to_response)
 
     def post(self, request, *args, **kwargs):
@@ -81,6 +82,8 @@ class Index(LoginRequiredMixin, TemplateView):
                 # TODO Подумать как записывать ошибки нескольких форм
                 return self.render_to_response({
                     'doc_form': doc_form,
+                    'add_section_form': add_section_form,
+                    'create_project_form': create_project_form,
                     'errors': errors
                 })
         elif add_section_form.is_bound and add_section_form.is_valid():
@@ -117,11 +120,18 @@ class TotalListView(LoginRequiredMixin, TemplateView):
                 ).values('project_id')
             )
         context = self.get_context_data(**kwargs)
+        actualremark = RemarksDocs.objects.filter(to_project=
+                                                      self.get_queryset().values('id')[0]['id'])
+        if actualremark:
+            actualremark = actualremark.latest('created_at')
+
         to_response = {'doc_form': DocumentForm(prefix='doc_form_pre'),
                        'add_section_form': AddSectionForm(prefix='add_section_form_pre'),
                        'remarkdoc_form': remarkdoc_form,
-                       'object_list': self.get_queryset()}
-        to_response = to_response | context
+                       'object_list': self.get_queryset(),
+                       'actualremark': actualremark
+                       }
+        to_response.update(context)
         return self.render_to_response(to_response)
 
 
@@ -138,6 +148,9 @@ class TotalListView(LoginRequiredMixin, TemplateView):
                 errors = 'Данная версия документа уже была загружена. Загрузите корректную новую версию.'
                 return self.render_to_response({
                     'doc_form': doc_form,
+                    'add_section_form': add_section_form,
+                    'remarkdoc_form': remarkdoc_form,
+                    'object_list': self.get_queryset(),
                     'errors': errors
                 })
         elif add_section_form.is_bound and add_section_form.is_valid():
@@ -147,11 +160,11 @@ class TotalListView(LoginRequiredMixin, TemplateView):
         elif remarkdoc_form.is_bound and remarkdoc_form.is_valid():
             remarkdoc_form.save()
             remarkdoc_form.data = clear_form_data(remarkdoc_form.data)
-
-        return self.render_to_response({'doc_form': doc_form,
-                                        'add_section_form': add_section_form,
-                                        'remarkdoc_form': remarkdoc_form,
-                                        'object_list': self.get_queryset()})
+        return HttpResponseRedirect(reverse('main:total'))
+        # return self.render_to_response({'doc_form': doc_form,
+        #                                 'add_section_form': add_section_form,
+        #                                 'remarkdoc_form': remarkdoc_form,
+        #                                 'object_list': self.get_queryset()})
 
 
 class SectionDetailView(LoginRequiredMixin, DetailView):
@@ -162,14 +175,22 @@ class SectionDetailView(LoginRequiredMixin, DetailView):
         self.object = self.get_object()
         context = self.get_context_data(object=self.object)
 
+        doc_form = DocumentForm(prefix='doc_form_pre')
+        doc_form.fields['section'].queryset = Section.objects.filter(id=kwargs['pk'])
+
         remarkdoc_form = AddRemarkDocSectionForm(prefix='remarkdoc_form_pre')
         remarkdoc_form.fields['to_section'].queryset = \
             Section.objects.filter(id=kwargs['pk']).filter(id__in=Document.objects.all().values('section_id'))
 
-        to_response = {'doc_form': DocumentForm(prefix='doc_form_pre'),
+        actualremark = RemarksDocs.objects.filter(to_section=kwargs['pk'])
+        if actualremark:
+            actualremark = actualremark.latest('created_at')
+
+        to_response = {'doc_form': doc_form,
                        'remarkdoc_form': remarkdoc_form,
-                       'section': self.get_object()}
-        to_response = to_response | context
+                       'section': self.get_object(),
+                       'actualremark': actualremark}
+        to_response.update(context)
         return self.render_to_response(to_response)
 
 
@@ -184,19 +205,25 @@ class SectionDetailView(LoginRequiredMixin, DetailView):
         if doc_form.is_bound and doc_form.is_valid():
             try:
                 doc_form.save()
+                section = doc_form.data['doc_form_pre-section']
                 doc_form.data = clear_form_data(doc_form.data)
+                return HttpResponseRedirect(reverse('main:section', args=(section)))
             except ValidationError:
                 errors = 'Данная версия документа уже была загружена. Загрузите корректную новую версию.'
                 return self.render_to_response({
                     'doc_form': doc_form,
+                    'remarkdoc_form': remarkdoc_form,
+                    'section': self.get_object(),
                     'errors': errors
                 })
         elif remarkdoc_form.is_bound and remarkdoc_form.is_valid():
             remarkdoc_form.save()
+            section = remarkdoc_form.data['remarkdoc_form_pre-to_section']
             remarkdoc_form.data = clear_form_data(remarkdoc_form.data)
-        return self.render_to_response({'doc_form': doc_form,
-                                        'remarkdoc_form': remarkdoc_form,
-                                        'section': self.get_object()})
+            return HttpResponseRedirect(reverse('main:section', args=(section)))
+        # return self.render_to_response({'doc_form': doc_form,
+        #                                 'remarkdoc_form': remarkdoc_form,
+        #                                 'section': self.get_object()})
 
 
 class CompanyListView(LoginRequiredMixin, ListView):
@@ -336,6 +363,38 @@ class DocumentDownloadAllOfSection(LoginRequiredMixin, TemplateView):
                 return response
         raise Http404
 
+
+class RemarkDocDownload(LoginRequiredMixin, TemplateView):
+    template_name = 'main/total.html'
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        path = RemarksDocs.objects.filter(id=context['pk']).values('doc_path')[0]['doc_path']
+        dir, document = path.split('/')
+        document_dir = os.path.join(settings.MEDIA_ROOT, dir)
+        translit_doc_name= translit(document, language_code='ru', reversed=True)
+        zip_name = f'{translit_doc_name}.zip'
+        zip_path = f'{settings.MEDIA_ROOT}/downloads/{zip_name}'
+        archive = zipfile.ZipFile(zip_path, 'w')
+        rootdir = os.path.basename(document_dir)
+
+        for root, dir, files in os.walk(document_dir):
+            for file in files:
+                if file == document:
+                    filepath = os.path.join(root, file)
+                    parentpath = os.path.relpath(filepath, document_dir)
+                    arcname = os.path.join(rootdir, parentpath)
+                    archive.write(filepath, arcname)
+
+        archive.close()
+
+
+        if os.path.exists(zip_path):
+            with open(zip_path, 'rb') as fh:
+                response = HttpResponse(fh.read(), content_type="application/octet-stream", )
+                response['Content-Disposition'] = 'inline; filename=' + f'{zip_name}'
+                return response
+        raise Http404
 
 # @TheSleepyNomad
 class ProjectDetailView(LoginRequiredMixin, DetailView):
