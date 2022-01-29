@@ -1,6 +1,7 @@
 import os
 import zipfile
 
+from django.contrib.auth import update_session_auth_hash
 from django.core.exceptions import ValidationError
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.urls import reverse
@@ -11,7 +12,8 @@ from django.http import JsonResponse
 
 from Versionize import settings
 
-from main.forms import DocumentForm, AddSectionForm, CreateProjectForm, AddRemarkDocSectionForm, AddRemarkDocProjectForm
+from main.forms import DocumentForm, AddSectionForm, CreateProjectForm, AddRemarkDocSectionForm,\
+    AddRemarkDocProjectForm, PasswordChangeForm
 from main.models import Section, Company, Document, Project, Comment, RemarksDocs
 
 
@@ -21,12 +23,14 @@ def ajax_check(request):
         return True
     return False
 
-def _get_form(request, formcls, prefix):
+def _get_form(request, formcls, prefix, user=None):
     if prefix in request.POST:
         data = request.POST
         if request.FILES:
             files = request.FILES
             return formcls(data, files, prefix=prefix)
+        elif user:
+            return formcls(user, data, prefix=prefix)
     else:
         data = None
     return formcls(data, prefix=prefix)
@@ -54,7 +58,9 @@ class Index(LoginRequiredMixin, TemplateView):
         context = self.get_context_data(**kwargs)
         to_response = {'doc_form': DocumentForm(prefix='doc_form_pre'),
              'add_section_form': AddSectionForm(prefix='add_section_form_pre'),
-             'create_project_form': CreateProjectForm(prefix='create_project_form_pre')}
+             'create_project_form': CreateProjectForm(prefix='create_project_form_pre'),
+             'change_password_form': PasswordChangeForm(prefix='change_password_form_pre',
+                                                         user=self.request.user)}
         to_response.update(context)
         return self.render_to_response(to_response)
 
@@ -62,6 +68,7 @@ class Index(LoginRequiredMixin, TemplateView):
         doc_form = _get_form(request, DocumentForm, 'doc_form_pre')
         add_section_form = _get_form(request, AddSectionForm, 'add_section_form_pre')
         create_project_form = _get_form(request, CreateProjectForm, 'create_project_form_pre')
+        change_password_form = _get_form(request, PasswordChangeForm, 'change_password_form_pre', user=self.request.user)
         
         # @TheSleepyNomad
         # Выполнем проверку на ajax запрос
@@ -72,7 +79,7 @@ class Index(LoginRequiredMixin, TemplateView):
             request.session['active_project_id'] = project_id
             response = {'status': True}
             return JsonResponse(response)
-            
+
         if doc_form.is_bound and doc_form.is_valid():
             try:
                 doc_form.save()
@@ -93,9 +100,15 @@ class Index(LoginRequiredMixin, TemplateView):
         elif create_project_form.is_bound and create_project_form.is_valid():
             create_project_form.save()
             create_project_form.data = clear_form_data(create_project_form.data)
+
+        elif change_password_form.is_bound and change_password_form.is_valid():
+                change_password_form.save()
+                update_session_auth_hash(self.request, change_password_form.user)
+                change_password_form.data = clear_form_data(change_password_form.data)
         return self.render_to_response({'doc_form': doc_form,
                                         'add_section_form': add_section_form,
-                                        'create_project_form': create_project_form})
+                                        'create_project_form': create_project_form,
+                                        'change_password_form': change_password_form},)
 
 
 class TotalListView(LoginRequiredMixin, TemplateView):
