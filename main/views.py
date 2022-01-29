@@ -51,7 +51,7 @@ class Index(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Versionize - Сводная таблица проекта'
+        context['title'] = 'Versionize - Личный кабинет'
         return context
 
     def get(self, request, *args, **kwargs):
@@ -105,10 +105,8 @@ class Index(LoginRequiredMixin, TemplateView):
                 change_password_form.save()
                 update_session_auth_hash(self.request, change_password_form.user)
                 change_password_form.data = clear_form_data(change_password_form.data)
-        return self.render_to_response({'doc_form': doc_form,
-                                        'add_section_form': add_section_form,
-                                        'create_project_form': create_project_form,
-                                        'change_password_form': change_password_form},)
+
+        return HttpResponseRedirect(reverse('main:index', args=(kwargs['pk'],)))
 
 
 class TotalListView(LoginRequiredMixin, TemplateView):
