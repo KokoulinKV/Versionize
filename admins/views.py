@@ -1,3 +1,4 @@
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponseRedirect
 
@@ -73,6 +74,11 @@ class UserChangePasswordView(UpdateView):
         context = super(UserChangePasswordView, self).get_context_data(**kwargs)
         context['title'] = 'Edit user'
         return context
+
+    def form_valid(self, form):
+        self.object = form.save()
+        update_session_auth_hash(self.request, self.object)
+        return HttpResponseRedirect(self.get_success_url())
 
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, request, *args, **kwargs):
