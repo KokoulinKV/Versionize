@@ -122,13 +122,6 @@
             </div>
         </div>
         <div class="main">
-            {% if change_password_form.errors or doc_form.errors%}
-                {{ change_password_form.errors }}
-                {{ doc_form.errors }}
-            {% endif %}
-            {% if messages %}
-                {{ messages }}
-            {% endif %}
             <div class="task-list">
                 <div class="task-list__wrapper">
                     <div class="task-list__header"><i class='bx bx-data'></i>Задачи</div>
