@@ -1,5 +1,6 @@
 from django import forms
-
+from django.contrib.auth.forms import PasswordChangeForm
+from django.core.exceptions import ValidationError
 from main.models import Document, Section, Project, Company, RemarksDocs
 from user.models import User
 
@@ -117,3 +118,25 @@ class AddRemarkDocSectionForm(forms.ModelForm):
     class Meta:
         model = RemarksDocs
         fields = ('name','to_section','doc_path',)
+
+
+class PasswordChangeForm(PasswordChangeForm):
+    class Meta:
+        model = User
+        fields = ('old_password','new_password1','new_password2',)
+
+    def __init__(self, user, *args, **kwargs):
+        super(PasswordChangeForm, self).__init__(user, *args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form__input'
+
+    def clean_old_password(self):
+        old_password = self.cleaned_data["old_password"]
+        if not self.user.check_password(old_password):
+            raise ValidationError(
+                self.error_messages['password_incorrect'],
+                code='password_incorrect',
+            )
+        return old_password
+
+
