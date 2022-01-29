@@ -28,7 +28,9 @@
                         <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ user.phone }}</span>
                         <span class="person__mail"><i class='bx bx-mail-send'></i>{{ user.email }}</span>
                     </div>
-                    <span class="person__actions"><i class='bx bx-dots-horizontal-rounded'></i></span>
+                    <div class="actions__btn" id="add-password">
+                        <span class="person__actions"><i class='bx bx-dots-horizontal-rounded'></i></span>
+                    </div>
                 </div>
             </div>
             {% if active_project_id %}
@@ -120,6 +122,13 @@
             </div>
         </div>
         <div class="main">
+            {% if change_password_form.errors or doc_form.errors%}
+                {{ change_password_form.errors }}
+                {{ doc_form.errors }}
+            {% endif %}
+            {% if messages %}
+                {{ messages }}
+            {% endif %}
             <div class="task-list">
                 <div class="task-list__wrapper">
                     <div class="task-list__header"><i class='bx bx-data'></i>Задачи</div>
@@ -551,6 +560,37 @@
                     </button>
                 </div>
 
+            </form>
+        </div>
+    </div>
+</div>
+<div class="popup" id="popup-password">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_password"><i class='bx bx-plus-circle form-close'></i></a>
+            <div class="popup__title">Смена пароля</div>
+            <form action="" method="post" class="form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form__field">
+                    <label for="{{ change_password_form.old_password.id_for_label }}">
+                        Введите старый пароль:</label>
+                    {{ change_password_form.old_password }}
+                </div>
+                <div class="form__field">
+                    <label for="{{ change_password_form.new_password1.id_for_label }}">
+                        Введите новый пароль:</label>
+                    {{ change_password_form.new_password1 }}
+                </div>
+                <div class="form__field">
+                    <label for="{{ change_password_form.new_password2.id_for_label }}">
+                        Введите новый пароль еще раз:</label>
+                    {{ change_password_form.new_password2 }}
+                </div>
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn" name="{{ change_password_form.prefix }}" value="Submit">
+                        Сменить пароль
+                    </button>
+                </div>
             </form>
         </div>
     </div>

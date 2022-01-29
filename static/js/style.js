@@ -132,4 +132,10 @@ $(document).ready(function () {
         e.preventDefault()
         $('#newForm').toggleClass('new-form_open');
     });
+
+    // @KokoulinKV
+    // Для вызова pop-up формы изменения пароля, email и телефона пользователя
+    $('#add-password, #popup__close_password').click(function(){
+        $('#popup-password').toggleClass('popup_open');
+    });
 });
