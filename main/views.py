@@ -12,8 +12,8 @@ from django.http import JsonResponse
 
 from Versionize import settings
 
-from main.forms import DocumentForm, AddSectionForm, CreateProjectForm, AddRemarkDocSectionForm,\
-    AddRemarkDocProjectForm, PasswordChangeForm
+from main.forms import DocumentForm, AddSectionForm, CreateProjectForm, AddRemarkDocSectionForm, \
+    AddRemarkDocProjectForm, PasswordChangeForm, PhotoForm, EmailPhoneEditForm
 from main.models import Section, Company, Document, Project, Comment, RemarksDocs
 
 
@@ -60,7 +60,10 @@ class Index(LoginRequiredMixin, TemplateView):
              'add_section_form': AddSectionForm(prefix='add_section_form_pre'),
              'create_project_form': CreateProjectForm(prefix='create_project_form_pre'),
              'change_password_form': PasswordChangeForm(prefix='change_password_form_pre',
-                                                         user=self.request.user)}
+                                                         user=self.request.user),
+             'photo_form':PhotoForm(prefix='photo_form_pre'),
+             'email_form':EmailPhoneEditForm(instance=request.user, prefix='email_form_pre')}
+
         to_response.update(context)
         return self.render_to_response(to_response)
 
@@ -69,6 +72,8 @@ class Index(LoginRequiredMixin, TemplateView):
         add_section_form = _get_form(request, AddSectionForm, 'add_section_form_pre')
         create_project_form = _get_form(request, CreateProjectForm, 'create_project_form_pre')
         change_password_form = _get_form(request, PasswordChangeForm, 'change_password_form_pre', user=self.request.user)
+        photo_form = _get_form(request, PhotoForm, 'photo_form_pre')
+        email_form = _get_form(request, EmailPhoneEditForm, 'email_form_pre')
         
         # @TheSleepyNomad
         # Выполнем проверку на ajax запрос
@@ -102,9 +107,18 @@ class Index(LoginRequiredMixin, TemplateView):
             create_project_form.data = clear_form_data(create_project_form.data)
 
         elif change_password_form.is_bound and change_password_form.is_valid():
-                change_password_form.save()
-                update_session_auth_hash(self.request, change_password_form.user)
-                change_password_form.data = clear_form_data(change_password_form.data)
+            change_password_form.save()
+            update_session_auth_hash(self.request, change_password_form.user)
+            change_password_form.data = clear_form_data(change_password_form.data)
+
+        elif photo_form.is_bound and photo_form.is_valid():
+            photo_form.instance = request.user
+            photo_form.save()
+            photo_form.data = clear_form_data(photo_form.data)
+
+        elif email_form.is_bound and email_form.is_valid():
+            email_form.instance = request.user
+            email_form.save()
 
         return HttpResponseRedirect(reverse('main:index', args=(kwargs['pk'],)))
 
@@ -232,9 +246,6 @@ class SectionDetailView(LoginRequiredMixin, DetailView):
             section = remarkdoc_form.data['remarkdoc_form_pre-to_section']
             remarkdoc_form.data = clear_form_data(remarkdoc_form.data)
             return HttpResponseRedirect(reverse('main:section', args=(section)))
-        # return self.render_to_response({'doc_form': doc_form,
-        #                                 'remarkdoc_form': remarkdoc_form,
-        #                                 'section': self.get_object()})
 
 
 class CompanyListView(LoginRequiredMixin, ListView):
