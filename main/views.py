@@ -1,49 +1,19 @@
 import os
-import zipfile
 
 from django.contrib.auth import update_session_auth_hash
 from django.core.exceptions import ValidationError
-from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from transliterate import translit
 from django.http import JsonResponse
 
 from Versionize import settings
 
 from main.forms import DocumentForm, AddSectionForm, CreateProjectForm, AddRemarkDocSectionForm, \
     AddRemarkDocProjectForm, PasswordChangeForm, PhotoForm, EmailPhoneEditForm
+from main.func import download_some_files, download_single_file, _get_form, ajax_check, clear_form_data
 from main.models import Section, Company, Document, Project, Comment, RemarksDocs
-
-
-def ajax_check(request):
-    # Проверяем отправлен ли нам post запрос через ajax
-    if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
-        return True
-    return False
-
-def _get_form(request, formcls, prefix, user=None):
-    if prefix in request.POST:
-        data = request.POST
-        if request.FILES:
-            files = request.FILES
-            return formcls(data, files, prefix=prefix)
-        elif user:
-            return formcls(user, data, prefix=prefix)
-    else:
-        data = None
-    return formcls(data, prefix=prefix)
-
-
-def clear_form_data(form_data):
-    """
-    Clears the values of the immutable QueryDict instance
-    """
-    empty_dict = {'csrfmiddlewaretoken': form_data['csrfmiddlewaretoken']}
-    for key in form_data.keys():
-        empty_dict[form_data[key]] = ''
-    return empty_dict
 
 
 class Index(LoginRequiredMixin, TemplateView):
@@ -186,10 +156,6 @@ class TotalListView(LoginRequiredMixin, TemplateView):
             remarkdoc_form.save()
             remarkdoc_form.data = clear_form_data(remarkdoc_form.data)
         return HttpResponseRedirect(reverse('main:total'))
-        # return self.render_to_response({'doc_form': doc_form,
-        #                                 'add_section_form': add_section_form,
-        #                                 'remarkdoc_form': remarkdoc_form,
-        #                                 'object_list': self.get_queryset()})
 
 
 class SectionDetailView(LoginRequiredMixin, DetailView):
@@ -286,31 +252,8 @@ class DocumentDownload(LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         path = Document.objects.filter(id=context['pk']).values('doc_path')[0]['doc_path']
-        dir, document = path.split('/')
-        document_dir = os.path.join(settings.MEDIA_ROOT, dir)
-        translit_doc_name= translit(document, language_code='ru', reversed=True)
-        zip_name = f'{translit_doc_name}.zip'
-        zip_path = f'{settings.MEDIA_ROOT}/downloads/{zip_name}'
-        archive = zipfile.ZipFile(zip_path, 'w')
-        rootdir = os.path.basename(document_dir)
+        return download_single_file(path)
 
-        for root, dir, files in os.walk(document_dir):
-            for file in files:
-                if file == document:
-                    filepath = os.path.join(root, file)
-                    parentpath = os.path.relpath(filepath, document_dir)
-                    arcname = os.path.join(rootdir, parentpath)
-                    archive.write(filepath, arcname)
-
-        archive.close()
-
-
-        if os.path.exists(zip_path):
-            with open(zip_path, 'rb') as fh:
-                response = HttpResponse(fh.read(), content_type="application/octet-stream", )
-                response['Content-Disposition'] = 'inline; filename=' + f'{zip_name}'
-                return response
-        raise Http404
 
 class DocumentDownloadAllOfTotal(LoginRequiredMixin, TemplateView):
     template_name = 'main/total.html'
@@ -328,26 +271,9 @@ class DocumentDownloadAllOfTotal(LoginRequiredMixin, TemplateView):
 
         document_dir = os.path.join(settings.MEDIA_ROOT, dir)
         zip_name = f'{project}_docs.zip'
-        translit_zip_name = translit(zip_name, language_code='ru', reversed=True)
-        zip_path = f'{settings.MEDIA_ROOT}/downloads/{zip_name}'
-        archive = zipfile.ZipFile(zip_path, 'w')
-        rootdir = os.path.basename(document_dir)
 
-        for root, dir, files in os.walk(document_dir):
-            for file in files:
-                if file in files_download:
-                    filepath = os.path.join(root, file)
-                    parentpath = os.path.relpath(filepath, document_dir)
-                    arcname = os.path.join(rootdir, parentpath)
-                    archive.write(filepath, arcname)
-        archive.close()
+        return download_some_files(zip_name, document_dir, files_download)
 
-        if os.path.exists(zip_path):
-            with open(zip_path, 'rb') as fh:
-                response = HttpResponse(fh.read(), content_type="application/zip", )
-                response['Content-Disposition'] = 'inline; filename=' + f'{translit_zip_name}'
-                return response
-        raise Http404
 
 class DocumentDownloadAllOfSection(LoginRequiredMixin, TemplateView):
     template_name = 'main/total.html'
@@ -364,26 +290,8 @@ class DocumentDownloadAllOfSection(LoginRequiredMixin, TemplateView):
 
         document_dir = os.path.join(settings.MEDIA_ROOT, dir)
         zip_name = f'{section}_docs.zip'
-        translit_zip_name = translit(zip_name, language_code='ru', reversed=True)
-        zip_path = f'{settings.MEDIA_ROOT}/downloads/{zip_name}'
-        archive = zipfile.ZipFile(zip_path, 'w')
-        rootdir = os.path.basename(document_dir)
 
-        for root, dir, files in os.walk(document_dir):
-            for file in files:
-                if file in files_download:
-                    filepath = os.path.join(root, file)
-                    parentpath = os.path.relpath(filepath, document_dir)
-                    arcname = os.path.join(rootdir, parentpath)
-                    archive.write(filepath, arcname)
-        archive.close()
-
-        if os.path.exists(zip_path):
-            with open(zip_path, 'rb') as fh:
-                response = HttpResponse(fh.read(), content_type="application/zip", )
-                response['Content-Disposition'] = 'inline; filename=' + f'{translit_zip_name}'
-                return response
-        raise Http404
+        return download_some_files(zip_name, document_dir, files_download)
 
 
 class RemarkDocDownload(LoginRequiredMixin, TemplateView):
@@ -392,31 +300,8 @@ class RemarkDocDownload(LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         path = RemarksDocs.objects.filter(id=context['pk']).values('doc_path')[0]['doc_path']
-        dir, document = path.split('/')
-        document_dir = os.path.join(settings.MEDIA_ROOT, dir)
-        translit_doc_name= translit(document, language_code='ru', reversed=True)
-        zip_name = f'{translit_doc_name}.zip'
-        zip_path = f'{settings.MEDIA_ROOT}/downloads/{zip_name}'
-        archive = zipfile.ZipFile(zip_path, 'w')
-        rootdir = os.path.basename(document_dir)
+        return download_single_file(path)
 
-        for root, dir, files in os.walk(document_dir):
-            for file in files:
-                if file == document:
-                    filepath = os.path.join(root, file)
-                    parentpath = os.path.relpath(filepath, document_dir)
-                    arcname = os.path.join(rootdir, parentpath)
-                    archive.write(filepath, arcname)
-
-        archive.close()
-
-
-        if os.path.exists(zip_path):
-            with open(zip_path, 'rb') as fh:
-                response = HttpResponse(fh.read(), content_type="application/octet-stream", )
-                response['Content-Disposition'] = 'inline; filename=' + f'{zip_name}'
-                return response
-        raise Http404
 
 # @TheSleepyNomad
 class ProjectDetailView(LoginRequiredMixin, DetailView):
