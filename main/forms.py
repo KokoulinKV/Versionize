@@ -140,3 +140,43 @@ class PasswordChangeForm(PasswordChangeForm):
         return old_password
 
 
+
+class PhotoForm(forms.ModelForm):
+    image = forms.ImageField(
+        required=False,
+        widget=forms.FileInput()
+    )
+
+    class Meta:
+        model = User
+        fields = (
+            'image',
+        )
+
+
+    def save(self, commit=True):
+        self.instance.image = self.cleaned_data['image']
+        return super(PhotoForm, self).save()
+
+
+
+class EmailPhoneEditForm(forms.ModelForm):
+    email = forms.CharField(
+        widget=forms.EmailInput(attrs={'class': 'form__input',
+                                       'placeholder': 'Введите email'})
+    )
+    phone = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form__input',
+                                      'placeholder': 'Введите номер телефона'})
+    )
+    class Meta:
+        model = User
+        fields = (
+            'email',
+            'phone',
+        )
+
+    def save(self, commit=True):
+        self.instance.email = self.cleaned_data['email']
+        self.instance.phone = self.cleaned_data['phone']
+        return super(EmailPhoneEditForm, self).save()
