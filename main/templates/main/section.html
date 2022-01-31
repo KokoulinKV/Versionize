@@ -28,15 +28,15 @@ Versionize | Section card
                         </div>
                     </div>
                 </div>
-                <button class="project__btn">
-                    <div class="project__btn-body">
-                        <i class='bx bx-cloud-download'></i>
-                        <span class="project__btn-text">Скачать</span>
-                    </div>
-                </button>
+{#                <button class="project__btn">#}
+{#                    <div class="project__btn-body">#}
+{#                        <i class='bx bx-cloud-download'></i>#}
+{#                        <span class="project__btn-text">Скачать</span>#}
+{#                    </div>#}
+{#                </button>#}
             </div>
-            <h2 class="block-title">Ответственный:</h2>
             <div class="person">
+            <h2 class="block-title">Ответственный:</h2>
                 <div class="person__content">
                     <div class="person__text">
                         {% with section.responsible as responsible %}
@@ -50,8 +50,8 @@ Versionize | Section card
                         {% endwith %}
                     </div>
                 </div>
-                <h2 class="block-title">Эксперт:</h2>
                 <div class="person">
+                <h2 class="block-title">Эксперт:</h2>
                     <div class="person__content">
                         <div class="person__text">
                             {% with section.expert as expert %}

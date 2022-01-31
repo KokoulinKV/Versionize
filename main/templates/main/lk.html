@@ -88,19 +88,19 @@
             <!-- ======================================================================== -->
             <!-- БЛОК ДЛЯ ВЫБОРА ПРОЕКТОВ -->
             <!-- Данная кнопка доступна только человеку с ролью ГИП -->
-            {% if user.get_project_role == 'ГИП' %}
-            <div class="project">
-                <h2 class="block-title">Проекты:</h2>
-                <div class="form__select">
-                    {% user-projects user.id as projects %}
-                    <select id="selectProject">
-                        {% for project in projects %}
-                        <option value="{{ project.id }}" data-url="{% url 'main:project' project.id %}">{{ project.code }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-            {% endif %}
+{#            {% if user.get_project_role == 'ГИП' %}#}
+{#            <div class="project">#}
+{#                <h2 class="block-title">Проекты:</h2>#}
+{#                <div class="form__select">#}
+{#                    {% user-projects user.id as projects %}#}
+{#                    <select id="selectProject">#}
+{#                        {% for project in projects %}#}
+{#                        <option value="{{ project.id }}" data-url="{% url 'main:project' project.id %}">{{ project.code }}</option>#}
+{#                        {% endfor %}#}
+{#                    </select>#}
+{#                </div>#}
+{#            </div>#}
+{#            {% endif %}#}
             <!-- ======================================================================== -->
             <!-- Блок кнопок -->
             <h2 class="block-title">Действия:</h2>
