@@ -132,4 +132,10 @@ $(document).ready(function () {
         e.preventDefault()
         $('#newForm').toggleClass('new-form_open');
     });
+
+    // @TheSleepyNomad
+    // Для вызова pop-up формы добавления проекта
+    $('#get-info-card, #popup__close_info_card').click(function(){
+        $('#popup-info-card').toggleClass('popup_open');
+    });
 });
