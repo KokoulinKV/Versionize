@@ -69,7 +69,7 @@ Versionize | Document card
                 </div>
             </div>
             <div class="actions actions_section">
-                <div class="actions__btn" id="add-section">
+                <div class="actions__btn" id="get-permission-card">
                     <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>
                     <h3 class="actions__name">Сформировать разрешение на внесение изменений</h3>
                 </div>
@@ -291,6 +291,47 @@ Versionize | Document card
                 <div class="form__field">
                     <label for="{{ info_card_form.manager_name.id_for_label }}">Имя<br>руководителя:</label>
                     {{ info_card_form.manager_name }}
+                </div>
+
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn"
+                            name="{{ info_card_form.prefix }}" value="Submit">Скачать</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="popup" id="popup-permission-card">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_permission_card"><i class='bx bx-plus-circle form-close'></i></a>
+            <div class="popup__title">Сформировать разрешение</div>
+            <form action="" method="post" class="form">
+                {% csrf_token %}
+
+                <div class="form__field">
+                    <label for="{{ permission_card_form.permission_number.id_for_label }}">Номер разрешения:</label>
+                    {{ permission_card_form.permission_number }}
+                </div>
+
+                <div class="form__field">
+                    <label for="{{ permission_card_form.norm_control.id_for_label }}">Нормоконтроль:</label>
+                    {{ permission_card_form.norm_control }}
+                </div>
+
+                <div class="form__field">
+                    <label for="{{ permission_card_form.changes_by.id_for_label }}">Изменения внес:</label>
+                        {{ permission_card_form.changes_by }}
+                </div>
+
+                <div class="form__field">
+                    <label for="{{ permission_card_form.made_by.id_for_label }}">Составил:</label>
+                        {{ permission_card_form.made_by }}
+                </div>
+
+                <div class="form__field">
+                    <label for="{{ permission_card_form.approved_by.id_for_label }}">Утвердил:</label>
+                    {{ permission_card_form.approved_by }}
                 </div>
 
                 <div class="form__submit">
