@@ -8,7 +8,8 @@ from user.models import User
 class DocumentForm(forms.ModelForm):
     name = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form__input',
-                                      'placeholder': 'Введите имя документа'})
+                                      'placeholder': 'Введите имя документа'}),
+        required=False
     )
     doc_path = forms.FileField(
         required=False,
@@ -28,23 +29,10 @@ class DocumentForm(forms.ModelForm):
         fields = ('status', 'name', 'doc_path', 'section', 'note',)
 
 
-class DocumentSectionForm(forms.ModelForm):
-    name = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form__input',
-                                      'placeholder': 'Введите имя документа'})
-    )
-    doc_path = forms.FileField(
-        required=False,
-        widget=forms.FileInput(attrs={'class': 'form__input',
-                                      'accept': ".pdf"})
-    )
+class DocumentSectionForm(DocumentForm):
     section = forms.ModelChoiceField(
         queryset=Section.objects.all(),
         required=False
-    )
-    note = forms.CharField(
-        required=False,
-        widget=forms.Textarea(attrs={'class': 'form__textarea'})
     )
 
     class Meta:
