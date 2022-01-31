@@ -190,19 +190,19 @@ class PermissionCardForm(forms.Form):
     )
     norm_control = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form__input',
-                                      'placeholder': 'Нормоконтроль'})
+                                      'placeholder': 'Фамилия'})
     )
     changes_by = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form__input',
-                                      'placeholder': 'Изменения внёс'})
+                                      'placeholder': 'Фамилия'})
     )
     made_by = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form__input',
-                                      'placeholder': 'Составил'})
+                                      'placeholder': 'Фамилия'})
     )
     approved_by = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form__input',
-                                      'placeholder': 'Утвердил'})
+                                      'placeholder': 'Фамилия'})
     )
 
 
