@@ -26,7 +26,12 @@ class Index(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
-        to_response = {'doc_form': DocumentForm(prefix='doc_form_pre'),
+
+        doc_form = DocumentForm(prefix='doc_form_pre')
+        doc_form.fields['section'].queryset = \
+            Section.objects.filter(project_id=request.session['active_project_id'])
+
+        to_response = {'doc_form': doc_form,
              'add_section_form': AddSectionForm(prefix='add_section_form_pre'),
              'create_project_form': CreateProjectForm(prefix='create_project_form_pre'),
              'change_password_form': PasswordChangeForm(prefix='change_password_form_pre',
@@ -114,13 +119,19 @@ class TotalListView(LoginRequiredMixin, TemplateView):
                     id__in=Document.objects.all().values('section_id')
                 ).values('project_id')
             )
+
+        doc_form = DocumentForm(prefix='doc_form_pre')
+        doc_form.fields['section'].queryset = \
+            Section.objects.filter(project_id=request.session['active_project_id'])
+
         context = self.get_context_data(**kwargs)
+
         actualremark = RemarksDocs.objects.filter(to_project=
                                                       self.get_queryset().values('id')[0]['id'])
         if actualremark:
             actualremark = actualremark.latest('created_at')
 
-        to_response = {'doc_form': DocumentForm(prefix='doc_form_pre'),
+        to_response = {'doc_form': doc_form,
                        'add_section_form': AddSectionForm(prefix='add_section_form_pre'),
                        'remarkdoc_form': remarkdoc_form,
                        'object_list': self.get_queryset(),
