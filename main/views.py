@@ -11,15 +11,17 @@ from django.http import JsonResponse
 
 from Versionize import settings
 
-from main.forms import DocumentForm, AddSectionForm, CreateProjectForm, AddRemarkDocSectionForm, AddRemarkDocProjectForm
+from main.forms import DocumentForm, AddSectionForm, CreateProjectForm, \
+    AddRemarkDocSectionForm, AddRemarkDocProjectForm, PermissionCardForm, InfoCardForm
 from main.models import Section, Company, Document, Project, Comment, RemarksDocs
-
+from main.utils.card_generation import generate_info_card
 
 def ajax_check(request):
     # Проверяем отправлен ли нам post запрос через ajax
     if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
         return True
     return False
+
 
 def _get_form(request, formcls, prefix):
     if prefix in request.POST:
@@ -64,11 +66,12 @@ class Index(LoginRequiredMixin, TemplateView):
         create_project_form = _get_form(request, CreateProjectForm, 'create_project_form_pre')
         
         # @TheSleepyNomad
-        # Выполнем проверку на ajax запрос
+        # Выполняем проверку на ajax запрос
         if request.method == 'POST' and ajax_check(request):
             # В текущей версии разработки меняем только текущий активный проект
             # Todo написать алгоритм, по которому будем определять имя функции ajax
-            project_id = request.POST.get('project_id', None) # Пользователь выбирает наименование/код, но передаем id, так как наименование пока может повторяться
+            # Пользователь выбирает наименование/код, но передаем id, так как наименование пока может повторяться
+            project_id = request.POST.get('project_id', None)
             request.session['active_project_id'] = project_id
             response = {'status': True}
             return JsonResponse(response)
@@ -133,7 +136,6 @@ class TotalListView(LoginRequiredMixin, TemplateView):
                        }
         to_response.update(context)
         return self.render_to_response(to_response)
-
 
     def post(self, request, *args, **kwargs):
         doc_form = _get_form(request, DocumentForm, 'doc_form_pre')
@@ -245,17 +247,48 @@ class DocumentDetailView(LoginRequiredMixin, DetailView):
         context['title'] = 'Versionize - Документ'
         return context
 
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+        to_response = {'permission_card_form': PermissionCardForm(prefix='permission_card_pre'),
+                       'info_card_form': InfoCardForm(prefix='info_card_pre')}
+        to_response.update(context)
+        return self.render_to_response(to_response)
+
     def post(self, request, *args, **kwargs):
         # @TheSleepyNomad
-        # Выполнем проверку на ajax запрос
+        # Выполняем проверку на ajax запрос
         if request.method == 'POST' and ajax_check(request):
             new_comment = Comment(
                 author_id=request.user.id, 
                 document_id=self.kwargs['pk'],
                 body=request.POST.get('commentBody'),)
             new_comment.save()
-            response = {'status': True}
-            return JsonResponse(response)
+            to_response = {'status': True}
+            return JsonResponse(to_response)
+
+        permission_card_form = _get_form(request, PermissionCardForm, 'permission_card_pre')
+        info_card_form = _get_form(request, InfoCardForm, 'info_card_pre')
+
+        if permission_card_form.is_bound and permission_card_form.is_valid():
+            permission_card_form.data = clear_form_data(permission_card_form.data)
+
+        elif info_card_form.is_bound and info_card_form.is_valid():
+            form_prefix = 'info_card_pre-'
+
+            # Формируем словарь для функции
+            data = {
+                'document_id': self.kwargs['pk'],
+                'developed_by': info_card_form.data.get(f'{form_prefix}developed_by'),
+                'checked_by': info_card_form.data.get(f'{form_prefix}checked_by'),
+                'norm_control': info_card_form.data.get(f'{form_prefix}norm_control'),
+                'approved_by': info_card_form.data.get(f'{form_prefix}approved_by'),
+                'manager_position': info_card_form.data.get(f'{form_prefix}manager_position'),
+                'manager_name': info_card_form.data.get(f'{form_prefix}manager_name'),
+            }
+            generate_info_card(data)
+        return self.render_to_response({'permission_card_form': permission_card_form,
+                                        'info_card_form': info_card_form})
 
 
 class DocumentDownload(LoginRequiredMixin, TemplateView):
@@ -289,6 +322,7 @@ class DocumentDownload(LoginRequiredMixin, TemplateView):
                 response['Content-Disposition'] = 'inline; filename=' + f'{zip_name}'
                 return response
         raise Http404
+
 
 class DocumentDownloadAllOfTotal(LoginRequiredMixin, TemplateView):
     template_name = 'main/total.html'
@@ -326,6 +360,7 @@ class DocumentDownloadAllOfTotal(LoginRequiredMixin, TemplateView):
                 response['Content-Disposition'] = 'inline; filename=' + f'{translit_zip_name}'
                 return response
         raise Http404
+
 
 class DocumentDownloadAllOfSection(LoginRequiredMixin, TemplateView):
     template_name = 'main/total.html'
@@ -395,6 +430,7 @@ class RemarkDocDownload(LoginRequiredMixin, TemplateView):
                 response['Content-Disposition'] = 'inline; filename=' + f'{zip_name}'
                 return response
         raise Http404
+
 
 # @TheSleepyNomad
 class ProjectDetailView(LoginRequiredMixin, DetailView):
