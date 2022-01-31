@@ -14,7 +14,7 @@ from main.forms import DocumentForm, AddSectionForm, CreateProjectForm, AddRemar
     AddRemarkDocProjectForm, PasswordChangeForm, PhotoForm, EmailPhoneEditForm, PermissionCardForm, InfoCardForm
 from main.func import download_some_files, download_single_file, _get_form, ajax_check, clear_form_data
 from main.models import Section, Company, Document, Project, Comment, RemarksDocs
-from main.utils.card_generation import generate_info_card
+from main.utils.card_generation import generate_info_card, generate_permission_card
 
 class Index(LoginRequiredMixin, TemplateView):
     template_name = 'main/lk.html'
@@ -258,8 +258,18 @@ class DocumentDetailView(LoginRequiredMixin, DetailView):
         info_card_form = _get_form(request, InfoCardForm, 'info_card_pre')
 
         if permission_card_form.is_bound and permission_card_form.is_valid():
-            permission_card_form.data = clear_form_data(permission_card_form.data)
+            form_prefix = 'permission_card_pre-'
 
+            # Формируем словарь для функции
+            data = {
+                'document_id': self.kwargs['pk'],
+                'permission_number': permission_card_form.data.get(f'{form_prefix}permission_number'),
+                'norm_control': permission_card_form.data.get(f'{form_prefix}norm_control'),
+                'changes_by': permission_card_form.data.get(f'{form_prefix}changes_by'),
+                'made_by': permission_card_form.data.get(f'{form_prefix}made_by'),
+                'approved_by': permission_card_form.data.get(f'{form_prefix}approved_by'),
+            }
+            generate_permission_card(data)
         elif info_card_form.is_bound and info_card_form.is_valid():
             form_prefix = 'info_card_pre-'
 

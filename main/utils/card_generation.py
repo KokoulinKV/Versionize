@@ -1,10 +1,11 @@
 import os
 import re
+import docx
 from PyPDF2 import PdfFileReader
 from docxtpl import DocxTemplate
 from django.utils import timezone, dateformat
 from Versionize.settings import BASE_DIR
-from main.models import Document
+from main.models import Document, Adjustment
 
 
 def generate_info_card(data):
@@ -57,6 +58,7 @@ def generate_info_card(data):
         year = date_info[0]
         month = date_info[1]
         day = date_info[2]
+        day = date_info[2]
         hours = date_info[3]
         minutes = date_info[4]
         seconds = date_info[5]
@@ -89,3 +91,82 @@ def generate_info_card(data):
     }
     doc.render(context)
     doc.save(os.path.join(BASE_DIR, 'media', 'downloads', f'{filename}_ИУЛ.docx'))
+
+
+def remove_row(table, row):
+    tbl = table._tbl
+    tr = row._tr
+    tbl.remove(tr)
+
+
+def generate_permission_card(data):
+    TEMPLATE_NAME = 'permission_card_template.docx'
+    TEMPLATE_PATH = os.path.join(BASE_DIR, 'media', 'templates', TEMPLATE_NAME)
+
+    # Считываем таблицу из файла, получаем объект
+    doc = docx.Document(TEMPLATE_PATH)
+    table = doc.tables[0]
+
+    adjustment_data = Adjustment.objects.select_related().filter(document_id=data['document_id'])
+    # Первая строка с данными о корректировках
+    row_num = 3
+    # Заполняем таблицу данными из БД по корректировкам
+    for adjustment in adjustment_data:
+        variation = str(adjustment.document.variation)
+        pages = adjustment.pages
+        body = adjustment.body
+        code = adjustment.code
+        note = adjustment.note
+
+        variation_cell = table.cell(row_num, 0)
+        pages_cell = table.cell(row_num, 1)
+        body_cell = table.cell(row_num, 2)
+        code_cell = table.cell(row_num, 4)
+        note_cell = table.cell(row_num, 5)
+
+        variation_cell.text = variation
+        pages_cell.text = pages
+        body_cell.text = body
+        code_cell.text = code
+        note_cell.text = note
+
+        variation_cell.paragraphs[0].style = doc.styles['calibri_light_center']
+        pages_cell.paragraphs[0].style = doc.styles['calibri_light_center']
+        body_cell.paragraphs[0].style = doc.styles['calibri_light_left']
+        code_cell.paragraphs[0].style = doc.styles['calibri_light_center']
+        note_cell.paragraphs[0].style = doc.styles['calibri_light_left']
+
+        row_num += 1
+        table.add_row()
+        # Строка была добавлена без объединённых ячеек
+        merge_cell_1 = table.cell(row_num, 2)
+        merge_cell_2 = table.cell(row_num, 3)
+        merged_cell = merge_cell_1.merge(merge_cell_2)
+
+    remove_row(table, table.rows[-1])
+
+    # Генерируем новое название файла и сохраняем
+    filename = adjustment_data.first().document.name[:-5]
+    new_filename = os.path.join(BASE_DIR, 'media', 'downloads', f'{filename}_разрешение.docx')
+    doc.save(new_filename)
+
+    # Заполняем теги в файле
+    doc = DocxTemplate(new_filename)
+
+    project_code = adjustment_data.first().section.project.code
+    section_abbreviation = adjustment_data.first().section.abbreviation
+    context = {
+        'section_abbreviation': f'{project_code}-{section_abbreviation}',
+        'project_name': adjustment_data.first().section.project.name,
+        'date': dateformat.format(timezone.now(), 'd.m.y'),
+        'chief_engineer': adjustment_data.first().section.project.admin.last_name,
+        'company_name': adjustment_data.first().section.company.name,
+        # Следующие данные получаем из формы
+        'permission_number': data['permission_number'],
+        'norm_control': data['norm_control'],
+        'changes_by': data['changes_by'],
+        'made_by': data['made_by'],
+        'approved_by': data['approved_by'],
+    }
+    doc.render(context)
+    doc.save(new_filename)
