@@ -90,7 +90,7 @@ def generate_info_card(data):
         'date': date,
     }
     doc.render(context)
-    doc.save(os.path.join(BASE_DIR, 'media', 'downloads', f'{filename}_ИУЛ.docx'))
+    doc.save(os.path.join(BASE_DIR, 'media', 'downloads', f'{filename[:-5]}_ИУЛ.docx'))
 
 
 def remove_row(table, row):
