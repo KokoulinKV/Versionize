@@ -106,7 +106,7 @@ class AddRemarkDocSectionForm(forms.ModelForm):
         required=False,
         widget=forms.FileInput(attrs={'class': 'form__input'})
     )
-    
+
     def save(self, commit=True):
         remark = super(AddRemarkDocSectionForm, self).save()
         last_doc_in_section_id =Document.objects.filter(section=remark.to_section).values('id').latest('created_at')
@@ -116,4 +116,54 @@ class AddRemarkDocSectionForm(forms.ModelForm):
 
     class Meta:
         model = RemarksDocs
-        fields = ('name','to_section','doc_path',)
+        fields = ('name', 'to_section', 'doc_path',)
+
+
+class PermissionCardForm(forms.Form):
+    permission_number = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form__input',
+                                      'placeholder': 'Введите номер разрешения'})
+    )
+    norm_control = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form__input',
+                                      'placeholder': 'Нормоконтроль'})
+    )
+    changes_by = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form__input',
+                                      'placeholder': 'Изменения внёс'})
+    )
+    made_by = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form__input',
+                                      'placeholder': 'Составил'})
+    )
+    approved_by = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form__input',
+                                      'placeholder': 'Утвердил'})
+    )
+
+
+class InfoCardForm(forms.Form):
+    developed_by = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form__input',
+                                      'placeholder': 'Фамилия'})
+    )
+    checked_by = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form__input',
+                                      'placeholder': 'Фамилия'})
+    )
+    norm_control = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form__input',
+                                      'placeholder': 'Фамилия'})
+    )
+    approved_by = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form__input',
+                                      'placeholder': 'Фамилия'})
+    )
+    manager_position = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form__input',
+                                      'placeholder': 'Должность'})
+    )
+    manager_name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form__input',
+                                      'placeholder': 'Фамилия, инициалы'})
+    )
