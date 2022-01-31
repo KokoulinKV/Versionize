@@ -3,12 +3,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 
-from user.views import login
+from user.views import UserLoginView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', login, name='login'),
+    path('', UserLoginView.as_view(), name='login'),
     path('user/', include('user.urls', namespace='user')),
     path('main/', include('main.urls', namespace='main')),
     path('admins/', include('admins.urls', namespace='admins')),
