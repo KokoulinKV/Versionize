@@ -132,4 +132,22 @@ $(document).ready(function () {
         e.preventDefault()
         $('#newForm').toggleClass('new-form_open');
     });
+
+    // @KokoulinKV
+    // Для вызова pop-up формы изменения пароля
+    $('#change-password, #popup__close_password').click(function(){
+        $('#popup-password').toggleClass('popup_open');
+    });
+
+    // @KokoulinKV
+    // Для вызова pop-up формы изменения фотографии
+    $('#change-photo, #popup__close_photo').click(function(){
+        $('#popup-photo').toggleClass('popup_open');
+    });
+
+    // @KokoulinKV
+    // Для вызова pop-up формы изменения email и phone
+    $('#change-email, #popup__close_email').click(function(){
+        $('#popup-email').toggleClass('popup_open');
+    });
 });
