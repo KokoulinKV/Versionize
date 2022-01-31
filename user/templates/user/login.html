@@ -19,13 +19,13 @@
             </div>
             <form action="{% url 'user:login' %}" class="auth-form" method="post">
                 {% if user_error or form.errors %}
-                <p>Неверный email или пароль. Попробуйте снова.</p>
+                <p>Неверный Логин или пароль. Попробуйте снова.</p>
                 {% endif %}
                 {% csrf_token %}
                 <div class="auth-form__group">
-                    <label for="{{ form.email.id_for_label }}" class="auth-form__label">Эл. почта</label>
+                    <label for="{{ form.username.id_for_label }}" class="auth-form__label">Логин</label>
                 </div>
-                {{ form.email }}
+                {{ form.username }}
                 <div class="auth-form__group">
                     <label for="{{ form.password.id_for_label }}" class="auth-form__label">Пароль</label>
                 </div>
