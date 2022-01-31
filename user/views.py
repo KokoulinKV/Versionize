@@ -2,9 +2,14 @@ from django.contrib import auth
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.contrib.auth.views import LoginView, LogoutView
 
 from user.forms import UserLoginForm
 from user.models import User
+
+
+class UserLoginView(LoginView):
+    pass
 
 
 def login(request):
@@ -30,6 +35,8 @@ def login(request):
     return render(request, 'user/login.html', context)
 
 
-def logout(request):
-    auth.logout(request)
-    return HttpResponseRedirect(reverse('user:login'))
+# def logout(request):
+#     auth.logout(request)
+#     return HttpResponseRedirect(reverse('user:login'))
+class UserLogoutView(LogoutView):
+    next_page = '/'
