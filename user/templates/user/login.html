@@ -18,10 +18,6 @@
                 <img src="{% static 'img/logo.png' %}" alt="">
             </div>
             <form action="{% url 'user:login' %}" class="auth-form" method="post">
-
-                <!-- Это поле обязательно для LoginView -->
-                <!-- <input name="next" type="hidden" value="{% url 'main:index' user.id%}"/> -->
-
                 {% if user_error or form.errors %}
                 <p>Неверный Логин или пароль. Попробуйте снова.</p>
                 {% endif %}
