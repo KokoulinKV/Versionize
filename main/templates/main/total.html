@@ -324,12 +324,6 @@
             <form action="" method="post" class="form">
                 {% csrf_token %}
                 <div class="form__field">
-                    <label for="{{ add_section_form.project.id_for_label }}">Выбор проекта</label>
-                    <div class="form__select">
-                        {{ add_section_form.project }}
-                    </div>
-                </div>
-                <div class="form__field">
                     <label for="{{ add_section_form.abbreviation.id_for_label }}">Шифр раздела</label>
                     {{ add_section_form.abbreviation }}
                     {# <span id="secRefAdd">#}

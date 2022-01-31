@@ -30,7 +30,8 @@ class DocumentForm(forms.ModelForm):
 
 class AddSectionForm(forms.ModelForm):
     project = forms.ModelChoiceField(
-        queryset=Project.objects.all().order_by('code')
+        queryset=Project.objects.all().order_by('code'),
+        required=False
     )
     abbreviation = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form__input',

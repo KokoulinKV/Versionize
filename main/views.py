@@ -74,6 +74,7 @@ class Index(LoginRequiredMixin, TemplateView):
                     'errors': errors
                 })
         elif add_section_form.is_bound and add_section_form.is_valid():
+            add_section_form.instance.project_id = request.session['active_project_id']
             add_section_form.save()
             add_section_form.data = clear_form_data(add_section_form.data)
 
@@ -160,6 +161,7 @@ class TotalListView(LoginRequiredMixin, TemplateView):
                     'errors': errors
                 })
         elif add_section_form.is_bound and add_section_form.is_valid():
+            add_section_form.instance.project_id = request.session['active_project_id']
             add_section_form.save()
             add_section_form.data = clear_form_data(add_section_form.data)
 
