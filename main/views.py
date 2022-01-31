@@ -11,7 +11,7 @@ from django.http import JsonResponse
 from Versionize import settings
 
 from main.forms import DocumentForm, AddSectionForm, CreateProjectForm, AddRemarkDocSectionForm, \
-    AddRemarkDocProjectForm, PasswordChangeForm, PhotoForm, EmailPhoneEditForm
+    AddRemarkDocProjectForm, PasswordChangeForm, PhotoForm, EmailPhoneEditForm, DocumentSectionForm
 from main.func import download_some_files, download_single_file, _get_form, ajax_check, clear_form_data
 from main.models import Section, Company, Document, Project, Comment, RemarksDocs
 
@@ -113,14 +113,6 @@ class TotalListView(LoginRequiredMixin, TemplateView):
         return context
 
     def get(self, request, *args, **kwargs):
-        remarkdoc_form = AddRemarkDocProjectForm(prefix='remarkdoc_form_pre')
-        remarkdoc_form.fields['to_project'].queryset =\
-            Project.objects.filter(id=request.session['active_project_id']).filter(
-                id__in=Section.objects.filter(
-                    id__in=Document.objects.all().values('section_id')
-                ).values('project_id')
-            )
-
         doc_form = DocumentForm(prefix='doc_form_pre')
         doc_form.fields['section'].queryset = \
             Section.objects.filter(project_id=request.session['active_project_id'])
@@ -134,7 +126,7 @@ class TotalListView(LoginRequiredMixin, TemplateView):
 
         to_response = {'doc_form': doc_form,
                        'add_section_form': AddSectionForm(prefix='add_section_form_pre'),
-                       'remarkdoc_form': remarkdoc_form,
+                       'remarkdoc_form': AddRemarkDocProjectForm(prefix='remarkdoc_form_pre'),
                        'object_list': self.get_queryset(),
                        'actualremark': actualremark
                        }
@@ -166,6 +158,7 @@ class TotalListView(LoginRequiredMixin, TemplateView):
             add_section_form.data = clear_form_data(add_section_form.data)
 
         elif remarkdoc_form.is_bound and remarkdoc_form.is_valid():
+            remarkdoc_form.instance.to_project_id = request.session['active_project_id']
             remarkdoc_form.save()
             remarkdoc_form.data = clear_form_data(remarkdoc_form.data)
         return HttpResponseRedirect(reverse('main:total'))
@@ -179,19 +172,12 @@ class SectionDetailView(LoginRequiredMixin, DetailView):
         self.object = self.get_object()
         context = self.get_context_data(object=self.object)
 
-        doc_form = DocumentForm(prefix='doc_form_pre')
-        doc_form.fields['section'].queryset = Section.objects.filter(id=kwargs['pk'])
-
-        remarkdoc_form = AddRemarkDocSectionForm(prefix='remarkdoc_form_pre')
-        remarkdoc_form.fields['to_section'].queryset = \
-            Section.objects.filter(id=kwargs['pk']).filter(id__in=Document.objects.all().values('section_id'))
-
         actualremark = RemarksDocs.objects.filter(to_section=kwargs['pk'])
         if actualremark:
             actualremark = actualremark.latest('created_at')
 
-        to_response = {'doc_form': doc_form,
-                       'remarkdoc_form': remarkdoc_form,
+        to_response = {'doc_form': DocumentSectionForm(prefix='doc_form_pre'),
+                       'remarkdoc_form': AddRemarkDocSectionForm(prefix='remarkdoc_form_pre'),
                        'section': self.get_object(),
                        'actualremark': actualremark}
         to_response.update(context)
@@ -204,14 +190,14 @@ class SectionDetailView(LoginRequiredMixin, DetailView):
         return context
 
     def post(self, request, *args, **kwargs):
-        doc_form = _get_form(request, DocumentForm, 'doc_form_pre')
+        doc_form = _get_form(request, DocumentSectionForm, 'doc_form_pre')
         remarkdoc_form = _get_form(request, AddRemarkDocSectionForm, 'remarkdoc_form_pre')
         if doc_form.is_bound and doc_form.is_valid():
             try:
+                doc_form.instance.section_id = kwargs['pk']
                 doc_form.save()
-                section = doc_form.data['doc_form_pre-section']
                 doc_form.data = clear_form_data(doc_form.data)
-                return HttpResponseRedirect(reverse('main:section', args=(section)))
+                return HttpResponseRedirect(reverse('main:section', args=(str(kwargs['pk']))))
             except ValidationError:
                 errors = 'Данная версия документа уже была загружена. Загрузите корректную новую версию.'
                 return self.render_to_response({
@@ -221,10 +207,10 @@ class SectionDetailView(LoginRequiredMixin, DetailView):
                     'errors': errors
                 })
         elif remarkdoc_form.is_bound and remarkdoc_form.is_valid():
+            remarkdoc_form.instance.to_section_id = kwargs['pk']
             remarkdoc_form.save()
-            section = remarkdoc_form.data['remarkdoc_form_pre-to_section']
             remarkdoc_form.data = clear_form_data(remarkdoc_form.data)
-            return HttpResponseRedirect(reverse('main:section', args=(section)))
+            return HttpResponseRedirect(reverse('main:section', args=(str(kwargs['pk']))))
 
 
 class CompanyListView(LoginRequiredMixin, ListView):
