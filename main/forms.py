@@ -1,5 +1,6 @@
 from django import forms
-
+from django.contrib.auth.forms import PasswordChangeForm
+from django.core.exceptions import ValidationError
 from main.models import Document, Section, Project, Company, RemarksDocs
 from user.models import User
 
@@ -106,7 +107,7 @@ class AddRemarkDocSectionForm(forms.ModelForm):
         required=False,
         widget=forms.FileInput(attrs={'class': 'form__input'})
     )
-
+    
     def save(self, commit=True):
         remark = super(AddRemarkDocSectionForm, self).save()
         last_doc_in_section_id =Document.objects.filter(section=remark.to_section).values('id').latest('created_at')
@@ -116,6 +117,69 @@ class AddRemarkDocSectionForm(forms.ModelForm):
 
     class Meta:
         model = RemarksDocs
+        fields = ('name','to_section','doc_path',)
+
+
+class PasswordChangeForm(PasswordChangeForm):
+    class Meta:
+        model = User
+        fields = ('old_password','new_password1','new_password2',)
+
+    def __init__(self, user, *args, **kwargs):
+        super(PasswordChangeForm, self).__init__(user, *args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form__input'
+
+    def clean_old_password(self):
+        old_password = self.cleaned_data["old_password"]
+        if not self.user.check_password(old_password):
+            raise ValidationError(
+                self.error_messages['password_incorrect'],
+                code='password_incorrect',
+            )
+        return old_password
+
+
+
+class PhotoForm(forms.ModelForm):
+    image = forms.ImageField(
+        required=False,
+        widget=forms.FileInput()
+    )
+
+    class Meta:
+        model = User
+        fields = (
+            'image',
+        )
+
+
+    def save(self, commit=True):
+        self.instance.image = self.cleaned_data['image']
+        return super(PhotoForm, self).save()
+
+
+
+class EmailPhoneEditForm(forms.ModelForm):
+    email = forms.CharField(
+        widget=forms.EmailInput(attrs={'class': 'form__input',
+                                       'placeholder': 'Введите email'})
+    )
+    phone = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form__input',
+                                      'placeholder': 'Введите номер телефона'})
+    )
+    class Meta:
+        model = User
+        fields = (
+            'email',
+            'phone',
+        )
+
+    def save(self, commit=True):
+        self.instance.email = self.cleaned_data['email']
+        self.instance.phone = self.cleaned_data['phone']
+        return super(EmailPhoneEditForm, self).save()
         fields = ('name', 'to_section', 'doc_path',)
 
 

@@ -10,9 +10,13 @@
             <h2 class="block-title">Пользователь:</h2>
             <div class="person">
                 <div class="person__content">
-                    <div class="person__avatar">
-                        <img class="" width="125px"
-                            src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                    <div class="actions__btn" id="change-photo">
+                        <div class="person__avatar">
+                            <img class="" width="125px"
+                                src="{% if user.image %} {{ user.image.url }} {% else %}
+                                https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg
+                                {% endif %}">
+                        </div>
                     </div>
                     <div class="person__text">
                         <span class="person__name">{{ user.last_name }} {{ user.first_name }}
@@ -25,10 +29,16 @@
                 </div>
                 <div class="person__contacts">
                     <div class="person__contacts-info">
-                        <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ user.phone }}</span>
-                        <span class="person__mail"><i class='bx bx-mail-send'></i>{{ user.email }}</span>
+                        <div class="actions__btn" id="change-email">
+                            <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ user.phone }}</span>
+                        </div>
+                        <div class="actions__btn" id="change-email">
+                            <span class="person__mail"><i class='bx bx-mail-send'></i>{{ user.email }}</span>
+                        </div>
                     </div>
-                    <span class="person__actions"><i class='bx bx-dots-horizontal-rounded'></i></span>
+                    <div class="actions__btn" id="change-password">
+                        <span class="person__actions"><i class='bx bx-dots-horizontal-rounded'></i></span>
+                    </div>
                 </div>
             </div>
             {% if active_project_id %}
@@ -551,6 +561,81 @@
                     </button>
                 </div>
 
+            </form>
+        </div>
+    </div>
+</div>
+<div class="popup" id="popup-password">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_password"><i class='bx bx-plus-circle form-close'></i></a>
+            <div class="popup__title">Смена пароля</div>
+            <form action="" method="post" class="form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form__field">
+                    <label for="{{ change_password_form.old_password.id_for_label }}">
+                        Введите старый пароль:</label>
+                    {{ change_password_form.old_password }}
+                </div>
+                <div class="form__field">
+                    <label for="{{ change_password_form.new_password1.id_for_label }}">
+                        Введите новый пароль:</label>
+                    {{ change_password_form.new_password1 }}
+                </div>
+                <div class="form__field">
+                    <label for="{{ change_password_form.new_password2.id_for_label }}">
+                        Введите новый пароль еще раз:</label>
+                    {{ change_password_form.new_password2 }}
+                </div>
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn" name="{{ change_password_form.prefix }}" value="Submit">
+                        Сменить пароль
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="popup" id="popup-photo">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_photo"><i class='bx bx-plus-circle form-close'></i></a>
+            <div class="popup__title">Изменение фотографии</div>
+            <form action="" method="post" class="form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form__field">
+                    <label for="{{ photo_form.image.id_for_label }}">Файл:</label>
+                    {{ photo_form.image }}
+                </div>
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn" name="{{ photo_form.prefix }}" value="Submit">
+                        Сменить фотографию
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="popup" id="popup-email">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_email"><i class='bx bx-plus-circle form-close'></i></a>
+            <div class="popup__title">Изменение контактных данных</div>
+            <form action="" method="post" class="form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form__field">
+                    <label for="{{ email_form.email.id_for_label }}">Эл. почта:</label>
+                    {{ email_form.email }}
+                </div>
+                <div class="form__field">
+                    <label for="{{ email_form.phone.id_for_label }}">Телефон:</label>
+                    {{ email_form.phone }}
+                </div>
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn" name="{{ email_form.prefix }}" value="Submit">
+                        Измененить контактные данные
+                    </button>
+                </div>
             </form>
         </div>
     </div>

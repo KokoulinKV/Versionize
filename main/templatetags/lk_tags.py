@@ -23,4 +23,3 @@ def get_user_project(filter=None):
 
     else:
         return Notification.objects.filter(to_user=filter).exclude(user_has_seen=True).order_by('-data')
-

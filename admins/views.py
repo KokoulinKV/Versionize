@@ -1,15 +1,24 @@
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.mixins import AccessMixin
 from django.http import HttpResponseRedirect
 
 from django.urls import reverse_lazy
-from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, UpdateView, ListView
 
 from admins.forms import UserRegistrationForm, CompanyRegistrationFrom, CompanyEditForm, \
-    UserCompanyInfoForm, UserAddInfoForm, StandardSectionCreateForm, UserEditForm
+    UserCompanyInfoForm, StandardSectionCreateForm, UserEditForm, UserChangePasswordForm
 from main.models import StandardSection
 
 from user.models import User, Company, UserCompanyInfo
+
+'''
+    View for protect admins from not superusers 
+'''
+class AdminsLoginRequiredMixin(AccessMixin):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated or not request.user.is_superuser:
+            return self.handle_no_permission()
+        return super().dispatch(request, *args, **kwargs)
 
 '''
     Views for main user data: list, create, edit, delete and rehub
@@ -17,7 +26,7 @@ from user.models import User, Company, UserCompanyInfo
 '''
 
 
-class UserListView(ListView):
+class UserListView(AdminsLoginRequiredMixin, ListView):
     model = User
     template_name = 'admins/admin-users.html'
 
@@ -26,12 +35,8 @@ class UserListView(ListView):
         context['title'] = 'Users'
         return context
 
-    @method_decorator(user_passes_test(lambda u: u.is_superuser))
-    def dispatch(self, request, *args, **kwargs):
-        return super(UserListView, self).dispatch(request, *args, **kwargs)
 
-
-class UserCreateView(CreateView):
+class UserCreateView(AdminsLoginRequiredMixin, CreateView):
     model = User
     template_name = 'admins/admin-users-create.html'
     form_class = UserRegistrationForm
@@ -42,12 +47,8 @@ class UserCreateView(CreateView):
         context['title'] = 'Create user'
         return context
 
-    @method_decorator(user_passes_test(lambda u: u.is_superuser))
-    def dispatch(self, request, *args, **kwargs):
-        return super(UserCreateView, self).dispatch(request, *args, **kwargs)
 
-
-class UserEditView(UpdateView):
+class UserEditView(AdminsLoginRequiredMixin, UpdateView):
     model = User
     template_name = 'admins/admin-users-edit.html'
     form_class = UserEditForm
@@ -58,12 +59,25 @@ class UserEditView(UpdateView):
         context['title'] = 'Edit user'
         return context
 
-    @method_decorator(user_passes_test(lambda u: u.is_superuser))
-    def dispatch(self, request, *args, **kwargs):
-        return super(UserEditView, self).dispatch(request, *args, **kwargs)
+
+class UserChangePasswordView(AdminsLoginRequiredMixin, UpdateView):
+    model = User
+    template_name = 'admins/admin-users-change-password.html'
+    form_class = UserChangePasswordForm
+    success_url = reverse_lazy('admins:index')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(UserChangePasswordView, self).get_context_data(**kwargs)
+        context['title'] = 'Edit user'
+        return context
+
+    def form_valid(self, form):
+        self.object = form.save()
+        update_session_auth_hash(self.request, self.object)
+        return HttpResponseRedirect(self.get_success_url())
 
 
-class UserDeleteView(UpdateView):
+class UserDeleteView(AdminsLoginRequiredMixin, UpdateView):
     model = User
     template_name = 'admins/admin-users-edit.html'
     form_class = UserCompanyInfoForm
@@ -73,7 +87,6 @@ class UserDeleteView(UpdateView):
         context['title'] = 'Delete user'
         return context
 
-    @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
         self.object.is_active = False
@@ -81,7 +94,7 @@ class UserDeleteView(UpdateView):
         return HttpResponseRedirect(reverse_lazy('admins:index'))
 
 
-class UserRehubView(UpdateView):
+class UserRehubView(AdminsLoginRequiredMixin, UpdateView):
     model = User
     template_name = 'admins/admin-users-edit.html'
     form_class = UserCompanyInfoForm
@@ -91,7 +104,6 @@ class UserRehubView(UpdateView):
         context['title'] = 'Rehub user'
         return context
 
-    @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
         self.object.is_active = True
@@ -100,12 +112,12 @@ class UserRehubView(UpdateView):
 
 
 '''
-    Views for data about user's companies: list, create, edit, delete and rehub
+    Views for data about user's companies: list, edit, delete and rehub
     Main user data: username, firstname, lastname, patronymic, image, email, phone, password
 '''
 
 
-class UserInfoListView(ListView):
+class UserInfoListView(AdminsLoginRequiredMixin, ListView):
     model = UserCompanyInfo
     template_name = 'admins/admin-usersinfo.html'
 
@@ -114,28 +126,8 @@ class UserInfoListView(ListView):
         context['title'] = 'Users info'
         return context
 
-    @method_decorator(user_passes_test(lambda u: u.is_superuser))
-    def dispatch(self, request, *args, **kwargs):
-        return super(UserInfoListView, self).dispatch(request, *args, **kwargs)
 
-
-class UserAddInfoView(CreateView):
-    model = UserCompanyInfo
-    template_name = 'admins/admin-users-addinfo.html'
-    form_class = UserAddInfoForm
-    success_url = reverse_lazy('admins:admins_usersinfo')
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(UserAddInfoView, self).get_context_data(**kwargs)
-        context['title'] = 'Add information about user'
-        return context
-
-    @method_decorator(user_passes_test(lambda u: u.is_superuser))
-    def dispatch(self, request, *args, **kwargs):
-        return super(UserAddInfoView, self).dispatch(request, *args, **kwargs)
-
-
-class UserInfoEdit(UpdateView):
+class UserInfoEdit(AdminsLoginRequiredMixin, UpdateView):
     model = UserCompanyInfo
     template_name = 'admins/admin-usersinfo-edit.html'
     form_class = UserCompanyInfoForm
@@ -150,16 +142,14 @@ class UserInfoEdit(UpdateView):
         formset = form.save()
         user = formset.user_id
         company = formset.company_id
-        check_manager = Company.objects.filter(manager_id=user).values('id')[0]['id']
-        if check_manager and not (company == check_manager):
-            manager_company_id = check_manager[0]['id']
-            query = Company.objects.filter(id=manager_company_id)
-            query.update(manager=None)
+        check_manager = Company.objects.filter(manager_id=user).values('id')
+        if check_manager:
+            check_manager = check_manager[0]['id']
+            if not (company == check_manager):
+                manager_company_id = check_manager[0]['id']
+                query = Company.objects.filter(id=manager_company_id)
+                query.update(manager=None)
         return super().form_valid(form)
-
-    @method_decorator(user_passes_test(lambda u: u.is_superuser))
-    def dispatch(self, request, *args, **kwargs):
-        return super(UserInfoEdit, self).dispatch(request, *args, **kwargs)
 
 
 '''
@@ -167,7 +157,7 @@ class UserInfoEdit(UpdateView):
 '''
 
 
-class CompanyListView(ListView):
+class CompanyListView(AdminsLoginRequiredMixin, ListView):
     model = Company
     template_name = 'admins/admin-companies.html'
 
@@ -176,12 +166,8 @@ class CompanyListView(ListView):
         context['title'] = 'Companies'
         return context
 
-    @method_decorator(user_passes_test(lambda u: u.is_superuser))
-    def dispatch(self, request, *args, **kwargs):
-        return super(CompanyListView, self).dispatch(request, *args, **kwargs)
 
-
-class CompanyCreateView(CreateView):
+class CompanyCreateView(AdminsLoginRequiredMixin, CreateView):
     model = Company
     template_name = 'admins/admin-companies-create.html'
     form_class = CompanyRegistrationFrom
@@ -200,12 +186,8 @@ class CompanyCreateView(CreateView):
         query.update(company=company)
         return super().form_valid(form)
 
-    @method_decorator(user_passes_test(lambda u: u.is_superuser))
-    def dispatch(self, request, *args, **kwargs):
-        return super(CompanyCreateView, self).dispatch(request, *args, **kwargs)
 
-
-class CompanyEditView(UpdateView):
+class CompanyEditView(AdminsLoginRequiredMixin, UpdateView):
     model = Company
     template_name = 'admins/admin-companies-edit.html'
     form_class = CompanyEditForm
@@ -224,12 +206,8 @@ class CompanyEditView(UpdateView):
         query.update(company=company)
         return super().form_valid(form)
 
-    @method_decorator(user_passes_test(lambda u: u.is_superuser))
-    def dispatch(self, request, *args, **kwargs):
-        return super(CompanyEditView, self).dispatch(request, *args, **kwargs)
 
-
-class CompanyAdminDeleteMessage(UpdateView):
+class CompanyAdminDeleteMessage(AdminsLoginRequiredMixin, UpdateView):
     model = Company
     template_name = 'admins/admin-companies-message.html'
     form_class = CompanyRegistrationFrom
@@ -240,12 +218,8 @@ class CompanyAdminDeleteMessage(UpdateView):
         context['title'] = 'Message'
         return context
 
-    @method_decorator(user_passes_test(lambda u: u.is_superuser))
-    def dispatch(self, request, *args, **kwargs):
-        return super(CompanyAdminDeleteMessage, self).dispatch(request, *args, **kwargs)
 
-
-class CompanyAdminDelete(UpdateView):
+class CompanyAdminDelete(AdminsLoginRequiredMixin, UpdateView):
     model = Company
     template_name = 'admins/admin-companies-message.html'
     form_class = CompanyRegistrationFrom
@@ -255,7 +229,6 @@ class CompanyAdminDelete(UpdateView):
         context['title'] = 'Users'
         return context
 
-    @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
         self.object.delete()
@@ -266,7 +239,7 @@ class CompanyAdminDelete(UpdateView):
     Views for standartsections:  list, create, edit, delete message and delete 
 '''
 
-class CreateStandartSections(CreateView):
+class CreateStandartSections(AdminsLoginRequiredMixin, CreateView):
     model = StandardSection
     template_name = 'admins/admin-standartsection-create.html'
     form_class = StandardSectionCreateForm
@@ -277,13 +250,9 @@ class CreateStandartSections(CreateView):
         context['title'] = 'Create standart section'
         return context
 
-    @method_decorator(user_passes_test(lambda u: u.is_superuser))
-    def dispatch(self, request, *args, **kwargs):
-        return super(CreateStandartSections, self).dispatch(request, *args, **kwargs)
 
 
-
-class StandartSectionsListView(ListView):
+class StandartSectionsListView(AdminsLoginRequiredMixin, ListView):
     model = StandardSection
     template_name = 'admins/admin-standartsections.html'
 
@@ -292,12 +261,8 @@ class StandartSectionsListView(ListView):
         context['title'] = 'Standard sections'
         return context
 
-    @method_decorator(user_passes_test(lambda u: u.is_superuser))
-    def dispatch(self, request, *args, **kwargs):
-        return super(StandartSectionsListView, self).dispatch(request, *args, **kwargs)
 
-
-class StandartSectionsEditView(UpdateView):
+class StandartSectionsEditView(AdminsLoginRequiredMixin, UpdateView):
     model = StandardSection
     template_name = 'admins/admin-standartsections-edit.html'
     form_class = StandardSectionCreateForm
@@ -308,12 +273,8 @@ class StandartSectionsEditView(UpdateView):
         context['title'] = 'Edit standard sections'
         return context
 
-    @method_decorator(user_passes_test(lambda u: u.is_superuser))
-    def dispatch(self, request, *args, **kwargs):
-        return super(StandartSectionsEditView, self).dispatch(request, *args, **kwargs)
 
-
-class StandartSectionsDeleteMessage(UpdateView):
+class StandartSectionsDeleteMessage(AdminsLoginRequiredMixin, UpdateView):
     model = StandardSection
     template_name = 'admins/admin-sections-message.html'
     form_class = StandardSectionCreateForm
@@ -324,12 +285,8 @@ class StandartSectionsDeleteMessage(UpdateView):
         context['title'] = 'Message'
         return context
 
-    @method_decorator(user_passes_test(lambda u: u.is_superuser))
-    def dispatch(self, request, *args, **kwargs):
-        return super(StandartSectionsDeleteMessage, self).dispatch(request, *args, **kwargs)
 
-
-class StandartSectionsDelete(UpdateView):
+class StandartSectionsDelete(AdminsLoginRequiredMixin, UpdateView):
     model = StandardSection
     template_name = 'admins/admin-sections-message.html'
     form_class = StandardSectionCreateForm
@@ -339,7 +296,6 @@ class StandartSectionsDelete(UpdateView):
         context['title'] = 'Users'
         return context
 
-    @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
         self.object.delete()
