@@ -82,7 +82,7 @@
 {#            </li>#}
 
             <!-- Доступ в админку -->
-            {% if user.is_staff or user.is_superuser %}
+            {% if user.is_staff or user.is_superuser or user.usercompanyinfo.chief_project_engineer%}
             <li>
                 <a href="{% url 'admins:index' %}">
                     <i class='bx bx-cog'></i>
