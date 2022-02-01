@@ -90,7 +90,13 @@ def generate_info_card(data):
         'date': date,
     }
     doc.render(context)
-    doc.save(os.path.join(BASE_DIR, 'media', 'downloads', f'{filename[:-5]}_ИУЛ.docx'))
+    new_file_path = os.path.join(BASE_DIR, 'media', 'downloads', f'{filename[:-5]}-ИУЛ.docx')
+    doc.save(new_file_path)
+
+    # Для передачи пути в функцию download_single_file() возвращаем путь от папки media
+    card_path, card_filename = os.path.split(new_file_path)
+    card_dir = os.path.split(card_path)[1]
+    return os.path.join(card_dir, card_filename)
 
 
 def remove_row(table, row):
@@ -147,11 +153,11 @@ def generate_permission_card(data):
 
     # Генерируем новое название файла и сохраняем
     filename = adjustment_data.first().document.name[:-5]
-    new_filename = os.path.join(BASE_DIR, 'media', 'downloads', f'{filename}_разрешение.docx')
-    doc.save(new_filename)
+    new_file_path = os.path.join(BASE_DIR, 'media', 'downloads', f'{filename}-разрешение.docx')
+    doc.save(new_file_path)
 
     # Заполняем теги в файле
-    doc = DocxTemplate(new_filename)
+    doc = DocxTemplate(new_file_path)
 
     project_code = adjustment_data.first().section.project.code
     section_abbreviation = adjustment_data.first().section.abbreviation
@@ -169,4 +175,9 @@ def generate_permission_card(data):
         'approved_by': data['approved_by'],
     }
     doc.render(context)
-    doc.save(new_filename)
+    doc.save(new_file_path)
+
+    # Для передачи пути в функцию download_single_file() возвращаем путь от папки media
+    card_path, card_filename = os.path.split(new_file_path)
+    card_dir = os.path.split(card_path)[1]
+    return os.path.join(card_dir, card_filename)
