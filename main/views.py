@@ -68,7 +68,7 @@ class Index(LoginRequiredMixin, TemplateView):
 
         if doc_form.is_bound and doc_form.is_valid():
             try:
-                doc_form.instance.name, pdf = str(doc_form.instance.doc_path).split('.')
+                doc_form.instance.name = str(doc_form.instance.doc_path)
                 doc_form.save()
                 doc_form.data = clear_form_data(doc_form.data)
             except ValidationError:
@@ -148,7 +148,7 @@ class TotalListView(LoginRequiredMixin, TemplateView):
 
         if doc_form.is_bound and doc_form.is_valid():
             try:
-                doc_form.instance.name, pdf = str(doc_form.instance.doc_path).split('.')
+                doc_form.instance.name = str(doc_form.instance.doc_path)
                 doc_form.save()
                 doc_form.data = clear_form_data(doc_form.data)
             except ValidationError:
@@ -203,7 +203,7 @@ class SectionDetailView(LoginRequiredMixin, DetailView):
         section = str(kwargs['pk'])
         if doc_form.is_bound and doc_form.is_valid():
             try:
-                doc_form.instance.name, pdf = str(doc_form.instance.doc_path).split('.')
+                doc_form.instance.name = str(doc_form.instance.doc_path)
                 doc_form.instance.section_id = kwargs['pk']
                 doc_form.save()
                 doc_form.data = clear_form_data(doc_form.data)
