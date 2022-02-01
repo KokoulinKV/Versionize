@@ -269,7 +269,11 @@ class DocumentDetailView(LoginRequiredMixin, DetailView):
                 'made_by': permission_card_form.data.get(f'{form_prefix}made_by'),
                 'approved_by': permission_card_form.data.get(f'{form_prefix}approved_by'),
             }
-            generate_permission_card(data)
+            # generate_permission_card формирует Разрешение и возвращает путь к нему
+            card_path = generate_permission_card(data)
+            # download_single_file формирует архив с файлом и возвращает response
+            return download_single_file(card_path)
+
         elif info_card_form.is_bound and info_card_form.is_valid():
             form_prefix = 'info_card_pre-'
 
@@ -283,7 +287,11 @@ class DocumentDetailView(LoginRequiredMixin, DetailView):
                 'manager_position': info_card_form.data.get(f'{form_prefix}manager_position'),
                 'manager_name': info_card_form.data.get(f'{form_prefix}manager_name'),
             }
-            generate_info_card(data)
+            # generate_permission_card формирует Разрешение и возвращает путь к нему
+            card_path = generate_info_card(data)
+            # download_single_file формирует архив с файлом и возвращает response
+            return download_single_file(card_path)
+
         return self.render_to_response({'permission_card_form': permission_card_form,
                                         'info_card_form': info_card_form})
 
