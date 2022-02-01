@@ -70,12 +70,14 @@ Versionize | Section card
                         <h3 class="actions__name">Загрузить документ</h3>
                     </div>
                 </div>
+            {% if user.is_staff or user.is_superuser or user.usercompanyinfo.assistant or user.usercompanyinfo.chief_project_engineer%}
                 <div class="actions actions_section">
                     <div class="actions__btn" id="add-remarkdoc">
                         <span class="actions__icon"><i class='bx bx-file'></i></span>
                         <h3 class="actions__name">Загрузить замечания</h3>
                     </div>
                 </div>
+            {% endif %}
             </div>
         </div>
         <div class="main">
