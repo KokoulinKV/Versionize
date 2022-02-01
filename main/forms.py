@@ -8,7 +8,8 @@ from user.models import User
 class DocumentForm(forms.ModelForm):
     name = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form__input',
-                                      'placeholder': 'Введите имя документа'})
+                                      'placeholder': 'Введите имя документа'}),
+        required=False
     )
     doc_path = forms.FileField(
         required=False,
@@ -28,9 +29,20 @@ class DocumentForm(forms.ModelForm):
         fields = ('status', 'name', 'doc_path', 'section', 'note',)
 
 
+class DocumentSectionForm(DocumentForm):
+    section = forms.ModelChoiceField(
+        queryset=Section.objects.all(),
+        required=False
+    )
+
+    class Meta:
+        model = Document
+        fields = ('status', 'name', 'doc_path', 'section', 'note',)
+
 class AddSectionForm(forms.ModelForm):
     project = forms.ModelChoiceField(
-        queryset=Project.objects.all().order_by('code')
+        queryset=Project.objects.all().order_by('code'),
+        required=False
     )
     abbreviation = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form__input',
@@ -82,7 +94,8 @@ class AddRemarkDocProjectForm(forms.ModelForm):
             id__in=Section.objects.filter(
                 id__in=Document.objects.all().values('section_id')
             ).values('project_id')
-        )
+        ),
+        required=False
     )
     doc_path = forms.FileField(
         required=False,
@@ -101,7 +114,8 @@ class AddRemarkDocSectionForm(forms.ModelForm):
                                       'placeholder': 'Введите имя документа'})
     )
     to_section = forms.ModelChoiceField(
-        queryset=Section.objects.filter(id__in=Document.objects.all().values('section_id'))
+        queryset=Section.objects.filter(id__in=Document.objects.all().values('section_id')),
+        required=False
     )
     doc_path = forms.FileField(
         required=False,

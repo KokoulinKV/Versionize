@@ -28,15 +28,15 @@ Versionize | Section card
                         </div>
                     </div>
                 </div>
-                <button class="project__btn">
-                    <div class="project__btn-body">
-                        <i class='bx bx-cloud-download'></i>
-                        <span class="project__btn-text">Скачать</span>
-                    </div>
-                </button>
+{#                <button class="project__btn">#}
+{#                    <div class="project__btn-body">#}
+{#                        <i class='bx bx-cloud-download'></i>#}
+{#                        <span class="project__btn-text">Скачать</span>#}
+{#                    </div>#}
+{#                </button>#}
             </div>
-            <h2 class="block-title">Ответственный:</h2>
             <div class="person">
+            <h2 class="block-title">Ответственный:</h2>
                 <div class="person__content">
                     <div class="person__text">
                         {% with section.responsible as responsible %}
@@ -50,8 +50,8 @@ Versionize | Section card
                         {% endwith %}
                     </div>
                 </div>
-                <h2 class="block-title">Эксперт:</h2>
                 <div class="person">
+                <h2 class="block-title">Эксперт:</h2>
                     <div class="person__content">
                         <div class="person__text">
                             {% with section.expert as expert %}
@@ -392,18 +392,8 @@ Versionize | Section card
                     </div>
                 </div>
                 <div class="form__field">
-                    <label for="{{ doc_form.name.id_for_label }}">Наименование</label>
-                    {{ doc_form.name }}
-                </div>
-                <div class="form__field">
                     <label for="{{ doc_form.doc_path.id_for_label }}">Файл</label>
                     {{ doc_form.doc_path }}
-                </div>
-                <div class="form__field">
-                    <label for="{{ doc_form.section.id_for_label }}">Раздел</label>
-                    <div class="form__select">
-                        {{ doc_form.section }}
-                    </div>
                 </div>
                 <div class="form__field">
                     <label for="{{ doc_form.note.id_for_label }}">Примечания</label>
@@ -429,12 +419,6 @@ Versionize | Section card
                 <div class="form__field">
                     <label for="{{ remarkdoc_form.name.id_for_label }}">Наименование</label>
                     {{ remarkdoc_form.name }}
-                </div>
-                <div class="form__field">
-                    <label for="{{ remarkdoc_form.to_section.id_for_label }}">Раздел</label>
-                    <div class="form__select">
-                        {{ remarkdoc_form.to_section }}
-                    </div>
                 </div>
                 <div class="form__field">
                     <label for="{{ remarkdoc_form.doc_path.id_for_label }}">Файл</label>
