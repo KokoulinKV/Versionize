@@ -68,12 +68,14 @@ Versionize | Document card
                     <h3 class="actions__name">Сформировать ИУЛ</h3>
                 </div>
             </div>
+        {% if document.get_linked_adjustments %}
             <div class="actions actions_section">
                 <div class="actions__btn" id="get-permission-card">
                     <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>
                     <h3 class="actions__name">Сформировать разрешение на внесение изменений</h3>
                 </div>
             </div>
+        {% endif %}
         </div>
         <div class="main">
             {% if object %}
