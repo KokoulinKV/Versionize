@@ -271,6 +271,8 @@ class DocumentDetailView(LoginRequiredMixin, DetailView):
             }
             # generate_permission_card формирует Разрешение и возвращает путь к нему
             card_path = generate_permission_card(data)
+            # чистим форму
+            permission_card_form.data = clear_form_data(permission_card_form.data)
             # download_single_file формирует архив с файлом и возвращает response
             return download_single_file(card_path)
 
@@ -289,6 +291,8 @@ class DocumentDetailView(LoginRequiredMixin, DetailView):
             }
             # generate_permission_card формирует Разрешение и возвращает путь к нему
             card_path = generate_info_card(data)
+            # чистим форму
+            info_card_form.data = clear_form_data(info_card_form.data)
             # download_single_file формирует архив с файлом и возвращает response
             return download_single_file(card_path)
 
