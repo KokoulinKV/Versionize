@@ -194,3 +194,54 @@ class EmailPhoneEditForm(forms.ModelForm):
         self.instance.email = self.cleaned_data['email']
         self.instance.phone = self.cleaned_data['phone']
         return super(EmailPhoneEditForm, self).save()
+        fields = ('name', 'to_section', 'doc_path',)
+
+
+class PermissionCardForm(forms.Form):
+    permission_number = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form__input',
+                                      'placeholder': 'Введите номер разрешения'})
+    )
+    norm_control = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form__input',
+                                      'placeholder': 'Фамилия'})
+    )
+    changes_by = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form__input',
+                                      'placeholder': 'Фамилия'})
+    )
+    made_by = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form__input',
+                                      'placeholder': 'Фамилия'})
+    )
+    approved_by = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form__input',
+                                      'placeholder': 'Фамилия'})
+    )
+
+
+class InfoCardForm(forms.Form):
+    developed_by = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form__input',
+                                      'placeholder': 'Фамилия'})
+    )
+    checked_by = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form__input',
+                                      'placeholder': 'Фамилия'})
+    )
+    norm_control = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form__input',
+                                      'placeholder': 'Фамилия'})
+    )
+    approved_by = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form__input',
+                                      'placeholder': 'Фамилия'})
+    )
+    manager_position = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form__input',
+                                      'placeholder': 'Должность'})
+    )
+    manager_name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form__input',
+                                      'placeholder': 'Фамилия, инициалы'})
+    )

@@ -63,17 +63,19 @@ Versionize | Document card
             </div>
             <!-- Блок кнопок -->
             <div class="actions actions_section">
-                <div class="actions__btn" id="add-section">
+                <div class="actions__btn" id="get-info-card">
                     <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>
                     <h3 class="actions__name">Сформировать ИУЛ</h3>
                 </div>
             </div>
+        {% if document.get_linked_adjustments %}
             <div class="actions actions_section">
-                <div class="actions__btn" id="add-section">
+                <div class="actions__btn" id="get-permission-card">
                     <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>
                     <h3 class="actions__name">Сформировать разрешение на внесение изменений</h3>
                 </div>
             </div>
+        {% endif %}
         </div>
         <div class="main">
             {% if object %}
@@ -255,169 +257,89 @@ Versionize | Document card
 
 {% endblock %}
 {% block popup %}
-<div class="popup" id="popup-project">
+<div class="popup" id="popup-info-card">
     <div class="popup__body">
         <div class="popup__content">
-            <a href="#" class="popup__close" id="popup__close_pro">X</a>
-            <div class="popup__title">Создание проекта</div>
+            <a href="#" class="popup__close" id="popup__close_info_card"><i class='bx bx-plus-circle form-close'></i></a>
+            <div class="popup__title">Сформировать ИУЛ</div>
             <form action="" method="post" class="form">
                 {% csrf_token %}
 
                 <div class="form__field">
-                    <label>Шифр</label>
-                    <input type='text' class="form__input">
-                </div>
-                <div class="form__field">
-                    <label>Наименование</label>
-                    <input type='text' class="form__input">
-                </div>
-                <div class="form__field">
-                    <label>Ответственный</label>
-                    <div class="form__select">
-                        <select>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form__field">
-                    <label>Срок экспертизы</label>
-                    <input type='date' class="form__input">
-                </div>
-                <div class="form__submit">
-                    <button type="submit" class="form__submit-btn">Создать проект</button>
+                    <label for="{{ info_card_form.developed_by.id_for_label }}">Разработал:</label>
+                    {{ info_card_form.developed_by }}
                 </div>
 
+                <div class="form__field">
+                    <label for="{{ info_card_form.checked_by.id_for_label }}">Проверил:</label>
+                    {{ info_card_form.checked_by }}
+                </div>
+
+                <div class="form__field">
+                    <label for="{{ info_card_form.norm_control.id_for_label }}">Нормоконтроль:</label>
+                        {{ info_card_form.norm_control }}
+                </div>
+
+                <div class="form__field">
+                    <label for="{{ info_card_form.approved_by.id_for_label }}">Утвердил:</label>
+                        {{ info_card_form.approved_by }}
+                </div>
+
+                <div class="form__field">
+                    <label for="{{ info_card_form.manager_position.id_for_label }}">Должность руководителя:</label>
+                    {{ info_card_form.manager_position }}
+                </div>
+
+                <div class="form__field">
+                    <label for="{{ info_card_form.manager_name.id_for_label }}">Имя<br>руководителя:</label>
+                    {{ info_card_form.manager_name }}
+                </div>
+
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn" id="info-card-form-submit"
+                            name="{{ info_card_form.prefix }}" value="Submit">Скачать</button>
+                </div>
             </form>
         </div>
     </div>
 </div>
-<div class="popup" id="popup-section">
+<div class="popup" id="popup-permission-card">
     <div class="popup__body">
         <div class="popup__content">
-            <a href="#" class="popup__close" id="popup__close_sec">X</a>
-            <div class="popup__title">Добавить раздел</div>
+            <a href="#" class="popup__close" id="popup__close_permission_card"><i class='bx bx-plus-circle form-close'></i></a>
+            <div class="popup__title">Сформировать<br>разрешение</div>
             <form action="" method="post" class="form">
                 {% csrf_token %}
+
                 <div class="form__field">
-                    <label>Выбор раздела</label>
-                    <div class="form__select">
-                        <select>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form__field">
-                    <label>Выбор проекта</label>
-                    <div class="form__select">
-                        <select>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form__field">
-                    <label>Наименование</label>
-                    <input type='text' class="form__input">
-                </div>
-                <div class="form__field">
-                    <label>Выбор компании</label>
-                    <div class="form__select">
-                        <select>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form__field">
-                    <label>Выбор ответственногого</label>
-                    <div class="form__select">
-                        <select>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form__field">
-                    <label>Выбор эксперта</label>
-                    <div class="form__select">
-                        <select>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form__submit">
-                    <button type="submit" class="form__submit-btn">Создать раздел</button>
+                    <label for="{{ permission_card_form.permission_number.id_for_label }}">Номер разрешения:</label>
+                    {{ permission_card_form.permission_number }}
                 </div>
 
-            </form>
-        </div>
-    </div>
-</div>
-<div class="popup" id="popup-section2">
-    <div class="popup__body">
-        <div class="popup__content">
-            <a href="#" class="popup__close" id="popup__close_sec2">X</a>
-            <div class="popup__title">Создать раздел</div>
-            <form action="" method="post" class="form">
-                {% csrf_token %}
                 <div class="form__field">
-                    <label>Наименование</label>
-                    <input type='text' class="form__input">
-                </div>
-                <div class="form__submit">
-                    <button type="submit" class="form__submit-btn">Создать раздел</button>
+                    <label for="{{ permission_card_form.norm_control.id_for_label }}">Нормоконтроль:</label>
+                    {{ permission_card_form.norm_control }}
                 </div>
 
-            </form>
-        </div>
-    </div>
-</div>
-<div class="popup" id="popup-document">
-    <div class="popup__body">
-        <div class="popup__content">
-            <a href="#" class="popup__close" id="popup__close_doc">X</a>
-            <div class="popup__title">Загрузка документа</div>
-            <form action="" method="post" class="form" enctype="multipart/form-data">
-                {% csrf_token %}
                 <div class="form__field">
-                    <label for="{{ doc_form.status.id_for_label }}">Статус</label>
-                    <div class="form__select">
-                        {{ doc_form.status }}
-                    </div>
-                </div>
-                <div class="form__field">
-                    <label for="{{ doc_form.name.id_for_label }}">Наименование</label>
-                    {{ doc_form.name }}
-                </div>
-                <div class="form__field">
-                    <label for="{{ doc_form.doc_path.id_for_label }}">Файл</label>
-                    {{ doc_form.doc_path }}
-                </div>
-                <div class="form__field">
-                    <label for="{{ doc_form.section.id_for_label }}">Раздел</label>
-                    <div class="form__select">
-                        {{ doc_form.section }}
-                    </div>
-                </div>
-                <div class="form__field">
-                    <label for="{{ doc_form.note.id_for_label }}">Примечания</label>
-                    {{ doc_form.note }}
-                </div>
-                <div class="form__submit">
-                    <button type="submit" class="form__submit-btn" name="{{ doc_form.prefix }}" value="Submit">
-                        Создать документ
-                    </button>
+                    <label for="{{ permission_card_form.changes_by.id_for_label }}">Изменения внес:</label>
+                        {{ permission_card_form.changes_by }}
                 </div>
 
+                <div class="form__field">
+                    <label for="{{ permission_card_form.made_by.id_for_label }}">Составил:</label>
+                        {{ permission_card_form.made_by }}
+                </div>
+
+                <div class="form__field">
+                    <label for="{{ permission_card_form.approved_by.id_for_label }}">Утвердил:</label>
+                    {{ permission_card_form.approved_by }}
+                </div>
+
+                <div class="form__submit">
+                    <button type="submit" class="form__submit-btn" id="permission-card-form-submit"
+                            name="{{ permission_card_form.prefix }}" value="Submit">Скачать</button>
+                </div>
             </form>
         </div>
     </div>

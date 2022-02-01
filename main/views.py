@@ -11,10 +11,12 @@ from django.http import JsonResponse
 from Versionize import settings
 
 from main.forms import DocumentForm, AddSectionForm, CreateProjectForm, AddRemarkDocSectionForm, \
-    AddRemarkDocProjectForm, PasswordChangeForm, PhotoForm, EmailPhoneEditForm, DocumentSectionForm
+    AddRemarkDocProjectForm, PasswordChangeForm, PhotoForm, EmailPhoneEditForm, DocumentSectionForm, \
+    PermissionCardForm, InfoCardForm
+
 from main.func import download_some_files, download_single_file, _get_form, ajax_check, clear_form_data
 from main.models import Section, Company, Document, Project, Comment, RemarksDocs
-
+from main.utils.card_generation import generate_info_card, generate_permission_card
 
 class Index(LoginRequiredMixin, TemplateView):
     template_name = 'main/lk.html'
@@ -49,13 +51,14 @@ class Index(LoginRequiredMixin, TemplateView):
         change_password_form = _get_form(request, PasswordChangeForm, 'change_password_form_pre', user=self.request.user)
         photo_form = _get_form(request, PhotoForm, 'photo_form_pre')
         email_form = _get_form(request, EmailPhoneEditForm, 'email_form_pre')
-        
+
         # @TheSleepyNomad
-        # Выполнем проверку на ajax запрос
+        # Выполняем проверку на ajax запрос
         if request.method == 'POST' and ajax_check(request):
             # В текущей версии разработки меняем только текущий активный проект
             # Todo написать алгоритм, по которому будем определять имя функции ajax
-            project_id = request.POST.get('project_id', None) # Пользователь выбирает наименование/код, но передаем id, так как наименование пока может повторяться
+            # Пользователь выбирает наименование/код, но передаем id, так как наименование пока может повторяться
+            project_id = request.POST.get('project_id', None)
             request.session['active_project_id'] = project_id
             response = {'status': True}
             return JsonResponse(response)
@@ -236,17 +239,70 @@ class DocumentDetailView(LoginRequiredMixin, DetailView):
         context['title'] = 'Versionize - Документ'
         return context
 
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+        to_response = {'permission_card_form': PermissionCardForm(prefix='permission_card_pre'),
+                       'info_card_form': InfoCardForm(prefix='info_card_pre')}
+        to_response.update(context)
+        return self.render_to_response(to_response)
+
     def post(self, request, *args, **kwargs):
         # @TheSleepyNomad
-        # Выполнем проверку на ajax запрос
+        # Выполняем проверку на ajax запрос
         if request.method == 'POST' and ajax_check(request):
             new_comment = Comment(
                 author_id=request.user.id, 
                 document_id=self.kwargs['pk'],
                 body=request.POST.get('commentBody'),)
             new_comment.save()
-            response = {'status': True}
-            return JsonResponse(response)
+            to_response = {'status': True}
+            return JsonResponse(to_response)
+
+        permission_card_form = _get_form(request, PermissionCardForm, 'permission_card_pre')
+        info_card_form = _get_form(request, InfoCardForm, 'info_card_pre')
+
+        if permission_card_form.is_bound and permission_card_form.is_valid():
+            form_prefix = 'permission_card_pre-'
+
+            # Формируем словарь для функции
+            data = {
+                'document_id': self.kwargs['pk'],
+                'permission_number': permission_card_form.data.get(f'{form_prefix}permission_number'),
+                'norm_control': permission_card_form.data.get(f'{form_prefix}norm_control'),
+                'changes_by': permission_card_form.data.get(f'{form_prefix}changes_by'),
+                'made_by': permission_card_form.data.get(f'{form_prefix}made_by'),
+                'approved_by': permission_card_form.data.get(f'{form_prefix}approved_by'),
+            }
+            # generate_permission_card формирует Разрешение и возвращает путь к нему
+            card_path = generate_permission_card(data)
+            # чистим форму
+            permission_card_form.data = clear_form_data(permission_card_form.data)
+            # download_single_file формирует архив с файлом и возвращает response
+            return download_single_file(card_path)
+
+        elif info_card_form.is_bound and info_card_form.is_valid():
+            form_prefix = 'info_card_pre-'
+
+            # Формируем словарь для функции
+            data = {
+                'document_id': self.kwargs['pk'],
+                'developed_by': info_card_form.data.get(f'{form_prefix}developed_by'),
+                'checked_by': info_card_form.data.get(f'{form_prefix}checked_by'),
+                'norm_control': info_card_form.data.get(f'{form_prefix}norm_control'),
+                'approved_by': info_card_form.data.get(f'{form_prefix}approved_by'),
+                'manager_position': info_card_form.data.get(f'{form_prefix}manager_position'),
+                'manager_name': info_card_form.data.get(f'{form_prefix}manager_name'),
+            }
+            # generate_permission_card формирует Разрешение и возвращает путь к нему
+            card_path = generate_info_card(data)
+            # чистим форму
+            info_card_form.data = clear_form_data(info_card_form.data)
+            # download_single_file формирует архив с файлом и возвращает response
+            return download_single_file(card_path)
+
+        return self.render_to_response({'permission_card_form': permission_card_form,
+                                        'info_card_form': info_card_form})
 
 
 class DocumentDownload(LoginRequiredMixin, TemplateView):

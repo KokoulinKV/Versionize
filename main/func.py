@@ -30,7 +30,7 @@ def download_some_files(zip_name, document_dir, files_download):
     raise Http404
 
 def download_single_file(path):
-    dir, document = path.split('/')
+    dir, document = os.path.split(path)
     document_dir = os.path.join(settings.MEDIA_ROOT, dir)
     translit_doc_name= translit(document, language_code='ru', reversed=True)
     zip_name = f'{translit_doc_name}.zip'
