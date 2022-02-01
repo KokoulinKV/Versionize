@@ -156,10 +156,18 @@ $(document).ready(function () {
     $('#get-info-card, #popup__close_info_card').click(function(){
         $('#popup-info-card').toggleClass('popup_open');
     });
+    $('#info-card-form-submit').click(function (){
+        $('#popup-info-card').toggleClass('popup_open');
+        }
+    );
 
     // @AlexKovyazin
     // Для вызова pop-up формы создания ИУЛа
     $('#get-permission-card, #popup__close_permission_card').click(function(){
         $('#popup-permission-card').toggleClass('popup_open');
     });
+    $('#permission-card-form-submit').click(function (){
+        $('#popup-permission-card').toggleClass('popup_open');
+        }
+    );
 });

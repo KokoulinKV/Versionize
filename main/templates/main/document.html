@@ -294,7 +294,7 @@ Versionize | Document card
                 </div>
 
                 <div class="form__submit">
-                    <button type="submit" class="form__submit-btn"
+                    <button type="submit" class="form__submit-btn" id="info-card-form-submit"
                             name="{{ info_card_form.prefix }}" value="Submit">Скачать</button>
                 </div>
             </form>
@@ -305,7 +305,7 @@ Versionize | Document card
     <div class="popup__body">
         <div class="popup__content">
             <a href="#" class="popup__close" id="popup__close_permission_card"><i class='bx bx-plus-circle form-close'></i></a>
-            <div class="popup__title">Сформировать разрешение</div>
+            <div class="popup__title">Сформировать<br>разрешение</div>
             <form action="" method="post" class="form">
                 {% csrf_token %}
 
@@ -335,7 +335,7 @@ Versionize | Document card
                 </div>
 
                 <div class="form__submit">
-                    <button type="submit" class="form__submit-btn"
+                    <button type="submit" class="form__submit-btn" id="permission-card-form-submit"
                             name="{{ permission_card_form.prefix }}" value="Submit">Скачать</button>
                 </div>
             </form>
