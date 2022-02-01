@@ -30,8 +30,11 @@ class Index(LoginRequiredMixin, TemplateView):
         context = self.get_context_data(**kwargs)
 
         doc_form = DocumentForm(prefix='doc_form_pre')
-        doc_form.fields['section'].queryset = \
-            Section.objects.filter(project_id=request.session['active_project_id'])
+        if request.session['active_project_id']:
+            doc_form.fields['section'].queryset = \
+                Section.objects.filter(project_id=request.session['active_project_id'])
+        else:
+            doc_form.fields['section'].queryset =''
 
         to_response = {'doc_form': doc_form,
              'add_section_form': AddSectionForm(prefix='add_section_form_pre'),
