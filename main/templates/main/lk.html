@@ -80,7 +80,9 @@
                         <option value="{{ active_project_id }}">{{ active_project_code }}</option>
                         {% endif %}
                         {% for project in projects %}
-                        <option value="{{ project.id }}">{{ project.code }}</option>
+                            {% if project.id != active_project_id %}
+                                <option value="{{ project.id }}">{{ project.code }}</option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                 </div>
