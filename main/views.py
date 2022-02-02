@@ -332,7 +332,7 @@ class DocumentDownloadAllOfTotal(LoginRequiredMixin, TemplateView):
                 files_download.append(document)
 
         document_dir = os.path.join(settings.MEDIA_ROOT, dir)
-        project_name = str(project).replace("/",'')
+        project_name = str(project).replace("/",'_')
         zip_name = f'{project_name}_docs.zip'
 
         return download_some_files(zip_name, document_dir, files_download)
