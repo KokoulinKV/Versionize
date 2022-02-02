@@ -104,18 +104,22 @@
             <!-- ======================================================================== -->
             <!-- Блок кнопок -->
             <h2 class="block-title">Действия:</h2>
+        {% if user.is_staff or user.is_superuser or user.usercompanyinfo.chief_project_engineer %}
             <div class="actions actions_project">
                 <div class="actions__btn" id="add-project">
                     <span class="actions__icon"><i class='bx bx-folder-plus'></i></span>
                     <h3 class="actions__name">Создать проект</h3>
                 </div>
             </div>
+        {% endif %}
+        {% if user.is_staff or user.is_superuser or user.usercompanyinfo.assistant or user.usercompanyinfo.chief_project_engineer%}
             <div class="actions actions_section">
                 <div class="actions__btn" id="add-section">
                     <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>
                     <h3 class="actions__name">Добавить раздел</h3>
                 </div>
             </div>
+        {% endif %}
             <!-- <div class="actions actions_section">
             <div class="actions__btn" id="add-section_new">
                 <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>

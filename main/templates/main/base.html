@@ -73,16 +73,16 @@
                 </a>
                 <span class="sidebar__tooltip">Проекты</span>
             </li>
-            <li>
-                <a href="{% url 'main:document' 1 %}">
-                    <i class='bx bx-folder'></i>
-                    <span class="sidebar__link-name">Документы</span>
-                </a>
-                <span class="sidebar__tooltip">Документы</span>
-            </li>
+{#            <li>#}
+{#                <a href="{% url 'main:document' 1 %}">#}
+{#                    <i class='bx bx-folder'></i>#}
+{#                    <span class="sidebar__link-name">Документы</span>#}
+{#                </a>#}
+{#                <span class="sidebar__tooltip">Документы</span>#}
+{#            </li>#}
 
             <!-- Доступ в админку -->
-            {% if user.is_staff or user.is_superuser %}
+            {% if user.is_staff or user.is_superuser or user.usercompanyinfo.chief_project_engineer%}
             <li>
                 <a href="{% url 'admins:index' %}">
                     <i class='bx bx-cog'></i>

@@ -30,8 +30,11 @@ class Index(LoginRequiredMixin, TemplateView):
         context = self.get_context_data(**kwargs)
 
         doc_form = DocumentForm(prefix='doc_form_pre')
-        doc_form.fields['section'].queryset = \
-            Section.objects.filter(project_id=request.session['active_project_id'])
+        if request.session['active_project_id']:
+            doc_form.fields['section'].queryset = \
+                Section.objects.filter(project_id=request.session['active_project_id'])
+        else:
+            doc_form.fields['section'].queryset =''
 
         to_response = {'doc_form': doc_form,
              'add_section_form': AddSectionForm(prefix='add_section_form_pre'),
@@ -65,7 +68,7 @@ class Index(LoginRequiredMixin, TemplateView):
 
         if doc_form.is_bound and doc_form.is_valid():
             try:
-                doc_form.instance.name, pdf = str(doc_form.instance.doc_path).split('.')
+                doc_form.instance.name = str(doc_form.instance.doc_path)
                 doc_form.save()
                 doc_form.data = clear_form_data(doc_form.data)
             except ValidationError:
@@ -145,7 +148,7 @@ class TotalListView(LoginRequiredMixin, TemplateView):
 
         if doc_form.is_bound and doc_form.is_valid():
             try:
-                doc_form.instance.name, pdf = str(doc_form.instance.doc_path).split('.')
+                doc_form.instance.name = str(doc_form.instance.doc_path)
                 doc_form.save()
                 doc_form.data = clear_form_data(doc_form.data)
             except ValidationError:
@@ -200,7 +203,7 @@ class SectionDetailView(LoginRequiredMixin, DetailView):
         section = str(kwargs['pk'])
         if doc_form.is_bound and doc_form.is_valid():
             try:
-                doc_form.instance.name, pdf = str(doc_form.instance.doc_path).split('.')
+                doc_form.instance.name = str(doc_form.instance.doc_path)
                 doc_form.instance.section_id = kwargs['pk']
                 doc_form.save()
                 doc_form.data = clear_form_data(doc_form.data)

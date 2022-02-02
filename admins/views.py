@@ -146,7 +146,7 @@ class UserInfoEdit(AdminsLoginRequiredMixin, UpdateView):
         if check_manager:
             check_manager = check_manager[0]['id']
             if not (company == check_manager):
-                manager_company_id = check_manager[0]['id']
+                manager_company_id = check_manager
                 query = Company.objects.filter(id=manager_company_id)
                 query.update(manager=None)
         return super().form_valid(form)
