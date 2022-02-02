@@ -118,8 +118,8 @@ class UserRehubView(AdminsLoginRequiredMixin, UpdateView):
 
 
 class UserInfoListView(AdminsLoginRequiredMixin, ListView):
-    model = UserCompanyInfo
     template_name = 'admins/admin-usersinfo.html'
+    queryset = UserCompanyInfo.objects.all().select_related('user', 'company')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(UserInfoListView, self).get_context_data(**kwargs)
