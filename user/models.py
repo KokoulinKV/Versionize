@@ -57,6 +57,11 @@ class User(AbstractUser):
         if user_profile_data.chief_project_engineer or user_profile_data.assistant:
             return True
 
+    def check_user(self):
+        if self.is_staff or self.is_superuser \
+                or self.usercompanyinfo.assistant or self.usercompanyinfo.chief_project_engineer:
+            return True
+        return False
 
 class Company(models.Model):
     name = models.CharField(
