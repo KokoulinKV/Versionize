@@ -1,6 +1,7 @@
 import hashlib
+import mimetypes
+
 from django.core.exceptions import ValidationError
-from django.core.validators import FileExtensionValidator
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.db import models
@@ -192,8 +193,7 @@ class Document(models.Model):
     )
     doc_path = models.FileField(
         upload_to='main_docs',
-        verbose_name='Путь',
-        validators=[FileExtensionValidator(allowed_extensions=['pdf'])]
+        verbose_name='Путь'
     )
     section = models.ForeignKey(
         Section,
@@ -242,24 +242,29 @@ class Document(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.pk:  # file is new, not update old object in database!
-            md5 = hashlib.md5()
-            for chunk in self.doc_path.chunks():
-                md5.update(chunk)
-            self.md5 = md5.hexdigest()
-
-        if Document.objects.filter(section_id=self.section):
-            if not Document.objects.filter(md5=self.md5):
-                last_vers_query = Document.objects.filter(
-                    section_id=self.section).values('version')
-                last_version = last_vers_query[len(last_vers_query) - 1]['version']
-                self.version = last_version + 1
-            else:
+            if mimetypes.guess_type(str(self.doc_path)) != 'pdf':
                 raise ValidationError('')
-        else:
-            self.version = 1
-        # TODO перенести на форму для вода значения пользователем, предварительно обдумав какие значения
-        #  и как будут вводиться. Предлагаю для защиты оставить так.
-        self.variation = self.version - 1
+            md5 = hashlib.md5()
+            try:
+                for chunk in self.doc_path.chunks():
+                    md5.update(chunk)
+                self.md5 = md5.hexdigest()
+            except ValueError:
+                raise ValidationError('')
+
+            if Document.objects.filter(section_id=self.section):
+                if not Document.objects.filter(md5=self.md5):
+                    last_vers_query = Document.objects.filter(
+                        section_id=self.section).values('version')
+                    last_version = last_vers_query[len(last_vers_query) - 1]['version']
+                    self.version = last_version + 1
+                else:
+                    raise ValidationError('')
+            else:
+                self.version = 1
+            # TODO перенести на форму для вода значения пользователем, предварительно обдумав какие значения
+            #  и как будут вводиться. Предлагаю для защиты оставить так.
+            self.variation = self.version - 1
         return super(Document, self).save(*args, **kwargs)
 
     class Meta:
