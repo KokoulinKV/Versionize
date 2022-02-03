@@ -13,17 +13,17 @@
             <div class="project">
                 <div class="project__info">
                     <div class="project__info-title">
-                        {{ active_project_code }}
-                        <p>{{ active_project_name }}</p>
+                        {{ active_project.code }}
+                        <p>{{ active_project.name }}</p>
                     </div>
                     <div class="project__info-data">
                         <div class="project__data">
                             <span>Следующая загрузка:</span>
-                            <p>{{ active_project_next_upload|date:'d.m.Y' }}</p>
+                            <p>{{ active_project.next_upload|date:'d.m.Y' }}</p>
                         </div>
                         <div class="project__data">
                             <span>Срок экспертизы до:</span>
-                            <p>{{ active_project_exp_date|date:'d.m.Y' }}</p>
+                            <p>{{ active_project.exp_date|date:'d.m.Y' }}</p>
                         </div>
                     </div>
                 </div>
@@ -32,14 +32,11 @@
             <div class="person">
                 <div class="person__content">
                     <div class="person__text">
-                        {% with object_list.0.project.get_admin as admin %}
-                        <span class="person__name">{{ admin.get_fullname }}</span>
-                        <span class="person__job"><i class='bx bxs-business'></i>{{ admin.get_company.name }}</span>
-                        <span class="person__post"><i class='bx bx-id-card'></i>{{ admin.get_position }}</span>
-                        <span class="person__role"><i class='bx bx-male'></i>{{ admin.get_project_role }}</span>
-                        <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ admin.phone }}</span>
-                        <span class="person__mail"><i class='bx bx-mail-send'></i>{{ admin.email }}</span>
-                        {% endwith %}
+                        <span class="person__name">{{ admin_data.user.last_name }} {{ admin_data.user.first_name }} {{ admin_data.user.patronymic }}</span>
+                        <span class="person__job"><i class='bx bxs-business'></i>{{ admin_data.company.name }}</span>
+                        <span class="person__post"><i class='bx bx-id-card'></i>{{ admin_data.position }}</span>
+                        <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ admin_data.user.phone }}</span>
+                        <span class="person__mail"><i class='bx bx-mail-send'></i>{{ admin_data.user.email }}</span>
                     </div>
                 </div>
             </div>
@@ -53,7 +50,7 @@
         {% endif %}
             <!-- Блок кнопок -->
             <h2 class="block-title">Действия:</h2>
-        {% if user.is_staff or user.is_superuser or user.usercompanyinfo.assistant or user.usercompanyinfo.chief_project_engineer%}
+        {% if user.permission%}
             <div class="actions actions_section">
                 <div class="actions__btn" id="add-section">
                     <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>
@@ -67,7 +64,7 @@
                     <h3 class="actions__name">Загрузить документ</h3>
                 </div>
             </div>
-            {% if user.is_staff or user.is_superuser or user.usercompanyinfo.assistant or user.usercompanyinfo.chief_project_engineer%}
+            {% if user.permission%}
             <div class="actions actions_section">
                 <div class="actions__btn" id="add-remarkdoc">
                     <span class="actions__icon"><i class='bx bx-file'></i></span>
@@ -106,38 +103,36 @@
                         </tr>
                         </thead>
                         <tbody id="table">
-                            {% for section in object_list %}
-                            {% with section.get_latest_linked_document as document %}
-
+                            {% for object in object_list %}
                             <tr>
-                                {% if document %}
-                                    <td title='{{ document.md5 }}'><i class='bx bxs-file-md'></i></td>
+                                {% if object.document__id %}
+                                    <td title='{{ object.document__md5 }}'><i class='bx bxs-file-md'></i></td>
                                     <td>
-                                        <a href="{% url 'main:section' section.id %}">
+                                        <a href="{% url 'main:section' object.id %}">
                                             <span class='_code-green'>
-                                                {{ section.project.code }}-{{ section.abbreviation }}
+                                                {{ object.project__code }}-{{ object.abbreviation }}
                                             </span>
                                         </a>
                                     </td>
 
                                     <td><i class='bx bx-check-circle'></i></td>
 
-                                    <td title='{{ document.doc_path }}'>
-                                        <a href="{% url 'main:document_download' document.id %}">
+                                    <td title='{{ object.document__doc_path }}'>
+                                        <a href="{% url 'main:document_download' object.document__id %}">
                                             <i class='bx bx-save'></i>
                                         </a>
                                     </td>
-                                    <td>{{ document.status }}</td>
-                                    <td>{{ document.version }}</td>
-                                    <td>{{ document.variation }}</td>
-                                    <td class="general-table__note">{{ document.note }}</td>
-                                    <td><a href="#">{{ section.company }}</a></td>
+                                    <td>{{ object.document__status }}</td>
+                                    <td>{{ object.document__version }}</td>
+                                    <td>{{ object.document__variation }}</td>
+                                    <td class="general-table__note">{{ object.document__note }}</td>
+                                    <td><a href="#">{{ object.company__name }}</a></td>
                                 {% else %}
                                     <td>-</td>
                                     <td>
-                                        <a href="{% url 'main:section' section.id %}">
+                                        <a href="{% url 'main:section' object.id %}">
                                             <span class='_code-green'>
-                                                {{ section.project.code }}-{{ section.abbreviation }}
+                                                {{ object.project__code }}-{{ object.abbreviation }}
                                             </span>
                                         </a>
                                     </td>
@@ -147,11 +142,9 @@
                                     <td>-</td>
                                     <td>-</td>
                                     <td>-</td>
-                                    <td><a href="#">{{ section.company }}</a></td>
+                                    <td><a href="#">{{ object.company__name }}</a></td>
                                 {% endif %}
                             </tr>
-
-                            {% endwith %}
                             {% endfor %}
                         </tbody>
                     </table>
