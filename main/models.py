@@ -63,7 +63,7 @@ class Project(models.Model):
 
 
 @receiver(post_save, sender=Project)
-def notification_for_users(sender,instance,created,**kwargs):
+def notification_for_users(sender, instance, created, **kwargs):
     """
     @TheSleepyNomad
     Функция будет создавать уведомления для пользователей, когда ГИП создает новый проект
