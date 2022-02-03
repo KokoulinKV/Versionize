@@ -50,6 +50,13 @@ class User(AbstractUser):
         else:
             return 'Пользователь'
 
+    def permission(self):
+        if self.is_superuser or self.is_staff:
+            return True
+        user_profile_data = UserCompanyInfo.objects.get(user=self)
+        if user_profile_data.chief_project_engineer or user_profile_data.assistant:
+            return True
+
 
 class Company(models.Model):
     name = models.CharField(
