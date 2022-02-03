@@ -18,6 +18,7 @@ from main.func import download_some_files, download_single_file, _get_form, ajax
 from main.models import Section, Company, Document, Project, Comment, RemarksDocs
 from main.utils.card_generation import generate_info_card, generate_permission_card
 
+
 class Index(LoginRequiredMixin, TemplateView):
     template_name = 'main/lk.html'
 
@@ -110,12 +111,37 @@ class TotalListView(LoginRequiredMixin, TemplateView):
     template_name = 'main/total.html'
 
     def get_queryset(self):
-        queryset = Section.objects.filter(
-            project_id=self.request.session['active_project_id'])
-        return queryset
+        # Собираем модели Document, Section, Company, Project
+        section_queryset = Section.objects.filter(
+            project_id=self.request.session['active_project_id']
+        ).values(
+            'id', 'abbreviation', 'project', 'project__code', 'company__name',
+            'document__id', 'document__md5', 'document__doc_path',
+            'document__status', 'document__version',
+            'document__variation', 'document__note'
+        ).order_by(
+            'id', 'document__version'
+        )
+        filtered_queryset = []
+        # Переносим последние версии документов в filtered_queryset
+        for i in range(1, len(section_queryset)):
+            this_object = section_queryset[i]
+            previous_object = section_queryset[i - 1]
+            # На случай, если в разделе отсутствуют документы
+            if this_object['document__version'] is None:
+                filtered_queryset.append(this_object)
+                continue
+            if this_object['document__version'] < previous_object['document__version']:
+                filtered_queryset.append(previous_object)
+        # Возвращаем список объектов Document являющихся последними версиями в разделе
+        return filtered_queryset
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
+        # TODO оптимизировать запрос.
+        #  Контекстный процессор пробрасывает объект Project на кажду страницу
+        admin_data = Project.objects.get(id=self.request.session['active_project_id']).get_admin_data()
+        context['admin_data'] = admin_data
         context['title'] = 'Versionize - Сводная таблица проекта'
         return context
 
@@ -126,8 +152,7 @@ class TotalListView(LoginRequiredMixin, TemplateView):
 
         context = self.get_context_data(**kwargs)
 
-        actualremark = RemarksDocs.objects.filter(to_project=
-                                                      self.get_queryset().values('id')[0]['id'])
+        actualremark = RemarksDocs.objects.filter(to_project=request.session['active_project_id'])
         if actualremark:
             actualremark = actualremark.latest('created_at')
 
@@ -139,7 +164,6 @@ class TotalListView(LoginRequiredMixin, TemplateView):
                        }
         to_response.update(context)
         return self.render_to_response(to_response)
-
 
     def post(self, request, *args, **kwargs):
         doc_form = _get_form(request, DocumentForm, 'doc_form_pre')
@@ -255,7 +279,7 @@ class DocumentDetailView(LoginRequiredMixin, DetailView):
         # Выполняем проверку на ajax запрос
         if request.method == 'POST' and ajax_check(request):
             new_comment = Comment(
-                author_id=request.user.id, 
+                author_id=request.user.id,
                 document_id=self.kwargs['pk'],
                 body=request.POST.get('commentBody'),)
             new_comment.save()

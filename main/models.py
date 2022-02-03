@@ -4,7 +4,7 @@ from django.core.validators import FileExtensionValidator
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.db import models
-from user.models import User, Company
+from user.models import User, Company, UserCompanyInfo
 from service.models import Notification
 
 
@@ -58,12 +58,17 @@ class Project(models.Model):
     def get_projects(self):
         return self.objects.all()
 
-    def get_admin(self):
-        return User.objects.get(id=self.admin.id)
+    # def get_admin(self):
+    #     return User.objects.get(id=self.admin.id)
+
+    def get_admin_data(self):
+        admin = User.objects.get(id=self.admin_id)
+        admin_data = UserCompanyInfo.objects.select_related('user', 'company').get(user=admin)
+        return admin_data
 
 
 @receiver(post_save, sender=Project)
-def notification_for_users(sender,instance,created,**kwargs):
+def notification_for_users(sender, instance, created, **kwargs):
     """
     @TheSleepyNomad
     Функция будет создавать уведомления для пользователей, когда ГИП создает новый проект

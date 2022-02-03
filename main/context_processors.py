@@ -15,7 +15,7 @@ def active_project_info(request):
     if request.session['active_project_id'] is None:
         return {'active_project_id': None}
     else:
-        project = Project.objects.filter(id=request.session['active_project_id']).first()
+        project = Project.objects.get(id=request.session['active_project_id'])
         request.session['active_project_id'] = project.id
 
     return {
@@ -24,4 +24,5 @@ def active_project_info(request):
         'active_project_name': project.name,
         'active_project_exp_date': project.exp_date,
         'active_project_next_upload': project.next_upload,
+        'active_project': project,
     }
