@@ -436,4 +436,13 @@ Versionize | Section card
         </div>
     </div>
 </div>
+<div class="popup {% if errors %}popup_open{% endif %}" id="popup-error">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_error"><i class='bx bx-plus-circle form-close'></i></a>
+            <div class="popup__title">Ошибка!</div>
+            <div>{{ errors }}</div>
+        </div>
+    </div>
+</div>
 {% endblock %}
