@@ -108,19 +108,29 @@
                                 {% if object.document__id %}
                                     <td title='{{ object.document__md5 }}'><i class='bx bxs-file-md'></i></td>
                                     <td>
-                                        <a href="{% url 'main:section' object.id %}">
+                                        {% if user.check_user or object.responsible_id == user.id %}
+                                            <a href="{% url 'main:section' object.id %}">
+                                                <span class='_code-green'>
+                                                    {{ object.project__code }}-{{ object.abbreviation }}
+                                                </span>
+                                            </a>
+                                        {% else %}
                                             <span class='_code-green'>
                                                 {{ object.project__code }}-{{ object.abbreviation }}
                                             </span>
-                                        </a>
+                                        {% endif %}
                                     </td>
 
                                     <td><i class='bx bx-check-circle'></i></td>
 
                                     <td title='{{ object.document__doc_path }}'>
-                                        <a href="{% url 'main:document_download' object.document__id %}">
+                                        {% if user.check_user or object.responsible_id == user.id %}
+                                            <a href="{% url 'main:document_download' object.document__id %}">
+                                                <i class='bx bx-save'></i>
+                                            </a>
+                                        {% else %}
                                             <i class='bx bx-save'></i>
-                                        </a>
+                                        {% endif %}
                                     </td>
                                     <td>{{ object.document__status }}</td>
                                     <td>{{ object.document__version }}</td>
@@ -130,11 +140,17 @@
                                 {% else %}
                                     <td>-</td>
                                     <td>
-                                        <a href="{% url 'main:section' object.id %}">
+                                        {% if user.check_user or object.responsible_id == user.id %}
+                                            <a href="{% url 'main:section' object.id %}">
+                                                <span class='_code-green'>
+                                                    {{ object.project__code }}-{{ object.abbreviation }}
+                                                </span>
+                                            </a>
+                                        {% else %}
                                             <span class='_code-green'>
                                                 {{ object.project__code }}-{{ object.abbreviation }}
                                             </span>
-                                        </a>
+                                        {% endif %}
                                     </td>
                                     <td><i class='bx bx-x-circle'></i></td>
                                     <td>-</td>
@@ -441,6 +457,15 @@
                 </div>
 
             </form>
+        </div>
+    </div>
+</div>
+<div class="popup {% if errors %}popup_open{% endif %}" id="popup-error">
+    <div class="popup__body">
+        <div class="popup__content">
+            <a href="#" class="popup__close" id="popup__close_error"><i class='bx bx-plus-circle form-close'></i></a>
+            <div class="popup__title">Ошибка!</div>
+            <div>{{ errors }}</div>
         </div>
     </div>
 </div>
