@@ -24,7 +24,7 @@ class Index(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Versionize - Личный кабинет'
+        context['title'] = 'Личный кабинет'
         return context
 
     def get(self, request, *args, **kwargs):
@@ -152,7 +152,7 @@ class TotalListView(LoginRequiredMixin, TemplateView):
         #  Контекстный процессор пробрасывает объект Project на кажду страницу
         admin_data = Project.objects.get(id=self.request.session['active_project_id']).get_admin_data()
         context['admin_data'] = admin_data
-        context['title'] = 'Versionize - Сводная таблица проекта'
+        context['title'] = 'Сводная таблица проекта'
         return context
 
     def get(self, request, *args, **kwargs):
@@ -230,10 +230,9 @@ class SectionDetailView(LoginRequiredMixin, DetailView):
         to_response.update(context)
         return self.render_to_response(to_response)
 
-
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Versionize - Раздел'
+        context['title'] = 'Раздел'
         return context
 
     def post(self, request, *args, **kwargs):
@@ -269,7 +268,7 @@ class CompanyListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Versionize - Компании'
+        context['title'] = 'Компании'
         return context
 
 
@@ -279,7 +278,7 @@ class DocumentDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Versionize - Документ'
+        context['title'] = 'Документ'
         return context
 
     def get(self, request, *args, **kwargs):
@@ -414,7 +413,7 @@ class ProjectDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Versionize - Проект'
+        context['title'] = 'Проект'
         return context
 
 
@@ -425,5 +424,5 @@ class ProjectListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Versionize - Компании'
+        context['title'] = 'Проекты'
         return context

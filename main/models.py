@@ -163,6 +163,10 @@ class Section(models.Model):
     def get_linked_remarks(self):
         return Remark.objects.filter(section=self).order_by('id')
 
+    def get_section_code(self):
+        section_project_queryset = self.objects.select_related('project').get(project=self.project)
+        return f'{section_project_queryset.project.code}-{section_project_queryset.abbreviation}'
+
     class Meta:
         verbose_name = 'Раздел'
         verbose_name_plural = 'Разделы'
