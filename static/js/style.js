@@ -170,4 +170,10 @@ $(document).ready(function () {
         $('#popup-permission-card').toggleClass('popup_open');
         }
     );
+
+    // @KokoulinKV
+    // Для вызова pop-up ошибок форм
+    $('#popup__close_error').click(function(){
+        $('#popup-error').toggleClass('popup_open');
+    });
 });

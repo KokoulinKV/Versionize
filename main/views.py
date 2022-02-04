@@ -32,10 +32,16 @@ class Index(LoginRequiredMixin, TemplateView):
 
         doc_form = DocumentForm(prefix='doc_form_pre')
         if request.session['active_project_id']:
-            doc_form.fields['section'].queryset = \
-                Section.objects.filter(project_id=request.session['active_project_id'])
+            if request.user.check_user():
+                doc_form.fields['section'].queryset = \
+                    Section.objects.filter(project_id=request.session['active_project_id'])
+            else:
+                doc_form.fields['section'].queryset = \
+                    Section.objects.filter(project_id=request.session['active_project_id']) \
+                        .filter(responsible_id=request.user.id)
         else:
             doc_form.fields['section'].queryset =''
+
 
         to_response = {'doc_form': doc_form,
              'add_section_form': AddSectionForm(prefix='add_section_form_pre'),
@@ -73,7 +79,8 @@ class Index(LoginRequiredMixin, TemplateView):
                 doc_form.save()
                 doc_form.data = clear_form_data(doc_form.data)
             except ValidationError:
-                errors = 'Данная версия документа уже была загружена. Загрузите корректную новую версию.'
+                errors = 'Файл для загрузки не был выбран, формат выбранного файла не является' \
+                         ' "pdf" или данная версия документа уже была загружена. Загрузите корректный файл.'
                 # TODO Подумать как записывать ошибки нескольких форм
                 return self.render_to_response({
                     'doc_form': doc_form,
@@ -115,7 +122,7 @@ class TotalListView(LoginRequiredMixin, TemplateView):
         section_queryset = Section.objects.filter(
             project_id=self.request.session['active_project_id']
         ).values(
-            'id', 'abbreviation', 'project', 'project__code', 'company__name',
+            'id', 'abbreviation', 'project', 'responsible_id', 'project__code', 'company__name',
             'document__id', 'document__md5', 'document__doc_path',
             'document__status', 'document__version',
             'document__variation', 'document__note'
@@ -123,16 +130,19 @@ class TotalListView(LoginRequiredMixin, TemplateView):
             'id', 'document__version'
         )
         filtered_queryset = []
-        # Переносим последние версии документов в filtered_queryset
-        for i in range(1, len(section_queryset)):
+        for i in range(len(section_queryset)):
             this_object = section_queryset[i]
-            previous_object = section_queryset[i - 1]
-            # На случай, если в разделе отсутствуют документы
-            if this_object['document__version'] is None:
+            try:
+                next_object = section_queryset[i + 1]
+                # На случай, если в разделе отсутствуют документы
+                if next_object['document__version'] is None:
+                    filtered_queryset.append(this_object)
+                    continue
+                if this_object['document__version'] > next_object['document__version']:
+                    filtered_queryset.append(this_object)
+            except IndexError:
                 filtered_queryset.append(this_object)
-                continue
-            if this_object['document__version'] < previous_object['document__version']:
-                filtered_queryset.append(previous_object)
+                return filtered_queryset
         # Возвращаем список объектов Document являющихся последними версиями в разделе
         return filtered_queryset
 
@@ -147,9 +157,13 @@ class TotalListView(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         doc_form = DocumentForm(prefix='doc_form_pre')
-        doc_form.fields['section'].queryset = \
-            Section.objects.filter(project_id=request.session['active_project_id'])
-
+        if  request.user.check_user():
+            doc_form.fields['section'].queryset = \
+                Section.objects.filter(project_id=request.session['active_project_id'])
+        else:
+            doc_form.fields['section'].queryset = \
+                Section.objects.filter(project_id=request.session['active_project_id'])\
+                    .filter(responsible_id=request.user.id)
         context = self.get_context_data(**kwargs)
 
         actualremark = RemarksDocs.objects.filter(to_project=request.session['active_project_id'])
@@ -176,7 +190,8 @@ class TotalListView(LoginRequiredMixin, TemplateView):
                 doc_form.save()
                 doc_form.data = clear_form_data(doc_form.data)
             except ValidationError:
-                errors = 'Данная версия документа уже была загружена. Загрузите корректную новую версию.'
+                errors = 'Файл для загрузки не был выбран, формат выбранного файла не является' \
+                         ' "pdf" или данная версия документа уже была загружена. Загрузите корректный файл.'
                 return self.render_to_response({
                     'doc_form': doc_form,
                     'add_section_form': add_section_form,
@@ -233,7 +248,8 @@ class SectionDetailView(LoginRequiredMixin, DetailView):
                 doc_form.data = clear_form_data(doc_form.data)
                 return HttpResponseRedirect(reverse('main:section', args=(section)))
             except ValidationError:
-                errors = 'Данная версия документа уже была загружена. Загрузите корректную новую версию.'
+                errors = 'Файл для загрузки не был выбран, формат выбранного файла не является' \
+                         ' "pdf" или данная версия документа уже была загружена. Загрузите корректный файл.'
                 return self.render_to_response({
                     'doc_form': doc_form,
                     'remarkdoc_form': remarkdoc_form,
