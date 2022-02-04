@@ -29,17 +29,21 @@
                         </div>
                         <div class="card__contacts">
                             <div class="card__contacts-info">
-                                <div class="actions__btn" id="change-email">
-                                    <span class="card__phone"><i class='bx bx-mobile-alt'></i>{{ user.phone }}</span>
-                                </div>
-                                <div class="actions__btn" id="change-email">
-                                    <span class="card__mail"><i class='bx bx-mail-send'></i>{{ user.email }}</span>
-                                </div>
-                            </div>
-                            <div class="actions__btn" id="change-password">
-                                <span class="card__actions"><i class='bx bx-dots-horizontal-rounded'></i></span>
+                                <span class="card__phone"><i class='bx bx-mobile-alt'></i>{{ user.phone }}</span>
+                                <span class="card__mail"><i class='bx bx-mail-send'></i>{{ user.email }}</span>
                             </div>
                         </div>
+                    </div>
+                    <div class="card__footer">
+                        <button class="card__footer-btns" id="change-password">Изменить</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card__wrapper">
+                    <div class="card__header card__header_project"><i class='bx bx-task'></i></i>Текущий проект</div>
+                    <div class="card__body">
+                        
                     </div>
                     <div class="card__footer">
                         <button class="card__footer-btns" id="change-password">Изменить</button>
@@ -49,50 +53,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-            <h2 class="block-title">Пользователь:</h2>
-            <div class="person">
-                <div class="person__content">
-                    <div class="actions__btn" id="change-photo">
-                        <div class="person__avatar">
-                            <img class="" width="125px"
-                                src="{% if user.image %} {{ user.image.url }} {% else %}
-                                https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg
-                                {% endif %}">
-                        </div>
-                    </div>
-                    <div class="person__text">
-                        <span class="person__name">{{ user.last_name }} {{ user.first_name }}
-                            {{ user.patronymic}}</span>
-                        <span class="person__job">
-                            <i class='bx bxs-business'></i>{{ user.get_usercompany_info.company }}</span>
-                        <span class="person__post"><i class='bx bx-id-card'></i>{{ user.get_position }}</span>
-                        <span class="person__role"><i class='bx bx-male'></i>{{ user.get_project_role }}</span>
-                    </div>
-                </div>
-                <div class="person__contacts">
-                    <div class="person__contacts-info">
-                        <div class="actions__btn" id="change-email">
-                            <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ user.phone }}</span>
-                        </div>
-                        <div class="actions__btn" id="change-email">
-                            <span class="person__mail"><i class='bx bx-mail-send'></i>{{ user.email }}</span>
-                        </div>
-                    </div>
-                    <div class="actions__btn" id="change-password">
-                        <span class="person__actions"><i class='bx bx-dots-horizontal-rounded'></i></span>
-                    </div>
-                </div>
-            </div>
             {% if active_project_id %}
             <h2 class="block-title">Активный проект:</h2>
             <div class="project">
