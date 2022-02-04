@@ -37,8 +37,8 @@
                     </select>
                 </div>
                 <div class="auth-form__group">
-                    <input type="checkbox" name="remember">
-                    <label for="remember">Запомнить меня</label>
+                    {{ form.remember_me }}
+                    <label for="{{ form.remember_me.id_for_label }}">Запомнить меня</label>
                 </div>
                 <div class="auth-form__group">
                     <button type="submit" class="auth-form__button">Войти</button>

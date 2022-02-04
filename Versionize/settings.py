@@ -159,3 +159,5 @@ AUTH_USER_MODEL = 'user.User'
 TOKEN = '5070774928:AAHBm0OoBYlUrlGkR4VecMagdbh5tKTZCwc'
 # Можно использовать это(из документации), либо через свой прохи сервер
 PROXY_URL = 'https://api.telegram.org/bot'
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
