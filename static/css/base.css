@@ -469,6 +469,41 @@ body {
   margin-bottom: 30px !important;
 }
 
+.card__select-project {
+  display: flex;
+  align-items: center;
+  color: rgba(13, 27, 62, 0.7);
+  font-weight: 400;
+  font-size: 22px;
+  background-color: #fff;
+  border-top: 1px solid rgba(26, 54, 126, 0.125);
+  border-bottom: 1px solid rgba(26, 54, 126, 0.125);
+  padding: 5px 10px;
+  height: 3.5rem;
+}
+
+.card__select-project i {
+  font-size: 28px;
+  margin-right: 8px;
+  background-image: linear-gradient(180deg, #2af598 0%, #009efd 100%) !important;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.card__body-active-project {
+  width: 100%;
+  padding: 1.8rem;
+}
+
+.card__body-select-project {
+  width: 100%;
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .card__header {
   display: flex;
   align-items: center;
@@ -567,6 +602,28 @@ body {
   margin-right: 5px;
 }
 
+.card__actions {
+  display: flex;
+  align-items: center;
+  color: rgba(13, 27, 62, 0.7);
+  font-weight: 400;
+  font-size: 22px;
+  background-color: #fff;
+  border-top: 1px solid rgba(26, 54, 126, 0.125);
+  border-bottom: 1px solid rgba(26, 54, 126, 0.125);
+  padding: 5px 10px;
+  height: 3.5rem;
+}
+
+.card__actions i {
+  font-size: 28px;
+  margin-right: 8px;
+  background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%) !important;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
 .card__phone {
   font-size: 16px;
   font-weight: 300;
@@ -580,6 +637,44 @@ body {
   font-weight: 300;
   display: flex;
   align-items: center;
+}
+
+.card__btns {
+  cursor: pointer;
+  position: relative;
+  transition: color 0.15s, background-color 0.15s, border-color 0.15s, box-shadow 0.15s;
+  color: #3f6ad8;
+  border-color: #3f6ad8;
+  vertical-align: bottom;
+  border-style: dashed;
+  font-size: 1.2rem;
+  font-weight: 500;
+  outline: none !important;
+  margin-bottom: 15px !important;
+  display: inline-flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  user-select: none;
+  background-color: transparent !important;
+  padding: 0.375rem 0.75rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+}
+
+.card__btns i {
+  margin-right: 5px;
+}
+
+.card__btns:hover {
+  box-shadow: 0px 5px 15px 2px rgba(63, 106, 216, 0.19);
+  color: #fff;
+  background-color: #3f6ad8 !important;
+  border-color: #3f6ad8 !important;
+}
+
+.card__btns_last {
+  margin-bottom: 0 !important;
 }
 
 .card__footer {
