@@ -11,14 +11,14 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid">
-                <h1 class="mt-4">Добавление организации</h1>
+                <h1 class="mt-4">Добавить организацию</h1>
                 <form action="{% url 'admins:admins_companies_create' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="form-row">
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label class="small mb-1" for="{{ form.name.id_for_label }}">Название
-                                    организации</label>
+                                    компании</label>
                                 {{ form.name }}
                             </div>
                         </div>
@@ -34,14 +34,14 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label class="small mb-1" for="{{ form.phone.id_for_label }}">Телефон
-                                    организации</label>
+                                    компании</label>
                                 {{ form.phone }}
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label class="small mb-1" for="{{ form.email.id_for_label }}">Email
-                                    организации</label>
+                                    компании</label>
                                 {{ form.email }}
                             </div>
                         </div>

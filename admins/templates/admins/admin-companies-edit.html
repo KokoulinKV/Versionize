@@ -4,7 +4,7 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid">
-                <h1 class="mt-4">Редактирование сведений об организации | {{ company.name }}</h1>
+                <h1 class="mt-4">Редактирование сведений о компании | {{ company.name }}</h1>
                 {% for errors in form.errors %}
                     {{ errors }}
                 {% endfor %}
@@ -16,14 +16,14 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="small mb-1" for="{{ form.name.id_for_label }}">Название
-                                        организации</label>
+                                        компании</label>
                                     {{ form.name }}
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="small mb-1" for="{{ form.manager.id_for_label }}">Менеджер
-                                        организации</label>
+                                        компании</label>
                                     {{ form.manager }}
                                 </div>
                             </div>
@@ -32,14 +32,14 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="small mb-1" for="{{ form.phone.id_for_label }}">Телефон
-                                        организации</label>
+                                        компании</label>
                                     {{ form.phone }}
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="small mb-1" for="{{ form.email.id_for_label }}">Email
-                                        организации</label>
+                                        компании</label>
                                     {{ form.email }}
                                 </div>
                             </div>
