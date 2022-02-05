@@ -246,7 +246,7 @@ class Document(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.pk:  # file is new, not update old object in database!
-            if mimetypes.guess_type(str(self.doc_path)) != 'pdf':
+            if (mimetypes.guess_type(str(self.doc_path)))[0] != 'application/pdf':
                 raise ValidationError('')
             md5 = hashlib.md5()
             try:
@@ -257,7 +257,7 @@ class Document(models.Model):
                 raise ValidationError('')
 
             if Document.objects.filter(section_id=self.section):
-                if not Document.objects.filter(md5=self.md5):
+                if not Document.objects.filter(section_id=self.section).filter(md5=self.md5):
                     last_vers_query = Document.objects.filter(
                         section_id=self.section).values('version')
                     last_version = last_vers_query[len(last_vers_query) - 1]['version']

@@ -30,19 +30,32 @@
                     <label for="{{ form.password.id_for_label }}" class="auth-form__label">Пароль</label>
                 </div>
                 {{ form.password }}
-                <div class="auth-form__group">
+
+                <!-- ---------------------------------------------------------------------------------------- -->
+                <!-- ? Форма для выбора языка программы -->
+                <!-- Todo после сдачи проекта написать скрипт для замены имующихся русских слов на английские -->
+                <!-- Todo скрипт разместить в файле style.js -->
+                <!-- <div class="auth-form__group">
                     <select name="course" class="auth-form__select">
                         <option selected="" value="Russian">Russian</option>
                         <option value="English">English</option>
                     </select>
-                </div>
-                <div class="auth-form__group">
+                </div> -->
+                <!-- ---------------------------------------------------------------------------------------- -->
+
+                <!-- ---------------------------------------------------------------------------------------- -->
+                <!-- ? Функция запомнить пользователя -->
+                <!-- Todo разобраться в работе кэша и после сдачи проекта реализовать переадресацию в лк -->
+                <!-- <div class="auth-form__group">
                     {{ form.remember_me }}
                     <label for="{{ form.remember_me.id_for_label }}">Запомнить меня</label>
-                </div>
+                </div> -->
+                <!-- ---------------------------------------------------------------------------------------- -->
+
                 <div class="auth-form__group">
                     <button type="submit" class="auth-form__button">Войти</button>
                 </div>
+                
             </form>
         </div>
     </main>

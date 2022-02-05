@@ -9,7 +9,30 @@
     <div class="ext-workspace__input">
         {% if active_project_id %}
         <div class="left-block">
-            <h2 class="block-title">Активный проект:</h2>
+            <div class="card">
+                <div class="card__wrapper">
+                    <div class="card__header card__header_project"><i class='bx bx-task'></i>Активный проект:</div>
+                    <div class="card__body-active-project">
+                        <div class="project__info">
+                            <div class="project__info-title">
+                                {{ active_project_code }}
+                                <p>{{ active_project_name }}</p>
+                            </div>
+                            <div class="project__info-data">
+                                <div class="project__data">
+                                    <span>Следующая загрузка:</span>
+                                    <p>{{ active_project_next_upload|date:'d.m.Y' }}</p>
+                                </div>
+                                <div class="project__data">
+                                    <span>Срок экспертизы до:</span>
+                                    <p>{{ active_project_exp_date|date:'d.m.Y' }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <h2 class="block-title">Активный проект:</h2>
             <div class="project">
                 <div class="project__info">
                     <div class="project__info-title">
@@ -27,7 +50,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- Блок кнопок -->
 {#            <h2 class="block-title">Действия:</h2>#}
 {#            <div class="actions actions_document">#}

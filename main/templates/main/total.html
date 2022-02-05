@@ -9,7 +9,30 @@
     <div class="ext-workspace__input">
         <div class="left-block">
             {% if active_project_id %}
-            <h2 class="block-title">Активный проект:</h2>
+            <div class="card">
+                <div class="card__wrapper">
+                    <div class="card__header card__header_project"><i class='bx bx-task'></i></i>Активный проект:</div>
+                    <div class="card__body-active-project">
+                        <div class="project__info">
+                            <div class="project__info-title">
+                                {{ active_project_code }}
+                                <p>{{ active_project_name }}</p>
+                            </div>
+                            <div class="project__info-data">
+                                <div class="project__data">
+                                    <span>Следующая загрузка:</span>
+                                    <p>{{ active_project_next_upload|date:'d.m.Y' }}</p>
+                                </div>
+                                <div class="project__data">
+                                    <span>Срок экспертизы до:</span>
+                                    <p>{{ active_project_exp_date|date:'d.m.Y' }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <h2 class="block-title">Активный проект:</h2>
             <div class="project">
                 <div class="project__info">
                     <div class="project__info-title">
@@ -27,8 +50,30 @@
                         </div>
                     </div>
                 </div>
+            </div> -->
+            <div class="card">
+                <div class="card__wrapper">
+                    <div class="card__header"><i class='bx bxs-user-detail'></i>Главный инженер проекта:</div>
+                    <div class="card__body-responseble">
+                        <div class="card__content">
+                            <div class="card__text">
+                                <span class="card__name">{{ admin_data.user.last_name }} {{ admin_data.user.first_name }} {{ admin_data.user.patronymic }}</span>
+                                <span class="card__job">
+                                    <i class='bx bxs-business'></i>{{ admin_data.company.name }}</span>
+                                <span class="card__post"><i class='bx bx-id-card'></i>{{ admin_data.position }}</span>
+                                <span class="card__role"><i class='bx bx-male'></i>{{ admin_data.user.get_project_role }}</span>
+                            </div>
+                        </div>
+                        <div class="card__contacts">
+                            <div class="card__contacts-info">
+                                <span class="card__phone"><i class='bx bx-mobile-alt'></i>{{ admin_data.user.phone }}</span>
+                                <span class="card__mail"><i class='bx bx-mail-send'></i>{{ admin_data.user.email }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <h2 class="block-title">Главный инженер проекта:</h2>
+            <!-- <h2 class="block-title">Главный инженер проекта:</h2>
             <div class="person">
                 <div class="person__content">
                     <div class="person__text">
@@ -39,17 +84,50 @@
                         <span class="person__mail"><i class='bx bx-mail-send'></i>{{ admin_data.user.email }}</span>
                     </div>
                 </div>
-            </div>
+            </div> -->
             {% else %}
-            <h2 class="block-title">Активный проект:</h2>
+            <div class="card">
+                <div class="card__wrapper">
+                    <div class="card__header card__header_project"><i class='bx bx-task'></i></i>Активный проект:</div>
+                    <div class="card__body-active-project">
+                        <div class="project__info">
+                            <div class="project__info-title">Проект не выбран</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <h2 class="block-title">Активный проект:</h2>
             <div class="project">
                 <div class="project__info">
                     <div class="project__info-title">Проект не выбран</div>
                 </div>
-            </div>
+            </div> -->
         {% endif %}
             <!-- Блок кнопок -->
-            <h2 class="block-title">Действия:</h2>
+            <div class="card">
+                <div class="card__wrapper">
+                    <div class="card__actions"><i class='bx bx-code-block'></i>Действия</div>
+                    <div class="card__body-select-project">
+                        {% if user.permission %}
+                        <button class='card__btns'  id="add-section">
+                            <i class='bx bx-bookmark-plus'></i>
+                            Добавить раздел
+                        </button>
+                        {% endif %}
+                        <button class='card__btns' id="add-document">
+                            <i class='bx bx-file'></i>
+                            Загрузить документ
+                        </button>
+                        {% if user.permission %}
+                        <button class='card__btns' id="add-remarkdoc">
+                            <i class='bx bx-file'></i>
+                            Загрузить замечания
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <!-- <h2 class="block-title">Действия:</h2>
         {% if user.permission%}
             <div class="actions actions_section">
                 <div class="actions__btn" id="add-section">
@@ -71,14 +149,16 @@
                     <h3 class="actions__name">Загрузить замечания</h3>
                 </div>
             </div>
-            {% endif %}
+            {% endif %} -->
         </div>
         <div class="main">
             <div class="relative-table">
                 <div class="relative-table__title">
                     <div class="relative-table__left-block"><i class='bx bx-detail'></i> Сводная таблица</div>
                     <div class="relative-table__right-block">
+                        {% if user.permission %}
                         <a href="{% url 'main:document_download_all' active_project_id %}"><button>Скачать все</button></a>
+                        {% endif %}
                     </div>
                 </div>
                 <form action="#" class="form-table">
