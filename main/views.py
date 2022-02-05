@@ -138,8 +138,9 @@ class TotalListView(LoginRequiredMixin, TemplateView):
                 if next_object['document__version'] is None:
                     filtered_queryset.append(this_object)
                     continue
-                if this_object['document__version'] > next_object['document__version']:
-                    filtered_queryset.append(this_object)
+                if not this_object['document__version'] is None:
+                    if this_object['document__version'] > next_object['document__version']:
+                        filtered_queryset.append(this_object)
             except IndexError:
                 filtered_queryset.append(this_object)
                 return filtered_queryset
@@ -238,14 +239,14 @@ class SectionDetailView(LoginRequiredMixin, DetailView):
     def post(self, request, *args, **kwargs):
         doc_form = _get_form(request, DocumentSectionForm, 'doc_form_pre')
         remarkdoc_form = _get_form(request, AddRemarkDocSectionForm, 'remarkdoc_form_pre')
-        section = str(kwargs['pk'])
+        section = kwargs['pk']
         if doc_form.is_bound and doc_form.is_valid():
             try:
                 doc_form.instance.name = str(doc_form.instance.doc_path)
                 doc_form.instance.section_id = kwargs['pk']
                 doc_form.save()
                 doc_form.data = clear_form_data(doc_form.data)
-                return HttpResponseRedirect(reverse('main:section', args=(section)))
+                return HttpResponseRedirect(reverse('main:section', args=[section,]))
             except ValidationError:
                 errors = 'Файл для загрузки не был выбран, формат выбранного файла не является' \
                          ' "pdf" или данная версия документа уже была загружена. Загрузите корректный файл.'
@@ -259,7 +260,7 @@ class SectionDetailView(LoginRequiredMixin, DetailView):
             remarkdoc_form.instance.to_section_id = kwargs['pk']
             remarkdoc_form.save()
             remarkdoc_form.data = clear_form_data(remarkdoc_form.data)
-            return HttpResponseRedirect(reverse('main:section', args=(section)))
+            return HttpResponseRedirect(reverse('main:section', args=([section,])))
 
 
 class CompanyListView(LoginRequiredMixin, ListView):
