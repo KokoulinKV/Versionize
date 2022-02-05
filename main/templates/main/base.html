@@ -32,11 +32,11 @@
             <i class='bx bx-menu' id="menu-btn"></i>
         </div>
         <ul class="sidebar__list">
-            <li>
-                <i class='bx bx-search' id="searchBtn"></i>
-                <input type="text" placeholder="Поиск...">
-                <span class="sidebar__tooltip">Поиск</span>
-            </li>
+{#            <li>#}
+{#                <i class='bx bx-search' id="searchBtn"></i>#}
+{#                <input type="text" placeholder="Поиск...">#}
+{#                <span class="sidebar__tooltip">Поиск</span>#}
+{#            </li>#}
             <li>
                 <a href="{% url 'main:companies' %}">
                     <i class='bx bx-grid-alt'></i>
@@ -97,9 +97,9 @@
                 <div class="sidebar__profile-details">
                     <img src="{% static 'img/comments_img.webp' %}" alt="">
                     <div class="sidebar__profile-data">
-                        <div class="sidebar__profile-name">{{ user.username|default:'Пользователь' }}</div>
-                        <div class="sidebar__profile-company">Versionize team</div>
-                        <div class="sidebar__profile-job">Python Dev</div>
+                        <div class="sidebar__profile-name">{{ user.last_name}} {{user.first_name}}</div>
+                        <div class="sidebar__profile-company">{{ user.usercompanyinfo.company }}</div>
+                        <div class="sidebar__profile-job">{{ user.usercompanyinfo.position }}</div>
                     </div>
                 </div>
                 <a href="{% url 'user:logout' %}"><i class='bx bx-log-out' id="log-out"></i></a>
