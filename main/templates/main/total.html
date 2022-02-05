@@ -156,7 +156,9 @@
                 <div class="relative-table__title">
                     <div class="relative-table__left-block"><i class='bx bx-detail'></i> Сводная таблица</div>
                     <div class="relative-table__right-block">
+                        {% if user.permission %}
                         <a href="{% url 'main:document_download_all' active_project_id %}"><button>Скачать все</button></a>
+                        {% endif %}
                     </div>
                 </div>
                 <form action="#" class="form-table">
