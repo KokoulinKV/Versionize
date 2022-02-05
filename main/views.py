@@ -40,7 +40,9 @@ class Index(LoginRequiredMixin, TemplateView):
                     Section.objects.filter(project_id=request.session['active_project_id']) \
                         .filter(responsible_id=request.user.id)
         else:
-            doc_form.fields['section'].queryset =''
+            # Если у пользователя нет проекта, соответственно ответственным он не является ни  за одну секцию и вернется
+            # и вернется пустой queryset, что и нужно
+            doc_form.fields['section'].queryset = Section.objects.filter(responsible_id=request.user.id)
 
 
         to_response = {'doc_form': doc_form,
