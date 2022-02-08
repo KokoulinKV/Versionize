@@ -109,7 +109,9 @@
                         </div>
                     </div>
                     <div class="card__footer">
-                        <button class="card__footer-btns" id="change-password">Скачать</button>
+                        <a href="{% url 'main:document_download' object.id %}">
+                            <button class="card__footer-btns" id="change-password">Скачать</button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -167,9 +169,6 @@
             <div class="relative-table">
                 <div class="relative-table__title">
                     <div class="relative-table__left-block"><i class='bx bx-detail'></i>Перечень корректировок</div>
-                    <div class="relative-table__right-block">
-                        <button>Скачать все</button>
-                    </div>
                 </div>
                 <form action="#" class="form-table">
                     <div class="form-table__search">
