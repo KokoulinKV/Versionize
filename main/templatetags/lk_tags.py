@@ -17,7 +17,7 @@ def get_user_project(filter=None):
         return Project.objects.filter(admin_id=filter)
 
 @register.simple_tag(name='notifications')
-def get_user_project(filter=None):
+def get_user_notifications(filter=None):
     if not filter:
         return Notification.objects.all()
 

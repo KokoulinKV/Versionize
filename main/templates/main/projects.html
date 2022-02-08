@@ -89,8 +89,10 @@
                                 <i class='bx bx-radio-circle'></i>
                             </div>
                             <div class="not__body">
-                                <div class="not__title">Уведомление от {{ notice.from_user }}</div>
-                                <div class="not__text">Текст уведомления</div>
+                                {% if notice.notification_type == 1 %}
+                                <div class="not__title">Уведомление о создании нового проекта</div>
+                                <div class="not__text">ГИП {{ notice.from_user.last_name }} {{ notice.from_user.first_name }} {{ notice.from_user.patronymic }} создал новый проект</div>
+                                {% endif %}
                             </div>
                         </div>
                         {% endfor %}
