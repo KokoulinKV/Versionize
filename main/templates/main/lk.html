@@ -182,8 +182,6 @@
                 </div>
             </div>
             {% endif %}
-
-
             <!-- {% if active_project_id %}
             <h2 class="block-title">Активный проект:</h2>
             <div class="project">
@@ -269,6 +267,27 @@
                             Загрузить документ
                         </button>
                     </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="head-bar head-bar_actions"><i class='bx bx-code-block'></i>Действия</div>
+                <div class="actions">
+                    {% if user.is_staff or user.is_superuser or user.usercompanyinfo.chief_project_engineer %}
+                        <button class='action-btn' id="add-project">
+                            <i class='bx bx-folder-plus'></i>
+                            Создать проект
+                        </button>
+                        {% endif %}
+                        {% if user.is_staff or user.is_superuser or user.usercompanyinfo.assistant or user.usercompanyinfo.chief_project_engineer%}
+                        <button class='action-btn' id="add-section">
+                            <i class='bx bx-bookmark-plus'></i>
+                            Добавить раздел
+                        </button>
+                        {% endif %}
+                        <button class='action-btn action-btn_last' id="add-document">
+                            <i class='bx bx-file'></i>
+                            Загрузить документ
+                        </button>
                 </div>
             </div>
             <!-- <h2 class="block-title">Действия:</h2>

@@ -1536,51 +1536,6 @@ body {
   font-size: 11px;
 }
 
-.actions {
-  margin-top: 20px;
-  background: transparent;
-  border: 2px dashed #7380ec;
-  color: #7380ec;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 0.7rem;
-  padding: 1.4rem 1.8rem;
-  border-radius: 1.2rem;
-  box-shadow: 0 2rem 2rem rgba(132, 139, 200, 0.18);
-  transition: all 0.3s ease;
-}
-
-.actions:hover {
-  box-shadow: none;
-}
-
-.actions_project {
-  border: 2px dashed forestgreen;
-  color: forestgreen;
-}
-
-.actions_section {
-  border: 2px dashed #7380ec;
-  color: #7380ec;
-}
-
-.actions_document {
-  border: 2px dashed #2d2b49;
-  color: #2d2b49;
-}
-
-.actions__btn {
-  display: flex;
-  align-items: center;
-}
-
-.actions__btn i {
-  width: 35px;
-  font-size: 30px;
-}
-
 .block-title {
   margin-bottom: 0.8rem;
 }
@@ -1941,6 +1896,10 @@ body {
   border-top: 1px solid rgba(26, 54, 126, 0.125);
 }
 
+.head-bar_actions i {
+  background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%) !important;
+}
+
 .bottom-bar {
   text-align: right;
   padding: 0.75rem 10px;
@@ -2063,4 +2022,49 @@ body {
 
 .project_select {
   padding: 1.8rem !important;
+}
+
+.actions {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.action-btn {
+  cursor: pointer;
+  position: relative;
+  transition: color 0.15s, background-color 0.15s, border-color 0.15s, box-shadow 0.15s;
+  color: #3f6ad8;
+  border-color: #3f6ad8;
+  vertical-align: bottom;
+  border-style: dashed;
+  font-size: 1.2rem;
+  font-weight: 500;
+  outline: none !important;
+  margin-bottom: 15px !important;
+  display: inline-flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  user-select: none;
+  background-color: transparent !important;
+  padding: 0.375rem 0.75rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+}
+
+.action-btn i {
+  margin-right: 5px;
+}
+
+.action-btn:hover {
+  box-shadow: 0px 5px 15px 2px rgba(63, 106, 216, 0.19);
+  color: #fff;
+  background-color: #3f6ad8 !important;
+  border-color: #3f6ad8 !important;
+}
+
+.action-btn_last {
+  margin-bottom: 0 !important;
 }
