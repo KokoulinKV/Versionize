@@ -6,8 +6,8 @@
 <div class="ext-workspace">
     <div class="ext-workspace__input">
         <div class="left-block">
-            <!-- Можно использовать как для пользователя, так и для эксперта/ответственногого -->
-            <!-- Оставить -->
+            <!-- @TheSleepyNomad -->
+            <!-- ? Пользователь -->
             <div class="container">
                 <div class="head-bar"><i class='bx bxs-user-detail'></i>Пользователь</div>
                 <div class="user">
@@ -52,39 +52,7 @@
                     <button class="gear-btn" id="change-password"><i class='bx bxs-cog'></i></button>
                 </div>
             </div>
-            <!-- Удалить -->
-            <div class="card">
-                <div class="card__wrapper">
-                    <div class="card__header"><i class='bx bxs-user-detail'></i>Пользователь</div>
-                    <div class="card__body">
-                        <div class="card__content">
-                                <div class="card__avatar" id="change-photo">
-                                    <img class="" width="125px"
-                                        src="{% if user.image %} {{ user.image.url }} {% else %}
-                                        https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg
-                                        {% endif %}">
-                                </div>
-                            <div class="card__text">
-                                <span class="card__name">{{ user.last_name }} {{ user.first_name }}
-                                    {{ user.patronymic}}</span>
-                                <span class="card__job">
-                                    <i class='bx bxs-business'></i>{{ user.get_usercompany_info.company }}</span>
-                                <span class="card__post"><i class='bx bx-id-card'></i>{{ user.get_position }}</span>
-                                <span class="card__role"><i class='bx bx-male'></i>{{ user.get_project_role }}</span>
-                            </div>
-                        </div>
-                        <div class="card__contacts">
-                            <div class="card__contacts-info">
-                                <span class="card__phone" id="change-email"><i class='bx bx-mobile-alt'></i>{{ user.phone }}</span>
-                                <span class="card__mail" id="change-email"><i class='bx bx-mail-send'></i>{{ user.email }}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card__footer">
-                        <button class="card__footer-btns" id="change-password"><i class='bx bxs-cog'></i></button>
-                    </div>
-                </div>
-            </div>
+            
             <!-- Оставить -->
             <div class="container">
                 <div class="head-bar head-bar_project"><i class='bx bx-task'></i>Активный проект</div>
