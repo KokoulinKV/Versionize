@@ -2134,24 +2134,6 @@ body {
         align-items: center;
     }
 }
-// Блок для гипов,экспертов и тд
-.short-user {
-    padding: 10px;
-    &__info {
-    }
-
-    &__name {
-    }
-
-    &__job {
-    }
-
-    &__post {
-    }
-
-    &__role {
-    }
-}
 .project {
     padding: 10px;
     &__title {
@@ -2175,7 +2157,8 @@ body {
 
     &__data {
     }
-    &_select{
+
+    &_select {
         padding: 1.8rem !important;
     }
 }
