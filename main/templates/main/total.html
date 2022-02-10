@@ -102,31 +102,7 @@
                     {% endif %}
                 </div>
             </div>
-            <!-- Блок кнопок -->
-        
-            <!-- <h2 class="block-title">Действия:</h2>
-        {% if user.permission%}
-            <div class="actions actions_section">
-                <div class="actions__btn" id="add-section">
-                    <span class="actions__icon"><i class='bx bx-bookmark-plus'></i></span>
-                    <h3 class="actions__name">Добавить раздел</h3>
-                </div>
-            </div>
-        {% endif %}
-            <div class="actions actions_document">
-                <div class="actions__btn" id="add-document">
-                    <span class="actions__icon"><i class='bx bx-file'></i></span>
-                    <h3 class="actions__name">Загрузить документ</h3>
-                </div>
-            </div>
-            {% if user.permission%}
-            <div class="actions actions_section">
-                <div class="actions__btn" id="add-remarkdoc">
-                    <span class="actions__icon"><i class='bx bx-file'></i></span>
-                    <h3 class="actions__name">Загрузить замечания</h3>
-                </div>
-            </div>
-            {% endif %} -->
+            
         </div>
         <div class="main">
             <div class="relative-table">
@@ -345,9 +321,6 @@
                 <div class="form__field">
                     <label for="{{ add_section_form.abbreviation.id_for_label }}">Шифр раздела</label>
                     {{ add_section_form.abbreviation }}
-                    {# <span id="secRefAdd">#}
-                        {# <i class='bx bx-plus' id="secRefAdd"></i>#}
-                        {# </span>#}
                 </div>
                 <div class="form__field">
                     <label for="{{ add_section_form.name.id_for_label }}">Наименование</label>
@@ -359,26 +332,7 @@
                         {{ add_section_form.company }}
                     </div>
                 </div>
-                {# <div class="form__field">#}
-                    {# <label>Выбор ответственного</label>#}
-                    {# <div class="form__select">#}
-                        {# <select>#}
-                            {# <option value="">1</option>#}
-                            {# <option value="">2</option>#}
-                            {# <option value="">3</option>#}
-                            {# </select>#}
-                        {# </div>#}
-                    {# </div>#}
-                {# <div class="form__field">#}
-                    {# <label>Выбор эксперта</label>#}
-                    {# <div class="form__select">#}
-                        {# <select>#}
-                            {# <option value="">1</option>#}
-                            {# <option value="">2</option>#}
-                            {# <option value="">3</option>#}
-                            {# </select>#}
-                        {# </div>#}
-                    {# </div>#}
+                
                 <div class="form__submit">
                     <button type="submit" class="form__submit-btn" name="{{ add_section_form.prefix }}"
                         value="Submit">Создать раздел</button>
