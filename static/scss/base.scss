@@ -2134,6 +2134,7 @@ body {
         align-items: center;
     }
 }
+// Активный проект
 .project {
     padding: 10px;
     &__title {
@@ -2167,12 +2168,14 @@ body {
         padding: 1.8rem !important;
     }
 }
+// Действия
 .actions {
     padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
+// Кнопки действий
 .action-btn {
     cursor: pointer;
     // box-shadow: 0 0.125rem 0.625rem rgba(63, 106, 216, 0.4), 0 0.0625rem 0.125rem rgba(63, 106, 216, 0.5);

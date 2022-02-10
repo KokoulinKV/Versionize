@@ -34,6 +34,63 @@
                 </div>
             </div>
 
+            <!-- * @TheSleepyNomad -->
+            <!-- ? Активный проект -->
+            <div class="container">
+                <div class="head-bar head-bar_project"><i class='bx bx-task'></i>Активный проект</div>
+                <div class="project">
+                    <div class="project__title">{{ active_project_code }}</div>
+                    <div class="project__sub-title">{{ active_project_name }}</div>
+                    <div class="project__info-data">
+                        <div class="project__data">
+                            <span>Следующая загрузка:</span>
+                            <p>{{ active_project_next_upload|date:'d.m.Y' }}</p>
+                        </div>
+                        <div class="project__data">
+                            <span>Срок экспертизы до:</span>
+                            <p>{{ active_project_exp_date|date:'d.m.Y' }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- * @TheSleepyNomad -->
+            <!-- ? Ответственный -->
+            <div class="container">
+                {% with section.responsible as responsible %}
+                <div class="head-bar"><i class='bx bxs-user-detail'></i>Ответственный:</div>
+                <div class="user">
+                    <div class="user__content">
+                        <div class="user__body">
+                            <div class="user__info">
+                                <div class="user__name">{{ responsible.get_fullname }}</div>
+                                <div class="user__job">
+                                    <i class='bx bxs-business'></i>
+                                    {{ responsible.get_company.name}}
+                                </div>
+                                <div class="user__post">
+                                    <i class='bx bx-id-card'></i>
+                                    {{ responsible.get_position }}
+                                </div>
+                                <div class="user__role">
+                                    <i class='bx bx-male'></i>
+                                    {{ responsible.get_project_role }}
+                                </div>
+                                <div class="user__phone" id="change-email">
+                                    <i class='bx bx-mobile-alt'></i>
+                                    {{ responsible.phone }}
+                                </div>
+                                <div class="user__mail" id="change-email">
+                                    <i class='bx bx-mail-send'></i>
+                                    {{ responsible.email }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endwith %}
+            </div>
+
             <div class="card">
                 <div class="card__wrapper">
                     <div class="card__header"><i class='bx bxs-user-detail'></i>Ответственный:</div>
@@ -57,6 +114,31 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- * @TheSleepyNomad -->
+            <!-- ? Эксперт -->
+            <div class="container">
+                {% with section.expert as expert %}
+                <div class="head-bar"><i class='bx bxs-user-detail'></i>Эксперт:</div>
+                <div class="user">
+                    <div class="user__content">
+                        <div class="user__body">
+                            <div class="user__info">
+                                <div class="user__name">{{ expert.get_fullname }}</div>
+                                <div class="user__phone" id="change-email">
+                                    <i class='bx bx-mobile-alt'></i>
+                                    {{ expert.phone }}
+                                </div>
+                                <div class="user__mail" id="change-email">
+                                    <i class='bx bx-mail-send'></i>
+                                    {{ expert.email }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endwith %}
             </div>
 
             <div class="card">
@@ -103,6 +185,24 @@
                     </div>
                 </div> -->
                 <!-- Блок кнопок -->
+                <!-- * @TheSleepyNomad -->
+            <!-- ? Кнопки действий -->
+            <div class="container">
+                <div class="head-bar head-bar_actions"><i class='bx bx-code-block'></i>Действия</div>
+                <div class="actions">
+                    <button class='action-btn' id="add-document">
+                        <i class='bx bx-file'></i>
+                        Загрузить документ
+                    </button>
+                    {% if user.is_staff or user.is_superuser or user.usercompanyinfo.assistant or user.usercompanyinfo.chief_project_engineer%}
+                    <button class='action-btn action-btn_last' id="add-remarkdoc">
+                        <i class='bx bx-file'></i>
+                        Загрузить замечания
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+
                 <div class="card">
                     <div class="card__wrapper">
                         <div class="card__actions"><i class='bx bx-code-block'></i>Действия</div>
