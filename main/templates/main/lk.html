@@ -7,6 +7,7 @@
     <div class="ext-workspace__input">
         <div class="left-block">
             <!-- Можно использовать как для пользователя, так и для эксперта/ответственногого -->
+            <!-- Оставить -->
             <div class="container">
                 <div class="head-bar"><i class='bx bxs-user-detail'></i>Пользователь</div>
                 <div class="user">
@@ -51,6 +52,7 @@
                     <button class="gear-btn" id="change-password"><i class='bx bxs-cog'></i></button>
                 </div>
             </div>
+            <!-- Удалить -->
             <div class="card">
                 <div class="card__wrapper">
                     <div class="card__header"><i class='bx bxs-user-detail'></i>Пользователь</div>
@@ -83,7 +85,14 @@
                     </div>
                 </div>
             </div>
+            <!-- Оставить -->
+            <div class="container">
+                <div class="head-bar head-bar_project"><i class='bx bx-task'></i>Активный проект</div>
+                
+                <div class="head-bar head-bar_project head-bar_top-border"><i class='bx bx-rotate-right'></i>Выбрать активный проект</div>
+            </div>
             {% if active_project_id %}
+            <!-- Удалить -->
             <div class="card">
                 <div class="card__wrapper">
                     <div class="card__header card__header_project"><i class='bx bx-task'></i>Активный проект:</div>

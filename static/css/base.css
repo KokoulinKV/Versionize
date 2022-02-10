@@ -2005,6 +2005,7 @@ body {
 .container {
   width: 100%;
   background-color: #fff;
+  margin-bottom: 15px;
 }
 
 .head-bar {
@@ -2025,6 +2026,14 @@ body {
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+}
+
+.head-bar_project i {
+  background-image: linear-gradient(180deg, #2af598 0%, #009efd 100%) !important;
+}
+
+.head-bar_top-border {
+  border-top: 1px solid rgba(26, 54, 126, 0.125);
 }
 
 .bottom-bar {
