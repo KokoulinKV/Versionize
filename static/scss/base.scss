@@ -1565,116 +1565,116 @@ body {
     &__name {
     }
 }
-.project {
-    width: 100%;
-    background: #fff;
-    padding: 1.8rem;
-    border-radius: 2rem;
-    box-shadow: 0 2rem 2rem rgba(132, 139, 200, 0.18);
-    transition: all 300ms ease;
-    margin-bottom: 0.8rem;
+// .project {
+//     width: 100%;
+//     background: #fff;
+//     padding: 1.8rem;
+//     border-radius: 2rem;
+//     box-shadow: 0 2rem 2rem rgba(132, 139, 200, 0.18);
+//     transition: all 300ms ease;
+//     margin-bottom: 0.8rem;
 
-    &:hover {
-        box-shadow: none;
-    }
-    // &__info {
-    // }
+//     &:hover {
+//         box-shadow: none;
+//     }
+//     // &__info {
+//     // }
 
-    &__info-title {
-        font-size: 16px;
-        font-weight: 500;
-        text-align: center;
-        & p {
-            font-size: 30px;
-        }
-    }
+//     &__info-title {
+//         font-size: 16px;
+//         font-weight: 500;
+//         text-align: center;
+//         & p {
+//             font-size: 30px;
+//         }
+//     }
 
-    &__info-data {
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-        margin: 5px 0;
-    }
+//     &__info-data {
+//         display: flex;
+//         align-items: center;
+//         justify-content: space-evenly;
+//         margin: 5px 0;
+//     }
 
-    // &__data {
-    // }
+//     // &__data {
+//     // }
 
-    // &__file {
-    // }
+//     // &__file {
+//     // }
 
-    &__file-title {
-        font-size: 18px;
-        font-weight: 500;
-        // margin-bottom: 20px;
-    }
+//     &__file-title {
+//         font-size: 18px;
+//         font-weight: 500;
+//         // margin-bottom: 20px;
+//     }
 
-    &__file-conten {
-        margin-top: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+//     &__file-conten {
+//         margin-top: 10px;
+//         display: flex;
+//         align-items: center;
+//         justify-content: space-between;
 
-        & i {
-            // width: 20px;
-            font-size: 40px;
-            color: #7380ec;
-            transition: all 0.8s ease;
-            cursor: pointer;
-        }
-        & i:hover {
-            color: #2d2b49;
-        }
-    }
+//         & i {
+//             // width: 20px;
+//             font-size: 40px;
+//             color: #7380ec;
+//             transition: all 0.8s ease;
+//             cursor: pointer;
+//         }
+//         & i:hover {
+//             color: #2d2b49;
+//         }
+//     }
 
-    // &__file-icon {
-    // }
+//     // &__file-icon {
+//     // }
 
-    &__file-body {
-        flex-grow: 1;
-    }
+//     &__file-body {
+//         flex-grow: 1;
+//     }
 
-    &__file-name {
-        text-align: center;
-    }
+//     &__file-name {
+//         text-align: center;
+//     }
 
-    &__file-md {
-        font-size: 10px;
-        text-align: center;
-        margin: 2px 0;
-    }
+//     &__file-md {
+//         font-size: 10px;
+//         text-align: center;
+//         margin: 2px 0;
+//     }
 
-    &__file-ver {
-    }
+//     &__file-ver {
+//     }
 
-    &__file-chnge-ver {
-    }
-    &__btn {
-        height: 40px;
-        width: 200px;
-        background: #7380ec;
-        border-radius: 55px;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.02);
-    }
+//     &__file-chnge-ver {
+//     }
+//     &__btn {
+//         height: 40px;
+//         width: 200px;
+//         background: #7380ec;
+//         border-radius: 55px;
+//         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.02);
+//     }
 
-    &__btn-body {
-        height: 100%;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+//     &__btn-body {
+//         height: 100%;
+//         width: 100%;
+//         display: flex;
+//         align-items: center;
+//         justify-content: center;
 
-        & i {
-            font-size: 40px;
-            color: #fff;
-        }
-    }
+//         & i {
+//             font-size: 40px;
+//             color: #fff;
+//         }
+//     }
 
-    &__btn-text {
-        font-size: 20px;
-        color: #fff;
-        margin-left: 8px;
-    }
-}
+//     &__btn-text {
+//         font-size: 20px;
+//         color: #fff;
+//         margin-left: 8px;
+//     }
+// }
 
 .block-title {
     margin-bottom: 0.8rem;
@@ -2150,5 +2150,32 @@ body {
     }
 
     &__role {
+    }
+}
+.project {
+    padding: 10px;
+    &__title {
+        font-size: 16px;
+        font-weight: 500;
+        text-align: center;
+    }
+
+    &__sub-title {
+        font-size: 30px;
+        font-weight: 500;
+        text-align: center;
+    }
+
+    &__info-data {
+        margin-top: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    &__data {
+    }
+    &_select{
+        padding: 1.8rem !important;
     }
 }

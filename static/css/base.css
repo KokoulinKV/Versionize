@@ -1581,101 +1581,6 @@ body {
   font-size: 30px;
 }
 
-.project {
-  width: 100%;
-  background: #fff;
-  padding: 1.8rem;
-  border-radius: 2rem;
-  box-shadow: 0 2rem 2rem rgba(132, 139, 200, 0.18);
-  transition: all 300ms ease;
-  margin-bottom: 0.8rem;
-}
-
-.project:hover {
-  box-shadow: none;
-}
-
-.project__info-title {
-  font-size: 16px;
-  font-weight: 500;
-  text-align: center;
-}
-
-.project__info-title p {
-  font-size: 30px;
-}
-
-.project__info-data {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  margin: 5px 0;
-}
-
-.project__file-title {
-  font-size: 18px;
-  font-weight: 500;
-}
-
-.project__file-conten {
-  margin-top: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.project__file-conten i {
-  font-size: 40px;
-  color: #7380ec;
-  transition: all 0.8s ease;
-  cursor: pointer;
-}
-
-.project__file-conten i:hover {
-  color: #2d2b49;
-}
-
-.project__file-body {
-  flex-grow: 1;
-}
-
-.project__file-name {
-  text-align: center;
-}
-
-.project__file-md {
-  font-size: 10px;
-  text-align: center;
-  margin: 2px 0;
-}
-
-.project__btn {
-  height: 40px;
-  width: 200px;
-  background: #7380ec;
-  border-radius: 55px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.02);
-}
-
-.project__btn-body {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.project__btn-body i {
-  font-size: 40px;
-  color: #fff;
-}
-
-.project__btn-text {
-  font-size: 20px;
-  color: #fff;
-  margin-left: 8px;
-}
-
 .block-title {
   margin-bottom: 0.8rem;
 }
@@ -2135,4 +2040,31 @@ body {
 
 .short-user {
   padding: 10px;
+}
+
+.project {
+  padding: 10px;
+}
+
+.project__title {
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.project__sub-title {
+  font-size: 30px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.project__info-data {
+  margin-top: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.project_select {
+  padding: 1.8rem !important;
 }

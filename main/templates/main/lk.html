@@ -88,8 +88,36 @@
             <!-- Оставить -->
             <div class="container">
                 <div class="head-bar head-bar_project"><i class='bx bx-task'></i>Активный проект</div>
-                
+                <div class="project">
+                    <div class="project__title">{{ active_project_code }}</div>
+                    <div class="project__sub-title">{{ active_project_name }}</div>
+                    <div class="project__info-data">
+                        <div class="project__data">
+                            <span>Следующая загрузка:</span>
+                            <p>{{ active_project_next_upload|date:'d.m.Y' }}</p>
+                        </div>
+                        <div class="project__data">
+                            <span>Срок экспертизы до:</span>
+                            <p>{{ active_project_exp_date|date:'d.m.Y' }}</p>
+                        </div>
+                    </div>
+                </div>
                 <div class="head-bar head-bar_project head-bar_top-border"><i class='bx bx-rotate-right'></i>Выбрать активный проект</div>
+                <div class="project project_select">
+                    <div class="form__select">
+                        {% user-projects user.id as projects %}
+                        <select id="activeProjectChge">
+                            {% if active_project_id %}
+                            <option value="{{ active_project_id }}">{{ active_project_code }}</option>
+                            {% endif %}
+                            {% for project in projects %}
+                                {% if project.id != active_project_id %}
+                                    <option value="{{ project.id }}">{{ project.code }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
             </div>
             {% if active_project_id %}
             <!-- Удалить -->
