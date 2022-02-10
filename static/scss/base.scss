@@ -275,7 +275,7 @@ body {
 // FEATURE
 .main {
     width: 100%;
-    padding: 25px 30px 0 15px;
+    padding: 15px;
     overflow: hidden;
     overflow-y: auto;
 }
@@ -1334,12 +1334,7 @@ body {
 // }
 .left-block {
     min-width: 500px;
-    // height: calc(100% - 30px);
-    // border-right: 1px solid rgba(0, 0, 0, 0.2);
-    padding-top: 25px;
-    padding-left: 30px;
-    padding-right: 15px;
-    // overflow: clip;
+    padding: 15px;
     overflow-y: auto;
     flex-grow: 1;
 }
