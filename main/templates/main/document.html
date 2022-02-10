@@ -66,31 +66,6 @@
                 </div>
             </div>
             
-            <div class="card">
-                <div class="card__wrapper">
-                    <div class="card__header-file"><i class='bx bxs-file-archive'></i>Файл:</div>
-                    <div class="card__body">
-                        <!-- Todo Переписать на другие стили. Эти удалить -->
-                        <div class="project__file">
-                            <div class="project__file-conten">
-                                <div class="project__file-body">
-                                    <div class="project__file-name">{{ document.name }}</div>
-                                    <div class="project__file-md">MD5: {{ document.md5 }}</div>
-                                    <div class="project__file-ver">Вер.: {{ document.version }}</div>
-                                    <div class="project__file-chnge-ver">Изм.: {{ document.variation }}</div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card__footer">
-                        <a href="{% url 'main:document_download' object.id %}">
-                            <button class="card__footer-btns" id="change-password">Скачать</button>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
             <!-- * @TheSleepyNomad -->
             <!-- ? Файл -->
             <div class="container">
