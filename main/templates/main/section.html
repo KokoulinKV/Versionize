@@ -9,30 +9,6 @@
     <div class="ext-workspace__input">
         {% if active_project_id %}
         <div class="left-block">
-            <!-- Можно использовать как для пользователя, так и для эксперта/ответственногого -->
-            <div class="card">
-                <div class="card__wrapper">
-                    <div class="card__header card__header_project"><i class='bx bx-task'></i></i>Активный проект:</div>
-                    <div class="card__body-active-project">
-                        <div class="project__info">
-                            <div class="project__info-title">
-                                {{ active_project_code }}
-                                <p>{{ active_project_name }}</p>
-                            </div>
-                            <div class="project__info-data">
-                                <div class="project__data">
-                                    <span>Следующая загрузка:</span>
-                                    <p>{{ active_project_next_upload|date:'d.m.Y' }}</p>
-                                </div>
-                                <div class="project__data">
-                                    <span>Срок экспертизы до:</span>
-                                    <p>{{ active_project_exp_date|date:'d.m.Y' }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <!-- * @TheSleepyNomad -->
             <!-- ? Активный проект -->
@@ -91,31 +67,6 @@
                 {% endwith %}
             </div>
 
-            <div class="card">
-                <div class="card__wrapper">
-                    <div class="card__header"><i class='bx bxs-user-detail'></i>Ответственный:</div>
-                    <div class="card__body-responseble">
-                        <div class="card__content">
-                            {% with section.responsible as responsible %}
-                            <div class="card__text">
-                                <span class="card__name">{{ responsible.get_fullname }}</span>
-                                <span class="card__job">
-                                    <i class='bx bxs-business'></i>{{ responsible.get_company.name}}</span>
-                                <span class="card__post"><i class='bx bx-id-card'></i>{{ responsible.get_position }}</span>
-                                <span class="card__role"><i class='bx bx-male'></i>{{ responsible.get_project_role }}</span>
-                            </div>
-                        </div>
-                        <div class="card__contacts">
-                            <div class="card__contacts-info">
-                                <span class="card__phone"><i class='bx bx-mobile-alt'></i>{{ responsible.phone }}</span>
-                                <span class="card__mail"><i class='bx bx-mail-send'></i>{{ responsible.email }}</span>
-                            </div>
-                            {% endwith %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- * @TheSleepyNomad -->
             <!-- ? Эксперт -->
             <div class="container">
@@ -140,52 +91,8 @@
                 </div>
                 {% endwith %}
             </div>
-
-            <div class="card">
-                <div class="card__wrapper">
-                    <div class="card__header"><i class='bx bxs-user-detail'></i>Эксперт:</div>
-                    <div class="card__body-responseble">
-                        <div class="card__content">
-                            {% with section.expert as expert %}
-                            <div class="card__text">
-                                <span class="card__name">{{ expert.get_fullname }}</span>
-                                <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ expert.phone }}</span>
-                                <span class="person__mail"><i class='bx bx-mail-send'></i>{{ expert.email }}</span>
-                            </div>
-                            {% endwith %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- <div class="person">
-            <h2 class="block-title">Ответственный:</h2>
-                <div class="person__content">
-                    <div class="person__text">
-                        {% with section.responsible as responsible %}
-                        <span class="person__name">{{ responsible.get_fullname }}</span>
-                        <span class="person__job">
-                            <i class='bx bxs-business'></i>{{ responsible.get_company.name}}</span>
-                        <span class="person__post"><i class='bx bx-id-card'></i>{{ responsible.get_position }}</span>
-                        <span class="person__role"><i class='bx bx-male'></i>{{ responsible.get_project_role }}</span>
-                        <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ responsible.phone }}</span>
-                        <span class="person__mail"><i class='bx bx-mail-send'></i>{{ responsible.email }}</span>
-                        {% endwith %}
-                    </div>
-                </div>
-                <div class="person">
-                <h2 class="block-title">Эксперт:</h2>
-                    <div class="person__content">
-                        <div class="person__text">
-                            {% with section.expert as expert %}
-                            <span class="person__name">{{ expert.get_fullname }}</span>
-                            <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ expert.phone }}</span>
-                            <span class="person__mail"><i class='bx bx-mail-send'></i>{{ expert.email }}</span>
-                            {% endwith %}
-                        </div>
-                    </div>
-                </div> -->
-                <!-- Блок кнопок -->
-                <!-- * @TheSleepyNomad -->
+            
+            <!-- * @TheSleepyNomad -->
             <!-- ? Кнопки действий -->
             <div class="container">
                 <div class="head-bar head-bar_actions"><i class='bx bx-code-block'></i>Действия</div>
@@ -203,39 +110,6 @@
                 </div>
             </div>
 
-                <div class="card">
-                    <div class="card__wrapper">
-                        <div class="card__actions"><i class='bx bx-code-block'></i>Действия</div>
-                        <div class="card__body-select-project">
-                            <button class='card__btns' id="add-document">
-                                <i class='bx bx-file'></i>
-                                Загрузить документ
-                            </button>
-                            {% if user.is_staff or user.is_superuser or user.usercompanyinfo.assistant or user.usercompanyinfo.chief_project_engineer%}
-                            <button class='card__btns' id="add-remarkdoc">
-                                <i class='bx bx-bookmark-plus'></i>
-                                Загрузить замечания
-                            </button>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-                <!-- <h2 class="block-title">Действия:</h2>
-                <div class="actions actions_document">
-                    <div class="actions__btn" id="add-document">
-                        <span class="actions__icon"><i class='bx bx-file'></i></span>
-                        <h3 class="actions__name">Загрузить документ</h3>
-                    </div>
-                </div> -->
-                <!-- {% if user.is_staff or user.is_superuser or user.usercompanyinfo.assistant or user.usercompanyinfo.chief_project_engineer%}
-                <div class="actions actions_section">
-                    <div class="actions__btn" id="add-remarkdoc">
-                        <span class="actions__icon"><i class='bx bx-file'></i></span>
-                        <h3 class="actions__name">Загрузить замечания</h3>
-                    </div>
-                </div>
-                {% endif %} -->
-            <!-- </div> -->
         </div>
         <div class="main">
             <div class="relative-table">
