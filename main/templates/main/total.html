@@ -78,30 +78,32 @@
             </div>
 
             {% endif %}
-            <!-- Блок кнопок -->
-            <div class="card">
-                <div class="card__wrapper">
-                    <div class="card__actions"><i class='bx bx-code-block'></i>Действия</div>
-                    <div class="card__body-select-project">
+
+            <!-- * @TheSleepyNomad -->
+            <!-- ? Кнопки действий -->
+            <div class="container">
+                <div class="head-bar head-bar_actions"><i class='bx bx-code-block'></i>Действия</div>
+                <div class="actions">
                         {% if user.permission %}
-                        <button class='card__btns'  id="add-section">
+                        <button class='action-btn'  id="add-section">
                             <i class='bx bx-bookmark-plus'></i>
                             Добавить раздел
                         </button>
                         {% endif %}
-                        <button class='card__btns' id="add-document">
+                        <button class='action-btn' id="add-document">
                             <i class='bx bx-file'></i>
                             Загрузить документ
                         </button>
                         {% if user.permission %}
-                        <button class='card__btns' id="add-remarkdoc">
+                        <button class='action-btn action-btn_last' id="add-remarkdoc">
                             <i class='bx bx-file'></i>
                             Загрузить замечания
                         </button>
                         {% endif %}
-                    </div>
                 </div>
             </div>
+            <!-- Блок кнопок -->
+        
             <!-- <h2 class="block-title">Действия:</h2>
         {% if user.permission%}
             <div class="actions actions_section">
