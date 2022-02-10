@@ -52,8 +52,9 @@
                     <button class="gear-btn" id="change-password"><i class='bx bxs-cog'></i></button>
                 </div>
             </div>
-            
-            <!-- Оставить -->
+            <!-- @TheSleepyNomad -->
+            <!-- ? Активный проект -->
+            {% if active_project_id %}
             <div class="container">
                 <div class="head-bar head-bar_project"><i class='bx bx-task'></i>Активный проект</div>
                 <div class="project">
@@ -87,6 +88,28 @@
                     </div>
                 </div>
             </div>
+            {% else %}
+            <!-- @TheSleepyNomad -->
+            <!-- ? Выбор активного проекта -->
+            <div class="container">
+                <div class="head-bar head-bar_project"><i class='bx bx-rotate-right'></i>Выбрать активный проект</div>
+                <div class="project project_select">
+                    <div class="form__select">
+                        {% user-projects user.id as projects %}
+                        <select id="activeProjectChge">
+                            {% if active_project_id %}
+                            <option value="{{ active_project_id }}">{{ active_project_code }}</option>
+                            {% endif %}
+                            {% for project in projects %}
+                                {% if project.id != active_project_id %}
+                                    <option value="{{ project.id }}">{{ project.code }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
             {% if active_project_id %}
             <!-- Удалить -->
             <div class="card">
