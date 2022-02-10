@@ -9,49 +9,29 @@
     <div class="ext-workspace__input">
         <div class="left-block">
             {% if active_project_id %}
-            <div class="card">
-                <div class="card__wrapper">
-                    <div class="card__header card__header_project"><i class='bx bx-task'></i></i>Активный проект:</div>
-                    <div class="card__body-active-project">
-                        <div class="project__info">
-                            <div class="project__info-title">
-                                {{ active_project_code }}
-                                <p>{{ active_project_name }}</p>
-                            </div>
-                            <div class="project__info-data">
-                                <div class="project__data">
-                                    <span>Следующая загрузка:</span>
-                                    <p>{{ active_project_next_upload|date:'d.m.Y' }}</p>
-                                </div>
-                                <div class="project__data">
-                                    <span>Срок экспертизы до:</span>
-                                    <p>{{ active_project_exp_date|date:'d.m.Y' }}</p>
-                                </div>
-                            </div>
+
+            <!-- * @TheSleepyNomad -->
+            <!-- ? Активный проект -->
+            <div class="container">
+                <div class="head-bar head-bar_project"><i class='bx bx-task'></i>Активный проект</div>
+                <div class="project">
+                    <div class="project__title">{{ active_project_code }}</div>
+                    <div class="project__sub-title">{{ active_project_name }}</div>
+                    <div class="project__info-data">
+                        <div class="project__data">
+                            <span>Следующая загрузка:</span>
+                            <p>{{ active_project_next_upload|date:'d.m.Y' }}</p>
+                        </div>
+                        <div class="project__data">
+                            <span>Срок экспертизы до:</span>
+                            <p>{{ active_project_exp_date|date:'d.m.Y' }}</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- <h2 class="block-title">Активный проект:</h2>
-            <div class="project">
-                <div class="project__info">
-                    <div class="project__info-title">
-                        {{ active_project.code }}
-                        <p>{{ active_project.name }}</p>
-                    </div>
-                    <div class="project__info-data">
-                        <div class="project__data">
-                            <span>Следующая загрузка:</span>
-                            <p>{{ active_project.next_upload|date:'d.m.Y' }}</p>
-                        </div>
-                        <div class="project__data">
-                            <span>Срок экспертизы до:</span>
-                            <p>{{ active_project.exp_date|date:'d.m.Y' }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-            <!-- Оставить -->
+
+            <!-- * @TheSleepyNomad -->
+            <!-- ? ГИП -->
             <div class="container">
                 <div class="head-bar"><i class='bx bxs-user-detail'></i>Главный инженер проекта:</div>
                 <div class="user">
@@ -84,41 +64,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Удалить -->
-            <div class="card">
-                <div class="card__wrapper">
-                    <div class="card__header"><i class='bx bxs-user-detail'></i>Главный инженер проекта:</div>
-                    <div class="card__body-responseble">
-                        <div class="card__content">
-                            <div class="card__text">
-                                <span class="card__name">{{ admin_data.user.last_name }} {{ admin_data.user.first_name }} {{ admin_data.user.patronymic }}</span>
-                                <span class="card__job">
-                                    <i class='bx bxs-business'></i>{{ admin_data.company.name }}</span>
-                                <span class="card__post"><i class='bx bx-id-card'></i>{{ admin_data.position }}</span>
-                                <span class="card__role"><i class='bx bx-male'></i>{{ admin_data.user.get_project_role }}</span>
-                            </div>
-                        </div>
-                        <div class="card__contacts">
-                            <div class="card__contacts-info">
-                                <span class="card__phone"><i class='bx bx-mobile-alt'></i>{{ admin_data.user.phone }}</span>
-                                <span class="card__mail"><i class='bx bx-mail-send'></i>{{ admin_data.user.email }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- <h2 class="block-title">Главный инженер проекта:</h2>
-            <div class="person">
-                <div class="person__content">
-                    <div class="person__text">
-                        <span class="person__name">{{ admin_data.user.last_name }} {{ admin_data.user.first_name }} {{ admin_data.user.patronymic }}</span>
-                        <span class="person__job"><i class='bx bxs-business'></i>{{ admin_data.company.name }}</span>
-                        <span class="person__post"><i class='bx bx-id-card'></i>{{ admin_data.position }}</span>
-                        <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ admin_data.user.phone }}</span>
-                        <span class="person__mail"><i class='bx bx-mail-send'></i>{{ admin_data.user.email }}</span>
-                    </div>
-                </div>
-            </div> -->
+            
             {% else %}
             <div class="card">
                 <div class="card__wrapper">
@@ -130,12 +76,7 @@
                     </div>
                 </div>
             </div>
-            <!-- <h2 class="block-title">Активный проект:</h2>
-            <div class="project">
-                <div class="project__info">
-                    <div class="project__info-title">Проект не выбран</div>
-                </div>
-            </div> -->
+
         {% endif %}
             <!-- Блок кнопок -->
             <div class="card">
