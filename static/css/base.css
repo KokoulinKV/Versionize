@@ -1356,104 +1356,6 @@ body {
   flex-grow: 1;
 }
 
-.right-block {
-  min-width: 500px;
-  height: calc(100% - 30px);
-  padding-top: 25px;
-  padding-left: 30px;
-  padding-right: 15px;
-  overflow-y: auto;
-  flex-grow: 1;
-}
-
-.person {
-  width: 100%;
-  background: #fff;
-  padding: 1.8rem;
-  border-radius: 2rem;
-  box-shadow: 0 2rem 2rem rgba(132, 139, 200, 0.18);
-  transition: all 300ms ease;
-  margin-bottom: 0.8rem;
-}
-
-.person:hover {
-  box-shadow: none;
-}
-
-.person__content {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: flex-start;
-}
-
-.person__content i {
-  width: 20px;
-  font-size: 20px;
-  margin-right: 5px;
-  margin-top: 2px;
-}
-
-.person__avatar {
-  margin-right: 10px;
-}
-
-.person__name {
-  font-size: 25px;
-  font-weight: 500;
-}
-
-.person__job {
-  font-size: 20px;
-  font-weight: 300;
-  display: flex;
-  align-items: center;
-}
-
-.person__post {
-  font-size: 16px;
-  font-weight: 300;
-  display: flex;
-  align-items: center;
-}
-
-.person__role {
-  font-size: 16px;
-  font-weight: 300;
-  display: flex;
-  align-items: center;
-}
-
-.person__phone {
-  font-size: 16px;
-  font-weight: 300;
-  display: flex;
-  align-items: center;
-}
-
-.person__mail {
-  margin-top: 5px;
-  font-size: 16px;
-  font-weight: 300;
-  display: flex;
-  align-items: center;
-}
-
-.person__contacts {
-  width: 100%;
-  display: inline-flex;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-}
-
-.person__contacts i {
-  width: 20px;
-  font-size: 20px;
-}
-
-.person__actions {
-  cursor: pointer;
-}
-
 .notice {
   padding: 25px 30px;
   height: calc(100% - 30px);
@@ -1898,6 +1800,10 @@ body {
   background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%) !important;
 }
 
+.head-bar_file i {
+  background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%) !important;
+}
+
 .bottom-bar {
   text-align: right;
   padding: 0.75rem 10px;
@@ -1906,6 +1812,25 @@ body {
 }
 
 .gear-btn {
+  color: #fff;
+  background-color: #3f6ad8;
+  border-color: #3f6ad8;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  outline: none !important;
+  display: inline-flex;
+  text-align: center;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  transition: color 0.15s, background-color 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+
+.download-btn {
   color: #fff;
   background-color: #3f6ad8;
   border-color: #3f6ad8;
@@ -2026,6 +1951,26 @@ body {
 
 .project_select {
   padding: 1.8rem !important;
+}
+
+.document-file {
+  padding: 10px;
+}
+
+.document-file__name {
+  font-size: 16px;
+}
+
+.document-file__md {
+  font-size: 10px;
+}
+
+.document-file__ver {
+  font-size: 14px;
+}
+
+.document-file__chnge-ver {
+  font-size: 14px;
 }
 
 .actions {
