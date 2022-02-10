@@ -9,6 +9,44 @@
             <!-- Можно использовать как для пользователя, так и для эксперта/ответственногого -->
             <div class="container">
                 <div class="head-bar"><i class='bx bxs-user-detail'></i>Пользователь</div>
+                <div class="user">
+                    <div class="user__content">
+                        <div class="user__body">
+                            <div class="user__avatar" id="change-photo">
+                                <img class="" width="125px"
+                                src="{% if user.image %} {{ user.image.url }} {% else %}
+                                https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg
+                                {% endif %}">
+                            </div>
+                            <div class="user__info">
+                                <div class="user__name">{{ user.last_name }} {{ user.first_name }}
+                                    {{ user.patronymic}}</div>
+                                <div class="user__job">
+                                    <i class='bx bxs-business'></i>
+                                    {{ user.get_usercompany_info.company }}
+                                </div>
+                                <div class="user__post">
+                                    <i class='bx bx-id-card'></i>
+                                    {{ user.get_position }}
+                                </div>
+                                <div class="user__role">
+                                    <i class='bx bx-male'></i>
+                                    {{ user.get_project_role }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="user__sub-info">
+                            <div class="user__phone" id="change-email">
+                                <i class='bx bx-mobile-alt'></i>
+                                {{ user.phone }}
+                            </div>
+                            <div class="user__mail" id="change-email">
+                                <i class='bx bx-mail-send'></i>
+                                {{ user.email }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="bottom-bar">
                     <button class="gear-btn" id="change-password"><i class='bx bxs-cog'></i></button>
                 </div>

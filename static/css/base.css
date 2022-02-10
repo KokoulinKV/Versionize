@@ -2052,3 +2052,74 @@ body {
   border-radius: 0.25rem;
   transition: color 0.15s, background-color 0.15s, border-color 0.15s, box-shadow 0.15s;
 }
+
+.user {
+  padding: 10px;
+}
+
+.user__content {
+  display: flex;
+  flex-direction: column;
+}
+
+.user__body {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.user__body i {
+  width: 20px;
+  font-size: 20px;
+  margin-right: 5px;
+  margin-top: 2px;
+}
+
+.user__avatar {
+  margin-right: 10px;
+}
+
+.user__name {
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.user__job {
+  font-size: 20px;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+}
+
+.user__post {
+  font-size: 16px;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+}
+
+.user__role {
+  font-size: 16px;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+}
+
+.user__sub-info i {
+  margin-right: 5px;
+}
+
+.user__phone {
+  font-size: 16px;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+}
+
+.user__mail {
+  font-size: 16px;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+}

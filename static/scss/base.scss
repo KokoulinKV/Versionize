@@ -2050,3 +2050,77 @@ body {
     border-radius: 0.25rem;
     transition: color 0.15s, background-color 0.15s, border-color 0.15s, box-shadow 0.15s;
 }
+.user {
+    padding: 10px;
+    &__content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__body {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: flex-start;
+        // padding: 10px 0;
+        margin-bottom: 10px;
+        & i {
+            width: 20px;
+            font-size: 20px;
+            margin-right: 5px;
+            margin-top: 2px;
+        }
+    }
+
+    &__avatar {
+        margin-right: 10px;
+    }
+
+    &__info {
+    }
+
+    &__name {
+        font-size: 25px;
+        font-weight: 500;
+    }
+
+    &__job {
+        font-size: 20px;
+        font-weight: 300;
+        display: flex;
+        align-items: center;
+    }
+
+    &__post {
+        font-size: 16px;
+        font-weight: 300;
+        display: flex;
+        align-items: center;
+    }
+
+    &__role {
+        font-size: 16px;
+        font-weight: 300;
+        display: flex;
+        align-items: center;
+    }
+
+    &__sub-info {
+        i{
+            margin-right: 5px;
+        }
+    }
+
+    &__phone {
+        font-size: 16px;
+        font-weight: 300;
+        display: flex;
+        align-items: center;
+    }
+
+    &__mail {
+        font-size: 16px;
+        font-weight: 300;
+        display: flex;
+        align-items: center;
+    }
+}
