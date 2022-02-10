@@ -51,6 +51,40 @@
                     </div>
                 </div>
             </div> -->
+            <!-- Оставить -->
+            <div class="container">
+                <div class="head-bar"><i class='bx bxs-user-detail'></i>Главный инженер проекта:</div>
+                <div class="user">
+                    <div class="user__content">
+                        <div class="user__body">
+                            <div class="user__info">
+                                <div class="user__name">{{ admin_data.user.last_name }} {{ admin_data.user.first_name }} {{ admin_data.user.patronymic }}</div>
+                                <div class="user__job">
+                                    <i class='bx bxs-business'></i>
+                                    {{ admin_data.company.name }}
+                                </div>
+                                <div class="user__post">
+                                    <i class='bx bx-id-card'></i>
+                                    {{ admin_data.position }}
+                                </div>
+                                <div class="user__role">
+                                    <i class='bx bx-male'></i>
+                                    {{ admin_data.user.get_project_role }}
+                                </div>
+                                <div class="user__phone" id="change-email">
+                                    <i class='bx bx-mobile-alt'></i>
+                                    {{ admin_data.user.phone }}
+                                </div>
+                                <div class="user__mail" id="change-email">
+                                    <i class='bx bx-mail-send'></i>
+                                    {{ admin_data.user.email }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Удалить -->
             <div class="card">
                 <div class="card__wrapper">
                     <div class="card__header"><i class='bx bxs-user-detail'></i>Главный инженер проекта:</div>

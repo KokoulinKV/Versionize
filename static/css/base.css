@@ -2132,3 +2132,7 @@ body {
   display: flex;
   align-items: center;
 }
+
+.short-user {
+  padding: 10px;
+}

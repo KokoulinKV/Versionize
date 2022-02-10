@@ -2024,13 +2024,12 @@ body {
         -webkit-background-clip: text;
         color: transparent;
     }
-    &_project{
+    &_project {
         i {
             background-image: linear-gradient(180deg, #2af598 0%, #009efd 100%) !important;
         }
-
     }
-    &_top-border{
+    &_top-border {
         border-top: 1px solid rgba(26, 54, 126, 0.125);
     }
 }
@@ -2116,7 +2115,7 @@ body {
     }
 
     &__sub-info {
-        i{
+        i {
             margin-right: 5px;
         }
     }
@@ -2133,5 +2132,23 @@ body {
         font-weight: 300;
         display: flex;
         align-items: center;
+    }
+}
+// Блок для гипов,экспертов и тд
+.short-user {
+    padding: 10px;
+    &__info {
+    }
+
+    &__name {
+    }
+
+    &__job {
+    }
+
+    &__post {
+    }
+
+    &__role {
     }
 }
