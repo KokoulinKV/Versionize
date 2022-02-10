@@ -2018,6 +2018,12 @@ body {
   justify-content: space-evenly;
 }
 
+.project__message {
+  font-size: 30px;
+  font-weight: 500;
+  text-align: center;
+}
+
 .project_select {
   padding: 1.8rem !important;
 }

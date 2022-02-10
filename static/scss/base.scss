@@ -2157,6 +2157,11 @@ body {
 
     &__data {
     }
+    &__message{
+        font-size: 30px;
+        font-weight: 500;
+        text-align: center;
+    }
 
     &_select {
         padding: 1.8rem !important;
