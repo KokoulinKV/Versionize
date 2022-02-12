@@ -82,8 +82,6 @@ $(document).ready(function () {
         });
     });
 
-
-
     // * @TheSleepyNomad
     // ? Переход через select
     $('#selectProject').change(function(){
@@ -95,6 +93,12 @@ $(document).ready(function () {
     $('#menu-btn, #searchBtn').click(function(){
         $('#sidebar').toggleClass('sidebar_active');
     });
+
+    // * @TheSleepyNomad
+    // ? Удаляет левый блок, если там нет дочерних элементов
+    if ($('.left-block').children().length === 0) {
+        $('.left-block').css('display', 'none');
+    }
 
     // ? Скрипты для pop-up окон
 
