@@ -105,6 +105,117 @@
             
         </div>
         <div class="main">
+            <!-- * @TheSleepyNomad -->
+            <!-- ? Таблица -->
+            <div class="container">
+                <div class="head-bar head-bar_table">
+                    <i class='bx bx-detail'></i>
+                    Сводная таблица
+                    {% if user.permission %}
+                    <a href="{% url 'main:document_download_all' active_project_id %}" class="download-btn_mrg-left">
+                        <button class="download-btn download-btn_mrg-left" id="change-password">Скачать все</button>
+                    </a>
+                    {% endif %}
+                </div>
+                <form action="#" class="form-table">
+                    <div class="form-table__search">
+                        <span>Поиск:</span>
+                        <input type="text" name="" id="tableSearch">
+                    </div>
+                    {% if active_project_id %}
+                    {% if object_list %}
+                    <table class="form-table__table">
+                        <thead>
+                        <tr>
+                            <th>Md5</th>
+                            <th>Шифр раздела</th>
+                            <th>Загружен</th>
+                            <th>Скачать</th>
+                            <th>Статус</th>
+                            <th>Версия</th>
+                            <th>№ посл. изм.</th>
+                            <th>Примечания</th>
+                            <th>Исполнитель</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table">
+                            {% for object in object_list %}
+                            <tr>
+                                {% if object.document__id %}
+                                    <td title='{{ object.document__md5 }}'><i class='bx bxs-file-md'></i></td>
+                                    <td>
+                                        {% if user.check_user or object.responsible_id == user.id %}
+                                            <a href="{% url 'main:section' object.id %}">
+                                                <span class='_code-green'>
+                                                    {{ object.project__code }}-{{ object.abbreviation }}
+                                                </span>
+                                            </a>
+                                        {% else %}
+                                            <span class='_code-green'>
+                                                {{ object.project__code }}-{{ object.abbreviation }}
+                                            </span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td><i class='bx bx-check-circle'></i></td>
+
+                                    <td title='{{ object.document__doc_path }}'>
+                                        {% if user.check_user or object.responsible_id == user.id %}
+                                            <a href="{% url 'main:document_download' object.document__id %}">
+                                                <i class='bx bx-save'></i>
+                                            </a>
+                                        {% else %}
+                                            <i class='bx bx-save'></i>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ object.document__status }}</td>
+                                    <td>{{ object.document__version }}</td>
+                                    <td>{{ object.document__variation }}</td>
+                                    <td class="general-table__note">{{ object.document__note }}</td>
+                                    <td><a href="#">{{ object.company__name }}</a></td>
+                                {% else %}
+                                    <td>-</td>
+                                    <td>
+                                        {% if user.check_user or object.responsible_id == user.id %}
+                                            <a href="{% url 'main:section' object.id %}">
+                                                <span class='_code-green'>
+                                                    {{ object.project__code }}-{{ object.abbreviation }}
+                                                </span>
+                                            </a>
+                                        {% else %}
+                                            <span class='_code-green'>
+                                                {{ object.project__code }}-{{ object.abbreviation }}
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                    <td><i class='bx bx-x-circle'></i></td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td><a href="#">{{ object.company__name }}</a></td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% endif %}
+                    {% endif %}
+                </form>
+                <div class="bottom-bar bottom-bar_txt-alg-off">
+                    <div class="table-select">
+                        <select name="" id="tableSelect">
+                            <option value="" disabled selected style="display: none;">---------</option>
+                            <option value="2">2 строки</option>
+                            <option value="4">4 строки</option>
+                            <option value="10">10 строк</option>
+                            <option value="-">Показать все</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
             <div class="relative-table">
                 <div class="relative-table__title">
                     <div class="relative-table__left-block"><i class='bx bx-detail'></i> Сводная таблица</div>

@@ -1482,6 +1482,10 @@ body {
     width: 100%;
     background-color: #fff;
     margin-bottom: 15px;
+    box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03), 0 0.9375rem 1.40625rem rgba(4, 9, 20, 0.03),
+        0 0.25rem 0.53125rem rgba(4, 9, 20, 0.05), 0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03);
+    border-width: 0;
+    transition: all 0.2s;
 }
 // Блок, который используется для размещения наименований и тд
 .head-bar {
@@ -1514,9 +1518,15 @@ body {
             background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%) !important;
         }
     }
-    &_file{
+    &_file {
         i {
             background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%) !important;
+        }
+    }
+    &_table {
+        i {
+            color: #6c757d !important;
+            opacity: 0.6 !important;
         }
     }
 }
@@ -1526,6 +1536,10 @@ body {
     padding: 0.75rem 10px;
     background-color: #fff;
     border-top: 1px solid rgba(26, 54, 126, 0.125);
+
+    &_txt-alg-off{
+        text-align: left;
+    }
 }
 // Кнопка для настроек
 .gear-btn {
@@ -1547,7 +1561,7 @@ body {
     transition: color 0.15s, background-color 0.15s, border-color 0.15s, box-shadow 0.15s;
 }
 // Кнопка скачивания
-.download-btn{
+.download-btn {
     color: #fff;
     background-color: #3f6ad8;
     border-color: #3f6ad8;
@@ -1564,6 +1578,10 @@ body {
     line-height: 1.5;
     border-radius: 0.25rem;
     transition: color 0.15s, background-color 0.15s, border-color 0.15s, box-shadow 0.15s;
+
+    &_mrg-left {
+        margin-left: auto;
+    }
 }
 // Блок пользователя
 .user {
@@ -1664,7 +1682,7 @@ body {
 
     &__data {
     }
-    &__message{
+    &__message {
         font-size: 30px;
         font-weight: 500;
         text-align: center;
@@ -1738,5 +1756,92 @@ body {
     }
     &_last {
         margin-bottom: 0 !important;
+    }
+}
+// Таблицы
+.form-table {
+    &__search {
+        padding: 5px 10px;
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        background-color: #fff;
+        // border-bottom: 1px solid rgba(26, 54, 126, 0.125);
+        & span {
+            font-size: 0.88rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+        }
+
+        & input {
+            display: inline-block;
+            width: auto;
+            transition: all 0.2s;
+            margin-left: 0.5rem !important;
+            height: calc(2.25rem + 2px);
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 2.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+        }
+    }
+
+    &__table {
+        width: 100%;
+        margin-bottom: 1rem;
+        background-color: transparent;
+        border-collapse: collapse;
+
+        & thead th:first-child {
+            text-align: center;
+        }
+
+        & thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #e9ecef;
+            text-align: left;
+            background: #fff;
+        }
+        & th {
+            padding: 0.55rem;
+            border-top: 1px solid #e9ecef;
+        }
+        & td {
+            padding: 0.55rem;
+            vertical-align: top;
+            border-top: 1px solid #e9ecef;
+        }
+        &_odd {
+            background: #eee;
+        }
+        &_even {
+            background: #fff;
+        }
+        &_center {
+            text-align: center;
+        }
+        &_hide {
+            display: none;
+        }
+    }
+}
+.table-select {
+    select {
+        transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        display: inline-block;
+        height: calc(2.25rem + 2px);
+        padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
     }
 }
