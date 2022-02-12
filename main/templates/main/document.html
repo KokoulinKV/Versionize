@@ -5,14 +5,12 @@
 {% block title %}
     {{ title }} / {{ document.name }}
 {% endblock %}
-{% block workspace %}
-<div class="ext-workspace">
-    <div class="ext-workspace__input">
-        <div class="left-block">
 
-            <!-- * @TheSleepyNomad -->
-            <!-- ? Активный проект -->
-            <div class="container">
+{% block leftblock %}
+
+    <!-- * @TheSleepyNomad -->
+    <!-- ? Активный проект -->
+    <div class="container">
                 <div class="head-bar head-bar_project"><i class='bx bx-task'></i>Активный проект</div>
                 <div class="project">
                     <div class="project__title">{{ active_project_code }}</div>
@@ -28,11 +26,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
+    </div>
 
-            <!-- * @TheSleepyNomad -->
-            <!-- ? Ответственный -->
-            <div class="container">
+    <!-- * @TheSleepyNomad -->
+    <!-- ? Ответственный -->
+    <div class="container">
                 <div class="head-bar"><i class='bx bxs-user-detail'></i>Ответственный:</div>
                 <div class="user">
                     <div class="user__content">
@@ -64,11 +62,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
+    </div>
             
-            <!-- * @TheSleepyNomad -->
-            <!-- ? Файл -->
-            <div class="container">
+    <!-- * @TheSleepyNomad -->
+    <!-- ? Файл -->
+    <div class="container">
                 <div class="head-bar head-bar_file"><i class='bx bxs-file-archive'></i>Файл:</div>
                 <div class="document-file">
                     <div class="document-file__name">{{ document.name }}</div>
@@ -81,11 +79,11 @@
                         <button class="download-btn" id="change-password">Скачать</button>
                     </a>
                 </div>
-            </div>
+    </div>
 
-            <!-- * @TheSleepyNomad -->
-            <!-- ? Кнопки действий -->
-            <div class="container">
+    <!-- * @TheSleepyNomad -->
+    <!-- ? Кнопки действий -->
+    <div class="container">
                 <div class="head-bar head-bar_actions"><i class='bx bx-code-block'></i>Действия</div>
                 <div class="actions">
                     <button class='action-btn' id="get-info-card">
@@ -99,15 +97,17 @@
                     </button>
                     {% endif %}
                 </div>
-            </div>
+    </div>
 
-        </div>
-        <div class="main">
-            {% if object %}
+{% endblock %}
 
-            <!-- * @TheSleepyNomad -->
-            <!-- ? Таблица -->
-            <div class="container">
+{% block main %}
+
+    {% if object %}
+
+        <!-- * @TheSleepyNomad -->
+        <!-- ? Таблица -->
+        <div class="container">
                 <div class="head-bar head-bar_table">
                     <i class='bx bx-detail'></i>
                     Перечень корректировок
@@ -147,10 +147,11 @@
                         </select>
                     </div>
                 </div>
-            </div>
+        </div>
 
-            {% endif %}
-            <div class="comment-box">
+    {% endif %}
+
+    <div class="comment-box">
                 <div class="comment-box__wrapper">
                     <div class="comment-box__header">
                         <i class='bx bx-printer'></i>Комменты
@@ -179,51 +180,10 @@
                         <input type="text" class="comment-box__input" placeholder="Отправить...." id="commentInput">
                     </div>
                 </div>
-            </div>
-        </div>
     </div>
-    <div class="ext-workspace__footer">
-        <div class="notification" id="not-pop">
-            <div class='notification__bell'><i class='bx bxs-bell'></i>
-                <div class="notification__dot"><i class='bx bxs-circle'></i></div>
-            </div>
-            <div class="pop-mini" id="pop-min">
-                <div class="pop-mini__header">
-                    {% notifications user.id as notification %}
-                    <div class="pop-mini__title">Уведомления</div>
-                    <div class="pop-mini__subtitle">У Вас {{ notification.count }} пропущенных уведомлений</div>
-                </div>
-                <div class="pop-mini__body">
-                    <div class="pop-mini__content">
-                        {% for notice in notification %}
-                        <div class="not">
-                            <div class="not__dot">
-                                <i class='bx bx-radio-circle'></i>
-                            </div>
-                            <div class="not__body">
-                                {% if notice.notification_type == 1 %}
-                                <div class="not__title">Уведомление о создании нового проекта</div>
-                                <div class="not__text">ГИП {{ notice.from_user.last_name }} {{ notice.from_user.first_name }} {{ notice.from_user.patronymic }} создал новый проект</div>
-                                {% endif %}
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="pop-mini__footer">
-                    <div class="pop-mini__btn"><button>Посмотреть все</button></div>
-                </div>
-            </div>
-        </div>
-        <div class="language">
-            <span><i class='bx bx-world'></i>
-            </span>
-        </div>
-        <div class="theme">Dark/Light mode</div>
-    </div>
-</div>
 
 {% endblock %}
+
 {% block popup %}
 <div class="popup" id="popup-info-card">
     <div class="popup__body">
