@@ -2,10 +2,7 @@
 {% load lk_tags %}
 {% load static %}
 
-{% block workspace %}
-<div class="ext-workspace">
-    <div class="ext-workspace__input">
-        <div class="left-block">
+{% block leftblock %}
 
             <!-- * @TheSleepyNomad -->
             <!-- ? Пользователь -->
@@ -140,270 +137,232 @@
                         </button>
                 </div>
             </div>
-            
-        </div>
-        <div class="main">
-            <div class="task-list">
-                <div class="task-list__wrapper">
-                    <div class="task-list__header"><i class='bx bx-data'></i>Задачи</div>
-                    <div class="task-list__body">
-                        <div class="task-list__scroll-area">
-                            <div class="task-list__prefer-scroll">
-                                <ul class="task-list__list">
-                                    <li class="task-list__item">
-                                        <div class="task-list__indicator"></div>
-                                        <div class="task-list__content">
-                                            <div class="task-list__check-widget">
-                                                <input type="checkbox" name="" id="" class="task-list__check">
-                                            </div>
-                                            <div class="task-list__body">
-                                                <div class="task-list__title">Заголовок
-                                                </div>
-                                                <div class="task-list__subtitle">Описание</div>
-                                            </div>
-                                            <div class="task-list__actions">
-                                                <button class="task-list__list-btns-ok">
-                                                    <i class='bx bx-check'></i>
-                                                </button>
-                                                <button class="task-list__list-btns-del">
-                                                    <i class='bx bxs-trash'></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="task-list__item">
-                                        <div class="task-list__indicator"></div>
-                                        <div class="task-list__content">
-                                            <div class="task-list__check-widget">
-                                                <input type="checkbox" name="" id="" class="task-list__check">
-                                            </div>
-                                            <div class="task-list__body">
-                                                <div class="task-list__title">Заголовок
-                                                </div>
-                                                <div class="task-list__subtitle">Описание</div>
-                                            </div>
-                                            <div class="task-list__actions">
-                                                <button class="task-list__list-btns-ok">
-                                                    <i class='bx bx-check'></i>
-                                                </button>
-                                                <button class="task-list__list-btns-del">
-                                                    <i class='bx bxs-trash'></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="task-list__item">
-                                        <div class="task-list__indicator"></div>
-                                        <div class="task-list__content">
-                                            <div class="task-list__todo-indicatore"></div>
-                                            <div class="task-list__check-widget">
-                                                <input type="checkbox" name="" id="" class="task-list__check">
-                                            </div>
-                                            <div class="task-list__body">
-                                                <div class="task-list__title">Заголовок
-                                                </div>
-                                                <div class="task-list__subtitle">Описание</div>
-                                            </div>
-                                            <div class="task-list__actions">
-                                                <button class="task-list__list-btns-ok">
-                                                    <i class='bx bx-check'></i>
-                                                </button>
-                                                <button class="task-list__list-btns-del">
-                                                    <i class='bx bxs-trash'></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="task-list__item">
-                                        <div class="task-list__indicator"></div>
-                                        <div class="task-list__content">
-                                            <div class="task-list__todo-indicatore"></div>
-                                            <div class="task-list__check-widget">
-                                                <input type="checkbox" name="" id="" class="task-list__check">
-                                            </div>
-                                            <div class="task-list__body">
-                                                <div class="task-list__title">Заголовок
-                                                </div>
-                                                <div class="task-list__subtitle">Описание</div>
-                                            </div>
-                                            <div class="task-list__actions">
-                                                <button class="task-list__list-btns-ok">
-                                                    <i class='bx bx-check'></i>
-                                                </button>
-                                                <button class="task-list__list-btns-del">
-                                                    <i class='bx bxs-trash'></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="task-list__item">
-                                        <div class="task-list__indicator"></div>
-                                        <div class="task-list__content">
-                                            <div class="task-list__todo-indicatore"></div>
-                                            <div class="task-list__check-widget">
-                                                <input type="checkbox" name="" id="" class="task-list__check">
-                                            </div>
-                                            <div class="task-list__body">
-                                                <div class="task-list__title">Заголовок
-                                                </div>
-                                                <div class="task-list__subtitle">Описание</div>
-                                            </div>
-                                            <div class="task-list__actions">
-                                                <button class="task-list__list-btns-ok">
-                                                    <i class='bx bx-check'></i>
-                                                </button>
-                                                <button class="task-list__list-btns-del">
-                                                    <i class='bx bxs-trash'></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="task-list__item">
-                                        <div class="task-list__indicator"></div>
-                                        <div class="task-list__content">
-                                            <div class="task-list__todo-indicatore"></div>
-                                            <div class="task-list__check-widget">
-                                                <input type="checkbox" name="" id="" class="task-list__check">
-                                            </div>
-                                            <div class="task-list__body">
-                                                <div class="task-list__title">Заголовок
-                                                </div>
-                                                <div class="task-list__subtitle">Описание</div>
-                                            </div>
-                                            <div class="task-list__actions">
-                                                <button class="task-list__list-btns-ok">
-                                                    <i class='bx bx-check'></i>
-                                                </button>
-                                                <button class="task-list__list-btns-del">
-                                                    <i class='bx bxs-trash'></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="task-list__item">
-                                        <div class="task-list__indicator"></div>
-                                        <div class="task-list__content">
-                                            <div class="task-list__todo-indicatore"></div>
-                                            <div class="task-list__check-widget">
-                                                <input type="checkbox" name="" id="" class="task-list__check">
-                                            </div>
-                                            <div class="task-list__body">
-                                                <div class="task-list__title">Заголовок
-                                                </div>
-                                                <div class="task-list__subtitle">Описание</div>
-                                            </div>
-                                            <div class="task-list__actions">
-                                                <button class="task-list__list-btns-ok">
-                                                    <i class='bx bx-check'></i>
-                                                </button>
-                                                <button class="task-list__list-btns-del">
-                                                    <i class='bx bxs-trash'></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="task-list__item">
-                                        <div class="task-list__indicator"></div>
-                                        <div class="task-list__content">
-                                            <div class="task-list__todo-indicatore"></div>
-                                            <div class="task-list__check-widget">
-                                                <input type="checkbox" name="" id="" class="task-list__check">
-                                            </div>
-                                            <div class="task-list__body">
-                                                <div class="task-list__title">Заголовок
-                                                </div>
-                                                <div class="task-list__subtitle">Описание</div>
-                                            </div>
-                                            <div class="task-list__actions">
-                                                <button class="task-list__list-btns-ok">
-                                                    <i class='bx bx-check'></i>
-                                                </button>
-                                                <button class="task-list__list-btns-del">
-                                                    <i class='bx bxs-trash'></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
+
+{% endblock %}
+
+{% block main %}
+
+<div class="task-list">
+    <div class="task-list__wrapper">
+        <div class="task-list__header"><i class='bx bx-data'></i>Задачи</div>
+        <div class="task-list__body">
+            <div class="task-list__scroll-area">
+                <div class="task-list__prefer-scroll">
+                    <ul class="task-list__list">
+                        <li class="task-list__item">
+                            <div class="task-list__indicator"></div>
+                            <div class="task-list__content">
+                                <div class="task-list__check-widget">
+                                    <input type="checkbox" name="" id="" class="task-list__check">
+                                </div>
+                                <div class="task-list__body">
+                                    <div class="task-list__title">Заголовок
+                                    </div>
+                                    <div class="task-list__subtitle">Описание</div>
+                                </div>
+                                <div class="task-list__actions">
+                                    <button class="task-list__list-btns-ok">
+                                        <i class='bx bx-check'></i>
+                                    </button>
+                                    <button class="task-list__list-btns-del">
+                                        <i class='bx bxs-trash'></i>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="task-list__footer">
-                        <button class="task-list__footer-btns">Добавить</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="project-progress">
-                <div class="project-progress__title">
-                    <a href="">Название проекта</a>
-                    <span>10.10.2010</span>
-                </div>
-                <div class="project-progress__bar">
-                    <span class="project-progress__bar-title">Ход выполнения:</span>
-                    <div class="project-progress__bar-container">
-                        <div class="project-progress__load"></div>
-                    </div>
-                </div>
-                <div class="project-progress__team">
-                    <div class="project-progress__team-title">Команда</div>
-                    <div class="project-progress__man">
-                        <a href="#"><img class=""
-                                src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"></a>
-                        <a href="#"><img class=""
-                                src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"></a>
-                        <a href="#"><img class=""
-                                src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"></a>
-                        <a href="#"><img class=""
-                                src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"></a>
-                        <a href="#"><img class=""
-                                src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="ext-workspace__footer">
-        <div class="notification" id="not-pop">
-            <div class='notification__bell'><i class='bx bxs-bell'></i>
-                <div class="notification__dot"><i class='bx bxs-circle'></i></div>
-            </div>
-            <div class="pop-mini" id="pop-min">
-                <div class="pop-mini__header">
-                    {% notifications user.id as notification %}
-                    <div class="pop-mini__title">Уведомления</div>
-                    <div class="pop-mini__subtitle">У Вас {{ notification.count }} пропущенных уведомлений</div>
-                </div>
-                <div class="pop-mini__body">
-                    <div class="pop-mini__content">
-                        {% for notice in notification %}
-                        <div class="not">
-                            <div class="not__dot">
-                                <i class='bx bx-radio-circle'></i>
+                        </li>
+                        <li class="task-list__item">
+                            <div class="task-list__indicator"></div>
+                            <div class="task-list__content">
+                                <div class="task-list__check-widget">
+                                    <input type="checkbox" name="" id="" class="task-list__check">
+                                </div>
+                                <div class="task-list__body">
+                                    <div class="task-list__title">Заголовок
+                                    </div>
+                                    <div class="task-list__subtitle">Описание</div>
+                                </div>
+                                <div class="task-list__actions">
+                                    <button class="task-list__list-btns-ok">
+                                        <i class='bx bx-check'></i>
+                                    </button>
+                                    <button class="task-list__list-btns-del">
+                                        <i class='bx bxs-trash'></i>
+                                    </button>
+                                </div>
                             </div>
-                            <div class="not__body">
-                                {% if notice.notification_type == 1 %}
-                                <div class="not__title">Уведомление о создании нового проекта</div>
-                                <div class="not__text">ГИП {{ notice.from_user.last_name }} {{ notice.from_user.first_name }} {{ notice.from_user.patronymic }} создал новый проект</div>
-                                {% endif %}
+                        </li>
+                        <li class="task-list__item">
+                            <div class="task-list__indicator"></div>
+                            <div class="task-list__content">
+                                <div class="task-list__todo-indicatore"></div>
+                                <div class="task-list__check-widget">
+                                    <input type="checkbox" name="" id="" class="task-list__check">
+                                </div>
+                                <div class="task-list__body">
+                                    <div class="task-list__title">Заголовок
+                                    </div>
+                                    <div class="task-list__subtitle">Описание</div>
+                                </div>
+                                <div class="task-list__actions">
+                                    <button class="task-list__list-btns-ok">
+                                        <i class='bx bx-check'></i>
+                                    </button>
+                                    <button class="task-list__list-btns-del">
+                                        <i class='bx bxs-trash'></i>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="pop-mini__footer">
-                    <div class="pop-mini__btn"><button>Посмотреть все</button></div>
+                        </li>
+                        <li class="task-list__item">
+                            <div class="task-list__indicator"></div>
+                            <div class="task-list__content">
+                                <div class="task-list__todo-indicatore"></div>
+                                <div class="task-list__check-widget">
+                                    <input type="checkbox" name="" id="" class="task-list__check">
+                                </div>
+                                <div class="task-list__body">
+                                    <div class="task-list__title">Заголовок
+                                    </div>
+                                    <div class="task-list__subtitle">Описание</div>
+                                </div>
+                                <div class="task-list__actions">
+                                    <button class="task-list__list-btns-ok">
+                                        <i class='bx bx-check'></i>
+                                    </button>
+                                    <button class="task-list__list-btns-del">
+                                        <i class='bx bxs-trash'></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task-list__item">
+                            <div class="task-list__indicator"></div>
+                            <div class="task-list__content">
+                                <div class="task-list__todo-indicatore"></div>
+                                <div class="task-list__check-widget">
+                                    <input type="checkbox" name="" id="" class="task-list__check">
+                                </div>
+                                <div class="task-list__body">
+                                    <div class="task-list__title">Заголовок
+                                    </div>
+                                    <div class="task-list__subtitle">Описание</div>
+                                </div>
+                                <div class="task-list__actions">
+                                    <button class="task-list__list-btns-ok">
+                                        <i class='bx bx-check'></i>
+                                    </button>
+                                    <button class="task-list__list-btns-del">
+                                        <i class='bx bxs-trash'></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task-list__item">
+                            <div class="task-list__indicator"></div>
+                            <div class="task-list__content">
+                                <div class="task-list__todo-indicatore"></div>
+                                <div class="task-list__check-widget">
+                                    <input type="checkbox" name="" id="" class="task-list__check">
+                                </div>
+                                <div class="task-list__body">
+                                    <div class="task-list__title">Заголовок
+                                    </div>
+                                    <div class="task-list__subtitle">Описание</div>
+                                </div>
+                                <div class="task-list__actions">
+                                    <button class="task-list__list-btns-ok">
+                                        <i class='bx bx-check'></i>
+                                    </button>
+                                    <button class="task-list__list-btns-del">
+                                        <i class='bx bxs-trash'></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task-list__item">
+                            <div class="task-list__indicator"></div>
+                            <div class="task-list__content">
+                                <div class="task-list__todo-indicatore"></div>
+                                <div class="task-list__check-widget">
+                                    <input type="checkbox" name="" id="" class="task-list__check">
+                                </div>
+                                <div class="task-list__body">
+                                    <div class="task-list__title">Заголовок
+                                    </div>
+                                    <div class="task-list__subtitle">Описание</div>
+                                </div>
+                                <div class="task-list__actions">
+                                    <button class="task-list__list-btns-ok">
+                                        <i class='bx bx-check'></i>
+                                    </button>
+                                    <button class="task-list__list-btns-del">
+                                        <i class='bx bxs-trash'></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task-list__item">
+                            <div class="task-list__indicator"></div>
+                            <div class="task-list__content">
+                                <div class="task-list__todo-indicatore"></div>
+                                <div class="task-list__check-widget">
+                                    <input type="checkbox" name="" id="" class="task-list__check">
+                                </div>
+                                <div class="task-list__body">
+                                    <div class="task-list__title">Заголовок
+                                    </div>
+                                    <div class="task-list__subtitle">Описание</div>
+                                </div>
+                                <div class="task-list__actions">
+                                    <button class="task-list__list-btns-ok">
+                                        <i class='bx bx-check'></i>
+                                    </button>
+                                    <button class="task-list__list-btns-del">
+                                        <i class='bx bxs-trash'></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-        <div class="language">
-            <span><i class='bx bx-world'></i>
-            </span>
+        <div class="task-list__footer">
+            <button class="task-list__footer-btns">Добавить</button>
         </div>
-        <div class="theme">Dark/Light mode</div>
     </div>
 </div>
+
+<div class="project-progress">
+    <div class="project-progress__title">
+        <a href="">Название проекта</a>
+        <span>10.10.2010</span>
+    </div>
+    <div class="project-progress__bar">
+        <span class="project-progress__bar-title">Ход выполнения:</span>
+        <div class="project-progress__bar-container">
+            <div class="project-progress__load"></div>
+        </div>
+    </div>
+    <div class="project-progress__team">
+        <div class="project-progress__team-title">Команда</div>
+        <div class="project-progress__man">
+            <a href="#"><img class=""
+                    src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"></a>
+            <a href="#"><img class=""
+                    src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"></a>
+            <a href="#"><img class=""
+                    src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"></a>
+            <a href="#"><img class=""
+                    src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"></a>
+            <a href="#"><img class=""
+                    src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"></a>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
+
 {% block popup %}
 <div class="popup" id="popup-project">
     <div class="popup__body">
