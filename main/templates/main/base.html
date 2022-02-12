@@ -122,10 +122,10 @@
             </div>
             <div class="ext-workspace__footer">
                 {% notifications user.id as notification %}
-                <div class="notification-bell">
+                <div class="notification-bell" id="not-pop">
                     <i class='bx bxs-bell'></i>
                     {% if notification.count > 0 %}
-                        <div class="notification-bell__count notification-bell__count_have">1</div>
+                        <div class="notification-bell__count notification-bell__count_have">{{ notification.count }}</div>
                     {% else %}
                     <div class="notification-bell__count"></div>
                     {% endif %}
