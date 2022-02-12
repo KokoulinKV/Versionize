@@ -4,9 +4,9 @@
 
 {% block leftblock %}
 
-            <!-- * @TheSleepyNomad -->
-            <!-- ? Пользователь -->
-            <div class="container">
+    <!-- * @TheSleepyNomad -->
+    <!-- ? Пользователь -->
+    <div class="container">
                 <div class="head-bar"><i class='bx bxs-user-detail'></i>Пользователь</div>
                 <div class="user">
                     <div class="user__content">
@@ -49,13 +49,13 @@
                 <div class="bottom-bar">
                     <button class="gear-btn" id="change-password"><i class='bx bxs-cog'></i></button>
                 </div>
-            </div>
+    </div>
 
-            {% if active_project_id %}
+    {% if active_project_id %}
 
-            <!-- * @TheSleepyNomad -->
-            <!-- ? Активный проект -->
-            <div class="container">
+    <!-- * @TheSleepyNomad -->
+    <!-- ? Активный проект -->
+    <div class="container">
                 <div class="head-bar head-bar_project"><i class='bx bx-task'></i>Активный проект</div>
                 <div class="project">
                     <div class="project__title">{{ active_project_code }}</div>
@@ -87,13 +87,13 @@
                         </select>
                     </div>
                 </div>
-            </div>
+    </div>
 
-            {% else %}
+    {% else %}
 
-            <!-- * @TheSleepyNomad -->
-            <!-- ? Выбор активного проекта -->
-            <div class="container">
+    <!-- * @TheSleepyNomad -->
+    <!-- ? Выбор активного проекта -->
+    <div class="container">
                 <div class="head-bar head-bar_project"><i class='bx bx-rotate-right'></i>Выбрать активный проект</div>
                 <div class="project project_select">
                     <div class="form__select">
@@ -110,13 +110,13 @@
                         </select>
                     </div>
                 </div>
-            </div>
+    </div>
 
-            {% endif %}
+    {% endif %}
             
-            <!-- * @TheSleepyNomad -->
-            <!-- ? Кнопки действий -->
-            <div class="container">
+    <!-- * @TheSleepyNomad -->
+    <!-- ? Кнопки действий -->
+    <div class="container">
                 <div class="head-bar head-bar_actions"><i class='bx bx-code-block'></i>Действия</div>
                 <div class="actions">
                     {% if user.is_staff or user.is_superuser or user.usercompanyinfo.chief_project_engineer %}
@@ -136,13 +136,13 @@
                             Загрузить документ
                         </button>
                 </div>
-            </div>
+    </div>
 
 {% endblock %}
 
 {% block main %}
 
-<div class="task-list">
+    <div class="task-list">
     <div class="task-list__wrapper">
         <div class="task-list__header"><i class='bx bx-data'></i>Задачи</div>
         <div class="task-list__body">
@@ -331,9 +331,9 @@
             <button class="task-list__footer-btns">Добавить</button>
         </div>
     </div>
-</div>
+    </div>
 
-<div class="project-progress">
+    <div class="project-progress">
     <div class="project-progress__title">
         <a href="">Название проекта</a>
         <span>10.10.2010</span>
@@ -359,7 +359,7 @@
                     src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"></a>
         </div>
     </div>
-</div>
+    </div>
 
 {% endblock %}
 
