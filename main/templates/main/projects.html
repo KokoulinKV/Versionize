@@ -9,6 +9,7 @@
         <!-- <div class="left-block">
         </div> -->
         <div class="main">
+            
             <!-- * @TheSleepyNomad -->
             <!-- ? Таблица -->
             <div class="container">
@@ -58,65 +59,7 @@
                     </div>
                 </div>
             </div>
-            <div class="relative-table">
-                <div class="relative-table__title">
-                    <div class="relative-table__left-block"><i class='bx bx-archive'></i>Проекты</div>
-                    <!-- <div class="relative-table__right-block">
-                        <button>Скачать все</button>
-                    </div> -->
-                </div>
-                <form action="#" class="form-table">
-                    <div class="form-table__search">
-                        <span>Поиск:</span>
-                        <input type="text" name="" id="tableSearch">
-                    </div>
-                    <table class="form-table__table">
-                        <thead>
-                            <th>Шифр</th>
-                            <th>Наименование</th>
-                            <th>Дата создания</th>
-                            <th>Срок экспертизы</th>
-                            <th>Следующая загрузка</th>
-                            <th>ГИП</th>
-                            <th>Тип объекта</th>
-                        </thead>
-                        <tbody id="table">
-                            {% for project in projects %}
-                            <tr>
-                                <td class='form-table__table_center'>{{ project.code }}</td>
-                                <td><a href="{% url 'main:project' project.id %}">{{ project.name }}</a></td>
-                                <td>{{ project.created_at }}</td>
-                                <td>{{ project.exp_date }}</td>
-                                <td>{{ project.next_upload }}</td>
-                                <td>{{ project.admin }}</td>
-                                <td>{{ project.project_type }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </form>
-                <div class="relative-table__footer">
-                    <!-- Todo восстановить, когда будет готов функционал -->
-                    <!-- <ul class="relative-table__paginator">
-                        <li>
-                            <a href="#"><span>«</span></a>
-                        </li>
-                        <li><a href=""><span>1</span></a></li>
-                        <li><a href=""><span>2</span></a></li>
-                        <li><a href=""><span>3</span></a></li>
-                        <li><a href=""><span>4</span></a></li>
-                        <li><a href=""><span>»</span></a></li>
-                    </ul> -->
-                    <div class="relative-table__select">
-                        <select name="" id="tableSelect">
-                            <option value="2">2 строки</option>
-                            <option value="4">4 строки</option>
-                            <option value="10">10 строк</option>
-                            <option value="-">Показать все</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
     <div class="ext-workspace__footer">

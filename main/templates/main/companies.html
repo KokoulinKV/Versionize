@@ -84,61 +84,6 @@
                 </div>
             </div>
 
-            <div class="relative-table">
-                <div class="relative-table__title">
-                    <div class="relative-table__left-block"><i class='bx bx-detail'></i> Компании</div>
-                </div>
-                <form action="#" class="form-table">
-                    <div class="form-table__search">
-                        <span>Поиск:</span>
-                        <input type="text" name="" id="tableSearch">
-                    </div>
-                    <table class="form-table__table" >
-                        <thead>
-                            <th>Название</th>
-                            <th>Менеджер</th>
-                            <th>Телефон</th>
-                            <th>Эл.почта</th>
-                        </thead>
-                        <tbody id="table">
-                            {% for company in object_list %}
-                            <tr>
-                                <td class='form-table__table_center'><a href="#">{{ company.name }}</a></td>
-                                {% if not company.manager %}
-                                <td>-</td>
-                                {% else %}
-                                <td>{{ company.manager.get_fullname }}</td>
-                                {% endif %}
-                                <td>{{ company.phone }}</td>
-                                <td>{{ company.email }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </form>
-                <div class="relative-table__footer">
-                    <!-- Todo восстановить, когда будет готов функционал -->
-                    <!-- <ul class="relative-table__paginator">
-                        <li>
-                            <a href="#"><span>«</span></a>
-                        </li>
-                        <li><a href=""><span>1</span></a></li>
-                        <li><a href=""><span>2</span></a></li>
-                        <li><a href=""><span>3</span></a></li>
-                        <li><a href=""><span>4</span></a></li>
-                        <li><a href=""><span>»</span></a></li>
-                    </ul> -->
-                    <div class="relative-table__select">
-                        <select name="" id="tableSelect">
-                            <option value="" disabled selected style="display: none;">---------</option>
-                            <option value="2">2 строки</option>
-                            <option value="4">4 строки</option>
-                            <option value="10">10 строк</option>
-                            <option value="-">Показать все</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     <div class="ext-workspace__footer">

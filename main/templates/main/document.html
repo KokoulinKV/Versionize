@@ -149,57 +149,6 @@
                 </div>
             </div>
 
-            <div class="relative-table">
-                <div class="relative-table__title">
-                    <div class="relative-table__left-block"><i class='bx bx-detail'></i>Перечень корректировок</div>
-                </div>
-                <form action="#" class="form-table">
-                    <div class="form-table__search">
-                        <span>Поиск:</span>
-                        <input type="text" name="" id="tableSearch">
-                    </div>
-                    <table class="form-table__table">
-                        <thead>
-                            <th>Лист</th>
-                            <th>Содержание изменения</th>
-                            <th>Код</th>
-                            <th>Примечание</th>
-                        </thead>
-                        <tbody id="table">
-                            {% for adjustment in document.get_linked_adjustments %}
-                            <tr>
-                                <td class='form-table__table_center'>{{ adjustment.pages }}</td>
-                                <td>{{ adjustment.body }}</td>
-                                <td>{{ adjustment.code }}</td>
-                                <td>{{ adjustment.note }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </form>
-                <div class="relative-table__footer">
-                    <!-- Todo восстановить, когда будет готов функционал -->
-                    <!-- <ul class="relative-table__paginator">
-                        <li>
-                            <a href="#"><span>«</span></a>
-                        </li>
-                        <li><a href=""><span>1</span></a></li>
-                        <li><a href=""><span>2</span></a></li>
-                        <li><a href=""><span>3</span></a></li>
-                        <li><a href=""><span>4</span></a></li>
-                        <li><a href=""><span>»</span></a></li>
-                    </ul> -->
-                    <div class="relative-table__select">
-                        <select name="" id="tableSelect">
-                            <option value="" disabled selected style="display: none;">---------</option>
-                            <option value="2">2 строки</option>
-                            <option value="4">4 строки</option>
-                            <option value="10">10 строк</option>
-                            <option value="-">Показать все</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
             {% endif %}
             <div class="comment-box">
                 <div class="comment-box__wrapper">
