@@ -1302,7 +1302,7 @@ body {
     background-color: #fff;
     border-top: 1px solid rgba(26, 54, 126, 0.125);
 
-    &_txt-alg-off{
+    &_txt-alg-off {
         text-align: left;
     }
 }
@@ -1608,5 +1608,37 @@ body {
         background-color: #fff;
         border: 1px solid #ced4da;
         border-radius: 0.25rem;
+    }
+}
+.notification-bell {
+    display: inline-block;
+    position: relative;
+    padding: 0.8em;
+    i {
+        color: #2d2b49;
+        display: block;
+        font-size: 29px;
+        transform-origin: top center;
+        text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+    &__count {
+        color: #fff;
+        text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+        font-size: 11px;
+        font-weight: 500;
+        position: absolute;
+        top: 0px;
+        right: 6px;
+        padding: 3px 6px;
+        line-height: 100%;
+        border: 2px solid #fff;
+        border-radius: 60px;
+        background-color: #2d2b49;
+        text-align: center;
+        transform: scale(0);
+        transition: all 0.3s ease-out;
+        &_have{
+            transform: scale(1);
+        }
     }
 }

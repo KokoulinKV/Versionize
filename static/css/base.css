@@ -1613,3 +1613,39 @@ body {
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
 }
+
+.notification-bell {
+  display: inline-block;
+  position: relative;
+  padding: 0.8em;
+}
+
+.notification-bell i {
+  color: #2d2b49;
+  display: block;
+  font-size: 29px;
+  transform-origin: top center;
+  text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.notification-bell__count {
+  color: #fff;
+  text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+  font-size: 11px;
+  font-weight: 500;
+  position: absolute;
+  top: 0px;
+  right: 6px;
+  padding: 3px 6px;
+  line-height: 100%;
+  border: 2px solid #fff;
+  border-radius: 60px;
+  background-color: #2d2b49;
+  text-align: center;
+  transform: scale(0);
+  transition: all 0.3s ease-out;
+}
+
+.notification-bell__count_have {
+  transform: scale(1);
+}

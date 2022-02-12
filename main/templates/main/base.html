@@ -121,13 +121,22 @@
                 </div>
             </div>
             <div class="ext-workspace__footer">
+                {% notifications user.id as notification %}
+                <div class="notification-bell">
+                    <i class='bx bxs-bell'></i>
+                    {% if notification.count > 0 %}
+                        <div class="notification-bell__count notification-bell__count_have">1</div>
+                    {% else %}
+                    <div class="notification-bell__count"></div>
+                    {% endif %}
+                </div>
                 <div class="notification" id="not-pop">
                     <div class='notification__bell'><i class='bx bxs-bell'></i>
                         <div class="notification__dot"><i class='bx bxs-circle'></i></div>
                     </div>
                     <div class="pop-mini" id="pop-min">
                         <div class="pop-mini__header">
-                            {% notifications user.id as notification %}
+                            
                             <div class="pop-mini__title">Уведомления</div>
                             <div class="pop-mini__subtitle">У Вас {{ notification.count }} пропущенных уведомлений</div>
                         </div>
