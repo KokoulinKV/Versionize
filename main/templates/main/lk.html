@@ -143,13 +143,34 @@
 {% block main %}
 
     <!-- * @TheSleepyNomad -->
-    <!-- ? TaskList -->
+    <!-- ? ToDoList -->
     <div class="container">
             <div class="head-bar head-bar_task-list">
                 <i class='bx bx-data'></i>
                 Задачи
             </div>
-            
+            <div class="to-do-list">
+                <div class="to-do-list__item">
+                    <div class="to-do-list__task-indicator"></div>
+                    <div class="to-do-list__content">
+                        <div class="to-do-list__check">
+                            <input type="checkbox">
+                        </div>
+                        <div class="to-do-list__body">
+                            <div class="to-do-list__title"></div>
+                            <div class="to-do-list__text"></div>
+                        </div>
+                        <div class="to-do-list__buttons">
+                            <button class="check-btn">
+                                <i class='bx bx-check'></i>
+                            </button>
+                            <button class="trash-btn">
+                                <i class='bx bxs-trash'></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="bottom-bar">
                 <button class="gear-btn" id="change-password">Добавить</button>
             </div>

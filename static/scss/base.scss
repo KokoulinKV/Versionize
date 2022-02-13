@@ -1294,7 +1294,7 @@ body {
             opacity: 0.6 !important;
         }
     }
-    &_task-list{
+    &_task-list {
         i {
             background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%) !important;
         }
@@ -1642,8 +1642,43 @@ body {
         text-align: center;
         transform: scale(0);
         transition: all 0.3s ease-out;
-        &_have{
+        &_have {
             transform: scale(1);
         }
     }
+}
+.to-do-list {
+    position: static;
+    height: 250px;
+    overflow: scroll;
+    overflow-x: hidden;
+    &__item {
+    }
+
+    &__task-indicator {
+    }
+
+    &__content {
+    }
+
+    &__check {
+    }
+
+    &__body {
+    }
+
+    &__title {
+    }
+
+    &__text {
+    }
+
+    &__buttons {
+    }
+}
+.trash-btn{
+
+}
+.check-btn{
+    
 }

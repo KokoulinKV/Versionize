@@ -1653,3 +1653,10 @@ body {
 .notification-bell__count_have {
   transform: scale(1);
 }
+
+.to-do-list {
+  position: static;
+  height: 250px;
+  overflow: scroll;
+  overflow-x: hidden;
+}
