@@ -1302,6 +1302,10 @@ body {
   opacity: 0.6 !important;
 }
 
+.head-bar_task-list i {
+  background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%) !important;
+}
+
 .bottom-bar {
   text-align: right;
   padding: 0.75rem 10px;
