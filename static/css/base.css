@@ -1668,6 +1668,14 @@ body {
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
 
+.to-do-list__item:hover .sqr-btn {
+  display: inline-block;
+}
+
+.to-do-list__item:hover .to-do-list__task-indicator {
+  opacity: 1;
+}
+
 .to-do-list__task-indicator {
   position: absolute;
   width: 4px;
@@ -1680,6 +1688,20 @@ body {
   background-color: red;
 }
 
+.to-do-list__content {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.to-do-list__title {
+  color: green;
+}
+
+.to-do-list__buttons {
+  margin-left: auto;
+}
+
 .sqr-btn {
   padding: 3px 6px;
   text-align: center;
@@ -1688,6 +1710,7 @@ body {
   outline: none;
   border-radius: 5px;
   background-color: transparent;
+  display: none;
 }
 
 .sqr-btn_check {

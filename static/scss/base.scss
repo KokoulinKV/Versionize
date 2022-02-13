@@ -1657,6 +1657,14 @@ body {
         position: relative;
         padding: 0.75rem 1.25rem;
         border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+        &:hover{
+            .sqr-btn{
+                display: inline-block;
+            }
+            .to-do-list__task-indicator{
+                opacity: 1;
+            }
+        }
     }
 
     &__task-indicator {
@@ -1672,21 +1680,26 @@ body {
     }
 
     &__content {
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
     }
 
     &__check {
     }
-
+    
     &__body {
     }
 
     &__title {
+        color: green;
     }
 
     &__text {
     }
 
     &__buttons {
+        margin-left: auto;
     }
 }
 .sqr-btn {
@@ -1697,6 +1710,7 @@ body {
     outline: none;
     border-radius: 5px;
     background-color: transparent;
+    display: none;
     &_check{
         color: #3ac47d;
         &:hover{
