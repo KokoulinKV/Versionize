@@ -1652,10 +1652,23 @@ body {
     height: 250px;
     overflow: scroll;
     overflow-x: hidden;
+    margin-left: 0.625rem;
     &__item {
+        position: relative;
+        padding: 0.75rem 1.25rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.125);
     }
 
     &__task-indicator {
+        position: absolute;
+        width: 4px;
+        height: 60%;
+        border-radius: 0.3rem;
+        left: 0.625rem;
+        top: 20%;
+        opacity: 0.6;
+        transition: opacity 0.2s;
+        background-color: red;
     }
 
     &__content {
@@ -1676,9 +1689,26 @@ body {
     &__buttons {
     }
 }
-.trash-btn{
-
-}
-.check-btn{
-    
+.sqr-btn {
+    padding: 3px 6px;
+    text-align: center;
+    line-height: 1.5;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    background-color: transparent;
+    &_check{
+        color: #3ac47d;
+        &:hover{
+            background-color: #3ac47d;
+            color: #fff;
+        }
+    }
+    &_trash{
+        color: #d92550;
+        &:hover{
+            background-color: #d92550;
+            color: #fff;
+        }
+    }
 }
