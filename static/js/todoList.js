@@ -1,4 +1,10 @@
+// * - Ответственный
+// ? - Что делает/За что отвечает
+// В этом файле будут хранится настройки стилей и отправки данных для виджета с задачами
 $(document).ready(function () {
+
+    // * @TheSleepyNomad
+    // ? Перечеркивание задачи, если чекбокс заполнен(checked)
     $('.to-do-list__check-widget').on('click', function (e) {
         let todoTitle = $(this).parent().parent().find('.to-do-list__title');
         let todoText = $(this).parent().parent().find('.to-do-list__text');
