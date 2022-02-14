@@ -88,7 +88,7 @@ class Index(LoginRequiredMixin, TemplateView):
                     new_task.save()
                 except Exception:
                     return JsonResponse({'status': False})
-                return JsonResponse({'status': True})
+                return JsonResponse({'status': True, 'task_id': new_task.pk, })
 
             # В текущей версии разработки меняем только текущий активный проект
             # Todo написать алгоритм, по которому будем определять имя функции ajax

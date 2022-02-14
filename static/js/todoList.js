@@ -4,8 +4,7 @@
 $(document).ready(function () {
 
     let clickCount = 1;
-    let elCopy = $('#forCopy').clone(true);
-    
+
 
 
     // * @TheSleepyNomad
@@ -24,7 +23,7 @@ $(document).ready(function () {
     });
 
     $('#todoAdd').on('click', function (e) {
-        $('#to-do-list').prepend('')
+        // $('#to-do-list').prepend('')
         if (clickCount === 2) {
             if (!$('#task_name').val() && !$('#task_description').val()) {
                 $('#task_name').toggleClass('form__input_warn')
@@ -47,9 +46,11 @@ $(document).ready(function () {
                     success: function (response) {
                         console.log(response.status);
                         if (response.status === true) {
+                            let elCopy = $('#forCopy').clone(true);
+                            elCopy.removeClass('to-do-list__item_hidden')
+                            elCopy[0].id = 'task' + response.task_id
                             elCopy.find('.to-do-list__title').text($('#task_name').val())
                             elCopy.find('.to-do-list__text').text($('#task_description').val())
-                            elCopy.toggleClass('to-do-list__item_hidden')
                             $('#task_name').val('')
                             $('#task_description').val('')
                             $('.to-do-list-form').toggleClass('to-do-list-form_open');
@@ -70,7 +71,7 @@ $(document).ready(function () {
         };
         if (clickCount === 1) {
             // $('.to-do-list-form').toggleClass('to-do-list-form_open');
-            $('.to-do-list-form').slideDown(0.5, function(){
+            $('.to-do-list-form').slideDown(0.5, function () {
                 $(this).toggleClass('to-do-list-form_open');
             });
             $('#todoCancel').toggleClass('gear-btn_hide');
@@ -81,7 +82,7 @@ $(document).ready(function () {
     });
 
     $('#todoCancel').on('click', function (e) {
-        $('.to-do-list-form').slideUp('slow', function(){
+        $('.to-do-list-form').slideUp('slow', function () {
             $(this).toggleClass('to-do-list-form_open');
         });
         // $('.to-do-list-form').toggleClass('to-do-list-form_open');
@@ -89,7 +90,7 @@ $(document).ready(function () {
         clickCount = 1;
     });
 
-    $('.sqr-btn_trash').on('click',function (e){
+    $('.sqr-btn_trash').on('click', function (e) {
         parent = $(this).parent().parent().parent()
         id = parent[0].id.slice(4);
         $.ajax({
@@ -106,7 +107,7 @@ $(document).ready(function () {
             success: function (response) {
                 console.log(response.status);
                 if (response.status === true) {
-                    $(parent).slideUp('slow',function(){
+                    $(parent).slideUp('slow', function () {
                         $(this).remove();
                     })
                 }
