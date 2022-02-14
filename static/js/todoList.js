@@ -17,4 +17,8 @@ $(document).ready(function () {
             todoText.css('text-decoration', 'none');
         }
     });
+    $('#todoAdd').on('click', function (e) {
+        $('.to-do-list-form').toggleClass('to-do-list-form_open');
+        console.log('работаем');
+    });
 });

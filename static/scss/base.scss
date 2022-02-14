@@ -1741,3 +1741,11 @@ body {
         }
     }
 }
+.to-do-list-form{
+    height: 0;
+    transition: all 0.5s ease;
+    &_open{
+        height: 100px !important;
+        border-top: 1px solid rgba(26, 54, 126, 0.125);
+    }
+}
