@@ -1537,6 +1537,10 @@ body {
   opacity: 1;
 }
 
+.to-do-list__item_hidden {
+  display: none;
+}
+
 .to-do-list__task-indicator {
   position: absolute;
   width: 4px;

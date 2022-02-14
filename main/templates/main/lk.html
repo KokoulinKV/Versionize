@@ -151,7 +151,7 @@
             </div>
             <div class="to-do-list" id='to-do-list'>
                 {% for task in tasks %}
-                <div class="to-do-list__item">
+                <div class="to-do-list__item" id='task{{task.id}}'>
                     <div class="to-do-list__task-indicator"></div>
                     <div class="to-do-list__content">
                         <div class="to-do-list__check">
@@ -172,7 +172,7 @@
                     </div>
                 </div>
                 {% endfor %}
-                <div class="to-do-list__item" id="forCopy">
+                <div class="to-do-list__item to-do-list__item_hidden" id="forCopy">
                     <div class="to-do-list__task-indicator"></div>
                     <div class="to-do-list__content">
                         <div class="to-do-list__check">

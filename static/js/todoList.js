@@ -49,6 +49,7 @@ $(document).ready(function () {
                         if (response.status === true) {
                             elCopy.find('.to-do-list__title').text($('#task_name').val())
                             elCopy.find('.to-do-list__text').text($('#task_description').val())
+                            elCopy.toggleClass('to-do-list__item_hidden')
                             $('#task_name').val('')
                             $('#task_description').val('')
                             $('.to-do-list-form').toggleClass('to-do-list-form_open');
@@ -68,7 +69,10 @@ $(document).ready(function () {
             };
         };
         if (clickCount === 1) {
-            $('.to-do-list-form').toggleClass('to-do-list-form_open');
+            // $('.to-do-list-form').toggleClass('to-do-list-form_open');
+            $('.to-do-list-form').slideDown(0.5, function(){
+                $(this).toggleClass('to-do-list-form_open');
+            });
             $('#todoCancel').toggleClass('gear-btn_hide');
             console.log(clickCount);
             clickCount++;
@@ -77,17 +81,42 @@ $(document).ready(function () {
     });
 
     $('#todoCancel').on('click', function (e) {
-        $('.to-do-list-form').toggleClass('to-do-list-form_open');
+        $('.to-do-list-form').slideUp('slow', function(){
+            $(this).toggleClass('to-do-list-form_open');
+        });
+        // $('.to-do-list-form').toggleClass('to-do-list-form_open');
         $('#todoCancel').toggleClass('gear-btn_hide');
         clickCount = 1;
     });
 
     $('.sqr-btn_trash').on('click',function (e){
         parent = $(this).parent().parent().parent()
-        // $(parent).toggleClass('to-do-list__item_del')
-        $(parent).slideUp('slow',function(){
-            $(this).remove();
-        })
-        // $(parent).hide('slow');
+        id = parent[0].id.slice(4);
+        $.ajax({
+            url: "",
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                formName: 'ToDoList',
+                action: 'delete',
+                csrfmiddlewaretoken: $('[name=csrfmiddlewaretoken]').val(),
+                id: id,
+            },
+            // если успешно, то
+            success: function (response) {
+                console.log(response.status);
+                if (response.status === true) {
+                    $(parent).slideUp('slow',function(){
+                        $(this).remove();
+                    })
+                }
+
+            },
+            // если ошибка, то
+            error: function (response) {
+                // предупредим об ошибке
+                console.log('Ошибка')
+            }
+        });
     })
 });

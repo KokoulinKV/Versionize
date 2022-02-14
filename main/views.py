@@ -72,7 +72,12 @@ class Index(LoginRequiredMixin, TemplateView):
         if request.method == 'POST' and ajax_check(request):
             
             if request.POST.get('formName') == 'ToDoList':
-                print('heel')
+                if request.POST.get('action') == 'delete':
+                    try:
+                        Tasks.objects.filter(id=request.POST.get('id')).delete()
+                    except Exception:
+                        return JsonResponse({'status': False})
+                    return JsonResponse({'status': True})
                 try:
                     new_task = Tasks(
                         task_importance=request.POST.get('task_importance'),
