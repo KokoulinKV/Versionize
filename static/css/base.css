@@ -987,6 +987,10 @@ body {
   width: 30%;
 }
 
+.form__input_warn {
+  border: 1px solid #ff0844;
+}
+
 .form__select {
   position: relative;
   width: 100%;

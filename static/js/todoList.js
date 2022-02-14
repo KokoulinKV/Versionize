@@ -23,35 +23,42 @@ $(document).ready(function () {
 
     $('#todoAdd').on('click', function (e) {
         if (clickCount === 2) {
-            $.ajax({
-                url: "",
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    formName: 'ToDoList',
-                    csrfmiddlewaretoken: $('[name=csrfmiddlewaretoken]').val(),
-                    task_name: $('#task_name').val(),
-                    task_description: $('#task_description').val(),
-                    task_importance: $('#task_importance').val(),
-                },
-                // если успешно, то
-                success: function (response) {
-                    console.log(response.status);
-                    if (response.status === true) {
-                        $('#task_name').val('')
-                        $('#task_description').val('')
-                        $('.to-do-list-form').toggleClass('to-do-list-form_open');
-                        $('#todoCancel').toggleClass('gear-btn_hide');
-                        clickCount = 1;
-                    }
+            if (!$('#task_name').val() && !$('#task_description').val()) {
+                $('#task_name').toggleClass('form__input_warn')
+                $('#task_description').toggleClass('form__input_warn')
+                $('#task_name')[0].placeholder = 'Обязательное поле!';
+                $('#task_description')[0].placeholder = 'Обязательное поле!'
+            } else {
+                $.ajax({
+                    url: "",
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        formName: 'ToDoList',
+                        csrfmiddlewaretoken: $('[name=csrfmiddlewaretoken]').val(),
+                        task_name: $('#task_name').val(),
+                        task_description: $('#task_description').val(),
+                        task_importance: $('#task_importance').val(),
+                    },
+                    // если успешно, то
+                    success: function (response) {
+                        console.log(response.status);
+                        if (response.status === true) {
+                            $('#task_name').val('')
+                            $('#task_description').val('')
+                            $('.to-do-list-form').toggleClass('to-do-list-form_open');
+                            $('#todoCancel').toggleClass('gear-btn_hide');
+                            clickCount = 1;
+                        }
 
-                },
-                // если ошибка, то
-                error: function (response) {
-                    // предупредим об ошибке
-                    console.log('Ошибка')
-                }
-            });
+                    },
+                    // если ошибка, то
+                    error: function (response) {
+                        // предупредим об ошибке
+                        console.log('Ошибка')
+                    }
+                });
+            };
         };
         if (clickCount === 1) {
             $('.to-do-list-form').toggleClass('to-do-list-form_open');

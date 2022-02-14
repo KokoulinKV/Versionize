@@ -967,6 +967,9 @@ body {
         &_short{
             width: 30%;
         }
+        &_warn{
+            border: 1px solid #ff0844;
+        }
     }
 
     &__select {
