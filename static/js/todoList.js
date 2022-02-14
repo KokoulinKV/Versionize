@@ -82,5 +82,12 @@ $(document).ready(function () {
         clickCount = 1;
     });
 
-
+    $('.sqr-btn_trash').on('click',function (e){
+        parent = $(this).parent().parent().parent()
+        // $(parent).toggleClass('to-do-list__item_del')
+        $(parent).slideUp('slow',function(){
+            $(this).remove();
+        })
+        // $(parent).hide('slow');
+    })
 });

@@ -150,6 +150,28 @@
                 Задачи
             </div>
             <div class="to-do-list" id='to-do-list'>
+                {% for task in tasks %}
+                <div class="to-do-list__item">
+                    <div class="to-do-list__task-indicator"></div>
+                    <div class="to-do-list__content">
+                        <div class="to-do-list__check">
+                            <input type="checkbox" class='to-do-list__check-widget'>
+                        </div>
+                        <div class="to-do-list__body">
+                            <div class="to-do-list__title">{{ task.task_name }}</div>
+                            <div class="to-do-list__text">{{ task.task_description }}</div>
+                        </div>
+                        <div class="to-do-list__buttons">
+                            <button class="sqr-btn sqr-btn_check">
+                                <i class='bx bx-check'></i>
+                            </button>
+                            <button class="sqr-btn sqr-btn_trash">
+                                <i class='bx bxs-trash'></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
                 <div class="to-do-list__item" id="forCopy">
                     <div class="to-do-list__task-indicator"></div>
                     <div class="to-do-list__content">

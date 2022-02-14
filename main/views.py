@@ -27,6 +27,7 @@ class Index(LoginRequiredMixin, TemplateView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Личный кабинет'
+        context['tasks'] = Tasks.objects.filter(task_creator=self.request.user.id).order_by('-created_at')
         return context
 
     def get(self, request, *args, **kwargs):
@@ -69,7 +70,9 @@ class Index(LoginRequiredMixin, TemplateView):
         # @TheSleepyNomad
         # Выполняем проверку на ajax запрос
         if request.method == 'POST' and ajax_check(request):
+            
             if request.POST.get('formName') == 'ToDoList':
+                print('heel')
                 try:
                     new_task = Tasks(
                         task_importance=request.POST.get('task_importance'),
