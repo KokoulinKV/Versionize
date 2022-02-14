@@ -979,6 +979,14 @@ body {
   border: 1px solid #1d1b31;
 }
 
+.form__input_hide {
+  display: none;
+}
+
+.form__input_short {
+  width: 30%;
+}
+
 .form__select {
   position: relative;
   width: 100%;
@@ -1462,6 +1470,10 @@ body {
   border-radius: 0.25rem;
 }
 
+.table-select_hide {
+  display: none;
+}
+
 .notification-bell {
   display: inline-block;
   position: relative;
@@ -1600,10 +1612,19 @@ body {
 
 .to-do-list-form {
   height: 0;
-  transition: all 0.5s ease;
+  transition: all 0.7s;
 }
 
 .to-do-list-form_open {
-  height: 100px !important;
+  padding: 10px;
+  height: 100%;
   border-top: 1px solid rgba(26, 54, 126, 0.125);
+}
+
+.to-do-list-form_open .form__input_hide {
+  display: block;
+}
+
+.to-do-list-form_open .table-select_hide {
+  display: block;
 }

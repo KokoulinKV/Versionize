@@ -172,7 +172,23 @@
                 </div>
             </div>
             <div class="to-do-list-form">
-                <form method="post" id="todoForm" class="form"></form>
+                <form method="post" id="todoForm" class="form">
+                    {% csrf_token %}
+                    <div class="form__field">
+                        <input type="text" name="task_name" class="form__input form__input_hide form__input_short" placeholder="Наименование задачи" required="" id="id_create_project_form_pre-code">
+                    </div>
+                    <div class="form__field">
+                        <textarea name="task_description" class="form__input form__input_hide" placeholder="Описание задачи"></textarea>
+                    </div>
+                    <div class="table-select table-select_hide">
+                        <select name="">
+                            <option value="" disabled selected style="display: none;">Важность</option>
+                            <option value="1">Код зеленый</option>
+                            <option value="2">Код желтый</option>
+                            <option value="3">Код красный</option>
+                        </select>
+                    </div>
+                </form>
             </div>
             <div class="bottom-bar">
                 <button class="gear-btn gear-btn_cancel gear-btn_hide" id="todoCancel">Отмена</button>

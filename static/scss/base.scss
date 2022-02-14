@@ -961,6 +961,12 @@ body {
         &:focus {
             border: 1px solid #1d1b31;
         }
+        &_hide{
+            display: none;
+        }
+        &_short{
+            width: 30%;
+        }
     }
 
     &__select {
@@ -1448,6 +1454,9 @@ body {
         border: 1px solid #ced4da;
         border-radius: 0.25rem;
     }
+    &_hide{
+        display: none;
+    }
 }
 .notification-bell {
     display: inline-block;
@@ -1577,9 +1586,17 @@ body {
 }
 .to-do-list-form{
     height: 0;
-    transition: all 0.5s ease;
+    transition: all 0.7s;
     &_open{
-        height: 100px !important;
+        padding: 10px;
+        height: 100%;
         border-top: 1px solid rgba(26, 54, 126, 0.125);
+        .form__input_hide{
+            display: block;
+        }
+        .table-select_hide{
+            display: block;
+        }
+
     }
 }
