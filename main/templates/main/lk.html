@@ -175,20 +175,19 @@
                 <form method="post" id="todoForm" class="form">
                     {% csrf_token %}
                     <div class="form__field">
-                        <input type="text" name="task_name" class="form__input form__input_hide form__input_short" placeholder="Наименование задачи" required="" id="id_create_project_form_pre-code">
+                        <input type="text" name="task_name" class="form__input form__input_hide form__input_short" placeholder="Наименование задачи" required="" id="task_name">
                     </div>
                     <div class="form__field">
-                        <textarea name="task_description" class="form__input form__input_hide" placeholder="Описание задачи"></textarea>
+                        <textarea name="task_description" class="form__input form__input_hide" placeholder="Описание задачи" id="task_description"></textarea>
                     </div>
                     <div class="table-select table-select_hide">
-                        <select name="task_importance">
+                        <select name="task_importance" id="task_importance">
                             <option value="" disabled selected style="display: none;">Важность</option>
                             <option value="1">Код зеленый</option>
                             <option value="2">Код желтый</option>
                             <option value="3">Код красный</option>
                         </select>
                     </div>
-                    <input type="hidden" name='task_creator' value="{{user.id}}">
                 </form>
             </div>
             <div class="bottom-bar">

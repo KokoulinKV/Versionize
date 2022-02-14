@@ -1,5 +1,5 @@
 import os
-
+from django.core import serializers
 from django.contrib.auth import update_session_auth_hash
 from django.core.exceptions import ValidationError
 from django.http import HttpResponseRedirect
@@ -17,6 +17,8 @@ from main.forms import DocumentForm, AddSectionForm, CreateProjectForm, AddRemar
 from main.func import download_some_files, download_single_file, _get_form, ajax_check, clear_form_data
 from main.models import Section, Company, Document, Project, Comment, RemarksDocs
 from main.utils.card_generation import generate_info_card, generate_permission_card
+
+from service.models import Tasks
 
 
 class Index(LoginRequiredMixin, TemplateView):
@@ -67,6 +69,19 @@ class Index(LoginRequiredMixin, TemplateView):
         # @TheSleepyNomad
         # Выполняем проверку на ajax запрос
         if request.method == 'POST' and ajax_check(request):
+            if request.POST.get('formName') == 'ToDoList':
+                try:
+                    new_task = Tasks(
+                        task_importance=request.POST.get('task_importance'),
+                        task_name=request.POST.get('task_name'),
+                        task_description=request.POST.get('task_description'),
+                        task_creator=request.user,
+                        )
+                    new_task.save()
+                except Exception:
+                    return JsonResponse({'status': False})
+                return JsonResponse({'status': True})
+
             # В текущей версии разработки меняем только текущий активный проект
             # Todo написать алгоритм, по которому будем определять имя функции ajax
             # Пользователь выбирает наименование/код, но передаем id, так как наименование пока может повторяться

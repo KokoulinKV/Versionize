@@ -22,18 +22,44 @@ $(document).ready(function () {
     });
 
     $('#todoAdd').on('click', function (e) {
-        if(clickCount == 2){
-            console.log('Я не должен работаь');
-            data = $('#todoForm').serialize();
-            console.log(data);
+        if (clickCount === 2) {
+            $.ajax({
+                url: "",
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    formName: 'ToDoList',
+                    csrfmiddlewaretoken: $('[name=csrfmiddlewaretoken]').val(),
+                    task_name: $('#task_name').val(),
+                    task_description: $('#task_description').val(),
+                    task_importance: $('#task_importance').val(),
+                },
+                // если успешно, то
+                success: function (response) {
+                    console.log(response.status);
+                    if (response.status === true) {
+                        $('#task_name').val('')
+                        $('#task_description').val('')
+                        $('.to-do-list-form').toggleClass('to-do-list-form_open');
+                        $('#todoCancel').toggleClass('gear-btn_hide');
+                        clickCount = 1;
+                    }
+
+                },
+                // если ошибка, то
+                error: function (response) {
+                    // предупредим об ошибке
+                    console.log('Ошибка')
+                }
+            });
         };
-        if(clickCount == 1){
+        if (clickCount === 1) {
             $('.to-do-list-form').toggleClass('to-do-list-form_open');
             $('#todoCancel').toggleClass('gear-btn_hide');
             console.log(clickCount);
             clickCount++;
         };
-        
+
     });
 
     $('#todoCancel').on('click', function (e) {
@@ -42,5 +68,5 @@ $(document).ready(function () {
         clickCount = 1;
     });
 
-    
+
 });
