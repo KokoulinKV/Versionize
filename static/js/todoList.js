@@ -5,8 +5,7 @@ $(document).ready(function () {
 
     let clickCount = 1;
     let elCopy = $('#forCopy').clone(true);
-    elCopy.find('.to-do-list__title').text('Дадада')
-    $('.to-do-list').prepend(elCopy)
+    
 
 
     // * @TheSleepyNomad
@@ -48,11 +47,14 @@ $(document).ready(function () {
                     success: function (response) {
                         console.log(response.status);
                         if (response.status === true) {
+                            elCopy.find('.to-do-list__title').text($('#task_name').val())
+                            elCopy.find('.to-do-list__text').text($('#task_description').val())
                             $('#task_name').val('')
                             $('#task_description').val('')
                             $('.to-do-list-form').toggleClass('to-do-list-form_open');
                             $('#todoCancel').toggleClass('gear-btn_hide');
                             clickCount = 1;
+                            $('.to-do-list').prepend(elCopy)
 
                         }
 
