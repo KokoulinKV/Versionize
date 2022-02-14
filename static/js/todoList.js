@@ -4,6 +4,9 @@
 $(document).ready(function () {
 
     let clickCount = 1;
+    let elCopy = $('#forCopy').clone(true);
+    elCopy.find('.to-do-list__title').text('Дадада')
+    $('.to-do-list').prepend(elCopy)
 
 
     // * @TheSleepyNomad
@@ -22,6 +25,7 @@ $(document).ready(function () {
     });
 
     $('#todoAdd').on('click', function (e) {
+        $('#to-do-list').prepend('')
         if (clickCount === 2) {
             if (!$('#task_name').val() && !$('#task_description').val()) {
                 $('#task_name').toggleClass('form__input_warn')
@@ -49,6 +53,7 @@ $(document).ready(function () {
                             $('.to-do-list-form').toggleClass('to-do-list-form_open');
                             $('#todoCancel').toggleClass('gear-btn_hide');
                             clickCount = 1;
+
                         }
 
                     },
