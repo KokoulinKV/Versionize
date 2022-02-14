@@ -18,7 +18,11 @@ $(document).ready(function () {
         }
     });
 
-    $('#todoAdd, #todoCancel').on('click', function (e) {
+    $('#todoAdd').on('click', function (e) {
+        $('.to-do-list-form').toggleClass('to-do-list-form_open');
+        $('#todoCancel').toggleClass('gear-btn_hide');
+    });
+    $('#todoCancel').on('click', function (e) {
         $('.to-do-list-form').toggleClass('to-do-list-form_open');
         $('#todoCancel').toggleClass('gear-btn_hide');
     });

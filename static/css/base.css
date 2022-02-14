@@ -1612,12 +1612,13 @@ body {
 
 .to-do-list-form {
   height: 0;
-  transition: all 0.7s;
+  transition: all 0.7s ease;
+  overflow: hidden;
 }
 
 .to-do-list-form_open {
+  height: 186px;
   padding: 10px;
-  height: 100%;
   border-top: 1px solid rgba(26, 54, 126, 0.125);
 }
 
