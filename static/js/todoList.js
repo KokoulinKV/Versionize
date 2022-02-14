@@ -3,6 +3,9 @@
 // В этом файле будут хранится настройки стилей и отправки данных для виджета с задачами
 $(document).ready(function () {
 
+    let clickCount = 1;
+
+
     // * @TheSleepyNomad
     // ? Перечеркивание задачи, если чекбокс заполнен(checked)
     $('.to-do-list__check-widget').on('click', function (e) {
@@ -19,12 +22,24 @@ $(document).ready(function () {
     });
 
     $('#todoAdd').on('click', function (e) {
-        $('.to-do-list-form').toggleClass('to-do-list-form_open');
-        $('#todoCancel').toggleClass('gear-btn_hide');
+        if(clickCount == 2){
+            console.log('Я не должен работаь');
+            data = $('#todoForm').serialize();
+            console.log(data);
+        };
+        if(clickCount == 1){
+            $('.to-do-list-form').toggleClass('to-do-list-form_open');
+            $('#todoCancel').toggleClass('gear-btn_hide');
+            console.log(clickCount);
+            clickCount++;
+        };
+        
     });
+
     $('#todoCancel').on('click', function (e) {
         $('.to-do-list-form').toggleClass('to-do-list-form_open');
         $('#todoCancel').toggleClass('gear-btn_hide');
+        clickCount = 1;
     });
 
     
