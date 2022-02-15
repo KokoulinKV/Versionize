@@ -29,8 +29,8 @@ $(document).ready(function () {
             // Простая валидация на заполнение
             // ToDo Написать отдельную функцию, для валидации и отслеживания действий пользователя
             if (!$('#task_name').val() || !$('#task_description').val()) {
-                $('#task_name').toggleClass('form__input_warn')
-                $('#task_description').toggleClass('form__input_warn')
+                $('#task_name').toggleClass('form__input_warn');
+                $('#task_description').toggleClass('form__input_warn');
                 $('#task_name')[0].placeholder = 'Обязательное поле!';
                 $('#task_description')[0].placeholder = 'Обязательное поле!'
             } else {
@@ -50,22 +50,22 @@ $(document).ready(function () {
                         if (response.status === true) {
                             let taskTemplate = $('#forCopy').clone(true); // В DOM есть скрытый элемент, который является шаблоном для новых задач
                             // Устанавливаем цвет важности задачи
-                            if ($('#task_importance').val() == 2){
-                                taskTemplate.find('.to-do-list__task-indicator').addClass('to-do-list__task-indicator_casual')
-                            }
-                            if ($('#task_importance').val() == 3){
-                                taskTemplate.find('.to-do-list__task-indicator').addClass('to-do-list__task-indicator_wait')
-                            }
-                            if ($('#task_importance').val() == 4){
-                                taskTemplate.find('.to-do-list__task-indicator').addClass('to-do-list__task-indicator_hot')
-                            }
-                            taskTemplate.removeClass('to-do-list__item_hidden')
-                            taskTemplate[0].id = 'task' + response.task_id // Добавляем новый id для элемента. Это нужно для того, чтобы пользователь мог сразу удалить элемент
-                            taskTemplate.find('.to-do-list__title').text($('#task_name').val())
-                            taskTemplate.find('.to-do-list__text').text($('#task_description').val())
+                            if ($('#task_importance').val() == 2) {
+                                taskTemplate.find('.to-do-list__task-indicator').addClass('to-do-list__task-indicator_casual');
+                            };
+                            if ($('#task_importance').val() == 3) {
+                                taskTemplate.find('.to-do-list__task-indicator').addClass('to-do-list__task-indicator_wait');
+                            };
+                            if ($('#task_importance').val() == 4) {
+                                taskTemplate.find('.to-do-list__task-indicator').addClass('to-do-list__task-indicator_hot');
+                            };
+                            taskTemplate.removeClass('to-do-list__item_hidden');
+                            taskTemplate[0].id = 'task' + response.task_id; // Добавляем новый id для элемента. Это нужно для того, чтобы пользователь мог сразу удалить элемент
+                            taskTemplate.find('.to-do-list__title').text($('#task_name').val());
+                            taskTemplate.find('.to-do-list__text').text($('#task_description').val());
                             // Очищаем поля формы
-                            $('#task_name').val('')
-                            $('#task_description').val('')
+                            $('#task_name').val('');
+                            $('#task_description').val('');
                             // Закрываем форму для добавления
                             // ? Может оставить пользователю возможность добавления новой задачи?
                             $('.to-do-list-form').toggleClass('to-do-list-form_open');
@@ -73,14 +73,14 @@ $(document).ready(function () {
                             // Обнуляем счетчик кликов
                             clickCount = 1;
                             // Добавляем новую задачу в самый вверх ссписка
-                            $('.to-do-list').prepend(taskTemplate)
+                            $('.to-do-list').prepend(taskTemplate);
 
                         }
 
                     },
                     error: function (response) {
-                        console.log('Ошибка')
-                    }
+                        console.log('Ошибка');
+                    },
                 });
             };
         };
@@ -111,7 +111,7 @@ $(document).ready(function () {
     // * @TheSleepyNomad
     // ? Удаляет элемент из контейнера и базы данных
     $('.sqr-btn_trash').on('click', function (e) {
-        let task = $(this).parent().parent().parent() // Получаем ссылку на элемент, где нажали кнопку
+        let task = $(this).parent().parent().parent(); // Получаем ссылку на элемент, где нажали кнопку
         let id = task[0].id.slice(4); // Каждый элемент имеет id - task[норме ид из бд]. Получаем id задачи в БД
 
         // Отправляем запрос на сервер для удаления
@@ -131,15 +131,15 @@ $(document).ready(function () {
                 if (response.status === true) {
                     $(task).slideUp('0.3s', function () {
                         $(this).remove();
-                    })
-                }
+                    });
+                };
 
             },
             // если ошибка, то
             error: function (response) {
                 // предупредим об ошибке
-                console.log('Ошибка')
-            }
+                console.log('Ошибка');
+            },
         });
     })
 });
