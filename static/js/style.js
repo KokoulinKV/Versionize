@@ -104,6 +104,15 @@ $(document).ready(function () {
 
     // * @TheSleepyNomad
     // ? Для вызова pop-up формы уведомлений
+    $('.notification-bell').click(function(){
+        $('#notification-pop-up').toggleClass('popup-container_open');
+    });
+    $('#notification-pop-up-close').click(function(){
+        $('#notification-pop-up').toggleClass('popup-container_open');
+    });
+
+    // * @TheSleepyNomad
+    // ? Для вызова pop-up формы уведомлений
     $('#not-pop').click(function(){
         $('#pop-min').toggleClass('pop-mini_open');
     });

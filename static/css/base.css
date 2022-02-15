@@ -1554,11 +1554,11 @@ body {
 }
 
 .to-do-list__task-indicator_casual {
-  background-color: #33FF00 !important;
+  background-color: #33ff00 !important;
 }
 
 .to-do-list__task-indicator_wait {
-  background-color: #FFD700 !important;
+  background-color: #ffd700 !important;
 }
 
 .to-do-list__task-indicator_hot {
@@ -1603,7 +1603,7 @@ body {
 
 .to-do-list-form {
   max-height: 0;
-  transition: max-height 1.2s, padding .2s;
+  transition: max-height 1.2s, padding 0.2s;
   overflow: hidden;
 }
 
@@ -1649,4 +1649,36 @@ body {
 .sqr-btn_trash:hover {
   background-color: #d92550;
   color: #fff;
+}
+
+.sqr-btn_close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  background-color: #d92550;
+}
+
+.sqr-btn_close i {
+  margin: 0;
+  color: #fff !important;
+  font-size: 18px;
+  transform: rotate(-45deg);
+}
+
+.popup-container {
+  box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03), 0 0.9375rem 1.40625rem rgba(4, 9, 20, 0.03), 0 0.25rem 0.53125rem rgba(4, 9, 20, 0.05), 0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03);
+  width: 400px;
+  max-height: 400px;
+  background-color: #fff;
+  position: absolute;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+  z-index: 123;
+  transform: translate(1000%, -240px);
+  transition: all 0.7s ease;
+}
+
+.popup-container_open {
+  transform: translate(5px, -240px);
 }

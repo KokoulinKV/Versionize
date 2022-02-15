@@ -122,7 +122,7 @@
             </div>
             <div class="ext-workspace__footer">
                 {% notifications user.id as notification %}
-                <div class="notification-bell" id="not-pop">
+                <div class="notification-bell">
                     <i class='bx bxs-bell'></i>
                     {% if notification.count > 0 %}
                         <div class="notification-bell__count notification-bell__count_have">{{ notification.count }}</div>
@@ -130,6 +130,17 @@
                     <div class="notification-bell__count"></div>
                     {% endif %}
                 </div>
+                <!-- Новый блок уведомлений -->
+                <div class="popup-container" id="notification-pop-up">
+                    <div class="head-bar head-bar_task-list">
+                        <i class='bx bxs-bell'></i>
+                        Уведомления
+                        <button class="sqr-btn sqr-btn_close" id="notification-pop-up-close">
+                            <i class='bx bx-plus-medical'></i>
+                        </button>
+                    </div>
+                </div>
+                <!--  -->
                 <div class="notification" id="not-pop">
                     <div class='notification__bell'><i class='bx bxs-bell'></i>
                         <div class="notification__dot"><i class='bx bxs-circle'></i></div>
