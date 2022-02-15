@@ -1526,7 +1526,16 @@ body {
         top: 20%;
         opacity: 0.6;
         transition: opacity 0.2s;
-        background-color: red;
+        background-color: #2d2b49;
+        &_casual{
+            background-color: #33FF00 !important;
+        }
+        &_wait{
+            background-color: #FFD700 !important;
+        }
+        &_hot{
+            background-color: #d92550 !important;
+        }
     }
 
     &__content {

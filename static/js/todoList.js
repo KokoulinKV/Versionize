@@ -49,6 +49,16 @@ $(document).ready(function () {
                         // Если запись добавлена без ошибок, то сервер вернет нам true, а так же id новой записи в таблице
                         if (response.status === true) {
                             let taskTemplate = $('#forCopy').clone(true); // В DOM есть скрытый элемент, который является шаблоном для новых задач
+                            let taskTemplateIndicator = taskTemplate.find('to-do-list__task-indicator')
+                            if ($('#task_importance').val() == 2){
+                                taskTemplate.find('.to-do-list__task-indicator').addClass('to-do-list__task-indicator_casual')
+                            }
+                            if ($('#task_importance').val() == 3){
+                                taskTemplate.find('.to-do-list__task-indicator').addClass('to-do-list__task-indicator_wait')
+                            }
+                            if ($('#task_importance').val() == 4){
+                                taskTemplate.find('.to-do-list__task-indicator').addClass('to-do-list__task-indicator_hot')
+                            }
                             taskTemplate.removeClass('to-do-list__item_hidden')
                             taskTemplate[0].id = 'task' + response.task_id // Добавляем новый id для элемента. Это нужно для того, чтобы пользователь мог сразу удалить элемент
                             taskTemplate.find('.to-do-list__title').text($('#task_name').val())
@@ -119,7 +129,7 @@ $(document).ready(function () {
             success: function (response) {
                 // Если удаление прошло успешно, то скрываем эдемент и после удаляем
                 if (response.status === true) {
-                    $(parent).slideUp('slow', function () {
+                    $(task).slideUp('0.3s', function () {
                         $(this).remove();
                     })
                 }

@@ -1550,7 +1550,19 @@ body {
   top: 20%;
   opacity: 0.6;
   transition: opacity 0.2s;
-  background-color: red;
+  background-color: #2d2b49;
+}
+
+.to-do-list__task-indicator_casual {
+  background-color: #33FF00 !important;
+}
+
+.to-do-list__task-indicator_wait {
+  background-color: #FFD700 !important;
+}
+
+.to-do-list__task-indicator_hot {
+  background-color: #d92550 !important;
 }
 
 .to-do-list__content {

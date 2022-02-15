@@ -152,7 +152,18 @@
             <div class="to-do-list" id='to-do-list'>
                 {% for task in tasks %}
                 <div class="to-do-list__item" id='task{{task.id}}'>
+                    {% if task.task_importance == 1 %}
                     <div class="to-do-list__task-indicator"></div>
+                    {% endif %}
+                    {% if task.task_importance == 2 %}
+                    <div class="to-do-list__task-indicator to-do-list__task-indicator_casual"></div>
+                    {% endif %}
+                    {% if task.task_importance == 3 %}
+                    <div class="to-do-list__task-indicator to-do-list__task-indicator_wait"></div>
+                    {% endif %}
+                    {% if task.task_importance == 4 %}
+                    <div class="to-do-list__task-indicator to-do-list__task-indicator_hot"></div>
+                    {% endif %}
                     <div class="to-do-list__content">
                         <div class="to-do-list__check">
                             <input type="checkbox" class='to-do-list__check-widget'>
@@ -204,10 +215,10 @@
                     </div>
                     <div class="table-select table-select_hide">
                         <select name="task_importance" id="task_importance">
-                            <option value="" disabled selected style="display: none;">Важность</option>
-                            <option value="1">Код зеленый</option>
-                            <option value="2">Код желтый</option>
-                            <option value="3">Код красный</option>
+                            <option value="1" selected="selected">Срочность</option>
+                            <option value="2">Несрочная</option>
+                            <option value="3">Терпит</option>
+                            <option value="4">Срочно!!!</option>
                         </select>
                     </div>
                 </form>
