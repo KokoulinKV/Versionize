@@ -1303,7 +1303,23 @@ body {
     }
 
     &_select {
-        padding: 1.8rem !important;
+        padding: 0 !important;
+        // padding: 1.8rem !important;
+        // display: none;
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.5s, padding 0.3s;
+        overflow: hidden;
+        .form__select {
+            display: none;
+        }
+        &_open{
+            max-height: 200px;
+            padding: 1.8rem !important;
+            .form__select {
+                display: block;
+            }
+        }
     }
 }
 // Файл к документу

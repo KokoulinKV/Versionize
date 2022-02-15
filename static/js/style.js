@@ -100,6 +100,9 @@ $(document).ready(function () {
         $('.left-block').css('display', 'none');
     }
 
+    $('#chooseProject').click(function(){
+        $('.project_select').toggleClass('project_select_open');
+    });
     // ? Скрипты для pop-up окон
 
     // * @TheSleepyNomad

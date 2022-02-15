@@ -1316,7 +1316,24 @@ body {
 }
 
 .project_select {
+  padding: 0 !important;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.5s, padding 0.3s;
+  overflow: hidden;
+}
+
+.project_select .form__select {
+  display: none;
+}
+
+.project_select_open {
+  max-height: 200px;
   padding: 1.8rem !important;
+}
+
+.project_select_open .form__select {
+  display: block;
 }
 
 .document-file {
