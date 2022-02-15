@@ -49,7 +49,7 @@ $(document).ready(function () {
                         // Если запись добавлена без ошибок, то сервер вернет нам true, а так же id новой записи в таблице
                         if (response.status === true) {
                             let taskTemplate = $('#forCopy').clone(true); // В DOM есть скрытый элемент, который является шаблоном для новых задач
-                            let taskTemplateIndicator = taskTemplate.find('to-do-list__task-indicator')
+                            // Устанавливаем цвет важности задачи
                             if ($('#task_importance').val() == 2){
                                 taskTemplate.find('.to-do-list__task-indicator').addClass('to-do-list__task-indicator_casual')
                             }
