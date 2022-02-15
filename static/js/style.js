@@ -112,12 +112,6 @@ $(document).ready(function () {
     });
 
     // * @TheSleepyNomad
-    // ? Для вызова pop-up формы уведомлений
-    $('#not-pop').click(function(){
-        $('#pop-min').toggleClass('pop-mini_open');
-    });
-
-    // * @TheSleepyNomad
     // ? Для вызова pop-up формы добавления документа
     $('#add-document, #popup__close_doc').click(function(){
         $('#popup-document').toggleClass('popup_open');

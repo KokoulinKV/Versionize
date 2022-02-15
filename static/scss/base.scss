@@ -1643,7 +1643,7 @@ body {
     z-index: 123;
 
     transform: translate(1000%, -240px);
-    transition: all 0.7s ease;
+    transition: all 0.7s ease-in-out;
     &_open {
         transform: translate(5px, -240px);
     }
