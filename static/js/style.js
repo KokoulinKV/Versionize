@@ -100,6 +100,8 @@ $(document).ready(function () {
         $('.left-block').css('display', 'none');
     }
 
+    // * @TheSleepyNomad
+    // ? Открывает блок с выбором активного проекта
     $('#chooseProject').click(function(){
         $('.project_select').toggleClass('project_select_open');
     });
