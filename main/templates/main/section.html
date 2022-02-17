@@ -4,143 +4,121 @@
 {% block title %}
     {{ title }} / {{ active_project_code }}-{{ object.abbreviation }}
 {% endblock %}
-{% block workspace %}
-<div class="ext-workspace">
-    <div class="ext-workspace__input">
-        {% if active_project_id %}
-        <div class="left-block">
-            <!-- Можно использовать как для пользователя, так и для эксперта/ответственногого -->
-            <div class="card">
-                <div class="card__wrapper">
-                    <div class="card__header card__header_project"><i class='bx bx-task'></i></i>Активный проект:</div>
-                    <div class="card__body-active-project">
-                        <div class="project__info">
-                            <div class="project__info-title">
-                                {{ active_project_code }}
-                                <p>{{ active_project_name }}</p>
-                            </div>
-                            <div class="project__info-data">
-                                <div class="project__data">
-                                    <span>Следующая загрузка:</span>
-                                    <p>{{ active_project_next_upload|date:'d.m.Y' }}</p>
-                                </div>
-                                <div class="project__data">
-                                    <span>Срок экспертизы до:</span>
-                                    <p>{{ active_project_exp_date|date:'d.m.Y' }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="card">
-                <div class="card__wrapper">
-                    <div class="card__header"><i class='bx bxs-user-detail'></i>Ответственный:</div>
-                    <div class="card__body-responseble">
-                        <div class="card__content">
-                            {% with section.responsible as responsible %}
-                            <div class="card__text">
-                                <span class="card__name">{{ responsible.get_fullname }}</span>
-                                <span class="card__job">
-                                    <i class='bx bxs-business'></i>{{ responsible.get_company.name}}</span>
-                                <span class="card__post"><i class='bx bx-id-card'></i>{{ responsible.get_position }}</span>
-                                <span class="card__role"><i class='bx bx-male'></i>{{ responsible.get_project_role }}</span>
-                            </div>
-                        </div>
-                        <div class="card__contacts">
-                            <div class="card__contacts-info">
-                                <span class="card__phone"><i class='bx bx-mobile-alt'></i>{{ responsible.phone }}</span>
-                                <span class="card__mail"><i class='bx bx-mail-send'></i>{{ responsible.email }}</span>
-                            </div>
-                            {% endwith %}
-                        </div>
-                    </div>
-                </div>
-            </div>
+{% if active_project_id %}
 
-            <div class="card">
-                <div class="card__wrapper">
-                    <div class="card__header"><i class='bx bxs-user-detail'></i>Эксперт:</div>
-                    <div class="card__body-responseble">
-                        <div class="card__content">
-                            {% with section.expert as expert %}
-                            <div class="card__text">
-                                <span class="card__name">{{ expert.get_fullname }}</span>
-                                <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ expert.phone }}</span>
-                                <span class="person__mail"><i class='bx bx-mail-send'></i>{{ expert.email }}</span>
-                            </div>
-                            {% endwith %}
+    {% block leftblock %}
+
+        <!-- * @TheSleepyNomad -->
+        <!-- ? Активный проект -->
+        <div class="container">
+                <div class="head-bar head-bar_project"><i class='bx bx-task'></i>Активный проект</div>
+                <div class="project">
+                    <div class="project__title">{{ active_project_code }}</div>
+                    <div class="project__sub-title">{{ active_project_name }}</div>
+                    <div class="project__info-data">
+                        <div class="project__data">
+                            <span>Следующая загрузка:</span>
+                            <p>{{ active_project_next_upload|date:'d.m.Y' }}</p>
+                        </div>
+                        <div class="project__data">
+                            <span>Срок экспертизы до:</span>
+                            <p>{{ active_project_exp_date|date:'d.m.Y' }}</p>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- <div class="person">
-            <h2 class="block-title">Ответственный:</h2>
-                <div class="person__content">
-                    <div class="person__text">
-                        {% with section.responsible as responsible %}
-                        <span class="person__name">{{ responsible.get_fullname }}</span>
-                        <span class="person__job">
-                            <i class='bx bxs-business'></i>{{ responsible.get_company.name}}</span>
-                        <span class="person__post"><i class='bx bx-id-card'></i>{{ responsible.get_position }}</span>
-                        <span class="person__role"><i class='bx bx-male'></i>{{ responsible.get_project_role }}</span>
-                        <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ responsible.phone }}</span>
-                        <span class="person__mail"><i class='bx bx-mail-send'></i>{{ responsible.email }}</span>
-                        {% endwith %}
-                    </div>
-                </div>
-                <div class="person">
-                <h2 class="block-title">Эксперт:</h2>
-                    <div class="person__content">
-                        <div class="person__text">
-                            {% with section.expert as expert %}
-                            <span class="person__name">{{ expert.get_fullname }}</span>
-                            <span class="person__phone"><i class='bx bx-mobile-alt'></i>{{ expert.phone }}</span>
-                            <span class="person__mail"><i class='bx bx-mail-send'></i>{{ expert.email }}</span>
-                            {% endwith %}
-                        </div>
-                    </div>
-                </div> -->
-                <!-- Блок кнопок -->
-                <div class="card">
-                    <div class="card__wrapper">
-                        <div class="card__actions"><i class='bx bx-code-block'></i>Действия</div>
-                        <div class="card__body-select-project">
-                            <button class='card__btns' id="add-document">
-                                <i class='bx bx-file'></i>
-                                Загрузить документ
-                            </button>
-                            {% if user.is_staff or user.is_superuser or user.usercompanyinfo.assistant or user.usercompanyinfo.chief_project_engineer%}
-                            <button class='card__btns' id="add-remarkdoc">
-                                <i class='bx bx-bookmark-plus'></i>
-                                Загрузить замечания
-                            </button>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-                <!-- <h2 class="block-title">Действия:</h2>
-                <div class="actions actions_document">
-                    <div class="actions__btn" id="add-document">
-                        <span class="actions__icon"><i class='bx bx-file'></i></span>
-                        <h3 class="actions__name">Загрузить документ</h3>
-                    </div>
-                </div> -->
-                <!-- {% if user.is_staff or user.is_superuser or user.usercompanyinfo.assistant or user.usercompanyinfo.chief_project_engineer%}
-                <div class="actions actions_section">
-                    <div class="actions__btn" id="add-remarkdoc">
-                        <span class="actions__icon"><i class='bx bx-file'></i></span>
-                        <h3 class="actions__name">Загрузить замечания</h3>
-                    </div>
-                </div>
-                {% endif %} -->
-            <!-- </div> -->
         </div>
-        <div class="main">
-            <div class="relative-table">
-                <div class="relative-table__title">
-                    <div class="relative-table__left-block"><i class='bx bx-detail'></i> Таблица</div>
+
+        <!-- * @TheSleepyNomad -->
+        <!-- ? Ответственный -->
+        <div class="container">
+                {% with section.responsible as responsible %}
+                <div class="head-bar"><i class='bx bxs-user-detail'></i>Ответственный:</div>
+                <div class="user">
+                    <div class="user__content">
+                        <div class="user__body">
+                            <div class="user__info">
+                                <div class="user__name">{{ responsible.get_fullname }}</div>
+                                <div class="user__job">
+                                    <i class='bx bxs-business'></i>
+                                    {{ responsible.get_company.name}}
+                                </div>
+                                <div class="user__post">
+                                    <i class='bx bx-id-card'></i>
+                                    {{ responsible.get_position }}
+                                </div>
+                                <div class="user__role">
+                                    <i class='bx bx-male'></i>
+                                    {{ responsible.get_project_role }}
+                                </div>
+                                <div class="user__phone" id="change-email">
+                                    <i class='bx bx-mobile-alt'></i>
+                                    {{ responsible.phone }}
+                                </div>
+                                <div class="user__mail" id="change-email">
+                                    <i class='bx bx-mail-send'></i>
+                                    {{ responsible.email }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endwith %}
+        </div>
+
+        <!-- * @TheSleepyNomad -->
+        <!-- ? Эксперт -->
+        <div class="container">
+                {% with section.expert as expert %}
+                <div class="head-bar"><i class='bx bxs-user-detail'></i>Эксперт:</div>
+                <div class="user">
+                    <div class="user__content">
+                        <div class="user__body">
+                            <div class="user__info">
+                                <div class="user__name">{{ expert.get_fullname }}</div>
+                                <div class="user__phone" id="change-email">
+                                    <i class='bx bx-mobile-alt'></i>
+                                    {{ expert.phone }}
+                                </div>
+                                <div class="user__mail" id="change-email">
+                                    <i class='bx bx-mail-send'></i>
+                                    {{ expert.email }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endwith %}
+        </div>
+            
+        <!-- * @TheSleepyNomad -->
+        <!-- ? Кнопки действий -->
+        <div class="container">
+                <div class="head-bar head-bar_actions"><i class='bx bx-code-block'></i>Действия</div>
+                <div class="actions">
+                    <button class='action-btn' id="add-document">
+                        <i class='bx bx-file'></i>
+                        Загрузить документ
+                    </button>
+                    {% if user.is_staff or user.is_superuser or user.usercompanyinfo.assistant or user.usercompanyinfo.chief_project_engineer%}
+                    <button class='action-btn action-btn_last' id="add-remarkdoc">
+                        <i class='bx bx-file'></i>
+                        Загрузить замечания
+                    </button>
+                    {% endif %}
+                </div>
+        </div>
+
+    {% endblock %}
+
+    {% block main %}
+
+        <!-- * @TheSleepyNomad -->
+        <!-- ? Таблица -->
+        <div class="container">
+                <div class="head-bar head-bar_table">
+                    <i class='bx bx-detail'></i>
+                    Таблица
                 </div>
                 <form action="#" class="form-table">
                     <div class="form-table__search">
@@ -186,19 +164,8 @@
                     {% endif %}
                     {% endif %}
                 </form>
-                <div class="relative-table__footer">
-                    <!-- Todo восстановить, когда будет готов функционал -->
-                    <!-- <ul class="relative-table__paginator">
-                        <li>
-                            <a href="#"><span>«</span></a>
-                        </li>
-                        <li><a href=""><span>1</span></a></li>
-                        <li><a href=""><span>2</span></a></li>
-                        <li><a href=""><span>3</span></a></li>
-                        <li><a href=""><span>4</span></a></li>
-                        <li><a href=""><span>»</span></a></li>
-                    </ul> -->
-                    <div class="relative-table__select">
+                <div class="bottom-bar bottom-bar_txt-alg-off">
+                    <div class="table-select">
                         <select name="" id="tableSelect">
                             <option value="" disabled selected style="display: none;">---------</option>
                             <option value="2">2 строки</option>
@@ -214,51 +181,12 @@
                         </div>
                     {% endif %}
                 </div>
-            </div>
         </div>
-        {% endif %}
-    </div>
-    <div class="ext-workspace__footer">
-        <div class="notification" id="not-pop">
-            <div class='notification__bell'><i class='bx bxs-bell'></i>
-                <div class="notification__dot"><i class='bx bxs-circle'></i></div>
-            </div>
-            <div class="pop-mini" id="pop-min">
-                <div class="pop-mini__header">
-                    {% notifications user.id as notification %}
-                    <div class="pop-mini__title">Уведомления</div>
-                    <div class="pop-mini__subtitle">У Вас {{ notification.count }} пропущенных уведомлений</div>
-                </div>
-                <div class="pop-mini__body">
-                    <div class="pop-mini__content">
-                        {% for notice in notification %}
-                        <div class="not">
-                            <div class="not__dot">
-                                <i class='bx bx-radio-circle'></i>
-                            </div>
-                            <div class="not__body">
-                                {% if notice.notification_type == 1 %}
-                                <div class="not__title">Уведомление о создании нового проекта</div>
-                                <div class="not__text">ГИП {{ notice.from_user.last_name }} {{ notice.from_user.first_name }} {{ notice.from_user.patronymic }} создал новый проект</div>
-                                {% endif %}
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="pop-mini__footer">
-                    <div class="pop-mini__btn"><button>Посмотреть все</button></div>
-                </div>
-            </div>
-        </div>
-        <div class="language">
-            <span><i class='bx bx-world'></i>
-            </span>
-        </div>
-        <div class="theme">Dark/Light mode</div>
-    </div>
-</div>
-{% endblock %}
+
+    {% endblock %}
+
+{% endif %}
+
 {% block popup %}
 <div class="popup" id="popup-project">
     <div class="popup__body">

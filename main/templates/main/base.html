@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load lk_tags %}
 
 
 <!DOCTYPE html>
@@ -109,8 +109,72 @@
         </div>
     </nav>
     <main class="workspace">
-        {% block workspace %}
-        {% endblock %}
+        <div class="ext-workspace">
+            <div class="ext-workspace__input">
+                <div class="left-block">
+                    {% block leftblock %}
+                    {% endblock %}
+                </div>
+                <div class="main">
+                    {% block main %}
+                    {% endblock %}
+                </div>
+            </div>
+            <div class="ext-workspace__footer">
+                {% notifications user.id as notification %}
+                <div class="notification-bell">
+                    <i class='bx bxs-bell'></i>
+                    {% if notification.count > 0 %}
+                        <div class="notification-bell__count notification-bell__count_have">{{ notification.count }}</div>
+                    {% else %}
+                    <div class="notification-bell__count"></div>
+                    {% endif %}
+                </div>
+                
+                <div class="popup-container" id="notification-pop-up">
+                    <div class="head-bar head-bar_task-list">
+                        <i class='bx bxs-bell'></i>
+                        Уведомления
+                        <button class="sqr-btn sqr-btn_close" id="notification-pop-up-close">
+                            <i class='bx bx-plus-medical'></i>
+                        </button>
+                        
+                    </div>
+                    <div class="notice">
+                        {% for notice in notification %}
+                        {% if notice.notification_type == 1 %}
+                        <div class="notice__item">
+                            <div class="notice__icon notice__icon_ok"><i class='bx bxs-check-circle' ></i></div>
+                            <div class="notice__text">ГИП {{ notice.from_user.last_name }} {{ notice.from_user.first_name }} {{ notice.from_user.patronymic }} создал новый проект</div>
+                            <div class="notice__date">{{ notice.created_at|date:"M d" }}<i class='bx bx-time-five'></i></div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        <div class="notice__item">
+                            <div class="notice__icon notice__icon_err"><i class='bx bxs-error-circle' ></i></div>
+                            <div class="notice__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti quod ad porro quos totam ratione voluptates rerum nisi blanditiis quae, inventore hic, ipsum architecto perferendis illum expedita exercitationem beatae! Itaque.</div>
+                            <div class="notice__date">Lorem, ipsum dolor.<i class='bx bx-time-five'></i></div>
+                        </div>
+                        <div class="notice__item">
+                            <div class="notice__icon notice__icon_wrn"><i class='bx bxs-error' ></i></div>
+                            <div class="notice__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi repellendus, quo quas ab impedit repudiandae vel, dignissimos eius earum doloribus inventore nam maxime ea quaerat sunt assumenda nulla porro iure nobis voluptatibus animi iusto. Illum nihil labore tempora, optio, voluptates mollitia expedita incidunt at temporibus, ea consectetur reprehenderit ut sit.</div>
+                            <div class="notice__date"><i class='bx bx-time-five'></i></div>
+                        </div>
+                        <div class="notice__item">
+                            <div class="notice__icon notice__icon_ok"><i class='bx bxs-check-circle' ></i></div>
+                            <div class="notice__text">This is an success notification</div>
+                            <div class="notice__date"><i class='bx bx-time-five'></i></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="language">
+                    <span><i class='bx bx-world'></i>
+                    </span>
+                </div>
+                <div class="theme">Dark/Light mode</div>
+            </div>
+        </div>
     </main>
     <!-- ============== POP UP ============== -->
     <!-- Формы вызова уневерсальная, чтобы ее вызвать в классе элемента должен быть класс popupBtn -->
@@ -123,5 +187,6 @@
 <script defer src="{% static 'js/ajax.js' %}"></script>
 <script defer src="{% static 'js/style.js' %}"></script>
 <script defer src="{% static 'js/bugs-killer.js' %}"></script>
+<script defer src="{% static 'js/todoList.js' %}"></script>
 
 </html>

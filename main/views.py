@@ -1,5 +1,5 @@
 import os
-
+from django.core import serializers
 from django.contrib.auth import update_session_auth_hash
 from django.core.exceptions import ValidationError
 from django.http import HttpResponseRedirect
@@ -18,6 +18,8 @@ from main.func import download_some_files, download_single_file, _get_form, ajax
 from main.models import Section, Company, Document, Project, Comment, RemarksDocs
 from main.utils.card_generation import generate_info_card, generate_permission_card
 
+from service.models import Tasks
+
 
 class Index(LoginRequiredMixin, TemplateView):
     template_name = 'main/lk.html'
@@ -25,6 +27,7 @@ class Index(LoginRequiredMixin, TemplateView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Личный кабинет'
+        context['tasks'] = Tasks.objects.filter(task_creator=self.request.user.id).order_by('-created_at')
         return context
 
     def get(self, request, *args, **kwargs):
@@ -64,12 +67,31 @@ class Index(LoginRequiredMixin, TemplateView):
         photo_form = _get_form(request, PhotoForm, 'photo_form_pre')
         email_form = _get_form(request, EmailPhoneEditForm, 'email_form_pre')
 
-        # @TheSleepyNomad
-        # Выполняем проверку на ajax запрос
-        if request.method == 'POST' and ajax_check(request):
-            # В текущей версии разработки меняем только текущий активный проект
-            # Todo написать алгоритм, по которому будем определять имя функции ajax
-            # Пользователь выбирает наименование/код, но передаем id, так как наименование пока может повторяться
+        # * @TheSleepyNomad
+        # ? Ajax запросы с форм
+        if ajax_check(request): 
+            # Ajax с task manager`a
+            if request.POST.get('formName') == 'ToDoList':
+                # Удаление задачи
+                if request.POST.get('action') == 'delete':
+                    try:
+                        Tasks.objects.filter(id=request.POST.get('id')).delete()
+                    except Exception:
+                        return JsonResponse({'status': False})
+                    return JsonResponse({'status': True})
+                try:
+                    new_task = Tasks(
+                        task_importance=request.POST.get('task_importance'),
+                        task_name=request.POST.get('task_name'),
+                        task_description=request.POST.get('task_description'),
+                        task_creator=request.user,
+                        )
+                    new_task.save()
+                except Exception:
+                    return JsonResponse({'status': False})
+                return JsonResponse({'status': True, 'task_id': new_task.pk, })
+
+            # Ajax для смены активного проекта пользователя
             project_id = request.POST.get('project_id', None)
             request.session['active_project_id'] = project_id
             response = {'status': True}
@@ -293,9 +315,11 @@ class DocumentDetailView(LoginRequiredMixin, DetailView):
         return self.render_to_response(to_response)
 
     def post(self, request, *args, **kwargs):
-        # @TheSleepyNomad
-        # Выполняем проверку на ajax запрос
-        if request.method == 'POST' and ajax_check(request):
+
+        # * @TheSleepyNomad
+        # ? Ajax запросы с форм
+        if ajax_check(request):
+            # Ajax для создания комментариев к документу
             new_comment = Comment(
                 author_id=request.user.id,
                 document_id=self.kwargs['pk'],
