@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,10 +20,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-sc9!uy4@l+71(@cqbhjbk_d4s3(jiivs61!jn29$i8v5f7(!lx'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
@@ -156,8 +157,8 @@ AUTH_USER_MODEL = 'user.User'
 # Новый токен получать у BotFather в телеге
 # !Предлагаю перейти на dot-env и сохранять все ключи/токены там
 
-TOKEN = '5070774928:AAHBm0OoBYlUrlGkR4VecMagdbh5tKTZCwc'
+TOKEN = config('TOKEN')
 # Можно использовать это(из документации), либо через свой прохи сервер
-PROXY_URL = 'https://api.telegram.org/bot'
+PROXY_URL = config('PROXY_URL')
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
