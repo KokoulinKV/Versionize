@@ -737,88 +737,6 @@ body {
     overflow-y: auto;
     flex-grow: 1;
 }
-.notice {
-    padding: 25px 30px;
-    height: calc(100% - 30px);
-    background: #fff;
-    border-radius: 2rem;
-    margin-right: 25px;
-    // Todo поиграться со значениями
-    box-shadow: 0 2rem 2rem rgba(132, 139, 200, 0.18);
-    // margin-bottom: 50px;
-    width: 100%;
-    &:hover {
-        box-shadow: none;
-    }
-    &__title {
-        text-transform: uppercase;
-        text-align: center;
-        font-weight: 500;
-        font-size: 25px;
-        margin-bottom: 30px;
-    }
-    &__row {
-    }
-
-    &__content {
-        display: flex;
-        flex-wrap: nowrap;
-        align-items: center;
-        margin-bottom: 30px;
-        &:last-child {
-            margin: 0;
-        }
-        & i {
-            width: 50px;
-            font-size: 30px;
-        }
-        & a {
-            // margin: 5px 0;
-            color: #0000ee;
-        }
-    }
-    &_icon-load-grn {
-        color: green;
-    }
-    &_icon-load-red {
-        color: red;
-    }
-    &_icon-load-msg {
-        color: blue;
-    }
-
-    &__icon {
-    }
-
-    &__body {
-    }
-
-    &__section-code {
-        font-size: 15px;
-        font-weight: 400;
-        // margin-bottom: 0;
-    }
-    &__theme {
-        font-size: 18px;
-        font-weight: 500;
-        margin: 3px 0;
-    }
-
-    &__msg {
-        font-size: 15px;
-        font-weight: 400;
-    }
-
-    &__btns {
-        margin: 5px 0;
-        color: #111;
-    }
-
-    &__date {
-        margin-top: 5px;
-        font-size: 11px;
-    }
-}
 
 .block-title {
     margin-bottom: 0.8rem;
@@ -1313,7 +1231,7 @@ body {
         .form__select {
             display: none;
         }
-        &_open{
+        &_open {
             max-height: 200px;
             padding: 1.8rem !important;
             .form__select {
@@ -1662,5 +1580,36 @@ body {
     transition: all 0.7s ease-in-out;
     &_open {
         transform: translate(5px, -240px);
+    }
+}
+.notice {
+    position: static;
+    height: 250px;
+    overflow: scroll;
+    overflow-x: hidden;
+
+    &__item {
+        padding: 10px;
+        line-height: 26px;
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    &__icon {
+    }
+
+    &__text {
+        font-size: 13px;
+        text-align: left;
+    }
+
+    &__date {
+        margin-left: auto;
+        text-align: right;
+        font-size: 11px;
+        font-style: italic;
+        float: right;
+        color: #a9a9a9;
     }
 }
