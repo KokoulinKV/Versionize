@@ -11,7 +11,18 @@
     scrollbar-width: thin;
     scrollbar-color: #1d1b31 #eee;
 }
-
+*::-webkit-scrollbar {
+    height: 12px;
+    width: 12px;
+}
+*::-webkit-scrollbar-track {
+    background: #eee;
+}
+*::-webkit-scrollbar-thumb {
+    background-color: #1d1b31;
+    border-radius: 5px;
+    border: 3px solid #eee;
+}
 body {
     position: relative;
     height: 100vh;
@@ -562,7 +573,6 @@ body {
 }
 .theme {
 }
-
 
 //
 // -----------------------------------------
@@ -1462,13 +1472,13 @@ body {
     &__icon {
         font-size: 24px;
         margin-right: 5px;
-        &_err{
+        &_err {
             color: #d92550;
         }
-        &_wrn{
+        &_wrn {
             color: #f6d365;
         }
-        &_ok{
+        &_ok {
             color: #33ff00;
         }
     }
