@@ -214,6 +214,12 @@
                             <option value="-">Показать все</option>
                         </select>
                     </div>
+                    {% if actualremark %}
+                        <div>Актуальные замечания:
+                            <a href="{% url 'main:remarkdoc_download' actualremark.id %}">
+                                {{ actualremark }}</a>
+                        </div>
+                    {% endif %}
                 </div>
     </div>
 
