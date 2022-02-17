@@ -1568,7 +1568,7 @@ body {
     box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03), 0 0.9375rem 1.40625rem rgba(4, 9, 20, 0.03),
         0 0.25rem 0.53125rem rgba(4, 9, 20, 0.05), 0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03);
     // перевести на max-height: ;
-    width: 400px;
+    width: 465px;
     max-height: 400px;
     background-color: #fff;
     position: absolute;
@@ -1592,11 +1592,24 @@ body {
         padding: 10px;
         line-height: 26px;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         flex-shrink: 0;
+        flex-wrap: nowrap;
+        border-bottom: 1px solid #ebebeb;
     }
 
     &__icon {
+        font-size: 24px;
+        margin-right: 5px;
+        &_err{
+            color: #d92550;
+        }
+        &_wrn{
+            color: #f6d365;
+        }
+        &_ok{
+            color: #33ff00;
+        }
     }
 
     &__text {
@@ -1607,9 +1620,15 @@ body {
     &__date {
         margin-left: auto;
         text-align: right;
+        word-wrap: none;
         font-size: 11px;
         font-style: italic;
-        float: right;
         color: #a9a9a9;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        i {
+            margin-left: 5px;
+        }
     }
 }

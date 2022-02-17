@@ -141,18 +141,27 @@
                         
                     </div>
                     <div class="notice">
+                        {% for notice in notification %}
+                        {% if notice.notification_type == 1 %}
                         <div class="notice__item">
-                            <div class="notice__icon"></div>
-                            <div class="notice__text">This is an error notification</div>
+                            <div class="notice__icon notice__icon_ok"><i class='bx bxs-check-circle' ></i></div>
+                            <div class="notice__text">ГИП {{ notice.from_user.last_name }} {{ notice.from_user.first_name }} {{ notice.from_user.patronymic }} создал новый проект</div>
+                            <div class="notice__date">{{ notice.created_at|date:"M d" }}<i class='bx bx-time-five'></i></div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        <div class="notice__item">
+                            <div class="notice__icon notice__icon_err"><i class='bx bxs-error-circle' ></i></div>
+                            <div class="notice__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti quod ad porro quos totam ratione voluptates rerum nisi blanditiis quae, inventore hic, ipsum architecto perferendis illum expedita exercitationem beatae! Itaque.</div>
+                            <div class="notice__date">Lorem, ipsum dolor.<i class='bx bx-time-five'></i></div>
+                        </div>
+                        <div class="notice__item">
+                            <div class="notice__icon notice__icon_wrn"><i class='bx bxs-error' ></i></div>
+                            <div class="notice__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi repellendus, quo quas ab impedit repudiandae vel, dignissimos eius earum doloribus inventore nam maxime ea quaerat sunt assumenda nulla porro iure nobis voluptatibus animi iusto. Illum nihil labore tempora, optio, voluptates mollitia expedita incidunt at temporibus, ea consectetur reprehenderit ut sit.</div>
                             <div class="notice__date"><i class='bx bx-time-five'></i></div>
                         </div>
                         <div class="notice__item">
-                            <div class="notice__icon"></div>
-                            <div class="notice__text">This is an warning notification</div>
-                            <div class="notice__date"><i class='bx bx-time-five'></i></div>
-                        </div>
-                        <div class="notice__item">
-                            <div class="notice__icon"></div>
+                            <div class="notice__icon notice__icon_ok"><i class='bx bxs-check-circle' ></i></div>
                             <div class="notice__text">This is an success notification</div>
                             <div class="notice__date"><i class='bx bx-time-five'></i></div>
                         </div>
