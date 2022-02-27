@@ -1,5 +1,4 @@
 from django.urls import path
-# from django.contrib.auth import views as auth_views
 from admins.views import UserCreateView, UserListView, UserEditView, UserDeleteView, UserRehubView, CompanyListView, \
     CompanyEditView, CompanyCreateView, CompanyAdminDelete, CompanyAdminDeleteMessage, \
     UserInfoListView, UserInfoEdit, CreateStandartSections, StandartSectionsListView, StandartSectionsEditView, \

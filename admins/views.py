@@ -32,7 +32,7 @@ class UserListView(AdminsLoginRequiredMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(UserListView, self).get_context_data(**kwargs)
-        context['title'] = 'Пользователи'
+        context['title'] = 'Учетные записи пользователей'
         return context
 
 
@@ -44,7 +44,7 @@ class UserCreateView(AdminsLoginRequiredMixin, CreateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(UserCreateView, self).get_context_data(**kwargs)
-        context['title'] = 'Добавить пользователя'
+        context['title'] = 'Добавление учетной записи пользователя'
         return context
 
 
@@ -56,7 +56,7 @@ class UserEditView(AdminsLoginRequiredMixin, UpdateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(UserEditView, self).get_context_data(**kwargs)
-        context['title'] = 'Редактировать пользователя'
+        context['title'] = f'Редактирование учетной записи пользователя {context["user"]}'
         return context
 
 
@@ -68,7 +68,7 @@ class UserChangePasswordView(AdminsLoginRequiredMixin, UpdateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(UserChangePasswordView, self).get_context_data(**kwargs)
-        context['title'] = 'Редактировать пользователя'
+        context['title'] = f'Смена пароля учетной записи пользователя {context["user"]}'
         return context
 
     def form_valid(self, form):
@@ -80,12 +80,6 @@ class UserChangePasswordView(AdminsLoginRequiredMixin, UpdateView):
 class UserDeleteView(AdminsLoginRequiredMixin, UpdateView):
     model = User
     template_name = 'admins/admin-users-edit.html'
-    form_class = UserCompanyInfoForm
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(UserDeleteView, self).get_context_data(**kwargs)
-        context['title'] = 'Удалить пользователя'
-        return context
 
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -97,12 +91,6 @@ class UserDeleteView(AdminsLoginRequiredMixin, UpdateView):
 class UserRehubView(AdminsLoginRequiredMixin, UpdateView):
     model = User
     template_name = 'admins/admin-users-edit.html'
-    form_class = UserCompanyInfoForm
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(UserRehubView, self).get_context_data(**kwargs)
-        context['title'] = 'Восстановить пользователя'
-        return context
 
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -123,7 +111,7 @@ class UserInfoListView(AdminsLoginRequiredMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(UserInfoListView, self).get_context_data(**kwargs)
-        context['title'] = 'Профили пользователей'
+        context['title'] = 'Информация о пользователях'
         return context
 
 
@@ -135,7 +123,7 @@ class UserInfoEdit(AdminsLoginRequiredMixin, UpdateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(UserInfoEdit, self).get_context_data(**kwargs)
-        context['title'] = 'Редактировать профиль пользователя'
+        context['title'] = f'Редактирование профиля пользователя {context["usercompanyinfo"].user}'
         return context
 
     def form_valid(self, form):
@@ -175,7 +163,7 @@ class CompanyCreateView(AdminsLoginRequiredMixin, CreateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CompanyCreateView, self).get_context_data(**kwargs)
-        context['title'] = 'Создать компанию'
+        context['title'] = 'Добавление компании'
         return context
 
     def form_valid(self, form):
@@ -195,7 +183,7 @@ class CompanyEditView(AdminsLoginRequiredMixin, UpdateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CompanyEditView, self).get_context_data(**kwargs)
-        context['title'] = 'Редактировать компанию'
+        context['title'] = f'Редактирование данных о компании {context["company"]}'
         return context
 
     def form_valid(self, form):
@@ -215,19 +203,13 @@ class CompanyAdminDeleteMessage(AdminsLoginRequiredMixin, UpdateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CompanyAdminDeleteMessage, self).get_context_data(**kwargs)
-        context['title'] = 'Подтверждение удаления'
+        context['title'] = f'Подтверждение удаления компании {context["company"]}'
         return context
 
 
 class CompanyAdminDelete(AdminsLoginRequiredMixin, UpdateView):
     model = Company
     template_name = 'admins/admin-companies-message.html'
-    form_class = CompanyRegistrationFrom
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(CompanyAdminDelete, self).get_context_data(**kwargs)
-        context['title'] = 'Удалить компанию'
-        return context
 
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -248,7 +230,7 @@ class CreateStandartSections(AdminsLoginRequiredMixin, CreateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CreateStandartSections, self).get_context_data(**kwargs)
-        context['title'] = 'Создать стандартный раздел'
+        context['title'] = 'Добавлени стандартного раздела проекта'
         return context
 
 
@@ -270,7 +252,7 @@ class StandartSectionsEditView(AdminsLoginRequiredMixin, UpdateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(StandartSectionsEditView, self).get_context_data(**kwargs)
-        context['title'] = 'Редактировать стандартный раздел'
+        context['title'] = f'Редактирование стандартного раздела {context["standardsection"]}'
         return context
 
 
@@ -282,19 +264,13 @@ class StandartSectionsDeleteMessage(AdminsLoginRequiredMixin, UpdateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(StandartSectionsDeleteMessage, self).get_context_data(**kwargs)
-        context['title'] = 'Подтверждение удаления'
+        context['title'] = f'Подтверждение удаления раздела {context["standardsection"]}'
         return context
 
 
 class StandartSectionsDelete(AdminsLoginRequiredMixin, UpdateView):
     model = StandardSection
     template_name = 'admins/admin-sections-message.html'
-    form_class = StandardSectionCreateForm
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(StandartSectionsDelete, self).get_context_data(**kwargs)
-        context['title'] = 'Удалить стандартный раздел'
-        return context
 
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
