@@ -22,4 +22,4 @@ def get_user_notifications(filter=None):
         return Notification.objects.all()
 
     else:
-        return Notification.objects.filter(to_user=filter).exclude(user_has_seen=True).order_by('-data')
+        return Notification.objects.filter(to_user=filter).exclude(user_has_seen=True).order_by('-created_at')
